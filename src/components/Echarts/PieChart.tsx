@@ -23,6 +23,7 @@ export default function PieChart() {
           name: 'Access From',
           type: 'pie',
           radius: '50%',
+          selectedMode: 'single',
           data: [
             { value: 21, name: '空置' },
             { value: 4, name: '出租' },
