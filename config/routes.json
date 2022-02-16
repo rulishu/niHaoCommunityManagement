@@ -18,7 +18,26 @@
         "component": "@/pages/Home",
         "icon": "home"
       },
-   
+      {
+        "path": "/chargeManagement",
+        "name": "收费管理",
+        "icon": "appstore-o",
+        "routes": [
+          {
+            "path": "/chargeManagement/propertyCharge",
+            "name": "物业收费",
+            "icon": "shopping-cart",
+            "routes": [
+              {
+                "path": "/chargeManagement/propertyCharge/shopCharge",
+                "name": "商铺综合收费",
+                "icon": "shopping-cart",
+                "component": "../pages/ChargeManagement/PropertyCharge/ShopCharge"
+              }
+            ]
+          }
+        ]
+      },
       {
         "path": "/exceptions",
         "name": "异常",

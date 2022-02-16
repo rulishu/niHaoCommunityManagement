@@ -1,6 +1,10 @@
 module.exports.authList = [
   '/register',
   '/home',
+  '/chargeManagement',
+  '/chargeManagement/propertyCharge',
+  '/chargeManagement/propertyCharge/shopCharge',
+
   '/dom',
   '/dom/courses',
   '/dom/home',
