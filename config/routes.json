@@ -19,6 +19,19 @@
         "icon": "home"
       },
       {
+        "path": "/UserManagement",
+        "name": "用户管理",
+        "icon": "appstore-o",
+        "routes": [
+          {
+            "path": "/UserManagement/User",
+            "name": "用户管理",
+            "icon": "shopping-cart",
+            "component": "../pages/UserManagement/User"
+          }
+        ]
+      },
+      {
         "path": "/chargeManagement",
         "name": "收费管理",
         "icon": "appstore-o",

@@ -18,7 +18,7 @@ const UserLayout = () => {
           title: '注册',
           style: { width: '45%' },
           onClick: () => {
-            navigate('/register', { replace: true });
+            navigate('/register', { replace: true })
           },
         },
       ]}
