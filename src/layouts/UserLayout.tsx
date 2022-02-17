@@ -18,7 +18,7 @@ const UserLayout = () => {
           title: '注册',
           style: { width: '45%' },
           onClick: () => {
-            navigate('/register', { replace: true });
+            navigate('/register', { replace: true })
           },
         },
       ]}
@@ -39,8 +39,8 @@ const UserLayout = () => {
         if (data && data.token) {
           sessionStorage.setItem('token', data.token)
           sessionStorage.setItem('auth', JSON.stringify(data.authList || []))
-          // localStorage.setItem('token', data.token)
-          // localStorage.setItem('auth', JSON.stringify(data.authList || []))
+          localStorage.setItem('token', data.token)
+          localStorage.setItem('auth', JSON.stringify(data.authList || []))
           navigate('/home', { replace: true })
         } else {
           Notify.error({
