@@ -15,6 +15,7 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint'],
   rules: {
+    '@typescript-eslint/no-unused-vars': 'error',
     'no-const-assign': 'error',
     eqeqeq: 'error',
     'max-lines': ['error', { max: 500 }],
