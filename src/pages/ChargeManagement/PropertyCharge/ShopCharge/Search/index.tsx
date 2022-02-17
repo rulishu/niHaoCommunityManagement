@@ -3,8 +3,7 @@ import { useTable } from '@uiw-admin/components';
 import { Params } from '@/servers/account-admin';
 import { ProForm, useForm } from '@uiw-admin/components'
 // import { columnsSearch } from './item';
-// eslint-disable-next-line no-unused-vars
-import { Button, Card } from 'uiw'
+import { Card } from 'uiw'
 
 export default function Demo(props: {
     setVisible: React.Dispatch<React.SetStateAction<boolean>>;

@@ -1,7 +1,5 @@
-import { Params } from '@/servers/account-admin';
 
-// eslint-disable-next-line no-unused-vars
-export const columnsSearch = (onEdit: (tableType: 'edit', obj: Params) => void) => {
+export const columnsSearch = () => {
   return [
     {
       title: '商铺编号',

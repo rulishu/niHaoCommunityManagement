@@ -34,7 +34,7 @@ const Search = () => {
             payload: {
                 drawerVisible: true,
                 tableType: 'add',
-                systemData: {},
+                queryInfo: {},
             }
         })
     }
