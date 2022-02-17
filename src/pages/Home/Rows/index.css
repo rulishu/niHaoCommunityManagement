@@ -1,0 +1,24 @@
+.col-bag {
+  margin: 0 5px;
+
+}
+.col-bag-icon {
+  margin-right: 16px;
+}
+
+.col-num {
+  font-size: 20px;
+  line-height: 36px;
+}
+
+.col-title {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+.w-card-body {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
