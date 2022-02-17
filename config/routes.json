@@ -1,0 +1,101 @@
+[
+  {
+    "path": "/login",
+    "component": "@/layouts/UserLayout"
+  },
+  {
+    "path": "/register",
+    "component": "@/layouts/Register",
+    "isAuth": true
+  },
+  {
+    "path": "/",
+    "component": "@/layouts/BasicLayout",
+    "routes": [
+      {
+        "path": "/home",
+        "name": "首页",
+        "component": "@/pages/Home",
+        "icon": "home"
+      },
+      {
+        "path": "/UserManagement",
+        "name": "用户管理",
+        "icon": "appstore-o",
+        "routes": [
+          {
+            "path": "/UserManagement/User",
+            "name": "用户管理",
+            "icon": "shopping-cart",
+            "component": "../pages/UserManagement/User"
+          }
+        ]
+      },
+      {
+        "path": "/chargeManagement",
+        "name": "收费管理",
+        "icon": "appstore-o",
+        "routes": [
+          {
+            "path": "/chargeManagement/propertyCharge",
+            "name": "物业收费",
+            "icon": "shopping-cart",
+            "routes": [
+              {
+                "path": "/chargeManagement/propertyCharge/shopCharge",
+                "name": "商铺综合收费",
+                "icon": "shopping-cart",
+                "component": "../pages/ChargeManagement/PropertyCharge/ShopCharge"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "path": "/exceptions",
+        "name": "异常",
+        "icon": "warning-o",
+        "routes": [
+          {
+            "path": "/exceptions/403",
+            "name": "403",
+            "component": "403"
+          },
+          {
+            "path": "/exceptions/500",
+            "name": "500",
+            "component": "500"
+          },
+          {
+            "path": "/exceptions/404",
+            "name": "404",
+            "component": "404"
+          }
+        ]
+      },
+      {
+        "path": "/403",
+        "name": "403",
+        "hideInMenu": true,
+        "component": "403"
+      },
+      {
+        "path": "/500",
+        "name": "500",
+        "hideInMenu": true,
+        "component": "500"
+      },
+      {
+        "path": "/404",
+        "name": "404",
+        "hideInMenu": true,
+        "component": "404"
+      },
+      {
+        "path": "*",
+        "name": "404",
+        "component": "404"
+      }
+    ]
+  }
+]
