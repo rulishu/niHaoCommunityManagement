@@ -1,5 +1,5 @@
 default:
-  image: node:14-alpine
+  image: node:14
 
 #services:
 #  - name: docker:19.03.13-dind
