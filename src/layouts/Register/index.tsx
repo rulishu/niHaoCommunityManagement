@@ -1,16 +1,16 @@
-import React from 'react';
-import './index.css';
-import { useDispatch } from 'react-redux';
-import { Dispatch } from '@uiw-admin/models';
-import { ProForm, useForm } from '@uiw-admin/components';
-import { Button, Input } from 'uiw';
-import { useNavigate } from 'react-router-dom';
-import { LoginParams } from '@/servers/login';
+import React from 'react'
+import './index.css'
+import { useDispatch } from 'react-redux'
+import { Dispatch } from '@uiw-admin/models'
+import { ProForm, useForm } from '@uiw-admin/components'
+import { Button, Input } from 'uiw'
+import { useNavigate } from 'react-router-dom'
+import { LoginParams } from '@/servers/login'
 
 export default function Register() {
-  const dispatch = useDispatch<Dispatch>();
-  const form = useForm();
-  const navigate = useNavigate();
+  const dispatch = useDispatch<Dispatch>()
+  const form = useForm()
+  const navigate = useNavigate()
   // const [isOpen, setIsOpen] = useState(true);
   return (
     <div className="uiw-loayout-register">
@@ -18,7 +18,7 @@ export default function Register() {
         {/* <div className="uiw-loayout-register-body"> */}
         <div style={{ width: 350 }}>
           <ProForm
-            style={{ width: 100 }}
+            // style={{ width: 100 }}
             form={form}
             // 表单类型
             // formType="card"
@@ -26,18 +26,19 @@ export default function Register() {
             // title="注册"
             // 提交后验证
             onSubmit={(initial, current) => {
-              initial;
-              const errorObj: Partial<LoginParams> = {};
-              if (!current.idCard) errorObj.idCard = '身份证不能为空！';
-              if (!current.nickName) errorObj.nickName = '昵称不能为空！';
-              if (!current.password) errorObj.password = '密码不能为空！';
-              if (!current.realName) errorObj.realName = '真实姓名不能为空！';
+              initial
+              const errorObj: Partial<LoginParams> = {}
+              if (!current.idCard) errorObj.idCard = '身份证不能为空！'
+              if (!current.nickName) errorObj.nickName = '昵称不能为空！'
+              if (!current.password) errorObj.password = '密码不能为空！'
+              if (!current.realName) errorObj.realName = '真实姓名不能为空！'
               if (Object.keys(errorObj).length > 0) {
-                const err: Error & { filed?: Partial<LoginParams> } = new Error();
-                err.filed = errorObj;
-                throw err;
+                const err: Error & { filed?: Partial<LoginParams> } =
+                  new Error()
+                err.filed = errorObj
+                throw err
               }
-              dispatch.login.register(current as LoginParams);
+              dispatch.login.register(current as LoginParams)
               // 调用请求接口
             }}
             formDatas={[
@@ -92,10 +93,17 @@ export default function Register() {
             ]}
           />
           <div style={{ display: 'flex' }}>
-            <Button style={{ marginTop: 10, width: '50%' }} type="primary" onClick={() => form.submitvalidate()}>
+            <Button
+              style={{ marginTop: 10, width: '50%' }}
+              type="primary"
+              onClick={() => form.submitvalidate()}
+            >
               注册
             </Button>
-            <Button style={{ marginTop: 10, width: '50%' }} onClick={() => navigate('/login', { replace: true })}>
+            <Button
+              style={{ marginTop: 10, width: '50%' }}
+              onClick={() => navigate('/login', { replace: true })}
+            >
               返回
             </Button>
           </div>
@@ -103,5 +111,5 @@ export default function Register() {
         </div>
       </div>
     </div>
-  );
+  )
 }
