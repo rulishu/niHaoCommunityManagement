@@ -1,21 +1,21 @@
 import { request } from '@uiw-admin/utils';
 
 export interface Change {
-    id: string;
-    communityId: string;
-    typeCd: string;
-  }
+  id: string;
+  communityId: string;
+  typeCd: string;
+}
 
 /**
  * 停车场管理-停车场管理-查询
  * @param {Object} params
  */
- function selectById(params: Change) {
-    return request('/api/parkingArea/selectPage', {
-      method: 'POST',
-      body: { ...params },
-    });
-  }
+function selectById(params: Change) {
+  return request('/api/parkingArea/selectPage', {
+    method: 'POST',
+    body: { ...params },
+  });
+}
 
 const selectPage = '/api/parkingArea/selectPage';
 
