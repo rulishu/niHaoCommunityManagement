@@ -52,24 +52,15 @@
         ]
       },
       {
-        "path": "/exceptions",
-        "name": "异常",
-        "icon": "warning-o",
+        "path": "/Authority",
+        "name": "权限管理",
+        "icon": "setting-o",
         "routes": [
           {
-            "path": "/exceptions/403",
-            "name": "403",
-            "component": "403"
-          },
-          {
-            "path": "/exceptions/500",
-            "name": "500",
-            "component": "500"
-          },
-          {
-            "path": "/exceptions/404",
-            "name": "404",
-            "component": "404"
+            "path": "/Authority/Application",
+            "name": "应用菜单权限管理",
+            "icon": "appstore-o",
+            "component": "../pages/Authority/Application"
           }
         ]
       },
