@@ -1,7 +1,7 @@
 import React from 'react';
 import Search from './Search';
 import Drawer from './Detail';
-// import Modals from './Modals';
+import Modals from './Modals';
 import { Dispatch } from '@uiw-admin/models';
 import { useDispatch } from 'react-redux';
 interface State {
@@ -24,7 +24,7 @@ const Index = () => {
         <div>
             <Search />
             <Drawer updateData={updateData} />
-            {/* <Modals /> */}
+            <Modals />
         </div>
     )
 }

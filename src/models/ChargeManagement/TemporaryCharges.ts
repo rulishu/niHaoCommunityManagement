@@ -46,6 +46,7 @@ interface State {
           tableType: '',
           queryInfo: {},
           isView: false,
+          delectVisible: false,
         });
       },
     }),
