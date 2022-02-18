@@ -1,13 +1,13 @@
 default:
   image: node:14
 
-services:
-  - name: docker:19.03.13-dind
-    command:
-      [
-        "--registry-mirror=https://docker.mirrors.ustc.edu.cn",
-        "--insecure-registry=192.168.188.222:5008"
-      ]
+#services:
+#  - name: docker:19.03.13-dind
+#    command:
+#      [
+#        "--registry-mirror=https://docker.mirrors.ustc.edu.cn",
+#        "--insecure-registry=192.168.188.222:5008"
+#      ]
 
 stages:
   - test
