@@ -10,7 +10,8 @@ module.exports.authList = [
   '/Authority/Application',
   '/Authority/Role',
   '/Authority/User',
-
+  '/BasicManage',
+  '/BasicManage/ChargeManage',
   '/dom',
   '/dom/courses',
   '/dom/home',

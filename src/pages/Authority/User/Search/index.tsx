@@ -40,7 +40,7 @@ export default function Demo() {
       return {
         page: pageIndex,
         pageSize: 10,
-        data: searchValues,
+        ...searchValues,
       }
     },
   })

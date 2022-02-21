@@ -11,7 +11,6 @@ export const columnsSearch = (
       key: 'id',
       ellipsis: true,
       align: 'center',
-      width: 200,
       render: (uapRoleName: string) => (
         <div style={{ textAlign: 'center' }}>
           <Tooltip placement="bottomRight" content={uapRoleName}>
@@ -25,7 +24,6 @@ export const columnsSearch = (
       key: 'uapRoleName',
       ellipsis: true,
       align: 'center',
-      width: 120,
       props: {
         widget: 'input',
         initialValue: '',
@@ -61,7 +59,6 @@ export const columnsSearch = (
       key: 'updateName',
       ellipsis: true,
       align: 'center',
-      width: 120,
       props: {
         widget: 'input',
         initialValue: '',
@@ -77,6 +74,7 @@ export const columnsSearch = (
       key: 'updateTime',
       ellipsis: true,
       align: 'center',
+      width: 200,
       render: (updateTime: string) => (
         <div style={{ textAlign: 'center' }}>
           <Tooltip placement="leftTop" content={updateTime}>
@@ -89,6 +87,7 @@ export const columnsSearch = (
       title: '创建时间',
       key: 'createTime',
       ellipsis: true,
+      width: 200,
       props: {
         widget: 'dateInput',
         // 组件属性
@@ -107,6 +106,7 @@ export const columnsSearch = (
       title: '操作',
       key: 'edit',
       align: 'center',
+      width: 200,
       render: (text: any, key: any, rowData: Change) => (
         <div>
           <Button
