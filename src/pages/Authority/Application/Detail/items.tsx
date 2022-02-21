@@ -1,4 +1,4 @@
-import { Change } from '@/servers/Application'
+import { Change } from '@/servers/Authority/Application'
 
 export const items = (queryInfo: Change) => [
   {
@@ -30,6 +30,7 @@ export const items = (queryInfo: Change) => [
     ],
     initialValue: queryInfo.select,
     required: true,
+    rules: [{ required: true, message: '请选择' }],
   },
   {
     label: '路径',
@@ -46,6 +47,7 @@ export const items = (queryInfo: Change) => [
     widget: 'dateInput',
     widgetProps: {},
     required: true,
+    rules: [{ required: true, message: '请选择更新时间' }],
   },
   {
     label: '创建时间',
@@ -54,6 +56,7 @@ export const items = (queryInfo: Change) => [
     widget: 'dateInput',
     widgetProps: {},
     required: true,
+    rules: [{ required: true, message: '请选择创建时间' }],
   },
   {
     label: '更新人',
