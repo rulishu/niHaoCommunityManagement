@@ -1,4 +1,4 @@
-import { selectById, Change } from '../../servers/Authority/Application'
+import { selectById, Change } from '../../servers/Authority/Role'
 import { Dispatch, RootModel } from '@uiw-admin/models'
 import { createModel, RematchDispatch } from '@rematch/core'
 
@@ -11,8 +11,8 @@ interface State {
   delectVisible: boolean
 }
 
-const Application = createModel<RootModel>()({
-  name: 'Application',
+const Role = createModel<RootModel>()({
+  name: 'Role',
   state: {
     drawerVisible: false,
     tableType: '',
@@ -51,4 +51,4 @@ const Application = createModel<RootModel>()({
   }),
 })
 
-export default Application
+export default Role

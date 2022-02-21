@@ -2,19 +2,19 @@ import React from 'react'
 import { Modal } from 'uiw'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
-import { deleteData } from '@/servers/Authority/Application'
+import { deleteData } from '@/servers/Authority/Role'
 import { Notify } from 'uiw'
 import useSWR from 'swr'
 
 const Modals = (props: { onSearch: () => void }) => {
   const dispatch = useDispatch<Dispatch>()
   const {
-    Application: { delectVisible, id },
+    Role: { delectVisible, id },
   } = useSelector((state: RootState) => state)
 
   const onClose = () => {
     dispatch({
-      type: 'Application/updateState',
+      type: 'Role/updateState',
       payload: {
         delectVisible: false,
       },
