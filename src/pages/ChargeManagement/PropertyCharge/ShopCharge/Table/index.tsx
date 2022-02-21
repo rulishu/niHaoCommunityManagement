@@ -1,10 +1,9 @@
 import React from 'react';
 import Regular from './Regular';
-// import Temporary from './temporary';
-// import Deposit from './deposit';
-// import Advance from './advance'
+import Temporary from './Temporary';
+import Deposit from './Deposit';
+import Advance from './Advance'
 import { Tabs, Card } from 'uiw';
-// import { Params } from '@/servers/account-admin';
 import { Dispatch } from '@uiw-admin/models';
 import { useDispatch } from 'react-redux';
 interface State {
@@ -37,13 +36,13 @@ export default function Demo() {
                     <Regular />
                 </Tabs.Pane>
                 <Tabs.Pane label="临时收费" key="2">
-                    <Regular  />
+                    <Temporary  />
                 </Tabs.Pane>
                 <Tabs.Pane label="收取押金" key="3">
-                    <Regular  />
+                    <Deposit  />
                 </Tabs.Pane>
                 <Tabs.Pane label="预存款" key="4">
-                    <Regular />
+                    <Advance />
                 </Tabs.Pane>
             </Tabs>
         </Card>
