@@ -22,25 +22,16 @@ const UserLayout = () => {
           },
         },
       ]}
-      api="/api/login"
+      api="/api/account/pcLogin"
       btnProps={{ type: 'primary' }}
       saveField={{
-        userName: 'username',
+        userName: 'nickName',
         passWord: 'password',
       }}
-      onBefore={(store) => ({ a: 12, b: 1221, ...store })}
-      // onBefore={(payload) => {
-      //   return {
-      //     password: payload.password,
-      //     nickName: payload.username,
-      //   };
-      // }}
       onSuccess={(data) => {
         if (data && data.token) {
           sessionStorage.setItem('token', data.token)
           sessionStorage.setItem('auth', JSON.stringify(data.authList || []))
-          localStorage.setItem('token', data.token)
-          localStorage.setItem('auth', JSON.stringify(data.authList || []))
           navigate('/home', { replace: true })
         } else {
           Notify.error({

@@ -1,25 +1,25 @@
-import { request } from '@uiw-admin/utils';
+import { request } from '@uiw-admin/utils'
 
 export interface Login {
-  username: string;
-  password: string;
+  nickName: string
+  password: string
 }
 export interface Register {
-  uapAccountNickName: string;
-  uapAccountPassword: string;
+  uapAccountNickName: string
+  uapAccountPassword: string
 }
 export interface LoginParams {
-  idCard: string;
-  nickName: string;
-  password: string;
-  realName: string;
+  idCard: string
+  nickName: string
+  password: string
+  realName: string
 }
 // 注册
 export function register(params: LoginParams) {
-  return request('/api/account/outRegister', {
+  return request('/api/account/register', {
     method: 'POST',
     body: { ...params },
-  });
+  })
 }
 
 /**
@@ -27,10 +27,10 @@ export function register(params: LoginParams) {
  * @param {Object} params
  */
 export function login(params: Login) {
-  return request('/api/login', {
+  return request('/api/account/pcLogin', {
     method: 'POST',
     body: { ...params },
-  });
+  })
 }
 
 /**
@@ -40,5 +40,5 @@ export function login(params: Login) {
 export function reloadAuth() {
   return request('/api/reloadAuth', {
     method: 'POST',
-  });
+  })
 }
