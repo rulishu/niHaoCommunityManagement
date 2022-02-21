@@ -6,6 +6,10 @@ module.exports.authList = [
   '/chargeManagement',
   '/chargeManagement/propertyCharge',
   '/chargeManagement/propertyCharge/shopCharge',
+  '/Authority',
+  '/Authority/Application',
+  '/Authority/Role',
+  '/Authority/User',
 
   '/dom',
   '/dom/courses',
