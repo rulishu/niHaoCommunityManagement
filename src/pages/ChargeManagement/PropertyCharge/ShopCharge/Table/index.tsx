@@ -4,35 +4,46 @@ import Regular from './Regular';
 // import Deposit from './deposit';
 // import Advance from './advance'
 import { Tabs, Card } from 'uiw';
-import { Params } from '@/servers/account-admin';
+// import { Params } from '@/servers/account-admin';
+import { Dispatch } from '@uiw-admin/models';
+import { useDispatch } from 'react-redux';
+interface State {
+    drawerVisible?: boolean;
+    tableType?: string;
+    queryInfo?: object;
+    isView?: boolean;
+}
+export default function Demo() {
+    const dispatch = useDispatch<Dispatch>();
 
-export default function Demo(props: {
-    setVisible: React.Dispatch<React.SetStateAction<boolean>>;
-    setTableType: React.Dispatch<React.SetStateAction<'add' | 'edit' | null>>;
-    setKeys: React.Dispatch<React.SetStateAction<string>>
-    visible: boolean;
-    tableType: 'add' | 'edit' | null;
-    initObj: Params;
-    keys: string
-}) {
+    const updateData = (payload: State) => {
+        dispatch({
+            type: 'shopCharge/updateState',
+            payload,
+        })
+    }
     return (
         <Card style={{ marginTop: 10 }}>
             <Tabs type="line" activeKey="1" onTabClick={(tab) => {
-                props.setVisible(true);
-                props.setTableType('add');
-                props.setKeys(tab);
-            }}>
+                //  dispatch({
+                //     type: 'shopCharge/updateState',
+                //     payload:{
+                //         tableType: tab
+                //     }
+                // })
+                updateData({tableType: tab})
+            }} >
                 <Tabs.Pane label="常规收费" key="1">
-                    <Regular keys={props.keys} />
+                    <Regular />
                 </Tabs.Pane>
                 <Tabs.Pane label="临时收费" key="2">
-                    <Regular keys={props.keys} />
+                    <Regular  />
                 </Tabs.Pane>
                 <Tabs.Pane label="收取押金" key="3">
-                    <Regular keys={props.keys} />
+                    <Regular  />
                 </Tabs.Pane>
                 <Tabs.Pane label="预存款" key="4">
-                    <Regular keys={props.keys} />
+                    <Regular />
                 </Tabs.Pane>
             </Tabs>
         </Card>

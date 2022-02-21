@@ -53,7 +53,7 @@ const Drawer = (props: { updateData: (payload: State) => void }) => {
       buttons={[
         {
           label: '取消',
-          type: "primary",
+          onClick: onClose,
           show: !isView
         },
         {

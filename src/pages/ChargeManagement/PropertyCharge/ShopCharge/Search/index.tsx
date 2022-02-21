@@ -1,43 +1,13 @@
-import React, { useEffect } from 'react'
-import { useTable } from '@uiw-admin/components'
-import { Params } from '@/servers/account-admin'
+import React from 'react'
 import { ProForm, useForm } from '@uiw-admin/components'
-// import { columnsSearch } from './item';
 import { Card } from 'uiw'
 
-export default function Demo(props: {
-  setVisible: React.Dispatch<React.SetStateAction<boolean>>
-  setTableType: React.Dispatch<React.SetStateAction<'add' | 'edit' | null>>
-  visible: boolean
-  tableType: 'add' | 'edit' | null
-  setInitObj: React.Dispatch<React.SetStateAction<Params>>
-}) {
+export default function Demo() {
   const form = useForm()
-
-  const search = useTable('后端接口', {
-    // 格式化接口返回的数据，必须返回{total 总数, data: 列表数据}的格式
-    formatData: (data) => {
-      return {
-        total: data?.data?.total,
-        data: data?.data?.row || [],
-      }
-    },
-    // 格式化查询参数 会接收到pageIndex 当前页  searchValues 表单数据
-    query: (pageIndex, searchValues) => {
-      return {
-        page: pageIndex,
-        pageSize: 10,
-        data: searchValues,
-      }
-    },
-  })
-  useEffect(() => {
-    props.tableType && !props.visible && search.onSearch()
-  }, [props.visible])
 
   return (
     <Card>
-      <ProForm
+      {/* <ProForm
         showSaveButton
         saveButtonProps={{
           label: '搜索',
@@ -61,7 +31,34 @@ export default function Demo(props: {
             // ]
           },
         ]}
+      /> */}
+      <ProForm
+        showSaveButton
+        saveButtonProps={{
+          label: '查询',
+          type: 'primary',
+        }}
+        formType={ 'pure'}
+        form={form}
+        onSubmit={(initial, current) => {
+          initial;
+          current;
+          console.log('current',current)
+        }}
+        // buttonsContainer={{ justifyContent: 'flex-start' }}
+        formDatas={[
+          {
+            label: '商铺编号',
+            key: '1',
+            widget: 'input',
+            widgetProps: {},
+            required: true,
+            span: '8',
+            placeholder: '请输入商铺编号',
+          },
+        ]}
       />
+
     </Card>
   )
 }
