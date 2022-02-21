@@ -26,8 +26,8 @@ const Login = () => {
           '/api/login',
           {
             method: 'POST',
-            body: { username: 'admin', password: 'admin' }
-          }
+            body: { nickName: 'admin', password: 'admin' },
+          },
         ]
       : null
   )
@@ -52,7 +52,7 @@ const Login = () => {
           resetOnSubmit={false}
           onSubmit={({ current }) => {
             const errorObj: any = {}
-            if (!current.username) errorObj.username = '用户名不能为空！'
+            if (!current.nickName) errorObj.nickName = '用户名不能为空！'
             if (!current.password) errorObj.password = '密码不能为空！'
             if (Object.keys(errorObj).length > 0) {
               const err: any = new Error()
@@ -60,13 +60,10 @@ const Login = () => {
               throw err
             } else {
               setStore({
-                username: current.username,
-                password: current.password
+                nickName: current.nickName,
+                password: current.password,
               })
             }
-            // dispatch.login.submit({
-            //   username: current.username,
-            // });
           }}
           onSubmitError={(error: any) => {
             if (error.filed) {
@@ -75,18 +72,18 @@ const Login = () => {
             return null
           }}
           fields={{
-            username: {
+            nickName: {
               labelClassName: 'fieldLabel',
               labelStyle: { width: 160 },
-              labelFor: 'username',
+              labelFor: 'nickName',
               children: (
                 <Input
                   disabled={!!loading}
                   preIcon="user"
-                  id="username"
+                  id="nickName"
                   placeholder="用户名: admin"
                 />
-              )
+              ),
             },
             password: {
               labelClassName: 'fieldLabel',
@@ -100,7 +97,7 @@ const Login = () => {
                   type="password"
                   placeholder="密码: admin"
                 />
-              )
+              ),
             },
             terms: {
               style: { margin: 0 },
@@ -109,15 +106,15 @@ const Login = () => {
                 <Checkbox disabled={!!loading} value="1">
                   已阅读并同意
                 </Checkbox>
-              )
-            }
+              ),
+            },
           }}
         >
           {({ fields, canSubmit }) => {
             return (
               <>
                 <Row>
-                  <Col>{fields.username}</Col>
+                  <Col>{fields.nickName}</Col>
                 </Row>
                 <Row>
                   <Col>{fields.password}</Col>

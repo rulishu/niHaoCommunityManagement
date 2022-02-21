@@ -1,13 +1,13 @@
 import { history } from '@uiw-admin/router-control'
 import { RootModel } from '@uiw-admin/models'
 import { createModel } from '@rematch/core'
-import { Notify } from 'uiw';
-import { register, LoginParams } from '@/servers/login';
+import { Notify } from 'uiw'
+import { register, LoginParams } from '@/servers/login'
 
 export interface LoginState {
   token?: string | null
   userData?: {
-    username: string
+    nickName: string
   } | null
 }
 
@@ -26,22 +26,18 @@ const login = createModel<RootModel>()({
   effects: (dispatch: any) => ({
     // 注册
     async register(payload: LoginParams) {
-      const data = await register(payload);
+      const data = await register(payload)
       if (data && data.code === 1) {
-        Notify.success({ title: data.message });
+        Notify.success({ title: data.message })
       } else {
-        Notify.error({ title: '注册失败！' });
+        Notify.error({ title: '注册失败！' })
       }
-      history.push('');
+      history.push('')
     },
     async submit() {
       dispatch.login.updateState({ token: '测试2' })
       sessionStorage.setItem('auth', JSON.stringify(['/home', '/dac']))
       history.push('/home')
-      // this.updateState()
-      // await login({ username: 'test', password: 'www' });
-      // dispatch.sharks.increment(payload)
-      // `dispatch.s` will suggest `sharks`
     },
   }),
 })

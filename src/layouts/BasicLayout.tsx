@@ -23,8 +23,6 @@ function BasicLayoutScreen(props: BasicLayoutProps = { routes: [] }) {
       if (data && data.code === 200) {
         sessionStorage.setItem('token', data.token)
         sessionStorage.setItem('auth', JSON.stringify(data.authList || []))
-        localStorage.setItem('token', data.token)
-        localStorage.setItem('auth', JSON.stringify(data.authList || []))
         window.location.reload()
       }
     },
