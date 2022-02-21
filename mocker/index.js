@@ -3,8 +3,15 @@ const { login, verify, logout, reloadAuth } = require('./login')
 const { insert, update, selectById, upload } = require('./demo')
 
 const proxy = {
-  'GET /api/user': { id: 1, username: 'kenny', sex: 6 },
-  'POST /api/user': { id: 1, username: 'kenny', sex: 6 },
+  _proxy: {
+    proxy: {
+      '/api/(.*)': 'http://192.168.188.222:33702/',
+    },
+    changeHost: true,
+  },
+
+  'GET /api/user': { id: 1, nickName: 'kenny', sex: 6 },
+  'POST /api/user': { id: 1, nickName: 'kenny', sex: 6 },
   'POST /api/login': login,
   'POST /api/logout': logout,
   'GET /api/user/verify': verify,
