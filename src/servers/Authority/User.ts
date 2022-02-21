@@ -9,9 +9,6 @@ export interface Change {
   updateTime?: string
   createTime?: string
   updateName?: string
-  uapRoleName?: string
-  jurisdiction?: string
-  textarea?: string
 }
 
 function selectById(params: Change) {
