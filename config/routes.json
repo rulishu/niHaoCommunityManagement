@@ -21,12 +21,12 @@
       {
         "path": "/UserManagement",
         "name": "用户管理",
-        "icon": "appstore-o",
+        "icon": "user",
         "routes": [
           {
             "path": "/UserManagement/User",
             "name": "用户管理",
-            "icon": "shopping-cart",
+            "icon": "user",
             "component": "../pages/UserManagement/User"
           }
         ]
@@ -48,6 +48,19 @@
                 "component": "../pages/ChargeManagement/PropertyCharge/ShopCharge"
               }
             ]
+          }
+        ]
+      },
+      {
+        "path": "/BasicManage",
+        "name": "基础数据管理",
+        "icon": "link",
+        "routes": [
+          {
+            "path": "/BasicManage/ChargeManage",
+            "name": "收费项管理",
+            "icon": "copy",
+            "component": "../pages/BasicManage/ChargeManage"
           }
         ]
       },

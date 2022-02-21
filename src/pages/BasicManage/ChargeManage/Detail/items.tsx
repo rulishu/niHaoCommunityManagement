@@ -1,0 +1,76 @@
+import { Change } from '@/servers/BasicManage/ChargeManage'
+
+export const items = (queryInfo: Change, tableType: string) => [
+  {
+    label: '类型',
+    key: 'types',
+    widget: 'select',
+    option: [
+      { label: '常规收费项(商铺)', value: '常规收费项(商铺)' },
+      { label: '临时收费项', value: '临时收费项' },
+      { label: '押金类收费项', value: '押金类收费项' },
+    ],
+    initialValue: queryInfo?.types,
+    widgetProps: {},
+    required: true,
+    placeholder: '请选择类型',
+    rules: [{ required: true, message: '请选择类型' }],
+  },
+  {
+    label: '收费项目名',
+    key: 'chargeName',
+    widget: 'input',
+    initialValue: queryInfo?.chargeName,
+    required: true,
+    rules: [{ required: true, message: '请输入收费项目名' }],
+  },
+  {
+    label: '单价',
+    key: 'univalent',
+    widget: 'input',
+    initialValue: queryInfo?.univalent,
+    hide: tableType === 'view' ? false : true,
+  },
+  {
+    label: '数量',
+    key: 'num',
+    widget: 'input',
+    initialValue: queryInfo?.num,
+    hide: tableType === 'view' ? false : true,
+  },
+  {
+    label: '计算公式',
+    key: 'Formula',
+    widget: 'input',
+    initialValue: queryInfo?.Formula,
+    hide: tableType === 'view' ? false : true,
+  },
+  {
+    label: '计算周期',
+    key: 'calculationCycle',
+    widget: 'input',
+    initialValue: queryInfo?.calculationCycle,
+    hide: tableType === 'view' ? false : true,
+  },
+  {
+    label: '滞纳金',
+    key: 'lateFee',
+    widget: 'input',
+    initialValue: queryInfo?.lateFee,
+    hide: tableType === 'view' ? false : true,
+  },
+  {
+    label: '滞纳金比例',
+    key: 'lateFeeRatio',
+    widget: 'input',
+    initialValue: queryInfo?.lateFeeRatio,
+    hide: tableType === 'view' ? false : true,
+  },
+  {
+    label: '滞纳金天数',
+    key: 'lateFeeDays',
+    widget: 'input',
+    initialValue: queryInfo?.lateFeeDays,
+    hide: tableType === 'view' ? false : true,
+  },
+]

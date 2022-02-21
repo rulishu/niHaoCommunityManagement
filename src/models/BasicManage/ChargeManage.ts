@@ -1,4 +1,4 @@
-import { selectById, Change } from '../../servers/Authority/User'
+import { selectById, Change } from '../../servers/BasicManage/ChargeManage'
 import { Dispatch, RootModel } from '@uiw-admin/models'
 import { createModel, RematchDispatch } from '@rematch/core'
 
@@ -11,8 +11,8 @@ interface State {
   delectVisible: boolean
 }
 
-const User = createModel<RootModel>()({
-  name: 'User',
+const ChargeManage = createModel<RootModel>()({
+  name: 'ChargeManage',
   state: {
     drawerVisible: false,
     tableType: '',
@@ -51,4 +51,4 @@ const User = createModel<RootModel>()({
   }),
 })
 
-export default User
+export default ChargeManage

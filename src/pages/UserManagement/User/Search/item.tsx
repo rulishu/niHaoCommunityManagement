@@ -32,23 +32,11 @@ export const item = (
       title: '用户状态',
       key: 'cc',
       align: 'center',
-      // props: {
-      //   widget: 'input',
-      //   widgetProps: {
-      //     placeholder: '请输入用户状态',
-      //   },
-      // },
     },
     {
       title: '用户头像',
       key: 'dd',
       align: 'center',
-      // props: {
-      //   widget: 'input',
-      //   widgetProps: {
-      //     placeholder: '请输入用户头像',
-      //   },
-      // },
     },
     {
       title: '角色名称',
@@ -83,7 +71,7 @@ export const item = (
       title: '操作',
       align: 'center',
       key: 'id',
-      width: 140,
+      width: 200,
       props: {
         label: '注册结束时间',
         key: 'endTime',
@@ -98,13 +86,15 @@ export const item = (
           <Button
             size="small"
             icon="delete"
-            onClick={() => handleEditTable('del', rowData)}>
+            onClick={() => handleEditTable('del', rowData)}
+          >
             删除
           </Button>
           <Button
             size="small"
             icon="edit"
-            onClick={() => handleEditTable('edit', rowData)}>
+            onClick={() => handleEditTable('edit', rowData)}
+          >
             编辑
           </Button>
         </div>
