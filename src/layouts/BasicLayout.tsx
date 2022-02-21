@@ -23,8 +23,6 @@ function BasicLayoutScreen(props: BasicLayoutProps = { routes: [] }) {
       if (data && data.code === 200) {
         sessionStorage.setItem('token', data.token)
         sessionStorage.setItem('auth', JSON.stringify(data.authList || []))
-        localStorage.setItem('token', data.token)
-        localStorage.setItem('auth', JSON.stringify(data.authList || []))
         window.location.reload()
       }
     },
@@ -35,7 +33,7 @@ function BasicLayoutScreen(props: BasicLayoutProps = { routes: [] }) {
     // 修改密码以及其他操作在项目中进行
     menus: [
       {
-        title: '欢迎来到uiw',
+        title: '欢迎来到共享社区管理平台',
         icon: 'smile',
         onClick: () => layouts.closeMenu(),
       },
@@ -71,7 +69,7 @@ function BasicLayoutScreen(props: BasicLayoutProps = { routes: [] }) {
   //   </Auth>
   // )
   return (
-    <BasicLayout {...basicLayoutProps}>
+    <BasicLayout {...basicLayoutProps} projectName="共享社区管理平台">
       <Outlet />
       {/* <LayoutTabs routes={routes || []} /> */}
     </BasicLayout>

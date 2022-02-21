@@ -3,14 +3,14 @@ const { authList } = require('./auth')
 let token = ''
 
 module.exports.login = function (req, res) {
-  const { password, username } = req.body
-  if (password === 'admin' && username === 'admin') {
+  const { password, nickName } = req.body
+  if (password === 'admin' && nickName === 'admin') {
     token = '5c2d6d45-ec94-319c-a9c8-cae43e192b65'
     return res.json({
       updated_at: '2018/09/23 15:59:52',
       created_at: '2018/09/23 15:59:52',
       id: 1,
-      username: 'admin',
+      nickName: 'admin',
       name: 'admin',
       admin: true,
       bio: '',
@@ -53,7 +53,7 @@ module.exports.verify = function (req, res) {
     updated_at: '2018/09/23 15:59:52',
     created_at: '2018/09/23 15:59:52',
     id: 1,
-    username: 'admin',
+    nickName: 'admin',
     name: 'admin',
     admin: true,
     bio: '',
