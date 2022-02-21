@@ -64,6 +64,7 @@ export default function Demo() {
   return (
     <React.Fragment>
       <ProTable
+        bordered
         operateButtons={[
           {
             label: '新增',
