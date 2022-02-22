@@ -67,6 +67,24 @@
             "name": "收费项管理",
             "icon": "copy",
             "component": "../pages/BasicManage/ChargeManage"
+          },
+          {
+            "path": "/BasicManage/BusinessManage",
+            "name": "商业区管理",
+            "icon": "picasa",
+            "component": "../pages/BasicManage/BusinessManage"
+          },
+          {
+            "path": "/BasicManage/ShopManage",
+            "name": "商铺管理",
+            "icon": "foursquare",
+            "component": "../pages/BasicManage/ShopManage"
+          },
+          {
+            "path": "/BasicManage/ShopSale",
+            "name": "商铺租售",
+            "icon": "poweroff",
+            "component": "../pages/BasicManage/ShopSale"
           }
         ]
       },
