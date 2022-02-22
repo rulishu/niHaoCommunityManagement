@@ -19,30 +19,6 @@ export const columnsSearch = (
       },
     },
     {
-      title: '楼层',
-      align: 'center',
-      key: 'type',
-      ellipsis: true,
-    },
-    {
-      title: '占地面积',
-      align: 'center',
-      key: 'type',
-      ellipsis: true,
-    },
-    {
-      title: '使用面积',
-      align: 'center',
-      key: 'type',
-      ellipsis: true,
-    },
-    {
-      title: '租金',
-      align: 'center',
-      key: 'type',
-      ellipsis: true,
-    },
-    {
       title: '使用状态',
       align: 'center',
       key: 'types',
@@ -58,6 +34,48 @@ export const columnsSearch = (
       },
     },
     {
+      title: '客户姓名',
+      align: 'center',
+      key: 'typ',
+      ellipsis: true,
+      props: {
+        widget: 'input',
+        widgetProps: {
+          placeholder: '请输入客户姓名',
+        },
+      },
+    },
+    {
+      title: '电话',
+      align: 'center',
+      key: 'type',
+      ellipsis: true,
+    },
+    {
+      title: '租金',
+      align: 'center',
+      key: 'type',
+      ellipsis: true,
+    },
+    {
+      title: '行业',
+      align: 'center',
+      key: 'type',
+      ellipsis: true,
+    },
+    {
+      title: '开始时间',
+      align: 'center',
+      key: 'type',
+      ellipsis: true,
+    },
+    {
+      title: '结束时间',
+      align: 'center',
+      key: 'type',
+      ellipsis: true,
+    },
+    {
       title: '操作',
       key: 'edit',
       align: 'center',
@@ -69,7 +87,7 @@ export const columnsSearch = (
             icon="edit"
             onClick={handleEditTable.bind(this, 'edit', rowData)}
           >
-            编辑
+            编辑客户信息
           </Button>
           <Button
             size="small"
@@ -83,7 +101,7 @@ export const columnsSearch = (
             icon="delete"
             onClick={() => handleEditTable('del', rowData)}
           >
-            删除
+            删除客户信息
           </Button>
         </div>
       ),
