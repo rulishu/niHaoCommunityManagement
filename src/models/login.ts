@@ -1,4 +1,4 @@
-import { history } from '@uiw-admin/router-control'
+import { history, navigate } from '@uiw-admin/router-control'
 import { RootModel } from '@uiw-admin/models'
 import { createModel } from '@rematch/core'
 import { Notify } from 'uiw'
@@ -29,6 +29,7 @@ const login = createModel<RootModel>()({
       const data = await register(payload)
       if (data && data.code === 1) {
         Notify.success({ title: data.message })
+        navigate('/login', { replace: true })
       } else {
         Notify.error({ title: '注册失败！' })
       }
