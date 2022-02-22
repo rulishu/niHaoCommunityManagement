@@ -7,26 +7,54 @@ export const columnsSearch = (
 ) => {
   return [
     {
-      title: '商业区编号',
+      title: '商铺编号',
       align: 'center',
-      key: 'types',
+      key: 'type',
       ellipsis: true,
       props: {
         widget: 'input',
         widgetProps: {
-          placeholder: '请输入商业区编号',
+          placeholder: '请输入商铺编号',
         },
       },
     },
     {
-      title: '商业区名',
-      key: 'chargeName',
+      title: '楼层',
       align: 'center',
+      key: 'type',
+      ellipsis: true,
+    },
+    {
+      title: '占地面积',
+      align: 'center',
+      key: 'type',
+      ellipsis: true,
+    },
+    {
+      title: '使用面积',
+      align: 'center',
+      key: 'type',
+      ellipsis: true,
+    },
+    {
+      title: '租金',
+      align: 'center',
+      key: 'type',
+      ellipsis: true,
+    },
+    {
+      title: '使用状态',
+      align: 'center',
+      key: 'types',
+      ellipsis: true,
       props: {
-        widget: 'input',
-        widgetProps: {
-          placeholder: '请输入商业区名',
-        },
+        label: '使用状态',
+        widget: 'select',
+        option: [
+          { label: '空置', value: '空置' },
+          { label: '已出租', value: '已出租' },
+          { label: '已出售', value: '已出售' },
+        ],
       },
     },
     {
