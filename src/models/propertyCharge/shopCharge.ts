@@ -3,16 +3,17 @@ import { Dispatch, RootModel } from '@uiw-admin/models'
 import { createModel, RematchDispatch } from '@rematch/core'
 
 interface State {
-  drawerVisible: boolean
-  tableType: string
-  queryInfo: object
-  isView: boolean
-  id: string
-  delectVisible: boolean
+  drawerVisible?: boolean
+  tableType?: string
+  queryInfo?: object
+  isView?: boolean
+  id?: string
+  delectVisible?: boolean
+  keys: string
 }
 
-const Application = createModel<RootModel>()({
-  name: 'Application',
+const ShopCharge = createModel<RootModel>()({
+  name: 'ShopCharge',
   state: {
     drawerVisible: false,
     tableType: '',
@@ -20,6 +21,7 @@ const Application = createModel<RootModel>()({
     id: '',
     isView: false,
     delectVisible: false,
+    keys: '1',
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({
@@ -51,4 +53,4 @@ const Application = createModel<RootModel>()({
   }),
 })
 
-export default Application
+export default ShopCharge

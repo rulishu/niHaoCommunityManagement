@@ -1,23 +1,20 @@
 import { Button, Tooltip } from 'uiw'
 import React from 'react'
-import { Change } from '@/servers/Authority/Application'
+import { Change } from '@/servers/Authority/User'
 
 export const columnsSearch = (
   handleEditTable: (tableType: string, obj: Change) => void
 ) => {
   return [
     {
-      title: '姓名',
+      title: '用户',
       key: 'createName',
       ellipsis: true,
       align: 'center',
       props: {
         widget: 'input',
-        initialValue: '',
-        // 组件属性
         widgetProps: {
-          preIcon: 'user',
-          placeholder: '输入用户名',
+          placeholder: '请输入用户名',
         },
       },
       render: (createName: string) => (
@@ -32,14 +29,13 @@ export const columnsSearch = (
       title: '权限名称',
       key: 'uapRightName',
       align: 'center',
-      ellipsis: false,
       props: {
         widget: 'input',
         initialValue: '',
         // 组件属性
         widgetProps: {
           preIcon: 'user',
-          placeholder: '输入权限名称',
+          placeholder: '输入用户名',
         },
       },
       render: (uapRightName: string) => (
@@ -55,6 +51,13 @@ export const columnsSearch = (
       key: 'uapRightUrl',
       align: 'center',
       ellipsis: true,
+      render: (uapRightUrl: string) => (
+        <div style={{ textAlign: 'center' }}>
+          <Tooltip placement="topLeft" content={uapRightUrl}>
+            <span>{uapRightUrl}</span>
+          </Tooltip>
+        </div>
+      ),
     },
     {
       title: '更新时间',
@@ -96,7 +99,6 @@ export const columnsSearch = (
       title: '更新人',
       key: 'updateName',
       align: 'center',
-      ellipsis: true,
     },
     {
       title: '操作',

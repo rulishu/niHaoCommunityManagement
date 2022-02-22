@@ -9,7 +9,10 @@ module.exports.authList = [
   '/chargeManagement/propertyCharge/temporaryCharges',
   '/Authority',
   '/Authority/Application',
-
+  '/Authority/Role',
+  '/Authority/User',
+  '/BasicManage',
+  '/BasicManage/ChargeManage',
   '/dom',
   '/dom/courses',
   '/dom/home',

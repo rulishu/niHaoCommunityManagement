@@ -4,7 +4,7 @@ import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import { columnsSearch } from './item'
 import { useDispatch } from 'react-redux'
 import { Dispatch } from '@uiw-admin/models'
-import { selectPage, Change } from '@/servers/Authority/Application'
+import { selectPage, Change } from '@/servers/BasicManage/ChargeManage'
 import Drawer from '../Detail'
 import Modals from '../Modals'
 
@@ -22,7 +22,7 @@ export default function Demo() {
 
   const updateData = (payload: State) => {
     dispatch({
-      type: 'Application/updateState',
+      type: 'ChargeManage/updateState',
       payload,
     })
   }
@@ -69,7 +69,6 @@ export default function Demo() {
           {
             label: '新增',
             type: 'primary',
-            // onClick: onAdd,
             onClick: () => {
               handleEditTable('add', {})
             },

@@ -1,4 +1,4 @@
-import { Change } from '@/servers/Authority/Application'
+import { Change } from '@/servers/Authority/Role'
 
 export const items = (queryInfo: Change) => [
   {
@@ -16,7 +16,7 @@ export const items = (queryInfo: Change) => [
     widget: 'input',
     initialValue: queryInfo?.uapRightName,
     required: true,
-    rules: [{ required: true, message: '请输权限名称' }],
+    rules: [{ required: true, message: '请输入权限名称' }],
   },
   {
     label: '选择器',
@@ -30,7 +30,7 @@ export const items = (queryInfo: Change) => [
     ],
     initialValue: queryInfo.select,
     required: true,
-    rules: [{ required: true, message: '请选择' }],
+    rules: [{ required: true, message: '请选择选择器' }],
   },
   {
     label: '路径',
@@ -39,31 +39,5 @@ export const items = (queryInfo: Change) => [
     initialValue: queryInfo?.uapRightUrl,
     required: true,
     rules: [{ required: true, message: '请输入路径' }],
-  },
-  {
-    label: '更新时间',
-    key: 'updateTime',
-    initialValue: queryInfo?.updateTime,
-    widget: 'dateInput',
-    widgetProps: {},
-    required: true,
-    rules: [{ required: true, message: '请选择更新时间' }],
-  },
-  {
-    label: '创建时间',
-    key: 'createTime',
-    initialValue: queryInfo?.createTime,
-    widget: 'dateInput',
-    widgetProps: {},
-    required: true,
-    rules: [{ required: true, message: '请选择创建时间' }],
-  },
-  {
-    label: '更新人',
-    key: 'updateName',
-    widget: 'input',
-    initialValue: queryInfo?.updateName,
-    required: true,
-    rules: [{ required: true, message: '请输入更新人' }],
   },
 ]

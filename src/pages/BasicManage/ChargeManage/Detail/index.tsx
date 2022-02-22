@@ -3,7 +3,7 @@ import { ProDrawer, ProForm, useForm } from '@uiw-admin/components'
 import { Notify } from 'uiw'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
-import { insert, update } from '@/servers/Authority/Application'
+import { insert, update } from '@/servers/BasicManage/ChargeManage'
 import { items } from './items'
 import useSWR from 'swr'
 
@@ -21,12 +21,12 @@ const Detail = (props: {
   const baseRef = useForm()
   const dispatch = useDispatch<Dispatch>()
   const {
-    Application: { drawerVisible, tableType, queryInfo, isView },
-  } = useSelector((Application: RootState) => Application)
+    ChargeManage: { drawerVisible, tableType, queryInfo, isView },
+  } = useSelector((ChargeManage: RootState) => ChargeManage)
 
   const onClose = () => {
     dispatch({
-      type: 'Application/updateState',
+      type: 'ChargeManage/updateState',
       payload: {
         drawerVisible: false,
         isView: false,
@@ -92,7 +92,7 @@ const Detail = (props: {
         onChange={(initial, current) =>
           props.updateData({ queryInfo: { ...queryInfo, ...current } })
         }
-        formDatas={items(queryInfo)}
+        formDatas={items(queryInfo, tableType)}
       />
     </ProDrawer>
   )

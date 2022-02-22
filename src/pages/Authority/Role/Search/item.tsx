@@ -1,14 +1,27 @@
 import { Button, Tooltip } from 'uiw'
 import React from 'react'
-import { Change } from '@/servers/Authority/Application'
+import { Change } from '@/servers/Authority/Role'
 
 export const columnsSearch = (
   handleEditTable: (tableType: string, obj: Change) => void
 ) => {
   return [
     {
+      title: 'id',
+      key: 'id',
+      ellipsis: true,
+      align: 'center',
+      render: (uapRoleName: string) => (
+        <div style={{ textAlign: 'center' }}>
+          <Tooltip placement="bottomRight" content={uapRoleName}>
+            <span>{uapRoleName}</span>
+          </Tooltip>
+        </div>
+      ),
+    },
+    {
       title: '姓名',
-      key: 'createName',
+      key: 'uapRoleName',
       ellipsis: true,
       align: 'center',
       props: {
@@ -20,63 +33,60 @@ export const columnsSearch = (
           placeholder: '输入用户名',
         },
       },
-      render: (createName: string) => (
+      render: (uapRoleName: string) => (
         <div style={{ textAlign: 'center' }}>
-          <Tooltip placement="topLeft" content={createName}>
-            <span>{createName}</span>
+          <Tooltip placement="bottomRight" content={uapRoleName}>
+            <span>{uapRoleName}</span>
           </Tooltip>
         </div>
       ),
     },
     {
-      title: '权限名称',
-      key: 'uapRightName',
+      title: '权限',
+      key: 'jurisdiction',
       align: 'center',
-      ellipsis: false,
+      ellipsis: true,
+      props: {
+        widget: 'select',
+        option: [
+          { label: '管理员', value: 20 },
+          { label: '超级管理员', value: 10 },
+        ],
+      },
+    },
+    {
+      title: '更新人名称',
+      key: 'updateName',
+      ellipsis: true,
+      align: 'center',
       props: {
         widget: 'input',
         initialValue: '',
         // 组件属性
         widgetProps: {
           preIcon: 'user',
-          placeholder: '输入权限名称',
+          placeholder: '输入更新人名称',
         },
       },
-      render: (uapRightName: string) => (
+    },
+    {
+      title: '更新时间',
+      key: 'updateTime',
+      ellipsis: true,
+      align: 'center',
+      width: 200,
+      render: (updateTime: string) => (
         <div style={{ textAlign: 'center' }}>
-          <Tooltip placement="topLeft" content={uapRightName}>
-            <span>{uapRightName}</span>
+          <Tooltip placement="leftTop" content={updateTime}>
+            <span>{updateTime}</span>
           </Tooltip>
         </div>
       ),
     },
     {
-      title: '路径',
-      key: 'uapRightUrl',
-      align: 'center',
-      ellipsis: true,
-    },
-    {
-      title: '更新时间',
-      key: 'updateTime',
-      width: 200,
-      props: {
-        widget: 'dateInput',
-        // 组件属性
-        widgetProps: {
-          format: 'YYYY-MM-DD HH:mm:ss',
-          datePickerProps: {
-            showTime: true,
-            todayButton: '今天',
-          },
-          placeholder: '选择更新时间',
-        },
-      },
-      align: 'center',
-    },
-    {
       title: '创建时间',
       key: 'createTime',
+      ellipsis: true,
       width: 200,
       props: {
         widget: 'dateInput',
@@ -91,12 +101,6 @@ export const columnsSearch = (
         },
       },
       align: 'center',
-    },
-    {
-      title: '更新人',
-      key: 'updateName',
-      align: 'center',
-      ellipsis: true,
     },
     {
       title: '操作',
