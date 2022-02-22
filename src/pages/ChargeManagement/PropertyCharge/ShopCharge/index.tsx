@@ -1,7 +1,7 @@
 import React from 'react';
 import Search from './Search';
 import Drawer from './Table/index';
-// import Modals from './Modals';
+import Modals from './Modals';
 
 const Index = () => {
   
@@ -10,7 +10,7 @@ const Index = () => {
         <div>
             <Search />
             <Drawer />
-            {/* <Modals /> */}
+            <Modals />
         </div>
     )
 }
