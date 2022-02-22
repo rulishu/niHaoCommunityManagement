@@ -79,6 +79,12 @@
             "name": "商铺管理",
             "icon": "foursquare",
             "component": "../pages/BasicManage/ShopManage"
+          },
+          {
+            "path": "/BasicManage/ShopSale",
+            "name": "商铺租售",
+            "icon": "poweroff",
+            "component": "../pages/BasicManage/ShopSale"
           }
         ]
       },
