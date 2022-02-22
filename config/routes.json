@@ -71,8 +71,14 @@
           {
             "path": "/BasicManage/BusinessManage",
             "name": "商业区管理",
-            "icon": "copy",
+            "icon": "picasa",
             "component": "../pages/BasicManage/BusinessManage"
+          },
+          {
+            "path": "/BasicManage/ShopManage",
+            "name": "商铺管理",
+            "icon": "foursquare",
+            "component": "../pages/BasicManage/ShopManage"
           }
         ]
       },

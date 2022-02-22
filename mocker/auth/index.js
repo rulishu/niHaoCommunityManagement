@@ -14,6 +14,7 @@ module.exports.authList = [
   '/BasicManage',
   '/BasicManage/ChargeManage',
   '/BasicManage/BusinessManage',
+  '/BasicManage/ShopManage',
   '/dom',
   '/dom/courses',
   '/dom/home',
