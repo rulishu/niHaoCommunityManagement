@@ -9,10 +9,12 @@ export interface Register {
   uapAccountPassword: string
 }
 export interface LoginParams {
-  idCard: string
+  cardId: string
   nickName: string
   password: string
-  realName: string
+  userName: string
+  gender: string | number
+  phoneNumber: string
 }
 // 注册
 export function register(params: LoginParams) {
