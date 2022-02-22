@@ -67,6 +67,12 @@
             "name": "收费项管理",
             "icon": "copy",
             "component": "../pages/BasicManage/ChargeManage"
+          },
+          {
+            "path": "/BasicManage/BusinessManage",
+            "name": "商业区管理",
+            "icon": "copy",
+            "component": "../pages/BasicManage/BusinessManage"
           }
         ]
       },
