@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table, } from 'uiw';
 import ButtonGroup from './buttonGroup';
-import { regularColumns } from './detail'
+import { temporaryColumns } from './detail'
 // interface DetailProps {
 //     updateData?: any;
 //   }
@@ -10,7 +10,7 @@ export default function Regular() {
     return (
         <Table
             title={<ButtonGroup />}
-            columns={regularColumns()}
+            columns={temporaryColumns()}
             // data={dataSource}
             // footer={
             //     <Pagination

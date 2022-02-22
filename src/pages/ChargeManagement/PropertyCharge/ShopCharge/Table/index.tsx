@@ -27,16 +27,16 @@ const Demo = (props: { updateData: (payload: State) => void }) => {
         }}
       >
         <Tabs.Pane label="常规收费" key="1">
-          <Regular keys={keys} />
+          <Regular key={keys} />
         </Tabs.Pane>
         <Tabs.Pane label="临时收费" key="2">
-          <Regular keys={keys} />
+          <Regular key={keys} />
         </Tabs.Pane>
         <Tabs.Pane label="收取押金" key="3">
-          <Regular keys={keys} />
+          <Regular key={keys} />
         </Tabs.Pane>
         <Tabs.Pane label="预存款" key="4">
-          <Regular keys={keys} />
+          <Regular key={keys} />
         </Tabs.Pane>
       </Tabs>
     </Card>
