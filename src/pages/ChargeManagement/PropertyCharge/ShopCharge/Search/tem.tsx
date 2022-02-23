@@ -51,7 +51,7 @@ export default function Demo() {
       }
     },
     // 格式化查询参数 会接收到pageIndex 当前页  searchValues 表单数据
-    query: (pageIndex, searchValues) => {
+    query: (pageIndex, pageSize, searchValues) => {
       return {
         page: pageIndex,
         pageSize: 10,
