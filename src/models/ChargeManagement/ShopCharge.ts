@@ -3,12 +3,13 @@ import { createModel, RematchDispatch } from '@rematch/core'
 import { selectById, Change } from '../../servers/ChargeManagement/ShopCharge'
 
 interface State {
-  drawerVisible: boolean;
-  tableType: string;
-  queryInfo: object;
-  isView: boolean;
-  id: string;
-  delectVisible: boolean;
+  drawerVisible: boolean
+  tableType: string
+  queryInfo: object
+  isView: boolean
+  id: string
+  delectVisible: boolean
+  keys: string
 }
 
 const shopCharge = createModel<RootModel>()({
@@ -20,6 +21,7 @@ const shopCharge = createModel<RootModel>()({
     id: '',
     isView: false,
     delectVisible: false,
+    keys: 'rout',
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({
@@ -29,27 +31,27 @@ const shopCharge = createModel<RootModel>()({
   },
   effects: (dispatch: RematchDispatch<RootModel>) => ({
     async selectById(payload: Change) {
-      const dph = dispatch as Dispatch;
-      const data = await selectById(payload);
+      const dph = dispatch as Dispatch
+      const data = await selectById(payload)
       if (data.code === 1) {
         dph.users.updateState({
           drawerVisible: true,
           queryInfo: data.data || {},
-        });
+        })
       }
     },
 
     clean() {
-      const dph = dispatch as Dispatch;
+      const dph = dispatch as Dispatch
       dph.users.updateState({
         drawerVisible: false,
         tableType: '',
         queryInfo: {},
         isView: false,
         delectVisible: false,
-      });
+      })
     },
   }),
-});
+})
 
-export default shopCharge;
+export default shopCharge

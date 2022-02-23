@@ -1,100 +1,56 @@
 import React from 'react'
-import { Form, Row, Col, SearchSelect, Button } from 'uiw'
-import { Card } from 'uiw'
-import Table from '../Table/index'
+import { Tabs } from 'uiw'
 import { useDispatch } from 'react-redux'
 import { Dispatch } from '@uiw-admin/models'
-import './index.css'
+import Rout from './rout'
+import Tem from './tem'
+import Dep from './dep'
+import AdDep from './AdDep'
+// import Drawer from '../Detail'
+// import Modals from '../Modals'
 
 interface State {
   drawerVisible?: boolean
   tableType?: string
   queryInfo?: object
   isView?: boolean
-  delectVisible?: boolean
-  id?: string
+  keys?: string
 }
-
-const selectOption = [
-  { label: 'a', value: 2 },
-  { label: 'aa', value: 3 },
-  { label: 'aaa', value: 4 },
-]
 
 export default function Demo() {
   const dispatch = useDispatch<Dispatch>()
 
   const updateData = (payload: State) => {
     dispatch({
-      type: 'ShopCharge/updateState',
+      type: 'shopCharge/updateState',
       payload,
     })
   }
-
-  const [option] = React.useState(selectOption)
-  const [loading, setLoading] = React.useState(false)
-  const handleSearch = () => {
-    setLoading(true)
-    setTimeout(() => {
-      setLoading(false)
-    }, 2000)
-  }
-
   return (
-    <Card>
-      <Form
-        onSubmit={({ initial, current }) => {
-          console.log('-->>', initial, current)
-          updateData({ drawerVisible: true, queryInfo: current })
-        }}
-        fields={{
-          selectField: {
-            labelClassName: 'fieldLabel',
-            labelStyle: { width: '100%' },
-            label: '商铺编号',
-            inline: true,
-            children: (
-              <SearchSelect
-                showSearch={true}
-                allowClear
-                disabled={false}
-                placeholder="请选择商铺编号"
-                onSearch={handleSearch}
-                onChange={(v) => {
-                  console.log('onChange', v)
-                }}
-                option={option}
-                loading={loading}
-              />
-            ),
-          },
+    <React.Fragment>
+      <Tabs
+        type="card"
+        activeKey="rout"
+        onTabClick={(tab) => {
+          updateData({ keys: tab })
         }}
       >
-        {({ fields, state, canSubmit }) => {
-          console.log('fields:', state)
-          return (
-            <div className="uiw-form">
-              <Row gutter={10} style={{ paddingTop: 10 }}>
-                <Col>{fields.selectField}</Col>
-              </Row>
-              <Row gutter={10}>
-                <Col />
-                <Col fixed align="bottom">
-                  <Button
-                    disabled={!canSubmit()}
-                    type="primary"
-                    htmlType="submit"
-                  >
-                    提交
-                  </Button>
-                </Col>
-              </Row>
-            </div>
-          )
-        }}
-      </Form>
+        <Tabs.Pane label="常规收费" key="rout">
+          <Rout />
+        </Tabs.Pane>
+        <Tabs.Pane label="临时收费" key="tem">
+          <Tem />
+        </Tabs.Pane>
+        <Tabs.Pane label="收取押金" key="dep">
+          <Dep />
+        </Tabs.Pane>
+        <Tabs.Pane label="预存款" key="AdDep">
+          <AdDep />
+        </Tabs.Pane>
+      </Tabs>
 
-      <Table updateData={updateData} />
-    </Card>
+      {/* <Drawer updateData={updateData} onSearch={table.onSearch} />
+      <Modals onSearch={table.onSearch} /> */}
+    </React.Fragment>
   )
 }
