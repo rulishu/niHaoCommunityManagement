@@ -6,8 +6,6 @@ import Rout from './rout'
 import Tem from './tem'
 import Dep from './dep'
 import AdDep from './AdDep'
-// import Drawer from '../Detail'
-// import Modals from '../Modals'
 
 interface State {
   drawerVisible?: boolean
@@ -48,9 +46,6 @@ export default function Demo() {
           <AdDep />
         </Tabs.Pane>
       </Tabs>
-
-      {/* <Drawer updateData={updateData} onSearch={table.onSearch} />
-      <Modals onSearch={table.onSearch} /> */}
     </React.Fragment>
   )
 }

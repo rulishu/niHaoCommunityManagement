@@ -2,6 +2,13 @@ import { Dispatch, RootModel } from '@uiw-admin/models'
 import { createModel, RematchDispatch } from '@rematch/core'
 import { selectById, Change } from '../../servers/ChargeManagement/ShopCharge'
 
+// interface chargProps {
+//   shouName?: string
+//   startingTime?: string
+//   endTime?: string
+//   fee?: number
+//   money?: number
+// }
 interface State {
   drawerVisible: boolean
   tableType: string
@@ -10,6 +17,8 @@ interface State {
   id: string
   delectVisible: boolean
   keys: string
+  chargeVisible: boolean
+  chargeDataList: Array<any>
 }
 
 const shopCharge = createModel<RootModel>()({
@@ -22,6 +31,17 @@ const shopCharge = createModel<RootModel>()({
     isView: false,
     delectVisible: false,
     keys: 'rout',
+    chargeVisible: false,
+    chargeDataList: [
+      {
+        shouName: '1',
+        startingTime: '1',
+        endTime: '1',
+        fee: 0,
+        lateFee: 0,
+        moneyAmount: 2990,
+      },
+    ],
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({

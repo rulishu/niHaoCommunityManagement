@@ -1,0 +1,14 @@
+.ProForm-body {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.ProForm-card {
+  width: 400px;
+  margin-right: 10px;
+}
+.ProForm-card-end {
+  width: 400px;
+}
