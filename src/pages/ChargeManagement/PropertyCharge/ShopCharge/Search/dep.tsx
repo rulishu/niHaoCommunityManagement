@@ -5,7 +5,8 @@ import { columnsDep } from './item'
 import { useDispatch } from 'react-redux'
 import { Dispatch } from '@uiw-admin/models'
 import { selectPage, Change } from '@/servers/ChargeManagement/ShopCharge'
-import FormSelect from './FormSelect/index'
+import FormSelect from './FormSelect'
+// import Charge from '../../Charge'
 
 interface State {
   drawerVisible?: boolean
@@ -88,6 +89,8 @@ export default function Demo() {
         table={table}
         columns={columnsDep(handleEditTable) as FormCol[]}
       />
+
+      {/* <Charge onSearch={table.onSearch} /> */}
     </React.Fragment>
   )
 }

@@ -5,7 +5,7 @@ import { columnsTem } from './item'
 import { useDispatch } from 'react-redux'
 import { Dispatch } from '@uiw-admin/models'
 import { selectPage, Change } from '@/servers/ChargeManagement/ShopCharge'
-import FormSelect from './FormSelect/index'
+import FormSelect from './FormSelect'
 
 interface State {
   drawerVisible?: boolean
