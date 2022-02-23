@@ -35,7 +35,7 @@ export default function Search() {
       }
     },
     // 格式化查询参数 会接收到pageIndex 当前页  pageSize 页码
-    query: (pageIndex, searchValues) => {
+    query: (pageIndex, pageSize, searchValues) => {
       function timestampToTime(timestamp: string) {
         let d = new Date(timestamp)
         let month =
