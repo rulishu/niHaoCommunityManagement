@@ -1,8 +1,10 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { Dispatch } from '@uiw-admin/models'
-import { SearchSelect, Descriptions, Button } from 'uiw'
+import { SearchSelect, Button } from 'uiw'
 import './index.css'
+import DetailsList from './details'
+import ButtonGroup from './ButtonGroup'
 
 interface State {
   drawerVisible?: boolean
@@ -59,38 +61,11 @@ export default function FormSelect(props: { keyType: string }) {
           />
           <Button type="primary">查询</Button>
         </div>
-        <Descriptions title="商品信息" bordered>
-          <Descriptions.Item label="编号">调调</Descriptions.Item>
-          <Descriptions.Item label="商品状态">1360000000</Descriptions.Item>
-          <Descriptions.Item label="到期日期">上海市，青浦区</Descriptions.Item>
-          <Descriptions.Item label="占地面积">-</Descriptions.Item>
-          <Descriptions.Item label="使用面积">-</Descriptions.Item>
-          <Descriptions.Item label="行业">-</Descriptions.Item>
-          <Descriptions.Item label="客户姓名">-</Descriptions.Item>
-          <Descriptions.Item label="联系方式">-</Descriptions.Item>
-          <Descriptions.Item label="入住时间">-</Descriptions.Item>
-        </Descriptions>
+
+        <DetailsList />
       </div>
 
-      {props.keyType === 'rout' && (
-        <div className="uiw-SearchSelect-btn">
-          <Button type="primary">收费</Button>
-          <Button type="primary">历史信息</Button>
-        </div>
-      )}
-
-      {(props.keyType === 'tem' || props.keyType === 'dep') && (
-        <div className="uiw-SearchSelect-btn">
-          <Button type="primary">新增</Button>
-        </div>
-      )}
-
-      {props.keyType === 'AdDep' && (
-        <div className="uiw-SearchSelect-btn">
-          <Button type="primary">预存</Button>
-          <Button type="primary">退还</Button>
-        </div>
-      )}
+      <ButtonGroup keyType={props.keyType} />
     </React.Fragment>
   )
 }
