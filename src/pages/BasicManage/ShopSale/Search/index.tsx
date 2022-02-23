@@ -67,7 +67,14 @@ export default function Demo() {
         bordered
         operateButtons={[
           {
-            label: '新增',
+            label: '默认收费项(出租)',
+            type: 'primary',
+            onClick: () => {
+              handleEditTable('add', {})
+            },
+          },
+          {
+            label: '默认收费项(出售)',
             type: 'primary',
             onClick: () => {
               handleEditTable('add', {})
