@@ -1,28 +1,23 @@
-import { request } from '@uiw-admin/utils';
+import { request } from '@uiw-admin/utils'
 
 export interface Change {
-  id: string;
-  communityId: string;
-  typeCd: string;
+  id?: string
+  typeCd?: string
 }
 
-/**
- * 停车场管理-停车场管理-查询
- * @param {Object} params
- */
 function selectById(params: Change) {
-  return request('/api/parkingArea/selectPage', {
+  return request('/api/test/select', {
     method: 'POST',
     body: { ...params },
-  });
+  })
 }
 
-const selectPage = '/api/parkingArea/selectPage';
+const selectPage = '/api/test/select'
 
-const update = '/api/parkingArea/update';
+const update = '/api/test/select'
 
-const insert = '/api/parkingArea/insert';
+const insert = '/api/test/select'
 
-const deleteData = '/api/parkingArea/delete';
+const deleteData = '/api/test/select'
 
-export { selectById, selectPage, update, insert, deleteData };
+export { selectById, selectPage, update, insert, deleteData }

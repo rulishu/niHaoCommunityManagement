@@ -1,0 +1,16 @@
+.uiw-SearchSelect-body {
+  margin: 20px 0;
+}
+
+.uiw-SearchSelect {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.uiw-SearchSelect-btn {
+  display: flex;
+  flex-direction: row;
+  margin-right: 10px;
+}
