@@ -183,3 +183,78 @@ export const cardThree = (queryInfo: any) => [
     placeholder: '请选择付款方式',
   },
 ]
+
+export const cardBack = (queryInfo: any) => [
+  {
+    label: '编号',
+    key: 'id',
+    widget: 'onBtn',
+    // inline: true,
+    span: '12',
+  },
+  {
+    label: '客户姓名',
+    key: 'name',
+    widget: 'input',
+    initialValue: queryInfo?.name,
+    disabled: true,
+    placeholder: '请输入客户姓名',
+    span: '12',
+  },
+  {
+    label: '退还方式',
+    key: 'tui',
+    widget: 'select',
+    initialValue: queryInfo?.tui,
+    option: [
+      { value: 1, label: '现金' },
+      { value: 2, label: '微信' },
+      { value: 3, label: 'app' },
+    ],
+    required: true,
+    rules: [{ required: true, message: '请选择' }],
+    placeholder: '请选择退还方式',
+    span: '12',
+  },
+  {
+    label: '退还时间',
+    key: 'tuiTime',
+    widget: 'dateInput',
+    widgetProps: {
+      format: 'YYYY-MM-DD HH:mm:ss',
+    },
+    required: true,
+    rules: [{ required: true, message: '请选择退还时间' }],
+    placeholder: '请选择退还时间',
+    span: '12',
+  },
+]
+
+export const backList = (
+  onChange: (text: React.ChangeEvent<HTMLInputElement>) => void
+) => {
+  return [
+    {
+      title: '收费项',
+      align: 'center',
+      key: 'shouName',
+    },
+    {
+      title: '账户金额',
+      align: 'center',
+      key: 'fee',
+    },
+    {
+      title: '退还金额',
+      align: 'center',
+      key: 'tuiMoney',
+      render: () => (
+        <Input
+          placeholder="请输入内容"
+          style={{ maxWidth: 150 }}
+          onChange={onChange}
+        />
+      ),
+    },
+  ]
+}
