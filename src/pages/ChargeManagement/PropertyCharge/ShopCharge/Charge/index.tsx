@@ -1,14 +1,15 @@
 import React from 'react'
-import { Table } from 'uiw'
-import { ProDrawer, ProForm, useForm } from '@uiw-admin/components'
+import { Button, Table, Input } from 'uiw'
+import { ProDrawer, useForm, ProForm } from '@uiw-admin/components'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
 import { deleteData } from '@/servers/ChargeManagement/ShopCharge'
 import { Notify } from 'uiw'
 import useSWR from 'swr'
-import { columnsList, cardOne, cardTow, cardThree } from './item'
+import { columnsList, cardBack, backList } from './item'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import '../index.css'
+import FormCar from './formCar'
 
 interface State {
   drawerVisible?: boolean
@@ -31,7 +32,7 @@ const Charge = (props: { onSearch: () => void }) => {
   const baseRef = useForm()
 
   const {
-    shopCharge: { chargeVisible, id, queryInfo, chargeDataList },
+    shopCharge: { chargeVisible, id, queryInfo, chargeDataList, btnStatus },
   } = useSelector((state: RootState) => state)
 
   const onClose = () => {
@@ -55,11 +56,16 @@ const Charge = (props: { onSearch: () => void }) => {
   const onChange = (text: React.ChangeEvent<HTMLInputElement>) => {
     window.console.log('text.target.value', text.target.value)
   }
-
-  const onCus = () => {
-    return <div style={{ marginTop: 30 }}></div>
+  const onBtn = () => {
+    return (
+      <div className="form-onBtn">
+        <div className="form-onBtn-Input">
+          <Input style={{ marginRight: 10 }} />
+        </div>
+        <Button type="primary">搜索</Button>
+      </div>
+    )
   }
-
   return (
     <ProDrawer
       width={1000}
@@ -84,56 +90,35 @@ const Charge = (props: { onSearch: () => void }) => {
         },
       ]}
     >
+      {btnStatus === 'Bak' && (
+        <ProForm
+          formType={'pure'}
+          form={baseRef}
+          buttonsContainer={{ justifyContent: 'flex-start' }}
+          // 更新表单的值
+          onChange={(initial, current) =>
+            updateData({ queryInfo: { ...queryInfo, ...current } })
+          }
+          formDatas={cardBack(queryInfo)}
+          customWidgetsList={{
+            onBtn: onBtn,
+          }}
+        />
+      )}
+
       <Table
         bordered
-        columns={columnsList(onChange) as FormCol[]}
+        columns={
+          btnStatus === 'Bak'
+            ? (backList(onChange) as FormCol[])
+            : (columnsList(onChange) as FormCol[])
+        }
         data={chargeDataList}
+        // style={{ margin: 2 }}
       />
-
-      <div className="ProForm-body">
-        <div className="ProForm-card">
-          <ProForm
-            formType={'card'}
-            form={baseRef}
-            buttonsContainer={{ justifyContent: 'flex-start' }}
-            // 更新表单的值
-            onChange={(initial, current) =>
-              updateData({ queryInfo: { ...queryInfo, ...current } })
-            }
-            formDatas={cardOne(queryInfo)}
-          />
-        </div>
-        <div className="ProForm-card">
-          <ProForm
-            formType={'card'}
-            form={baseRef}
-            buttonsContainer={{ justifyContent: 'flex-start' }}
-            // 更新表单的值
-            onChange={(initial, current) =>
-              updateData({ queryInfo: { ...queryInfo, ...current } })
-            }
-            formDatas={cardTow(queryInfo)}
-            customWidgetsList={{
-              onCus: onCus,
-            }}
-          />
-        </div>
-        <div className="ProForm-card-end">
-          <ProForm
-            formType={'card'}
-            form={baseRef}
-            buttonsContainer={{ justifyContent: 'flex-start' }}
-            // 更新表单的值
-            onChange={(initial, current) =>
-              updateData({ queryInfo: { ...queryInfo, ...current } })
-            }
-            formDatas={cardThree(queryInfo)}
-            customWidgetsList={{
-              onCus: onCus,
-            }}
-          />
-        </div>
-      </div>
+      {btnStatus === 'char' && (
+        <FormCar queryInfo={queryInfo} updateData={updateData} />
+      )}
     </ProDrawer>
   )
 }

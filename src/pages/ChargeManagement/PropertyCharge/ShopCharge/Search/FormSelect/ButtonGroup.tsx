@@ -24,7 +24,7 @@ export default function ButtonGroup(props: { keyType: string }) {
     updateData({
       btnStatus: type,
     })
-    if (type === 'char') {
+    if (type === 'char' || type === 'Bak') {
       updateData({ chargeVisible: true })
     } else if (type === 'hty') {
       updateData({ historyVisible: true })
@@ -58,7 +58,9 @@ export default function ButtonGroup(props: { keyType: string }) {
           <Button type="primary" onClick={() => handleEditTable('Pre')}>
             预存
           </Button>
-          <Button type="primary">退还</Button>
+          <Button type="primary" onClick={() => handleEditTable('Bak')}>
+            退还
+          </Button>
         </div>
       )}
     </React.Fragment>

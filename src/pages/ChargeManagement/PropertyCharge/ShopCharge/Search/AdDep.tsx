@@ -7,6 +7,8 @@ import { RootState, Dispatch } from '@uiw-admin/models'
 import { selectPage, Change } from '@/servers/ChargeManagement/ShopCharge'
 import FormSelect from './FormSelect'
 import Detail from '../Detail'
+// import GiveBack from '../GiveBack'
+import Charge from '../Charge'
 import { columnsPre } from '../Detail/items'
 
 interface State {
@@ -93,6 +95,9 @@ export default function Demo() {
         formDatas={columnsPre(queryInfo)}
         title={'预存'}
       />
+      {/* <GiveBack updateData={updateData} onSearch={table.onSearch} /> */}
+
+      <Charge onSearch={table.onSearch} />
     </React.Fragment>
   )
 }

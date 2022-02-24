@@ -17,3 +17,14 @@
   color: rgb(0, 114, 201);
   text-align: center;
 }
+
+.form-onBtn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.form-onBtn-Input {
+  width: 90%;
+}
