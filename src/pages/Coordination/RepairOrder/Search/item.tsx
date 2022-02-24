@@ -117,27 +117,27 @@ export const columnsSearch = (
       width: 200,
       render: (text: any, key: any, rowData: Change) => (
         <div>
-          <Button
+          {/* <Button
             size="small"
             icon="edit"
             onClick={handleEditTable.bind(this, 'edit', rowData)}
           >
             编辑
-          </Button>
+          </Button> */}
           <Button
             size="small"
             icon="eye"
             onClick={handleEditTable.bind(this, 'view', rowData)}
           >
-            查看
+            详情
           </Button>
-          <Button
+          {/* <Button
             size="small"
             icon="delete"
             onClick={() => handleEditTable('del', rowData)}
           >
             删除
-          </Button>
+          </Button> */}
         </div>
       ),
     },

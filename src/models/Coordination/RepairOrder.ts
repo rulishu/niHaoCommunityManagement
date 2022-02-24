@@ -8,7 +8,8 @@ interface State {
   queryInfo: object
   isView: boolean
   id: string
-  delectVisible: boolean
+  delectVisible: boolean,
+  butType: string
 }
 
 const RepairOrder = createModel<RootModel>()({
@@ -20,6 +21,7 @@ const RepairOrder = createModel<RootModel>()({
     id: '',
     isView: false,
     delectVisible: false,
+    butType: '1'
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({

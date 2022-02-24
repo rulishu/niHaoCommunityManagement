@@ -1,6 +1,6 @@
 import React from 'react'
 import { ProDrawer, ProForm, useForm } from '@uiw-admin/components'
-import { Notify } from 'uiw'
+import { Notify, Button } from 'uiw'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
 import { insert, update } from '@/servers/Coordination/RepairOrder'
@@ -21,7 +21,7 @@ const Detail = (props: {
   const baseRef = useForm()
   const dispatch = useDispatch<Dispatch>()
   const {
-    RepairOrder: { drawerVisible, tableType, queryInfo, isView },
+    RepairOrder: { drawerVisible, tableType, queryInfo, isView, butType },
   } = useSelector((RepairOrder: RootState) => RepairOrder)
 
   const onClose = () => {
@@ -54,6 +54,25 @@ const Detail = (props: {
     }
   )
 
+  const onEdit = (butType: string) => {
+    dispatch({
+      type: 'RepairOrder/updateState',
+      payload: {
+        butType,
+      },
+    })
+  }
+
+  const Btns = () => {
+    return (
+      <div>
+        {butType === '1' ? <Button type="primary" onClick={() => onEdit('1')}>公司派遣</Button> : <Button onClick={() => onEdit('1')}>公司派遣</Button>}
+        {butType === '2' ? <Button type='primary' onClick={() => onEdit('2')}>业主报修</Button> : <Button onClick={() => onEdit('2')}>业主报修</Button>}
+        {butType === '3' ? <Button type='primary' onClick={() => onEdit('3')}>小程序报修</Button> : <Button onClick={() => onEdit('3')}>小程序报修</Button>}
+      </div>
+    )
+  }
+
   return (
     <ProDrawer
       width={800}
@@ -84,15 +103,18 @@ const Detail = (props: {
     >
       <ProForm
         title="基础信息"
-        formType={isView ? 'pure' : 'card'}
+        formType={'card'}
         form={baseRef}
         readOnly={isView}
+        customWidgetsList={{
+          btns: Btns,
+        }}
         buttonsContainer={{ justifyContent: 'flex-start' }}
         // 更新表单的值
         onChange={(initial, current) =>
           props.updateData({ queryInfo: { ...queryInfo, ...current } })
         }
-        formDatas={items(queryInfo, tableType)}
+        formDatas={items(queryInfo, butType)}
       />
     </ProDrawer>
   )
