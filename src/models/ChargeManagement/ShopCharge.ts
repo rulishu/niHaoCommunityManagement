@@ -2,13 +2,6 @@ import { Dispatch, RootModel } from '@uiw-admin/models'
 import { createModel, RematchDispatch } from '@rematch/core'
 import { selectById, Change } from '../../servers/ChargeManagement/ShopCharge'
 
-// interface chargProps {
-//   shouName?: string
-//   startingTime?: string
-//   endTime?: string
-//   fee?: number
-//   money?: number
-// }
 interface State {
   drawerVisible: boolean
   tableType: string
@@ -16,9 +9,12 @@ interface State {
   isView: boolean
   id: string
   delectVisible: boolean
-  keys: string
-  chargeVisible: boolean
+  keys: string //标签页
+  btnStatus: string //按钮标签
+  chargeVisible: boolean //收费弹框
   chargeDataList: Array<any>
+  historyVisible: boolean //历史信息弹框
+  historyList: Array<any>
 }
 
 const shopCharge = createModel<RootModel>()({
@@ -42,6 +38,7 @@ const shopCharge = createModel<RootModel>()({
         moneyAmount: 2990,
       },
     ],
+    historyList: [{ print: '打印', name: '1', money: '已付款' }],
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({
