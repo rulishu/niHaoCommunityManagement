@@ -59,7 +59,9 @@ export default function FormSelect(props: { keyType: string }) {
             option={option}
             loading={loading}
           />
-          <Button type="primary">查询</Button>
+          <Button type="primary" style={{ marginLeft: 10 }}>
+            查询
+          </Button>
         </div>
 
         <DetailsList />

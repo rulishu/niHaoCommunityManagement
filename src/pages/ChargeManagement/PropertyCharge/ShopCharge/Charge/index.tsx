@@ -8,7 +8,7 @@ import { Notify } from 'uiw'
 import useSWR from 'swr'
 import { columnsList, cardOne, cardTow, cardThree } from './item'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
-import './index.css'
+import '../index.css'
 
 interface State {
   drawerVisible?: boolean
