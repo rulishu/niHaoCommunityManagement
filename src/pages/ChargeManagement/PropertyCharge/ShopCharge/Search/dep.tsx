@@ -2,11 +2,12 @@ import React from 'react'
 import { ProTable, useTable } from '@uiw-admin/components'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import { columnsDep } from './item'
-import { useDispatch } from 'react-redux'
-import { Dispatch } from '@uiw-admin/models'
+import { useSelector, useDispatch } from 'react-redux'
+import { RootState, Dispatch } from '@uiw-admin/models'
 import { selectPage, Change } from '@/servers/ChargeManagement/ShopCharge'
 import FormSelect from './FormSelect'
-// import Charge from '../../Charge'
+import Detail from '../Detail'
+import { columnsDepAdd } from '../Detail/items'
 
 interface State {
   drawerVisible?: boolean
@@ -34,6 +35,9 @@ const arr = [
 ]
 export default function Demo() {
   const dispatch = useDispatch<Dispatch>()
+  const {
+    shopCharge: { queryInfo },
+  } = useSelector((shopCharge: RootState) => shopCharge)
 
   const updateData = (payload: State) => {
     dispatch({
@@ -90,7 +94,12 @@ export default function Demo() {
         columns={columnsDep(handleEditTable) as FormCol[]}
       />
 
-      {/* <Charge onSearch={table.onSearch} /> */}
+      <Detail
+        updateData={updateData}
+        onSearch={table.onSearch}
+        formDatas={columnsDepAdd(queryInfo)}
+        title={'新增押金'}
+      />
     </React.Fragment>
   )
 }

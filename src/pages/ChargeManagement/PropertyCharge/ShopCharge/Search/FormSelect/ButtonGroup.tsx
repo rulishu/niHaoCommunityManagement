@@ -7,6 +7,8 @@ interface State {
   chargeVisible?: boolean
   historyVisible?: boolean
   btnStatus?: string
+  drawerVisible?: boolean
+  queryInfo?: object
 }
 
 export default function ButtonGroup(props: { keyType: string }) {
@@ -24,12 +26,12 @@ export default function ButtonGroup(props: { keyType: string }) {
     })
     if (type === 'char') {
       updateData({ chargeVisible: true })
-    }
-    if (type === 'hty') {
+    } else if (type === 'hty') {
       updateData({ historyVisible: true })
+    } else {
+      updateData({ drawerVisible: true, queryInfo: {} })
     }
   }
-
   return (
     <React.Fragment>
       {props.keyType === 'rout' && (
@@ -45,13 +47,17 @@ export default function ButtonGroup(props: { keyType: string }) {
 
       {(props.keyType === 'tem' || props.keyType === 'dep') && (
         <div className="uiw-SearchSelect-btn">
-          <Button type="primary">新增</Button>
+          <Button type="primary" onClick={() => handleEditTable('add')}>
+            新增
+          </Button>
         </div>
       )}
 
       {props.keyType === 'AdDep' && (
         <div className="uiw-SearchSelect-btn">
-          <Button type="primary">预存</Button>
+          <Button type="primary" onClick={() => handleEditTable('Pre')}>
+            预存
+          </Button>
           <Button type="primary">退还</Button>
         </div>
       )}

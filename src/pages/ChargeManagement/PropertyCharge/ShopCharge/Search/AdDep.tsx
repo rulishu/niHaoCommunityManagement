@@ -2,10 +2,12 @@ import React from 'react'
 import { ProTable, useTable } from '@uiw-admin/components'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import { columnsAdDep } from './item'
-import { useDispatch } from 'react-redux'
-import { Dispatch } from '@uiw-admin/models'
+import { useSelector, useDispatch } from 'react-redux'
+import { RootState, Dispatch } from '@uiw-admin/models'
 import { selectPage, Change } from '@/servers/ChargeManagement/ShopCharge'
 import FormSelect from './FormSelect'
+import Detail from '../Detail'
+import { columnsPre } from '../Detail/items'
 
 interface State {
   drawerVisible?: boolean
@@ -26,6 +28,10 @@ const arr = [
 ]
 export default function Demo() {
   const dispatch = useDispatch<Dispatch>()
+
+  const {
+    shopCharge: { queryInfo },
+  } = useSelector((shopCharge: RootState) => shopCharge)
 
   const updateData = (payload: State) => {
     dispatch({
@@ -80,6 +86,12 @@ export default function Demo() {
         ]}
         table={table}
         columns={columnsAdDep(handleEditTable) as FormCol[]}
+      />
+      <Detail
+        updateData={updateData}
+        onSearch={table.onSearch}
+        formDatas={columnsPre(queryInfo)}
+        title={'预存'}
       />
     </React.Fragment>
   )

@@ -4,7 +4,6 @@ import { Notify } from 'uiw'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
 import { insert, update } from '@/servers/ChargeManagement/ShopCharge'
-import { items } from './items'
 import useSWR from 'swr'
 
 interface State {
@@ -17,19 +16,20 @@ interface State {
 const Detail = (props: {
   updateData: (payload: State) => void
   onSearch: () => void
+  title?: string
+  formDatas: Array<any>
 }) => {
   const baseRef = useForm()
   const dispatch = useDispatch<Dispatch>()
   const {
-    ShopCharge: { drawerVisible, tableType, queryInfo, isView },
-  } = useSelector((ShopCharge: RootState) => ShopCharge)
+    shopCharge: { drawerVisible, tableType, queryInfo },
+  } = useSelector((shopCharge: RootState) => shopCharge)
 
   const onClose = () => {
     dispatch({
       type: 'shopCharge/updateState',
       payload: {
         drawerVisible: false,
-        isView: false,
       },
     })
   }
@@ -57,17 +57,14 @@ const Detail = (props: {
   return (
     <ProDrawer
       width={800}
-      title={
-        tableType === 'add' ? '新增' : tableType === 'edit' ? '编辑' : '查看'
-      }
+      title={props.title}
       visible={drawerVisible}
       onClose={onClose}
       buttons={[
         {
           label: '保存',
-          type: 'danger',
+          type: 'primary',
           style: { textAlign: 'right' },
-          show: !isView,
           onClick: async () => {
             await baseRef?.submitvalidate?.()
             const errors = baseRef.getError()
@@ -79,15 +76,14 @@ const Detail = (props: {
     >
       <ProForm
         title="基础信息"
-        formType={isView ? 'pure' : 'card'}
+        formType={'pure'}
         form={baseRef}
-        readOnly={isView}
         buttonsContainer={{ justifyContent: 'flex-start' }}
         // 更新表单的值
         onChange={(initial, current) =>
           props.updateData({ queryInfo: { ...queryInfo, ...current } })
         }
-        formDatas={items(queryInfo)}
+        formDatas={props.formDatas}
       />
     </ProDrawer>
   )
