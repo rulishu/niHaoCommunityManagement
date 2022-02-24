@@ -18,12 +18,12 @@ export const items = (queryInfo: Change, tableType: string) => [
     rules: [{ required: true, message: '请选择商业区' }],
   },
   {
-    label: '编号',
+    label: '商铺编号',
     key: 'number',
     widget: 'input',
     initialValue: queryInfo?.chargeName,
     required: true,
-    rules: [{ required: true, message: '请输入编号' }],
+    rules: [{ required: true, message: '请输入商铺编号' }],
   },
   {
     label: '楼层',
