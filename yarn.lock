@@ -2302,88 +2302,88 @@
     "@typescript-eslint/types" "5.11.0"
     eslint-visitor-keys "^3.0.0"
 
-"@uiw-admin/authorized@5.2.21":
-  version "5.2.21"
-  resolved "https://registry.yarnpkg.com/@uiw-admin/authorized/-/authorized-5.2.21.tgz#5bd6152ca5274d08a2a99eaba93efbbadf8e2c6e"
-  integrity sha512-8VrHUow0dddsuSSE8kUsgMdvHSS/Vy8OBJFEyqbR6fAmSfDUjIxU1i2zdl7MT1/bILVwLvVJQt7XaASXyMF5EQ==
+"@uiw-admin/authorized@5.2.22":
+  version "5.2.22"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/authorized/-/authorized-5.2.22.tgz#6c67a1439b3b489ade90e42540171f95051a4356"
+  integrity sha512-NJ5rXfYOwgU4Vvl6n0I+yPj7AbQGoZ3GWDNiuF1YG5jKoT5ge5jfwWkiWx8CBkmES56BkIhvtvKQMWIR8h00yQ==
   dependencies:
     "@babel/runtime" "7.16.7"
-    "@uiw-admin/router-control" "5.2.21"
+    "@uiw-admin/router-control" "5.2.22"
 
-"@uiw-admin/basic-layouts@5.2.21":
-  version "5.2.21"
-  resolved "https://registry.yarnpkg.com/@uiw-admin/basic-layouts/-/basic-layouts-5.2.21.tgz#9c42d8ab778d6a38a01748763a40fab214ddf25d"
-  integrity sha512-B8Tyfcklapvd44+Nl9aY23hGI12b41Fxstw6ybPD5Pdcuf3thB3EVqsrji9cNDlWo6VjDSkoUbj7QhtwxQG98g==
+"@uiw-admin/basic-layouts@5.2.22":
+  version "5.2.22"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/basic-layouts/-/basic-layouts-5.2.22.tgz#894d64e414e6d40311b52a14380ba3e314ba307c"
+  integrity sha512-o77T4tQ5mcRXeMYzY7dTF8C2xerome3MQvimdbIh0Ai63DYVl0zXPHF3u9BaHGI9f1WRW7Uddl8qhwqTX9AmgQ==
   dependencies:
     "@babel/runtime" "7.16.7"
-    "@uiw-admin/document-title" "5.2.21"
-    "@uiw-admin/router-control" "5.2.21"
+    "@uiw-admin/document-title" "5.2.22"
+    "@uiw-admin/router-control" "5.2.22"
     classnames "2.3.1"
 
-"@uiw-admin/components@5.2.21":
-  version "5.2.21"
-  resolved "https://registry.yarnpkg.com/@uiw-admin/components/-/components-5.2.21.tgz#be579685aa914920ef5ce5328a1eb0707806d6b5"
-  integrity sha512-w4B96BWqmH+hnus/gd04kn7xEzIxM8hVDY3a4vqjMNWU60uWDeLZ02AYPsZ0/EsF+6ms34Nrh8pLmb7SOCryUg==
+"@uiw-admin/components@5.2.22":
+  version "5.2.22"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/components/-/components-5.2.22.tgz#3325003512bc86de4a3feb884fbe10b8f6099299"
+  integrity sha512-OnsXmBGnVfHxxp8GWRgKPVTtVGpzSf3Mu+oGCn2okxULURtIw7xxyNEDyxx8k013mzjJW5JCJ+xA9RKNqoaAWA==
   dependencies:
     "@babel/runtime" "7.16.7"
-    "@uiw-admin/authorized" "5.2.21"
-    "@uiw-admin/document-title" "5.2.21"
-    "@uiw-admin/router-control" "5.2.21"
-    "@uiw-admin/utils" "5.2.21"
+    "@uiw-admin/authorized" "5.2.22"
+    "@uiw-admin/document-title" "5.2.22"
+    "@uiw-admin/router-control" "5.2.22"
+    "@uiw-admin/utils" "5.2.22"
     classnames "2.3.1"
 
-"@uiw-admin/config@5.2.21":
-  version "5.2.21"
-  resolved "https://registry.yarnpkg.com/@uiw-admin/config/-/config-5.2.21.tgz#debb36ab59c8280837886e8e9862737e766b8097"
-  integrity sha512-N0RCpkKpNFdjeaBCm3hplbh8XcRVW5QTpNGBhidUE4l29458eaw5VWqxKIK6bwkAX+hcLh6TTLXsK5CX/aTmLg==
+"@uiw-admin/config@5.2.22":
+  version "5.2.22"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/config/-/config-5.2.22.tgz#800a7db09843defe8e608779b17a0dc76b4e9a2a"
+  integrity sha512-fiIEI5NtW4LfnvuGxMgZ/Gv1dx30c40Z+Lsk4jMsdQnZd+Q/SONnpPMbpEmRGgbgbuQnQNJXe6vaGCnqxV/QzQ==
   dependencies:
     "@kkt/less-modules" "7.0.6"
     "@kkt/raw-modules" "7.0.6"
     "@kkt/scope-plugin-options" "7.0.6"
-    "@uiw-admin/plugins" "5.2.21"
+    "@uiw-admin/plugins" "5.2.22"
 
-"@uiw-admin/document-title@5.2.21":
-  version "5.2.21"
-  resolved "https://registry.yarnpkg.com/@uiw-admin/document-title/-/document-title-5.2.21.tgz#beff7d4727bcc6c6d99819a09461942eb6d91fa9"
-  integrity sha512-29/BFqFM6w9GmYMukBfyTr8PIW6DxaOFhEbVnvhPxS1XUAinvF1XllubD3uwmTpFwwkJy6v5baxTj/MK6rgNHA==
+"@uiw-admin/document-title@5.2.22":
+  version "5.2.22"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/document-title/-/document-title-5.2.22.tgz#04c0a902069eeb68690a9014a1ec6aef7f1a9e0f"
+  integrity sha512-3pYTrAJez6fvndx53Vl4QFjfIPfQtQkcoZUMEiwU+dC8cxeGfB/mXbMYhCBXJPtxltY3FAUPDdGo+EJKutXJ9g==
 
-"@uiw-admin/exceptions@5.2.21":
-  version "5.2.21"
-  resolved "https://registry.yarnpkg.com/@uiw-admin/exceptions/-/exceptions-5.2.21.tgz#e43f2f42a5287fdda171ff60a525b1e03714ddf2"
-  integrity sha512-R6GpbSNk7u/DieC7NuFF31hF8iTuAog2+t1M9PNJalFbrtYz9R3vxyX4jSqm2tBmCHHVC5qsrGqzx+vOG1f5gA==
+"@uiw-admin/exceptions@5.2.22":
+  version "5.2.22"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/exceptions/-/exceptions-5.2.22.tgz#c60ed5375e59e9ba214dd492052e65d7b473cc38"
+  integrity sha512-CP+VL2zCArzkxs5F7hRuxkYHxuL33xKGBQ7I+vs2/Lb4OwqjcPreg0ohN8yKskpG+bJAYwaPa0p9nyZQXLCzHg==
   dependencies:
     "@babel/runtime" "7.16.7"
 
-"@uiw-admin/models@5.2.21":
-  version "5.2.21"
-  resolved "https://registry.yarnpkg.com/@uiw-admin/models/-/models-5.2.21.tgz#abd0a53e275509b8c603a89ce12dbc92fa629669"
-  integrity sha512-4xImi33kE7B2lEOYuASAVXeyGLeZ1YkvU16eO+PFWcCCViAltitEUT2opTS86Ld7LjEsY9mWQ34oqZZoS2ywvg==
+"@uiw-admin/models@5.2.22":
+  version "5.2.22"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/models/-/models-5.2.22.tgz#04361b1648e40704616af286b945a61fbdc4486a"
+  integrity sha512-/CO/MhMAb1Gxou3C9R895TPM+kMVy9VScLzIYwD5LYKAMma5f3T1WHxyPD6aHkT+Fi34SRhGZq9M+7A/3sC0Yg==
   dependencies:
     "@rematch/core" "2.2.0"
     "@rematch/loading" "2.1.2"
 
-"@uiw-admin/plugins@5.2.21":
-  version "5.2.21"
-  resolved "https://registry.yarnpkg.com/@uiw-admin/plugins/-/plugins-5.2.21.tgz#cc32880416519f10cc19b17eae2d46b0ad9fba05"
-  integrity sha512-0XYSYV2bI+1TUFfy4Mei+dLH71X0uIwx3u83iSzQ7LPFcJhcE6wuT38zdzLp2Yv+qPysQB0fHhSs++sOaiTAig==
+"@uiw-admin/plugins@5.2.22":
+  version "5.2.22"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/plugins/-/plugins-5.2.22.tgz#7d52afcce41a7c448859ddfe5161c4d256f5590d"
+  integrity sha512-D6Yxg/yvDhiNvgGdOh++F1aejxv0BjXnl7i+TOuDHeLig+gjmOwElBCxqRQOtoUfchLUOmG8MmPCEGzlXrVGUg==
 
-"@uiw-admin/router-control@5.2.21":
-  version "5.2.21"
-  resolved "https://registry.yarnpkg.com/@uiw-admin/router-control/-/router-control-5.2.21.tgz#56ab9c7ac4a00c276228d4a64315e792f578e6af"
-  integrity sha512-SN6e2T+g0llpKTequHO6DB9HcwaIQwwMykDV26GXw+OQUyQhQCNUbUHB9iww+5YjecZEiqASFHLNymgyeo4qOw==
+"@uiw-admin/router-control@5.2.22":
+  version "5.2.22"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/router-control/-/router-control-5.2.22.tgz#4e0c04c34cb73d1870db83f71ea2d1d049fb3d1f"
+  integrity sha512-gWtzW3PeyrG6K3/fVaXl0za0MCWKJeZiXWrCk311q1vzwJpUmSFbhzj9FHtZ/Jv2QpAU8vVVNNIgkwVyS36XbQ==
 
-"@uiw-admin/user-login@5.2.21":
-  version "5.2.21"
-  resolved "https://registry.yarnpkg.com/@uiw-admin/user-login/-/user-login-5.2.21.tgz#f90c908e5297c6362bc1593a3f3b7d7ed582ad44"
-  integrity sha512-Zw0i0Fm9lZiNTJ9kGou8S01nu61aDXrx+R9hiTwkeuC0XvWXcM6BZ/YMOgwFdUsg+CPOYxMm+Y21B2xrLTDeXg==
+"@uiw-admin/user-login@5.2.22":
+  version "5.2.22"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/user-login/-/user-login-5.2.22.tgz#f23a364e69fed24174bf24c19b5d133963832a97"
+  integrity sha512-nM/zSL2/PkrqlH3EtK/LWb1ZTnn29ajxrvcu95JFs/JLPRwjvuAWjFkD3oipxm6fFJ8j8Po3DCDoRAPuWPxBPw==
   dependencies:
-    "@uiw-admin/document-title" "5.2.21"
+    "@uiw-admin/document-title" "5.2.22"
     classnames "2.3.1"
 
-"@uiw-admin/utils@5.2.21":
-  version "5.2.21"
-  resolved "https://registry.yarnpkg.com/@uiw-admin/utils/-/utils-5.2.21.tgz#aa7908cbd38614e2845c3a9d18e39b6f1eea4995"
-  integrity sha512-tJjQrpTQQPqAClyflYsbBbmbcmVaQPYwvvntOxCFsaiLQ887+oPH/IbuefpR5j4XSY3sa+F4/VkzJYdP1EF6+A==
+"@uiw-admin/utils@5.2.22":
+  version "5.2.22"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/utils/-/utils-5.2.22.tgz#7d630368fd2fbe630f39670a503884fa70262c09"
+  integrity sha512-p7y23BEwBZUtQrd9/enFJ4P+kR+ZiCyWSMioXc/pLMa9gaKBjesJte/4yKSOVbzNemY/ItIQuE1401NiXExfkA==
   dependencies:
     axios "0.24.0"
     qs "6.10.3"
