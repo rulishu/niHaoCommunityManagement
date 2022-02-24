@@ -7,53 +7,106 @@ export const columnsSearch = (
 ) => {
   return [
     {
-      title: '商铺编号',
+      title: '报修单号',
       align: 'center',
       key: 'type',
       ellipsis: true,
       props: {
         widget: 'input',
         widgetProps: {
-          placeholder: '请输入商铺编号',
+          placeholder: '请输入报修单号',
         },
       },
     },
     {
-      title: '楼层',
+      title: '报修标题',
       align: 'center',
       key: 'type',
       ellipsis: true,
     },
     {
-      title: '占地面积',
+      title: '分类',
+      align: 'center',
+      key: 'classification',
+      ellipsis: true,
+      props: {
+        label: '分类',
+        widget: 'select',
+        option: [
+          { label: '水暖', value: '水暖' },
+          { label: '电路', value: '电路' },
+          { label: '电器', value: '电器' },
+          { label: '门窗', value: '门窗' },
+          { label: '公共设施', value: '公共设施' },
+        ],
+      },
+    },
+    {
+      title: '报修电话',
+      align: 'center',
+      key: 'phone',
+      ellipsis: true,
+      props: {
+        widget: 'input',
+        widgetProps: {
+          placeholder: '请输入报修电话',
+        },
+      },
+    },
+    {
+      title: '报修者姓名',
       align: 'center',
       key: 'type',
       ellipsis: true,
     },
     {
-      title: '使用面积',
+      title: '报修时间',
       align: 'center',
       key: 'type',
       ellipsis: true,
     },
     {
-      title: '租金',
+      title: '商户编号',
       align: 'center',
-      key: 'type',
+      key: 'number',
       ellipsis: true,
+      props: {
+        widget: 'input',
+        widgetProps: {
+          placeholder: '请输入商户编号',
+        },
+      },
     },
     {
-      title: '使用状态',
+      title: '流程状态',
+      align: 'center',
+      key: 'status',
+      ellipsis: true,
+      props: {
+        label: '流程状态',
+        widget: 'select',
+        option: [
+          { label: '待受理', value: '待受理' },
+          { label: '待现场确认', value: '待现场确认' },
+          { label: '维修中', value: '维修中' },
+          { label: '待评价', value: '待评价' },
+          { label: '完成', value: '完成' },
+          { label: '已撤销', value: '已撤销' },
+        ],
+      },
+    },
+    {
+      title: '数据来源',
       align: 'center',
       key: 'types',
       ellipsis: true,
       props: {
-        label: '使用状态',
+        label: '数据来源',
         widget: 'select',
         option: [
-          { label: '空置', value: '空置' },
-          { label: '已出租', value: '已出租' },
-          { label: '已出售', value: '已出售' },
+          { label: '公司派遣', value: '公司派遣' },
+          { label: '业主报修', value: '业主报修' },
+          { label: '小程序报修', value: '小程序报修' },
         ],
       },
     },
