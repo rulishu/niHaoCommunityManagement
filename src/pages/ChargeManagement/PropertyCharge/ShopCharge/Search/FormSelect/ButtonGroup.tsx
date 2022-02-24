@@ -3,26 +3,43 @@ import { Button } from 'uiw'
 import { useDispatch } from 'react-redux'
 import { Dispatch } from '@uiw-admin/models'
 
+interface State {
+  chargeVisible?: boolean
+  historyVisible?: boolean
+  btnStatus?: string
+}
+
 export default function ButtonGroup(props: { keyType: string }) {
   const dispatch = useDispatch<Dispatch>()
-
-  const onCharge = () => {
+  const updateData = (payload: State) => {
     dispatch({
       type: 'shopCharge/updateState',
-      payload: {
-        chargeVisible: true,
-      },
+      payload,
     })
+  }
+  // 操作
+  const handleEditTable = (type: string) => {
+    updateData({
+      btnStatus: type,
+    })
+    if (type === 'char') {
+      updateData({ chargeVisible: true })
+    }
+    if (type === 'hty') {
+      updateData({ historyVisible: true })
+    }
   }
 
   return (
     <React.Fragment>
       {props.keyType === 'rout' && (
         <div className="uiw-SearchSelect-btn">
-          <Button type="primary" onClick={onCharge}>
+          <Button type="primary" onClick={() => handleEditTable('char')}>
             收费
           </Button>
-          <Button type="primary">历史信息</Button>
+          <Button type="primary" onClick={() => handleEditTable('hty')}>
+            历史信息
+          </Button>
         </div>
       )}
 

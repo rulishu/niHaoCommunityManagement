@@ -5,6 +5,7 @@ import { columnsRout } from './item'
 import { selectPage } from '@/servers/ChargeManagement/ShopCharge'
 import FormSelect from './FormSelect'
 import Charge from '../Charge'
+import History from '../History'
 
 const arr = [
   { shouName: '1', startingTime: '1', endTime: '1', feeTime: '1' },
@@ -56,6 +57,7 @@ export default function Demo() {
       />
 
       <Charge onSearch={table.onSearch} />
+      <History />
     </React.Fragment>
   )
 }
