@@ -9,25 +9,26 @@ interface State {
   isView: boolean
   id: string
   delectVisible: boolean
-  keys: string //标签页
-  btnStatus: string //按钮标签
-  chargeVisible: boolean //收费弹框
+  keys: string
+  btnStatus: string
+  chargeVisible: boolean
   chargeDataList: Array<any>
-  historyVisible: boolean //历史信息弹框
+  historyVisible: boolean
   historyList: Array<any>
 }
 
 const shopCharge = createModel<RootModel>()({
   name: 'shopCharge',
   state: {
-    drawerVisible: false,
     tableType: '1',
-    queryInfo: {},
+    drawerVisible: false, //新增、预存弹框
+    queryInfo: {}, //新增、预存
     id: '',
     isView: false,
     delectVisible: false,
-    keys: 'rout',
-    chargeVisible: false,
+    keys: 'rout', //标签页
+    btnStatus: '', //按钮标签
+    chargeVisible: false, //收费弹框
     chargeDataList: [
       {
         shouName: '1',
@@ -38,6 +39,7 @@ const shopCharge = createModel<RootModel>()({
         moneyAmount: 2990,
       },
     ],
+    historyVisible: false, //历史信息弹框
     historyList: [{ print: '打印', name: '1', money: '已付款' }],
   } as State,
   reducers: {

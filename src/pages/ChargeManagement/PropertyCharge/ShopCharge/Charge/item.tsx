@@ -62,6 +62,7 @@ export const cardOne = (queryInfo: any) => [
     disabled: true,
     inline: true,
     span: '24',
+    placeholder: '请输入滞纳金',
   },
   {
     label: '可用预存款：',
@@ -71,6 +72,7 @@ export const cardOne = (queryInfo: any) => [
     disabled: true,
     inline: true,
     span: '24',
+    placeholder: '请输入可用预存款',
   },
   {
     label: '找零金额：',
@@ -80,6 +82,7 @@ export const cardOne = (queryInfo: any) => [
     disabled: true,
     inline: true,
     span: '24',
+    placeholder: '请输入找零金额',
   },
   {
     label: '收款金额：',
@@ -90,6 +93,7 @@ export const cardOne = (queryInfo: any) => [
     required: true,
     inline: true,
     span: '24',
+    placeholder: '请输入收款金额',
   },
 ]
 export const cardTow = (queryInfo: any) => [
@@ -101,6 +105,7 @@ export const cardTow = (queryInfo: any) => [
     disabled: true,
     inline: true,
     span: '24',
+    placeholder: '请输入优惠金额',
   },
   {
     label: '预存款付款',
@@ -110,6 +115,7 @@ export const cardTow = (queryInfo: any) => [
     disabled: true,
     inline: true,
     span: '24',
+    placeholder: '请输入预存款付款',
   },
   {
     label: '',
@@ -128,9 +134,10 @@ export const cardTow = (queryInfo: any) => [
     ],
     initialValue: queryInfo.select,
     required: true,
-    rules: [{ required: true, message: '请选择' }],
+    rules: [{ required: true, message: '请选择付款方式' }],
     inline: true,
     span: '24',
+    placeholder: '请选择付款方式',
   },
 ]
 export const cardThree = (queryInfo: any) => [
@@ -142,6 +149,7 @@ export const cardThree = (queryInfo: any) => [
     disabled: true,
     inline: true,
     span: '24',
+    placeholder: '请输入实际应收',
   },
   {
     label: '找零结存',
@@ -151,6 +159,7 @@ export const cardThree = (queryInfo: any) => [
     disabled: true,
     inline: true,
     span: '24',
+    placeholder: '请输入找零结存',
   },
   {
     label: '',
@@ -171,5 +180,6 @@ export const cardThree = (queryInfo: any) => [
     rules: [{ required: true, message: '请选择' }],
     inline: true,
     span: '24',
+    placeholder: '请选择付款方式',
   },
 ]

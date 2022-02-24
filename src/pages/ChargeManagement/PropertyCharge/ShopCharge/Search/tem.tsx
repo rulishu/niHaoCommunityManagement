@@ -2,10 +2,12 @@ import React from 'react'
 import { ProTable, useTable } from '@uiw-admin/components'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import { columnsTem } from './item'
-import { useDispatch } from 'react-redux'
-import { Dispatch } from '@uiw-admin/models'
+import { useSelector, useDispatch } from 'react-redux'
+import { RootState, Dispatch } from '@uiw-admin/models'
 import { selectPage, Change } from '@/servers/ChargeManagement/ShopCharge'
 import FormSelect from './FormSelect'
+import Detail from '../Detail'
+import { columnsAdd } from '../Detail/items'
 
 interface State {
   drawerVisible?: boolean
@@ -34,6 +36,9 @@ const arr = [
 ]
 export default function Demo() {
   const dispatch = useDispatch<Dispatch>()
+  const {
+    shopCharge: { queryInfo },
+  } = useSelector((shopCharge: RootState) => shopCharge)
 
   const updateData = (payload: State) => {
     dispatch({
@@ -88,6 +93,12 @@ export default function Demo() {
         ]}
         table={table}
         columns={columnsTem(handleEditTable) as FormCol[]}
+      />
+      <Detail
+        updateData={updateData}
+        onSearch={table.onSearch}
+        formDatas={columnsAdd(queryInfo)}
+        title={'新建临时收费'}
       />
     </React.Fragment>
   )
