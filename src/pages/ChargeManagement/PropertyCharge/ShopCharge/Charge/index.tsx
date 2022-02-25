@@ -68,7 +68,7 @@ const Charge = (props: { onSearch: () => void }) => {
   }
   return (
     <ProDrawer
-      width={1000}
+      width={btnStatus === 'Bak' ? 800 : 1000}
       title="常规收费"
       visible={chargeVisible}
       onClose={onClose}
@@ -114,7 +114,6 @@ const Charge = (props: { onSearch: () => void }) => {
             : (columnsList(onChange) as FormCol[])
         }
         data={chargeDataList}
-        // style={{ margin: 2 }}
       />
       {btnStatus === 'char' && (
         <FormCar queryInfo={queryInfo} updateData={updateData} />
