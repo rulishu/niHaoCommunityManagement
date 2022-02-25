@@ -8,6 +8,7 @@ import { selectPage, Change } from '@/servers/ChargeManagement/ShopCharge'
 import FormSelect from './FormSelect'
 import Detail from '../Detail'
 import { columnsAdd } from '../Detail/items'
+import { insert, update } from '@/servers/ChargeManagement/ShopCharge'
 
 interface State {
   drawerVisible?: boolean
@@ -99,6 +100,8 @@ export default function Demo() {
         onSearch={table.onSearch}
         formDatas={columnsAdd(queryInfo)}
         title={'新建临时收费'}
+        insert={insert}
+        update={update}
       />
     </React.Fragment>
   )
