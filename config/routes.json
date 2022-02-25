@@ -67,6 +67,12 @@
             "name": "报修工单",
             "icon": "",
             "component": "../pages/Coordination/RepairOrder"
+          },
+          {
+            "path": "/Coordination/Complaint",
+            "name": "投诉工单",
+            "icon": "",
+            "component": "../pages/Coordination/Complaint"
           }
         ]
       },

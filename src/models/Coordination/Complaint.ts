@@ -1,4 +1,4 @@
-import { selectById, Change } from '../../servers/Coordination/RepairOrder'
+import { selectById, Change } from '../../servers/BasicManage/ShopManage'
 import { Dispatch, RootModel } from '@uiw-admin/models'
 import { createModel, RematchDispatch } from '@rematch/core'
 
@@ -13,8 +13,8 @@ interface State {
   tabKeys: string
 }
 
-const RepairOrder = createModel<RootModel>()({
-  name: 'RepairOrder',
+const Complaint = createModel<RootModel>()({
+  name: 'Complaint',
   state: {
     drawerVisible: false,
     tableType: '',
@@ -55,4 +55,4 @@ const RepairOrder = createModel<RootModel>()({
   }),
 })
 
-export default RepairOrder
+export default Complaint
