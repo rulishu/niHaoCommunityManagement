@@ -1,10 +1,11 @@
 import React from 'react'
+import { Tabs, Steps, Row, Col, Table } from 'uiw'
 import { ProDrawer, ProForm, useForm } from '@uiw-admin/components'
 import { Notify, Button } from 'uiw'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
 import { insert, update } from '@/servers/Coordination/RepairOrder'
-import { items } from './items'
+import { items, viewItems, columns } from './items'
 import useSWR from 'swr'
 
 interface State {
@@ -12,6 +13,7 @@ interface State {
   tableType?: string
   queryInfo?: object
   isView?: boolean
+  tabKeys?: string
 }
 
 const Detail = (props: {
@@ -72,13 +74,16 @@ const Detail = (props: {
       </div>
     )
   }
-
+  const updateData = (payload: State) => {
+    dispatch({
+      type: 'RepairOrder/updateState',
+      payload,
+    })
+  }
   return (
     <ProDrawer
       width={800}
-      title={
-        tableType === 'add' ? '新增' : tableType === 'edit' ? '编辑' : '查看'
-      }
+      title={''}
       visible={drawerVisible}
       onClose={onClose}
       buttons={[
@@ -101,21 +106,56 @@ const Detail = (props: {
         },
       ]}
     >
-      <ProForm
-        title="基础信息"
-        formType={'card'}
-        form={baseRef}
-        readOnly={isView}
-        customWidgetsList={{
-          btns: Btns,
+      <Tabs
+        type="card"
+        activeKey="workOrder"
+        onTabClick={(tab) => {
+          updateData({ tabKeys: tab })
+          console.log('tab', tab)
         }}
-        buttonsContainer={{ justifyContent: 'flex-start' }}
-        // 更新表单的值
-        onChange={(initial, current) =>
-          props.updateData({ queryInfo: { ...queryInfo, ...current } })
-        }
-        formDatas={items(queryInfo, butType)}
-      />
+      >
+        <Tabs.Pane label={tableType === 'view' ? "工单信息" : '新增'} key="workOrder">
+          <ProForm
+            title="基础信息"
+            formType={'card'}
+            form={baseRef}
+            readOnly={isView}
+            customWidgetsList={{
+              btns: Btns,
+            }}
+            buttonsContainer={{ justifyContent: 'flex-start' }}
+            // 更新表单的值
+            onChange={(initial, current) =>
+              props.updateData({ queryInfo: { ...queryInfo, ...current } })
+            }
+            formDatas={tableType === 'view' ? viewItems(queryInfo,) : items(queryInfo, butType)}
+          />
+        </Tabs.Pane>
+        {tableType === 'view' && (
+          <Tabs.Pane label="流程信息" key="process">
+            <Row gutter={20}>
+              <Col>
+                <Steps direction="vertical" progressDot status="error" current={2} style={{ padding: '20px 0' }}>
+                  <Steps.Step title="步骤一" description="这里是步骤一的说明，可以很长很长哦。" />
+                  <Steps.Step title="步骤二" description="这里是步骤一的说明，可以很长很长哦。" />
+                  <Steps.Step title="步骤三" description="这里是步骤一的说明，可以很长很长哦。" />
+                  <Steps.Step title="步骤四" description="这里是步骤一的说明，可以很长很长哦。" />
+                </Steps>
+              </Col>
+            </Row>
+          </Tabs.Pane>
+
+        )}
+        {tableType === 'view' && (
+          <Tabs.Pane label="流转记录" key="move">
+            <Table
+              columns={columns}
+              data={[{age:'1'}]} 
+            />
+          </Tabs.Pane>
+        )}
+      </Tabs>
+
     </ProDrawer>
   )
 }
