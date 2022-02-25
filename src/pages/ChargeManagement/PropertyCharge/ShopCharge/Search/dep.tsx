@@ -41,7 +41,7 @@ const arr = [
 export default function Demo() {
   const dispatch = useDispatch<Dispatch>()
   const {
-    shopCharge: { queryInfo },
+    shopCharge: { queryInfo, drawerVisible },
   } = useSelector((shopCharge: RootState) => shopCharge)
 
   const updateData = (payload: any) => {
@@ -127,6 +127,9 @@ export default function Demo() {
         readOnly={false}
         onChange={onChange}
         onClose={onClose}
+        queryInfo={queryInfo}
+        drawerVisible={drawerVisible}
+        tableType={'add'}
       />
     </React.Fragment>
   )

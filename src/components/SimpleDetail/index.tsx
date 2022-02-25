@@ -1,8 +1,6 @@
 import React from 'react'
 import { ProDrawer, ProForm, useForm } from '@uiw-admin/components'
 import { Notify } from 'uiw'
-import { useSelector } from 'react-redux'
-import { RootState } from '@uiw-admin/models'
 import useSWR from 'swr'
 
 const Detail = (props: {
@@ -22,12 +20,16 @@ const Detail = (props: {
   readOnly: boolean
   //关闭抽屉
   onClose: () => void
+  //接口判断
+  tableType: 'add' | 'edit'
+  //表单数据
+  queryInfo: object
+  //抽屉开关
+  drawerVisible: boolean
+  //抽屉宽度
+  width?: number
 }) => {
   const baseRef = useForm()
-  const {
-    shopCharge: { drawerVisible, btnStatus, queryInfo },
-  } = useSelector((shopCharge: RootState) => shopCharge)
-
   const {
     onChange,
     onSearch,
@@ -37,12 +39,16 @@ const Detail = (props: {
     insert = '',
     update = '',
     readOnly = false,
+    tableType = 'add',
+    queryInfo = {},
+    drawerVisible = false,
+    width = 800,
   } = props
 
   //btnStatus判断接口地址
   const { mutate } = useSWR(
     [
-      (btnStatus === 'add' && insert) || (btnStatus === 'edit' && update),
+      (tableType === 'add' && insert) || (tableType === 'edit' && update),
       { method: 'POST', body: queryInfo },
     ],
     {
@@ -62,7 +68,7 @@ const Detail = (props: {
 
   return (
     <ProDrawer
-      width={800}
+      width={width}
       title={title}
       visible={drawerVisible}
       onClose={onClose}
