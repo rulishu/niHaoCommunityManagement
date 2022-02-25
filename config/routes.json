@@ -21,12 +21,12 @@
       {
         "path": "/UserManagement",
         "name": "用户管理",
-        "icon": "appstore-o",
+        "icon": "user",
         "routes": [
           {
             "path": "/UserManagement/User",
             "name": "用户管理",
-            "icon": "shopping-cart",
+            "icon": "user",
             "component": "../pages/UserManagement/User"
           }
         ]
@@ -46,8 +46,58 @@
                 "name": "商铺综合收费",
                 "icon": "shopping-cart",
                 "component": "../pages/ChargeManagement/PropertyCharge/ShopCharge"
+              },
+              {
+                "path": "/chargeManagement/propertyCharge/temporaryCharges",
+                "name": "临时收费",
+                "icon": "shopping-cart",
+                "component": "../pages/ChargeManagement/PropertyCharge/TemporaryCharges"
               }
             ]
+          }
+        ]
+      },
+      {
+        "path": "/Coordination",
+        "name": "协同办公",
+        "icon": "appstore-o",
+        "routes": [
+          {
+            "path": "/Coordination/RepairOrder",
+            "name": "报修工单",
+            "icon": "",
+            "component": "../pages/Coordination/RepairOrder"
+          }
+        ]
+      },
+      {
+        "path": "/BasicManage",
+        "name": "基础数据管理",
+        "icon": "link",
+        "routes": [
+          {
+            "path": "/BasicManage/ChargeManage",
+            "name": "收费项管理",
+            "icon": "copy",
+            "component": "../pages/BasicManage/ChargeManage"
+          },
+          {
+            "path": "/BasicManage/BusinessManage",
+            "name": "商业区管理",
+            "icon": "picasa",
+            "component": "../pages/BasicManage/BusinessManage"
+          },
+          {
+            "path": "/BasicManage/ShopManage",
+            "name": "商铺管理",
+            "icon": "foursquare",
+            "component": "../pages/BasicManage/ShopManage"
+          },
+          {
+            "path": "/BasicManage/ShopSale",
+            "name": "商铺租售",
+            "icon": "poweroff",
+            "component": "../pages/BasicManage/ShopSale"
           }
         ]
       },

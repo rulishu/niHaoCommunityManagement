@@ -1,0 +1,30 @@
+.ProForm-body {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.ProForm-card {
+  width: 400px;
+  margin-right: 10px;
+}
+.ProForm-card-end {
+  width: 400px;
+}
+
+.input-Print {
+  color: rgb(0, 114, 201);
+  text-align: center;
+}
+
+.form-onBtn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.form-onBtn-Input {
+  width: 90%;
+}

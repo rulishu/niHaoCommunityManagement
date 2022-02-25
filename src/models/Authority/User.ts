@@ -1,4 +1,4 @@
-import { selectById, Change } from '../../servers/Authority/Application'
+import { selectById, Change } from '../../servers/Authority/User'
 import { Dispatch, RootModel } from '@uiw-admin/models'
 import { createModel, RematchDispatch } from '@rematch/core'
 

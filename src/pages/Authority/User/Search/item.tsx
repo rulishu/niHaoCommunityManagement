@@ -10,7 +10,6 @@ export const columnsSearch = (
       title: '用户',
       key: 'createName',
       ellipsis: true,
-      width: 120,
       align: 'center',
       props: {
         widget: 'input',
@@ -28,7 +27,6 @@ export const columnsSearch = (
     },
     {
       title: '权限名称',
-      width: 130,
       key: 'uapRightName',
       align: 'center',
       props: {
@@ -64,6 +62,7 @@ export const columnsSearch = (
     {
       title: '更新时间',
       key: 'updateTime',
+      width: 200,
       props: {
         widget: 'dateInput',
         // 组件属性
@@ -81,6 +80,7 @@ export const columnsSearch = (
     {
       title: '创建时间',
       key: 'createTime',
+      width: 200,
       props: {
         widget: 'dateInput',
         // 组件属性
@@ -97,7 +97,6 @@ export const columnsSearch = (
     },
     {
       title: '更新人',
-      width: 130,
       key: 'updateName',
       align: 'center',
     },
@@ -105,6 +104,7 @@ export const columnsSearch = (
       title: '操作',
       key: 'edit',
       align: 'center',
+      width: 200,
       render: (text: any, key: any, rowData: Change) => (
         <div>
           <Button

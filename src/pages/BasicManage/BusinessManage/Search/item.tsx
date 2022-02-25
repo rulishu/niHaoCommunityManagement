@@ -1,0 +1,64 @@
+import { Button } from 'uiw'
+import React from 'react'
+import { Change } from '@/servers/BasicManage/ChargeManage'
+
+export const columnsSearch = (
+  handleEditTable: (tableType: string, obj: Change) => void
+) => {
+  return [
+    {
+      title: '商业区编号',
+      align: 'center',
+      key: 'types',
+      ellipsis: true,
+      props: {
+        widget: 'input',
+        widgetProps: {
+          placeholder: '请输入商业区编号',
+        },
+      },
+    },
+    {
+      title: '商业区名',
+      key: 'chargeName',
+      align: 'center',
+      props: {
+        widget: 'input',
+        widgetProps: {
+          placeholder: '请输入商业区名',
+        },
+      },
+    },
+    {
+      title: '操作',
+      key: 'edit',
+      align: 'center',
+      width: 200,
+      render: (text: any, key: any, rowData: Change) => (
+        <div>
+          <Button
+            size="small"
+            icon="edit"
+            onClick={handleEditTable.bind(this, 'edit', rowData)}
+          >
+            编辑
+          </Button>
+          <Button
+            size="small"
+            icon="eye"
+            onClick={handleEditTable.bind(this, 'view', rowData)}
+          >
+            查看
+          </Button>
+          <Button
+            size="small"
+            icon="delete"
+            onClick={() => handleEditTable('del', rowData)}
+          >
+            删除
+          </Button>
+        </div>
+      ),
+    },
+  ]
+}
