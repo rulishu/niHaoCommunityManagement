@@ -12,7 +12,7 @@ import {
 import FormSelect from './FormSelect'
 import Detail from '@/components/SimpleDetail/index'
 import Charge from '../Charge'
-import { columnsPre } from '../Search/Items/itemsDetail'
+import { columnsPre } from '../Search/Items//itemAdDep'
 import { columnsAdDep } from '../Search/Items/itemTable'
 
 // interface State {

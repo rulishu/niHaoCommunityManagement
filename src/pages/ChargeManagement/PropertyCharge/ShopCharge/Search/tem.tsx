@@ -10,8 +10,12 @@ import {
 } from '@/servers/ChargeManagement/ShopCharge'
 import FormSelect from './FormSelect'
 import Detail from '@/components/SimpleDetail/index'
-import { columnsAdd } from '../Search/Items/itemsDetail'
-import { columnsTem } from '../Search/Items/itemTable'
+import {
+  columnsAdd,
+  columnsRefund,
+  columnsRefundView,
+} from '../Search/Items/itemsTem' //弹框表单
+import { columnsTem } from '../Search/Items/itemTable' //Table
 
 // interface State {
 //   drawerVisible?: boolean
@@ -41,7 +45,7 @@ const arr = [
 export default function Demo() {
   const dispatch = useDispatch<Dispatch>()
   const {
-    shopCharge: { queryInfo, drawerVisible },
+    shopCharge: { queryInfo, drawerVisible, btnStatus },
   } = useSelector((shopCharge: RootState) => shopCharge)
 
   const updateData = (payload: any) => {
@@ -72,17 +76,13 @@ export default function Demo() {
   // 操作
   function handleEditTable(type: string, obj: any) {
     updateData({
-      isView: type === 'view',
-      tableType: type,
+      btnStatus: type,
     })
-    if (type === 'add') {
-      updateData({ drawerVisible: true, queryInfo: {} })
-    }
-    if (type === 'edit' || type === 'view') {
+    if (type === 'refund') {
       updateData({ drawerVisible: true, queryInfo: obj })
     }
-    if (type === 'del') {
-      updateData({ delectVisible: true, id: obj?.id })
+    if (type === 'refundView') {
+      updateData({ drawerVisible: true, queryInfo: obj })
     }
   }
 
@@ -118,13 +118,20 @@ export default function Demo() {
         table={table}
         columns={columnsTem(handleEditTable) as FormCol[]}
       />
+      {/* 弹框 */}
       <Detail
         onSearch={table.onSearch}
-        formDatas={columnsAdd(queryInfo)}
-        title={'新建临时收费'}
+        formDatas={
+          btnStatus === 'refund'
+            ? columnsRefund(queryInfo)
+            : btnStatus === 'refundView'
+            ? columnsRefundView(queryInfo)
+            : columnsAdd(queryInfo)
+        }
+        title={btnStatus === '临时收费退款' ? '' : '新建临时收费'}
         insert={insert}
         update={update}
-        readOnly={false}
+        readOnly={btnStatus === 'refundView' ? true : false}
         onChange={onChange}
         onClose={onClose}
         queryInfo={queryInfo}
