@@ -1,25 +1,28 @@
 import React from 'react'
 import { ProTable, useTable } from '@uiw-admin/components'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
-import { columnsAdDep } from './item'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
-import { selectPage, Change } from '@/servers/ChargeManagement/ShopCharge'
+import {
+  selectPage,
+  Change,
+  insert,
+  update,
+} from '@/servers/ChargeManagement/ShopCharge'
 import FormSelect from './FormSelect'
-import Detail from '../Detail'
-// import GiveBack from '../GiveBack'
+import Detail from '@/components/SimpleDetail/index'
 import Charge from '../Charge'
-import { columnsPre } from '../Detail/items'
-import { insert, update } from '@/servers/ChargeManagement/ShopCharge'
+import { columnsPre } from '../Search/Items/itemsDetail'
+import { columnsAdDep } from '../Search/Items/itemTable'
 
-interface State {
-  drawerVisible?: boolean
-  tableType?: string
-  queryInfo?: object
-  isView?: boolean
-  delectVisible?: boolean
-  id?: string
-}
+// interface State {
+//   drawerVisible?: boolean
+//   tableType?: string
+//   queryInfo?: object
+//   isView?: boolean
+//   delectVisible?: boolean
+//   id?: string
+// }
 const arr = [
   {
     shouName: '1',
@@ -33,10 +36,10 @@ export default function Demo() {
   const dispatch = useDispatch<Dispatch>()
 
   const {
-    shopCharge: { queryInfo },
+    shopCharge: { queryInfo, drawerVisible },
   } = useSelector((shopCharge: RootState) => shopCharge)
 
-  const updateData = (payload: State) => {
+  const updateData = (payload: any) => {
     dispatch({
       type: 'shopCharge/updateState',
       payload,
@@ -77,6 +80,24 @@ export default function Demo() {
       updateData({ delectVisible: true, id: obj?.id })
     }
   }
+  // 更新表单
+  const onChange = (
+    initial: Record<string, any>,
+    current: Record<string, any>
+  ) => {
+    updateData({ queryInfo: { ...queryInfo, ...current } })
+  }
+  //关闭抽屉
+  const onClose = () => {
+    dispatch({
+      type: 'shopCharge/updateState',
+      payload: {
+        drawerVisible: false,
+        btnStatus: '',
+        queryInfo: {},
+      },
+    })
+  }
   return (
     <React.Fragment>
       <ProTable
@@ -84,21 +105,25 @@ export default function Demo() {
         // 操作栏按钮
         operateButtons={[
           {
-            render: <FormSelect keyType="AdDep" />,
+            render: <FormSelect />,
           },
         ]}
         table={table}
         columns={columnsAdDep(handleEditTable) as FormCol[]}
       />
       <Detail
-        updateData={updateData}
         onSearch={table.onSearch}
         formDatas={columnsPre(queryInfo)}
         title={'预存'}
         insert={insert}
         update={update}
+        readOnly={false}
+        onChange={onChange}
+        onClose={onClose}
+        queryInfo={queryInfo}
+        drawerVisible={drawerVisible}
+        tableType={'add'}
       />
-      {/* <GiveBack updateData={updateData} onSearch={table.onSearch} /> */}
 
       <Charge onSearch={table.onSearch} />
     </React.Fragment>

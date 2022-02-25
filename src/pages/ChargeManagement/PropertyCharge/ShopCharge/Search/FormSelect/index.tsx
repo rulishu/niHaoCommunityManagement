@@ -21,7 +21,7 @@ const selectOption = [
   { label: 'aaa', value: 4 },
 ]
 
-export default function FormSelect(props: { keyType: string }) {
+export default function FormSelect() {
   const dispatch = useDispatch<Dispatch>()
 
   const updateData = (payload: State) => {
@@ -63,11 +63,11 @@ export default function FormSelect(props: { keyType: string }) {
             查询
           </Button>
         </div>
-
+        {/* 商品信息详情表 */}
         <DetailsList />
       </div>
-
-      <ButtonGroup keyType={props.keyType} />
+      {/* table头部按钮 */}
+      <ButtonGroup />
     </React.Fragment>
   )
 }
