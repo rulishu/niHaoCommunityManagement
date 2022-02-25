@@ -1,11 +1,12 @@
 import React from 'react'
 import { ProTable, useTable } from '@uiw-admin/components'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
-import { columnsRout } from './item'
+// import { columnsRout } from './item'
 import { selectPage } from '@/servers/ChargeManagement/ShopCharge'
 import FormSelect from './FormSelect'
 import Charge from '../Charge'
 import History from '../History'
+import { columnsRout } from '../Search/Items/itemTable'
 
 const arr = [
   { shouName: '1', startingTime: '1', endTime: '1', feeTime: '1' },
@@ -37,7 +38,7 @@ export default function Demo() {
         // 操作栏按钮
         operateButtons={[
           {
-            render: <FormSelect keyType="rout" />,
+            render: <FormSelect />,
           },
         ]}
         table={table}
