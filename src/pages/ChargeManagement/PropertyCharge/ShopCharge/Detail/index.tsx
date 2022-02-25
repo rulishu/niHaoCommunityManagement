@@ -3,7 +3,7 @@ import { ProDrawer, ProForm, useForm } from '@uiw-admin/components'
 import { Notify } from 'uiw'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
-import { insert, update } from '@/servers/ChargeManagement/ShopCharge'
+// import { insert, update } from '@/servers/ChargeManagement/ShopCharge'
 import useSWR from 'swr'
 
 interface State {
@@ -18,6 +18,8 @@ const Detail = (props: {
   onSearch: () => void
   title?: string
   formDatas: Array<any>
+  insert?: string
+  update?: string
 }) => {
   const baseRef = useForm()
   const dispatch = useDispatch<Dispatch>()
@@ -36,7 +38,8 @@ const Detail = (props: {
 
   const { mutate } = useSWR(
     [
-      (tableType === 'add' && insert) || (tableType === 'edit' && update),
+      (tableType === 'add' && props.insert) ||
+        (tableType === 'edit' && props.update),
       { method: 'POST', body: queryInfo },
     ],
     {

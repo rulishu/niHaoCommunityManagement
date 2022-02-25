@@ -10,6 +10,7 @@ import Detail from '../Detail'
 // import GiveBack from '../GiveBack'
 import Charge from '../Charge'
 import { columnsPre } from '../Detail/items'
+import { insert, update } from '@/servers/ChargeManagement/ShopCharge'
 
 interface State {
   drawerVisible?: boolean
@@ -94,6 +95,8 @@ export default function Demo() {
         onSearch={table.onSearch}
         formDatas={columnsPre(queryInfo)}
         title={'预存'}
+        insert={insert}
+        update={update}
       />
       {/* <GiveBack updateData={updateData} onSearch={table.onSearch} /> */}
 
