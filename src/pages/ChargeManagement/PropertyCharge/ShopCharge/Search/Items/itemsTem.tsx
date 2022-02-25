@@ -1,6 +1,3 @@
-// import React from 'react';
-// import { Change } from '@/servers/ChargeManagement/ShopCharge'
-
 export const columnsAdd = (queryInfo: any) => [
   {
     label: '商铺编号',
@@ -57,7 +54,7 @@ export const columnsAdd = (queryInfo: any) => [
   },
 ]
 
-export const columnsDepAdd = (queryInfo: any) => [
+export const columnsRefund = (queryInfo: any) => [
   {
     label: '编号',
     key: 'id',
@@ -81,17 +78,19 @@ export const columnsDepAdd = (queryInfo: any) => [
     key: 'feeType',
     initialValue: queryInfo?.feeType,
     widget: 'select',
+    disabled: true,
     option: [
-      { label: '加装电梯费', value: '加装电梯费' },
-      { label: '测试楼宇广告费', value: '测试楼宇广告费' },
+      { label: '指定收费项', value: '指定收费项' },
+      { label: '所有收费项', value: '所有收费项' },
     ],
     required: true,
-    rules: [{ required: true, message: '请选择收费项目' }],
+    rules: [{ required: true, message: '请选择可用收费项' }],
   },
   {
     label: '付款方式',
     key: 'select',
     widget: 'select',
+    disabled: true,
     initialValue: queryInfo?.select,
     option: [
       { value: 1, label: '现金' },
@@ -105,6 +104,7 @@ export const columnsDepAdd = (queryInfo: any) => [
     label: '收费金额',
     key: 'fee',
     widget: 'input',
+    disabled: true,
     widgetProps: {},
     initialValue: queryInfo?.fee,
     required: true,
@@ -118,13 +118,45 @@ export const columnsDepAdd = (queryInfo: any) => [
     widgetProps: {
       format: 'YYYY-MM-DD HH:mm:ss',
     },
+    initialValue: queryInfo?.dateInputsecond,
     required: true,
+    disabled: true,
     rules: [{ required: true, message: '请选择收费时间' }],
     placeholder: '请选择收费时间',
   },
+  {
+    label: '退款时间',
+    key: 'tuiTime',
+    widget: 'dateInput',
+    widgetProps: {
+      format: 'YYYY-MM-DD HH:mm:ss',
+    },
+    required: true,
+    rules: [{ required: true, message: '请选择退款时间' }],
+    placeholder: '请选择退款时间',
+  },
+  {
+    label: '退款方式',
+    key: 'tuiSelect',
+    widget: 'select',
+    option: [
+      { value: 1, label: '现金' },
+      { value: 2, label: '微信' },
+      { value: 3, label: 'app' },
+    ],
+    required: true,
+    rules: [{ required: true, message: '请选择退款方式' }],
+  },
+  {
+    label: '备注',
+    key: 'remarks',
+    widget: 'input',
+    widgetProps: {},
+    placeholder: '请输入备注',
+  },
 ]
 
-export const columnsPre = (queryInfo: any) => [
+export const columnsRefundView = (queryInfo: any) => [
   {
     label: '编号',
     key: 'id',
@@ -144,38 +176,35 @@ export const columnsPre = (queryInfo: any) => [
     placeholder: '请输入客户姓名',
   },
   {
-    label: '可用收费项',
+    label: '收费项目',
     key: 'feeType',
     initialValue: queryInfo?.feeType,
-    widget: 'radio',
+    widget: 'select',
+    disabled: true,
     option: [
       { label: '指定收费项', value: '指定收费项' },
       { label: '所有收费项', value: '所有收费项' },
     ],
-    required: true,
-    rules: [{ required: true, message: '请选择可用收费项' }],
   },
   {
     label: '付款方式',
     key: 'select',
     widget: 'select',
+    disabled: true,
     initialValue: queryInfo?.select,
     option: [
       { value: 1, label: '现金' },
       { value: 2, label: '微信' },
       { value: 3, label: 'app' },
     ],
-    required: true,
-    rules: [{ required: true, message: '请选择付款方式' }],
   },
   {
     label: '收费金额',
     key: 'fee',
     widget: 'input',
+    disabled: true,
     widgetProps: {},
     initialValue: queryInfo?.fee,
-    required: true,
-    rules: [{ required: true, message: '请输入收费金额' }],
     placeholder: '请输入收费金额',
   },
   {
@@ -185,8 +214,41 @@ export const columnsPre = (queryInfo: any) => [
     widgetProps: {
       format: 'YYYY-MM-DD HH:mm:ss',
     },
-    required: true,
-    rules: [{ required: true, message: '请选择收费时间' }],
+    initialValue: queryInfo?.dateInputsecond,
+    disabled: true,
     placeholder: '请选择收费时间',
+  },
+  {
+    label: '退款时间',
+    key: 'tuiTime',
+    widget: 'dateInput',
+    widgetProps: {
+      format: 'YYYY-MM-DD HH:mm:ss',
+    },
+    initialValue: queryInfo?.tuiTime,
+    disabled: true,
+    placeholder: '请选择退款时间',
+  },
+  {
+    label: '退款方式',
+    key: 'tuiSelect',
+    widget: 'select',
+    option: [
+      { value: 1, label: '现金' },
+      { value: 2, label: '微信' },
+      { value: 3, label: 'app' },
+    ],
+    initialValue: queryInfo?.tuiSelect,
+    disabled: true,
+    placeholder: '请选择退款方式',
+  },
+  {
+    label: '备注',
+    key: 'remarks',
+    widget: 'input',
+    widgetProps: {},
+    placeholder: '请输入备注',
+    initialValue: queryInfo?.tuiSelect,
+    disabled: true,
   },
 ]

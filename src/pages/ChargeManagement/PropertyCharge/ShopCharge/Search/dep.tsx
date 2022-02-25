@@ -11,7 +11,7 @@ import {
 } from '@/servers/ChargeManagement/ShopCharge'
 import FormSelect from './FormSelect'
 import Detail from '@/components/SimpleDetail/index'
-import { columnsDepAdd } from '../Search/Items/itemsDetail'
+import { columnsDepAdd } from '../Search/Items/itemDep'
 import { columnsDep } from '../Search/Items/itemTable'
 
 // interface State {
