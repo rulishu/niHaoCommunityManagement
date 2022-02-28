@@ -52,7 +52,10 @@ export default function Demo() {
       tableType: type,
     })
     if (type === 'add') {
-      updateData({ drawerVisible: true, queryInfo: {} })
+      updateData({ drawerVisible: true, queryInfo: { parentId: '0' } })
+    }
+    if (type === 'addSecond') {
+      updateData({ drawerVisible: true, queryInfo: { parentId: obj?.id } })
     }
     if (type === 'edit' || type === 'view') {
       updateData({ drawerVisible: true, queryInfo: obj })
@@ -67,11 +70,10 @@ export default function Demo() {
         bordered
         operateButtons={[
           {
-            label: '新增',
+            label: '添加根菜单',
             type: 'primary',
-            // onClick: onAdd,
             onClick: () => {
-              handleEditTable('add', {})
+              handleEditTable('add', { parentId: '0' })
             },
           },
         ]}
