@@ -16,6 +16,7 @@ import {
   columnsRefundView,
 } from '../Search/Items/itemsTem' //弹框表单
 import { columnsTem } from '../Search/Items/itemTable' //Table
+import Print from '../Print'
 
 // interface State {
 //   drawerVisible?: boolean
@@ -84,6 +85,9 @@ export default function Demo() {
     if (type === 'refundView') {
       updateData({ drawerVisible: true, queryInfo: obj })
     }
+    if (type === 'print') {
+      updateData({ printVisible: true, printInfo: obj })
+    }
   }
 
   // 更新表单
@@ -138,6 +142,9 @@ export default function Demo() {
         drawerVisible={drawerVisible}
         tableType={'add'}
       />
+
+      {/* 打印弹框 */}
+      <Print />
     </React.Fragment>
   )
 }

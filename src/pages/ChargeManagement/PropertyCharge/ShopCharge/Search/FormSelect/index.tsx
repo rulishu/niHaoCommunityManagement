@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { Dispatch } from '@uiw-admin/models'
 import { SearchSelect, Button } from 'uiw'
-import './index.css'
+import '../../index.css'
 import DetailsList from './details'
 import ButtonGroup from './ButtonGroup'
 
