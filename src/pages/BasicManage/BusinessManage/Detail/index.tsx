@@ -92,7 +92,7 @@ const Detail = (props: {
         onChange={(initial, current) =>
           props.updateData({ queryInfo: { ...queryInfo, ...current } })
         }
-        formDatas={items(queryInfo, tableType)}
+        formDatas={items(queryInfo,)}
       />
     </ProDrawer>
   )

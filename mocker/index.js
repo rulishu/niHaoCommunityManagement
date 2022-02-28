@@ -6,6 +6,7 @@ const proxy = {
   _proxy: {
     proxy: {
       '/api/(.*)': 'http://192.168.188.222:33702/',
+      '/uap/(.*)': 'http://192.168.188.222:33702/',
     },
     changeHost: true,
   },

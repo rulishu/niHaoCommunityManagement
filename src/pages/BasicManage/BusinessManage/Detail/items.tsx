@@ -1,27 +1,27 @@
-import { Change } from '@/servers/BasicManage/ChargeManage'
+import { Change } from '@/servers/BasicManage/BusinessManage'
 
-export const items = (queryInfo: Change, tableType: string) => [
+export const items = (queryInfo: Change,) => [
   {
     label: '商业区编号',
-    key: 'charge',
+    key: 'zoneNo',
     widget: 'input',
-    initialValue: queryInfo?.chargeName,
+    initialValue: queryInfo?.zoneNo,
     required: true,
     rules: [{ required: true, message: '请输入商业区编号' }],
   },
   {
     label: '商业区名',
-    key: 'chargeName',
+    key: 'zoneName',
     widget: 'input',
-    initialValue: queryInfo?.chargeName,
+    initialValue: queryInfo?.zoneName,
     required: true,
     rules: [{ required: true, message: '请输入商业区名' }],
   },
   {
     label: '备注',
-    key: 'univalent',
+    key: 'zoneRemark',
     widget: 'textarea',
-    initialValue: queryInfo?.univalent,
-    hide: tableType === 'view' ? true : false,
+    initialValue: queryInfo?.zoneRemark,
+    rules: [{ required: true, message: '备注' }],
   },
 ]

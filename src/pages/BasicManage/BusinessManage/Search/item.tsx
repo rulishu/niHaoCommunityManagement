@@ -1,6 +1,6 @@
 import { Button } from 'uiw'
 import React from 'react'
-import { Change } from '@/servers/BasicManage/ChargeManage'
+import { Change } from '@/servers/BasicManage/BusinessManage'
 
 export const columnsSearch = (
   handleEditTable: (tableType: string, obj: Change) => void
@@ -9,7 +9,7 @@ export const columnsSearch = (
     {
       title: '商业区编号',
       align: 'center',
-      key: 'types',
+      key: 'zoneNo',
       ellipsis: true,
       props: {
         widget: 'input',
@@ -20,7 +20,7 @@ export const columnsSearch = (
     },
     {
       title: '商业区名',
-      key: 'chargeName',
+      key: 'zoneName',
       align: 'center',
       props: {
         widget: 'input',
@@ -43,13 +43,13 @@ export const columnsSearch = (
           >
             编辑
           </Button>
-          <Button
+          {/* <Button
             size="small"
             icon="eye"
             onClick={handleEditTable.bind(this, 'view', rowData)}
           >
             查看
-          </Button>
+          </Button> */}
           <Button
             size="small"
             icon="delete"
