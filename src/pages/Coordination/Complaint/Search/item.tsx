@@ -7,22 +7,34 @@ export const columnsSearch = (
 ) => {
   return [
     {
-      title: '报修单号',
+      title: '投诉单号',
+      align: 'center',
+      key: 'id',
+      ellipsis: true,
+      props: {
+        widget: 'input',
+        widgetProps: {
+          placeholder: '请输入投诉单号',
+        },
+      },
+    },
+    {
+      title: '投诉标题',
+      align: 'center',
+      key: 'type',
+      ellipsis: true,
+    },
+    {
+      title: '投诉电话',
       align: 'center',
       key: 'type',
       ellipsis: true,
       props: {
         widget: 'input',
         widgetProps: {
-          placeholder: '请输入报修单号',
+          placeholder: '请输入投诉标题',
         },
       },
-    },
-    {
-      title: '报修标题',
-      align: 'center',
-      key: 'type',
-      ellipsis: true,
     },
     {
       title: '分类',
@@ -33,37 +45,12 @@ export const columnsSearch = (
         label: '分类',
         widget: 'select',
         option: [
-          { label: '水暖', value: '水暖' },
-          { label: '电路', value: '电路' },
-          { label: '电器', value: '电器' },
-          { label: '门窗', value: '门窗' },
-          { label: '公共设施', value: '公共设施' },
+          { label: '设施设备', value: '设施设备' },
+          { label: '突发事件', value: '突发事件' },
+          { label: '物业服务', value: '物业服务' },
+          { label: '物业收费', value: '物业收费' },
         ],
       },
-    },
-    {
-      title: '报修电话',
-      align: 'center',
-      key: 'phone',
-      ellipsis: true,
-      props: {
-        widget: 'input',
-        widgetProps: {
-          placeholder: '请输入报修电话',
-        },
-      },
-    },
-    {
-      title: '报修者姓名',
-      align: 'center',
-      key: 'type',
-      ellipsis: true,
-    },
-    {
-      title: '报修时间',
-      align: 'center',
-      key: 'type',
-      ellipsis: true,
     },
     {
       title: '商户编号',
@@ -78,6 +65,18 @@ export const columnsSearch = (
       },
     },
     {
+      title: '投诉者姓名',
+      align: 'center',
+      key: 'type',  
+      ellipsis: true,
+    },
+    {
+      title: '投诉时间',
+      align: 'center',
+      key: 'type',  
+      ellipsis: true,
+    },
+    {
       title: '流程状态',
       align: 'center',
       key: 'status',
@@ -87,8 +86,7 @@ export const columnsSearch = (
         widget: 'select',
         option: [
           { label: '待受理', value: '待受理' },
-          { label: '待现场确认', value: '待现场确认' },
-          { label: '维修中', value: '维修中' },
+          { label: '处理中', value: '处理中' },
           { label: '待评价', value: '待评价' },
           { label: '完成', value: '完成' },
           { label: '已撤销', value: '已撤销' },
