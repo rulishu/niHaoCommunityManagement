@@ -22,6 +22,6 @@ export const items = (queryInfo: Change,) => [
     key: 'zoneRemark',
     widget: 'textarea',
     initialValue: queryInfo?.zoneRemark,
-    rules: [{ required: true, message: '备注' }],
+    rules: [{ message: '备注' }],
   },
 ]
