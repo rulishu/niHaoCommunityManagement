@@ -33,15 +33,6 @@ export const columnsSearch = (
       key: 'path',
       align: 'center',
       ellipsis: false,
-      props: {
-        widget: 'input',
-        initialValue: '',
-        // 组件属性
-        widgetProps: {
-          preIcon: 'user',
-          placeholder: '请输入路由地址',
-        },
-      },
       render: (tag: string) => (
         <div style={{ textAlign: 'center' }}>
           <Tooltip placement="topLeft" content={tag}>
@@ -55,14 +46,6 @@ export const columnsSearch = (
       key: 'menuType',
       align: 'center',
       ellipsis: true,
-      props: {
-        widget: 'select',
-        option: [
-          { value: 0, label: '目录' },
-          { value: 1, label: '菜单' },
-          { value: 2, label: '按钮 ' },
-        ],
-      },
       render: (tag: number) => (
         <div style={{ textAlign: 'center' }}>
           {tag === 0 ? '目录' : tag === 1 ? '菜单' : '按钮'}
@@ -79,36 +62,12 @@ export const columnsSearch = (
       title: '更新时间',
       key: 'updateTime',
       width: 200,
-      props: {
-        widget: 'dateInput',
-        // 组件属性
-        widgetProps: {
-          format: 'YYYY-MM-DD HH:mm:ss',
-          datePickerProps: {
-            showTime: true,
-            todayButton: '今天',
-          },
-          placeholder: '选择更新时间',
-        },
-      },
       align: 'center',
     },
     {
       title: '创建时间',
       key: 'createTime',
       width: 200,
-      props: {
-        widget: 'dateInput',
-        // 组件属性
-        widgetProps: {
-          format: 'YYYY-MM-DD HH:mm:ss',
-          datePickerProps: {
-            showTime: true,
-            todayButton: '今天',
-          },
-          placeholder: '选择创建时间',
-        },
-      },
       align: 'center',
     },
     {
