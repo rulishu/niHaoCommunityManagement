@@ -14,6 +14,7 @@ import Detail from '@/components/SimpleDetail/index'
 import Charge from '../Charge'
 import { columnsPre } from '../Search/Items//itemAdDep'
 import { columnsAdDep } from '../Search/Items/itemTable'
+import Print from '../Print'
 
 // interface State {
 //   drawerVisible?: boolean
@@ -79,6 +80,9 @@ export default function Demo() {
     if (type === 'del') {
       updateData({ delectVisible: true, id: obj?.id })
     }
+    if (type === 'print') {
+      updateData({ printVisible: true, printInfo: obj })
+    }
   }
   // 更新表单
   const onChange = (
@@ -126,6 +130,9 @@ export default function Demo() {
       />
 
       <Charge onSearch={table.onSearch} />
+
+      {/* 打印弹框 */}
+      <Print />
     </React.Fragment>
   )
 }

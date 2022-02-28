@@ -13,6 +13,7 @@ import FormSelect from './FormSelect'
 import Detail from '@/components/SimpleDetail/index'
 import { columnsDepAdd, columnsBack } from '../Search/Items/itemDep' //弹框表单
 import { columnsDep } from '../Search/Items/itemTable'
+import Print from '../Print'
 
 // interface State {
 //   drawerVisible?: boolean
@@ -41,7 +42,7 @@ const arr = [
 export default function Demo() {
   const dispatch = useDispatch<Dispatch>()
   const {
-    shopCharge: { queryInfo, drawerVisible, btnStatus },
+    shopCharge: { queryInfo, drawerVisible, btnStatus, printDropdown },
   } = useSelector((shopCharge: RootState) => shopCharge)
 
   const updateData = (payload: any) => {
@@ -108,7 +109,9 @@ export default function Demo() {
           },
         ]}
         table={table}
-        columns={columnsDep(handleEditTable) as FormCol[]}
+        columns={
+          columnsDep(handleEditTable, updateData, printDropdown) as FormCol[]
+        }
       />
 
       <Detail
@@ -128,6 +131,9 @@ export default function Demo() {
         drawerVisible={drawerVisible}
         tableType={'add'}
       />
+
+      {/* 打印弹框 */}
+      <Print />
     </React.Fragment>
   )
 }
