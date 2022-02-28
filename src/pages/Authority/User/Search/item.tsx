@@ -42,6 +42,25 @@ export const columnsSearch = (
       align: 'center',
     },
     {
+      title: '手机号',
+      key: 'phoneNumber',
+      align: 'center',
+      ellipsis: true,
+      props: {
+        widget: 'input',
+        widgetProps: {
+          placeholder: '请输入手机号',
+        },
+      },
+      render: (phoneNumber: string) => (
+        <div style={{ textAlign: 'center' }}>
+          <Tooltip placement="topLeft" content={phoneNumber}>
+            <span>{phoneNumber}</span>
+          </Tooltip>
+        </div>
+      ),
+    },
+    {
       title: '头像地址',
       key: 'avatar',
       align: 'center',
@@ -81,58 +100,9 @@ export const columnsSearch = (
       ),
     },
     {
-      title: '手机号',
-      key: 'phoneNumber',
-      align: 'center',
-      ellipsis: true,
-      props: {
-        widget: 'input',
-        widgetProps: {
-          placeholder: '请输入手机号',
-        },
-      },
-      render: (phoneNumber: string) => (
-        <div style={{ textAlign: 'center' }}>
-          <Tooltip placement="topLeft" content={phoneNumber}>
-            <span>{phoneNumber}</span>
-          </Tooltip>
-        </div>
-      ),
-    },
-    {
-      title: '注册开始时间',
-      key: 'beginTime',
+      title: '注册时间',
+      key: 'createTime',
       width: 200,
-      props: {
-        widget: 'dateInput',
-        // 组件属性
-        widgetProps: {
-          format: 'YYYY-MM-DD HH:mm:ss',
-          datePickerProps: {
-            showTime: true,
-            todayButton: '今天',
-          },
-          placeholder: '选择注册开始时间',
-        },
-      },
-      align: 'center',
-    },
-    {
-      title: '注册结束时间',
-      key: 'endTime',
-      width: 200,
-      props: {
-        widget: 'dateInput',
-        // 组件属性
-        widgetProps: {
-          format: 'YYYY-MM-DD HH:mm:ss',
-          datePickerProps: {
-            showTime: true,
-            todayButton: '今天',
-          },
-          placeholder: '选择注册结束时间',
-        },
-      },
       align: 'center',
     },
     {

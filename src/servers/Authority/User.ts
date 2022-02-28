@@ -2,13 +2,20 @@ import { request } from '@uiw-admin/utils'
 
 export interface Change {
   id?: string
-  createName?: string
-  uapRightName?: string
-  select?: string
-  uapRightUrl?: number
-  updateTime?: string
-  createTime?: string
+  roleName?: string
+  userName?: string
+  gender?: string
+  cardId?: string
+  avatar?: string
+  nickName?: string
+  status?: number
+  phoneNumber?: number
+  password?: number
+
+  uapRoleName?: string
+  jurisdiction?: string
   updateName?: string
+  textarea?: string
 }
 
 function selectById(params: Change) {
@@ -16,13 +23,13 @@ function selectById(params: Change) {
     method: 'POST',
     body: { ...params },
   })
-}
+} 
 
 const selectPage = '/api/account/selectPage'
 
 const update = '/api/test/select'
 
-const insert = '/api/test/select'
+const insert = '/api/account/register'
 
 const deleteData = '/api/test/select'
 
