@@ -23,11 +23,11 @@ export const items = (queryInfo: Change) => [
     widget: 'select',
     width: 200,
     option: [
-      { value: 0, label: '男' },
-      { value: 1, label: '女' },
-      { value: 2, label: '未知' },
+      { value: 1, label: '男' },
+      { value: 2, label: '女' },
+      // { value: 2, label: '未知' },
     ],
-    initialValue: queryInfo.gender,
+    initialValue: queryInfo?.gender,
     required: true,
     rules: [{ required: true, message: '请选择用户性别' }],
   },
@@ -52,8 +52,8 @@ export const items = (queryInfo: Change) => [
     key: 'password',
     widget: 'input',
     initialValue: queryInfo?.password,
-    required: true,
-    rules: [{ required: true, message: '请输入密码' }],
+    // required: true,
+    rules: [{ message: '请输入密码' }],
   },
   {
     label: '账号昵称',
@@ -74,5 +74,4 @@ export const items = (queryInfo: Change) => [
     },
     rules: [{ message: '请输入头像地址' }],
   },
-
 ]

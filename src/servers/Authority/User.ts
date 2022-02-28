@@ -4,22 +4,17 @@ export interface Change {
   id?: string
   roleName?: string
   userName?: string
-  gender?: string
-  cardId?: string
+  gender?: number
+  cardId?: number
   avatar?: string
   nickName?: string
   status?: number
   phoneNumber?: number
   password?: number
-
-  uapRoleName?: string
-  jurisdiction?: string
-  updateName?: string
-  textarea?: string
 }
 
 function selectById(params: Change) {
-  return request('/api/test/select', {
+  return request('/api/account/selectAccountDetail', {
     method: 'POST',
     body: { ...params },
   })
@@ -27,7 +22,7 @@ function selectById(params: Change) {
 
 const selectPage = '/api/account/selectPage'
 
-const update = '/api/test/select'
+const update = '/api/account/edit'
 
 const insert = '/api/account/register'
 

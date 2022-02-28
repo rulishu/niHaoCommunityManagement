@@ -31,7 +31,7 @@ export const columnsSearch = (
       render: (gender: number) => (
         <div style={{ textAlign: 'center' }}>
           <Tooltip placement="topLeft" content={gender}>
-            <span>{gender === 0? '男':gender === 1?'女':'未知'}</span>
+            <span>{gender === 1? '男':'女'}</span>
           </Tooltip>
         </div>
       ),
@@ -94,7 +94,7 @@ export const columnsSearch = (
       render: (status: number) => (
         <div style={{ textAlign: 'center' }}>
           <Tooltip placement="topLeft" content={status}>
-            <span>{status === 0? '正常':'停用' }</span>
+            <span>{status === 1? '正常':'停用' }</span>
           </Tooltip>
         </div>
       ),
