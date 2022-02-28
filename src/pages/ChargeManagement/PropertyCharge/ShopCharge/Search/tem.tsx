@@ -1,23 +1,30 @@
 import React from 'react'
 import { ProTable, useTable } from '@uiw-admin/components'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
-import { columnsTem } from './item'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
-import { selectPage, Change } from '@/servers/ChargeManagement/ShopCharge'
+import {
+  selectPage,
+  insert,
+  update,
+} from '@/servers/ChargeManagement/ShopCharge'
 import FormSelect from './FormSelect'
-import Detail from '../Detail'
-import { columnsAdd } from '../Detail/items'
-import { insert, update } from '@/servers/ChargeManagement/ShopCharge'
+import Detail from '@/components/SimpleDetail/index'
+import {
+  columnsAdd,
+  columnsRefund,
+  columnsRefundView,
+} from '../Search/Items/itemsTem' //弹框表单
+import { columnsTem } from '../Search/Items/itemTable' //Table
 
-interface State {
-  drawerVisible?: boolean
-  tableType?: string
-  queryInfo?: object
-  isView?: boolean
-  delectVisible?: boolean
-  id?: string
-}
+// interface State {
+//   drawerVisible?: boolean
+//   tableType?: string
+//   queryInfo?: object
+//   isView?: boolean
+//   delectVisible?: boolean
+//   id?: string
+// }
 
 const arr = [
   {
@@ -38,10 +45,10 @@ const arr = [
 export default function Demo() {
   const dispatch = useDispatch<Dispatch>()
   const {
-    shopCharge: { queryInfo },
+    shopCharge: { queryInfo, drawerVisible, btnStatus },
   } = useSelector((shopCharge: RootState) => shopCharge)
 
-  const updateData = (payload: State) => {
+  const updateData = (payload: any) => {
     dispatch({
       type: 'shopCharge/updateState',
       payload,
@@ -67,21 +74,37 @@ export default function Demo() {
   })
 
   // 操作
-  function handleEditTable(type: string, obj: Change) {
+  function handleEditTable(type: string, obj: any) {
     updateData({
-      isView: type === 'view',
-      tableType: type,
+      btnStatus: type,
     })
-    if (type === 'add') {
-      updateData({ drawerVisible: true, queryInfo: {} })
-    }
-    if (type === 'edit' || type === 'view') {
+    if (type === 'refund') {
       updateData({ drawerVisible: true, queryInfo: obj })
     }
-    if (type === 'del') {
-      updateData({ delectVisible: true, id: obj?.id })
+    if (type === 'refundView') {
+      updateData({ drawerVisible: true, queryInfo: obj })
     }
   }
+
+  // 更新表单
+  const onChange = (
+    initial: Record<string, any>,
+    current: Record<string, any>
+  ) => {
+    updateData({ queryInfo: { ...queryInfo, ...current } })
+  }
+  //关闭抽屉
+  const onClose = () => {
+    dispatch({
+      type: 'shopCharge/updateState',
+      payload: {
+        drawerVisible: false,
+        btnStatus: '',
+        queryInfo: {},
+      },
+    })
+  }
+
   return (
     <React.Fragment>
       <ProTable
@@ -89,19 +112,31 @@ export default function Demo() {
         // 操作栏按钮
         operateButtons={[
           {
-            render: <FormSelect keyType="tem" />,
+            render: <FormSelect />,
           },
         ]}
         table={table}
         columns={columnsTem(handleEditTable) as FormCol[]}
       />
+      {/* 弹框 */}
       <Detail
-        updateData={updateData}
         onSearch={table.onSearch}
-        formDatas={columnsAdd(queryInfo)}
-        title={'新建临时收费'}
+        formDatas={
+          btnStatus === 'refund'
+            ? columnsRefund(queryInfo)
+            : btnStatus === 'refundView'
+            ? columnsRefundView(queryInfo)
+            : columnsAdd(queryInfo)
+        }
+        title={btnStatus === '临时收费退款' ? '' : '新建临时收费'}
         insert={insert}
         update={update}
+        readOnly={btnStatus === 'refundView' ? true : false}
+        onChange={onChange}
+        onClose={onClose}
+        queryInfo={queryInfo}
+        drawerVisible={drawerVisible}
+        tableType={'add'}
       />
     </React.Fragment>
   )

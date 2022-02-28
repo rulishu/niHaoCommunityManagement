@@ -1,45 +1,54 @@
 import React from 'react'
 import { ProDrawer, ProForm, useForm } from '@uiw-admin/components'
 import { Notify } from 'uiw'
-import { useSelector, useDispatch } from 'react-redux'
-import { RootState, Dispatch } from '@uiw-admin/models'
-// import { insert, update } from '@/servers/ChargeManagement/ShopCharge'
 import useSWR from 'swr'
 
-interface State {
-  drawerVisible?: boolean
-  tableType?: string
-  queryInfo?: object
-  isView?: boolean
-}
-
 const Detail = (props: {
-  updateData: (payload: State) => void
+  // 更新表单的值
+  onChange: (initial: Record<string, any>, current: Record<string, any>) => void
+  //ProTable更新
   onSearch: () => void
+  //抽屉标题
   title?: string
-  formDatas: Array<any>
+  //表单数据
+  formDatas?: Array<any>
+  //新增接口地址
   insert?: string
+  //更新接口地址
   update?: string
+  //表单是否只读
+  readOnly: boolean
+  //关闭抽屉
+  onClose: () => void
+  //接口判断
+  tableType: 'add' | 'edit'
+  //表单数据
+  queryInfo: object
+  //抽屉开关
+  drawerVisible: boolean
+  //抽屉宽度
+  width?: number
 }) => {
   const baseRef = useForm()
-  const dispatch = useDispatch<Dispatch>()
   const {
-    shopCharge: { drawerVisible, tableType, queryInfo },
-  } = useSelector((shopCharge: RootState) => shopCharge)
+    onChange,
+    onSearch,
+    onClose,
+    title = '',
+    formDatas = [],
+    insert = '',
+    update = '',
+    readOnly = false,
+    tableType = 'add',
+    queryInfo = {},
+    drawerVisible = false,
+    width = 800,
+  } = props
 
-  const onClose = () => {
-    dispatch({
-      type: 'shopCharge/updateState',
-      payload: {
-        drawerVisible: false,
-      },
-    })
-  }
-
+  //btnStatus判断接口地址
   const { mutate } = useSWR(
     [
-      (tableType === 'add' && props.insert) ||
-        (tableType === 'edit' && props.update),
+      (tableType === 'add' && insert) || (tableType === 'edit' && update),
       { method: 'POST', body: queryInfo },
     ],
     {
@@ -49,7 +58,7 @@ const Detail = (props: {
         if (data && data.code === 1) {
           Notify.success({ title: data.message })
           onClose()
-          props.onSearch()
+          onSearch()
         } else {
           Notify.error({ title: '提交失败！' })
         }
@@ -59,12 +68,13 @@ const Detail = (props: {
 
   return (
     <ProDrawer
-      width={800}
-      title={props.title}
+      width={width}
+      title={title}
       visible={drawerVisible}
       onClose={onClose}
       buttons={[
         {
+          show: !readOnly,
           label: '保存',
           type: 'primary',
           style: { textAlign: 'right' },
@@ -79,14 +89,12 @@ const Detail = (props: {
     >
       <ProForm
         title="基础信息"
-        formType={'pure'}
+        formType={!readOnly ? 'card' : 'pure'}
         form={baseRef}
         buttonsContainer={{ justifyContent: 'flex-start' }}
-        // 更新表单的值
-        onChange={(initial, current) =>
-          props.updateData({ queryInfo: { ...queryInfo, ...current } })
-        }
-        formDatas={props.formDatas}
+        readOnly={readOnly}
+        onChange={(initial, current) => onChange(initial, current)}
+        formDatas={formDatas}
       />
     </ProDrawer>
   )

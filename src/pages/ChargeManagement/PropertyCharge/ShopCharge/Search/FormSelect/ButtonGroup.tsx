@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button } from 'uiw'
-import { useDispatch } from 'react-redux'
-import { Dispatch } from '@uiw-admin/models'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState, Dispatch } from '@uiw-admin/models'
 
 interface State {
   chargeVisible?: boolean
@@ -11,8 +11,13 @@ interface State {
   queryInfo?: object
 }
 
-export default function ButtonGroup(props: { keyType: string }) {
+export default function ButtonGroup() {
   const dispatch = useDispatch<Dispatch>()
+
+  const {
+    shopCharge: { keys },
+  } = useSelector((shopCharge: RootState) => shopCharge)
+
   const updateData = (payload: State) => {
     dispatch({
       type: 'shopCharge/updateState',
@@ -32,9 +37,10 @@ export default function ButtonGroup(props: { keyType: string }) {
       updateData({ drawerVisible: true, queryInfo: {} })
     }
   }
+
   return (
     <React.Fragment>
-      {props.keyType === 'rout' && (
+      {keys === 'rout' && (
         <div className="uiw-SearchSelect-btn">
           <Button type="primary" onClick={() => handleEditTable('char')}>
             收费
@@ -45,15 +51,15 @@ export default function ButtonGroup(props: { keyType: string }) {
         </div>
       )}
 
-      {(props.keyType === 'tem' || props.keyType === 'dep') && (
+      {(keys === 'tem' || keys === 'dep') && (
         <div className="uiw-SearchSelect-btn">
-          <Button type="primary" onClick={() => handleEditTable('add')}>
+          <Button type="primary" onClick={() => handleEditTable(keys)}>
             新增
           </Button>
         </div>
       )}
 
-      {props.keyType === 'AdDep' && (
+      {keys === 'AdDep' && (
         <div className="uiw-SearchSelect-btn">
           <Button type="primary" onClick={() => handleEditTable('Pre')}>
             预存
