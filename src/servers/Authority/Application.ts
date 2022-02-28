@@ -2,28 +2,31 @@ import { request } from '@uiw-admin/utils'
 
 export interface Change {
   id?: string
-  createName?: string
-  uapRightName?: string
-  select?: string
-  uapRightUrl?: number
+  menuName?: string
+  icon?: string
+  path?: string
+  menuType?: number
+  parentId?: string
+  orderNum?: string
+  remark?: string
   updateTime?: string
   createTime?: string
   updateName?: string
 }
 
 function selectById(params: Change) {
-  return request('/api/test/select', {
+  return request('/api/menu/selectPage', {
     method: 'POST',
     body: { ...params },
   })
 }
 
-const selectPage = '/api/test/select'
+const selectPage = '/api/menu/selectPage'
 
-const update = '/api/test/select'
+const update = '/api/menu/edit'
 
-const insert = '/api/test/select'
+const insert = '/api/menu/add'
 
-const deleteData = '/api/test/select'
+const deleteData = '/api/menu/delete'
 
 export { selectById, selectPage, update, insert, deleteData }

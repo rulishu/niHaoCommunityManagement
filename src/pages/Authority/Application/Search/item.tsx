@@ -7,8 +7,8 @@ export const columnsSearch = (
 ) => {
   return [
     {
-      title: '姓名',
-      key: 'createName',
+      title: '菜单名称',
+      key: 'menuName',
       ellipsis: true,
       align: 'center',
       props: {
@@ -17,7 +17,7 @@ export const columnsSearch = (
         // 组件属性
         widgetProps: {
           preIcon: 'user',
-          placeholder: '输入用户名',
+          placeholder: '输入菜单名称',
         },
       },
       render: (createName: string) => (
@@ -29,8 +29,8 @@ export const columnsSearch = (
       ),
     },
     {
-      title: '权限名称',
-      key: 'uapRightName',
+      title: '路由地址',
+      key: 'path',
       align: 'center',
       ellipsis: false,
       props: {
@@ -39,20 +39,39 @@ export const columnsSearch = (
         // 组件属性
         widgetProps: {
           preIcon: 'user',
-          placeholder: '输入权限名称',
+          placeholder: '请输入路由地址',
         },
       },
-      render: (uapRightName: string) => (
+      render: (tag: string) => (
         <div style={{ textAlign: 'center' }}>
-          <Tooltip placement="topLeft" content={uapRightName}>
-            <span>{uapRightName}</span>
+          <Tooltip placement="topLeft" content={tag}>
+            <span>{tag}</span>
           </Tooltip>
         </div>
       ),
     },
     {
-      title: '路径',
-      key: 'uapRightUrl',
+      title: '菜单类型',
+      key: 'menuType',
+      align: 'center',
+      ellipsis: true,
+      props: {
+        widget: 'select',
+        option: [
+          { value: 0, label: '目录' },
+          { value: 1, label: '菜单' },
+          { value: 2, label: '按钮 ' },
+        ],
+      },
+      render: (tag: number) => (
+        <div style={{ textAlign: 'center' }}>
+          {tag === 0 ? '目录' : tag === 1 ? '菜单' : '按钮'}
+        </div>
+      ),
+    },
+    {
+      title: '顺序',
+      key: 'orderNum',
       align: 'center',
       ellipsis: true,
     },
@@ -102,9 +121,16 @@ export const columnsSearch = (
       title: '操作',
       key: 'edit',
       align: 'center',
-      width: 200,
+      width: 255,
       render: (text: any, key: any, rowData: Change) => (
         <div>
+          <Button
+            size="small"
+            icon="plus-circle-o"
+            onClick={handleEditTable.bind(this, 'addSecond', rowData)}
+          >
+            添加
+          </Button>
           <Button
             size="small"
             icon="edit"
