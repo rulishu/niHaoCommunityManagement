@@ -4,7 +4,7 @@ import { ProDrawer, ProForm, useForm } from '@uiw-admin/components'
 import { Notify, Button } from 'uiw'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
-import { insert, update } from '@/servers/Coordination/RepairOrder'
+import { insert, update } from '@/servers/Coordination/Complaint'
 import { items, viewItems, columns } from './items'
 import useSWR from 'swr'
 
@@ -23,12 +23,12 @@ const Detail = (props: {
   const baseRef = useForm()
   const dispatch = useDispatch<Dispatch>()
   const {
-    RepairOrder: { drawerVisible, tableType, queryInfo, isView, butType },
-  } = useSelector((RepairOrder: RootState) => RepairOrder)
+    Complaint: { drawerVisible, tableType, queryInfo, isView, butType },
+  } = useSelector((Complaint: RootState) => Complaint)
 
   const onClose = () => {
     dispatch({
-      type: 'RepairOrder/updateState',
+      type: 'Complaint/updateState',
       payload: {
         drawerVisible: false,
         isView: false,
@@ -58,7 +58,7 @@ const Detail = (props: {
 
   const onEdit = (butType: string) => {
     dispatch({
-      type: 'RepairOrder/updateState',
+      type: 'Complaint/updateState',
       payload: {
         butType,
       },
@@ -76,7 +76,7 @@ const Detail = (props: {
   }
   const updateData = (payload: State) => {
     dispatch({
-      type: 'RepairOrder/updateState',
+      type: 'Complaint/updateState',
       payload,
     })
   }
