@@ -67,7 +67,7 @@ export default function Search() {
       isView: type === 'view',
       tableType: type,
     })
-    if (type === 'edit') {
+    if (type === 'edit' || type === 'view') {
       updateData({ drawerVisible: true, queryInfo: obj })
     }
     if (type === 'del') {
