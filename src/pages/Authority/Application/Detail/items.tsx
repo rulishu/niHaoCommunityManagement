@@ -23,9 +23,9 @@ export const items = (queryInfo: Change) => [
     key: 'menuType',
     widget: 'select',
     option: [
-      { value: 0, label: '目录' },
-      { value: 1, label: '菜单' },
-      { value: 2, label: '按钮 ' },
+      { value: 1, label: '目录' },
+      { value: 2, label: '菜单' },
+      { value: 3, label: '按钮 ' },
     ],
     initialValue: queryInfo.menuType,
     required: true,
