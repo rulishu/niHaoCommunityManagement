@@ -61,6 +61,14 @@ export const columnsSearch = (
       title: '身份证',
       key: 'cardId',
       align: 'center',
+      ellipsis: true,
+      render: (cardId: string) => (
+        <div style={{ textAlign: 'center' }}>
+          <Tooltip placement="topLeft" content={cardId}>
+            <span>{cardId}</span>
+          </Tooltip>
+        </div>
+      ),
     },
     {
       title: '手机号',
