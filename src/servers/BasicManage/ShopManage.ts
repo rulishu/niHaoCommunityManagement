@@ -2,15 +2,14 @@ import { request } from '@uiw-admin/utils'
 
 export interface Change {
   id?: string
-  types?: string
-  chargeName?: string
-  univalent?: string
-  num?: number
-  Formula?: string
-  calculationCycle?: string
-  lateFee?: string
-  lateFeeRatio?: string
-  lateFeeDays?: string
+  shopName?: string
+  shopNo?: string
+  shopFloor?: string
+  areaCovered?: number
+  areaUsable?: number
+  shopRent?: number
+  status?: string
+  remark?: string
 }
 
 function selectById(params: Change) {
@@ -24,7 +23,7 @@ const selectPage = '/uap/bu-shop/selectPage'
 
 const update = '/api/test/select'
 
-const insert = '/api/test/select'
+const insert = '/uap/bu-shop/add'
 
 const deleteData = '/api/test/select'
 
