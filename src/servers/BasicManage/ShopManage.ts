@@ -13,7 +13,7 @@ export interface Change {
 }
 
 function selectById(params: Change) {
-  return request('/api/test/select', {
+  return request('/api/buShop/selectById', {
     method: 'POST',
     body: { ...params },
   })
@@ -23,7 +23,7 @@ const selectPage = '/api/buShop/selectPage'
 
 const update = '/api/test/select'
 
-const insert = '/uap/bu-shop/add'
+const insert = '/api/buShop/add'
 
 const deleteData = '/api/test/select'
 
