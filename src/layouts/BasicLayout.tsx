@@ -2,7 +2,7 @@ import React from 'react'
 import BasicLayout, { useLayouts } from '@uiw-admin/basic-layouts'
 import { Outlet } from 'react-router-dom'
 import { RoutersProps } from '@uiw-admin/router-control'
-import { Badge, Icon } from 'uiw'
+// import { Badge, Icon } from 'uiw'
 
 import useSWR from 'swr'
 
@@ -43,16 +43,16 @@ function BasicLayoutScreen(props: BasicLayoutProps = { routes: [] }) {
         onClick: () => layouts.closeMenu(),
       },
     ],
-    profile: {
-      avatar: require('../assets/head.png'),
-      menuLeft: (
-        <div style={{ marginRight: 15 }}>
-          <Badge count={66}>
-            <Icon type="bell" color="#343a40" style={{ fontSize: 20 }} />
-          </Badge>
-        </div>
-      ),
-    },
+    // profile: {
+    //   avatar: require('../assets/head.png'),
+    //   menuLeft: (
+    //     <div style={{ marginRight: 15 }}>
+    //       <Badge count={66}>
+    //         <Icon type="bell" color="#343a40" style={{ fontSize: 20 }} />
+    //       </Badge>
+    //     </div>
+    //   ),
+    // },
     layouts,
     ...props,
   }
