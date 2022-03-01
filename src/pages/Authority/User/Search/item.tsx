@@ -7,27 +7,21 @@ export const columnsSearch = (
 ) => {
   return [
     {
-      title: '用户',
-      key: 'createName',
+      title: '角色名称',
+      key: 'roleName',
       ellipsis: true,
       align: 'center',
-      props: {
-        widget: 'input',
-        widgetProps: {
-          placeholder: '请输入用户名',
-        },
-      },
-      render: (createName: string) => (
+      render: (roleName: string) => (
         <div style={{ textAlign: 'center' }}>
-          <Tooltip placement="topLeft" content={createName}>
-            <span>{createName}</span>
+          <Tooltip placement="topLeft" content={roleName}>
+            <span>{roleName}</span>
           </Tooltip>
         </div>
       ),
     },
     {
-      title: '权限名称',
-      key: 'uapRightName',
+      title: '账号昵称',
+      key: 'nickName',
       align: 'center',
       props: {
         widget: 'input',
@@ -38,66 +32,85 @@ export const columnsSearch = (
           placeholder: '输入用户名',
         },
       },
-      render: (uapRightName: string) => (
+      render: (nickName: string) => (
         <div style={{ textAlign: 'center' }}>
-          <Tooltip placement="topLeft" content={uapRightName}>
-            <span>{uapRightName}</span>
+          <Tooltip placement="topLeft" content={nickName}>
+            <span>{nickName}</span>
           </Tooltip>
         </div>
       ),
     },
     {
-      title: '路径',
-      key: 'uapRightUrl',
+      title: '用户姓名',
+      key: 'userName',
+      align: 'center',
+    },
+    {
+      title: '用户性别',
+      key: 'gender',
+      align: 'center',
+      render: (gender: number) => (
+        <div style={{ textAlign: 'center' }}>
+          <Tooltip placement="topLeft" content={gender}>
+            <span>{gender === 1? '男':gender === 2?'女':''}</span>
+          </Tooltip>
+        </div>
+      ),
+    },
+    {
+      title: '身份证',
+      key: 'cardId',
       align: 'center',
       ellipsis: true,
-      render: (uapRightUrl: string) => (
+      render: (cardId: string) => (
         <div style={{ textAlign: 'center' }}>
-          <Tooltip placement="topLeft" content={uapRightUrl}>
-            <span>{uapRightUrl}</span>
+          <Tooltip placement="topLeft" content={cardId}>
+            <span>{cardId}</span>
           </Tooltip>
         </div>
       ),
     },
     {
-      title: '更新时间',
-      key: 'updateTime',
-      width: 200,
+      title: '手机号',
+      key: 'phoneNumber',
+      align: 'center',
+      ellipsis: true,
       props: {
-        widget: 'dateInput',
-        // 组件属性
+        widget: 'input',
         widgetProps: {
-          format: 'YYYY-MM-DD HH:mm:ss',
-          datePickerProps: {
-            showTime: true,
-            todayButton: '今天',
-          },
-          placeholder: '选择更新时间',
+          placeholder: '请输入手机号',
         },
       },
+      render: (phoneNumber: string) => (
+        <div style={{ textAlign: 'center' }}>
+          <Tooltip placement="topLeft" content={phoneNumber}>
+            <span>{phoneNumber}</span>
+          </Tooltip>
+        </div>
+      ),
+    },
+    {
+      title: '头像地址',
+      key: 'avatar',
       align: 'center',
     },
     {
-      title: '创建时间',
+      title: '帐号状态',
+      key: 'status',
+      align: 'center',
+      ellipsis: true,
+      render: (status: number) => (
+        <div style={{ textAlign: 'center' }}>
+          <Tooltip placement="topLeft" content={status}>
+            <span>{status === 1? '正常':'停用' }</span>
+          </Tooltip>
+        </div>
+      ),
+    },
+    {
+      title: '注册时间',
       key: 'createTime',
       width: 200,
-      props: {
-        widget: 'dateInput',
-        // 组件属性
-        widgetProps: {
-          format: 'YYYY-MM-DD HH:mm:ss',
-          datePickerProps: {
-            showTime: true,
-            todayButton: '今天',
-          },
-          placeholder: '选择创建时间',
-        },
-      },
-      align: 'center',
-    },
-    {
-      title: '更新人',
-      key: 'updateName',
       align: 'center',
     },
     {
