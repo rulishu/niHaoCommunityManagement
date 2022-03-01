@@ -16,6 +16,9 @@ interface State {
   historyVisible: boolean
   historyList: Array<any>
   backVisible: boolean
+  printVisible: boolean
+  printDropdown: number
+  isOpen: boolean
 }
 
 const shopCharge = createModel<RootModel>()({
@@ -43,6 +46,10 @@ const shopCharge = createModel<RootModel>()({
     historyVisible: false, //历史信息弹框
     historyList: [{ print: '打印', name: '1', money: '已付款' }],
     backVisible: false, //退还弹框
+    printVisible: false, //打印弹框
+    printInfo: {}, //打印数据
+    printDropdown: 1, //打印下拉
+    isOpen: false, //打印下拉菜单
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({

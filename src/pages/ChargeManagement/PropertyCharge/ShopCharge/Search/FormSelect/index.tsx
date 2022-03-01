@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { Dispatch } from '@uiw-admin/models'
 import { SearchSelect, Button } from 'uiw'
-import './index.css'
+import '../../index.css'
 import DetailsList from './details'
 import ButtonGroup from './ButtonGroup'
 
@@ -53,11 +53,13 @@ export default function FormSelect() {
             placeholder="请选择商铺编号"
             onSearch={handleSearch}
             onChange={(v) => {
-              console.log('onChange', v)
+              // console.log('onChange', v)
               updateData({ queryInfo: { shopNumber: v } })
             }}
             option={option}
             loading={loading}
+            // 组件build报错暂时添加
+            tagProps={{ color: '#1EABCD' }}
           />
           <Button type="primary" style={{ marginLeft: 10 }}>
             查询

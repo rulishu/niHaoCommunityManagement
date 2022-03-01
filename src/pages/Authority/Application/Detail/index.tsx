@@ -87,6 +87,7 @@ const Detail = (props: {
         formType={isView ? 'pure' : 'card'}
         form={baseRef}
         readOnly={isView}
+        readOnlyProps={{ column: 2 }}
         buttonsContainer={{ justifyContent: 'flex-start' }}
         // 更新表单的值
         onChange={(initial, current) =>
