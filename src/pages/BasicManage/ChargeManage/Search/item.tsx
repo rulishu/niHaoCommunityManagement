@@ -9,13 +9,13 @@ export const columnsSearch = (
     {
       title: '类型',
       align: 'center',
-      key: 'types',
+      key: 'chargeType',
       ellipsis: true,
       props: {
         label: '类型',
         widget: 'select',
         option: [
-          { label: '常规收费项(商铺)', value: '常规收费项(商铺)' },
+          { label: '常规收费项', value: '常规收费项' },
           { label: '临时收费项', value: '临时收费项' },
           { label: '押金类收费项', value: '押金类收费项' },
         ],
@@ -34,37 +34,37 @@ export const columnsSearch = (
     },
     {
       title: '单价',
-      key: 'univalent',
+      key: 'chargePrice',
       align: 'center',
     },
     {
       title: '数量',
-      key: 'num',
+      key: 'chargeNumType',
       align: 'center',
     },
     {
       title: '计算公式',
-      key: 'Formula',
+      key: 'chargeFormula',
       align: 'center',
     },
     {
       title: '计算周期',
-      key: 'calculationCycle',
+      key: 'chargeMonth',
       align: 'center',
     },
     {
       title: '滞纳金',
-      key: 'lateFee',
+      key: 'chargeLateType',
       align: 'center',
     },
     {
       title: '滞纳金比例',
-      key: 'lateFeeRatio',
+      key: 'chargeLateProportion',
       align: 'center',
     },
     {
       title: '滞纳金天数',
-      key: 'lateFeeDays',
+      key: 'chargeDay',
       align: 'center',
     },
     {

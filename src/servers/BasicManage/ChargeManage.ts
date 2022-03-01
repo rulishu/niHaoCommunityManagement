@@ -14,13 +14,13 @@ export interface Change {
 }
 
 function selectById(params: Change) {
-  return request('/api/test/select', {
+  return request('/api/buCharge/selectById', {
     method: 'POST',
     body: { ...params },
   })
 }
 
-const selectPage = '/api/test/select'
+const selectPage = '/api/buCharge/selectPage'
 
 const update = '/api/test/select'
 
