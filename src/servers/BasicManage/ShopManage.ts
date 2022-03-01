@@ -19,7 +19,7 @@ function selectById(params: Change) {
   })
 }
 
-const selectPage = '/uap/bu-shop/selectPage'
+const selectPage = '/api/buShop/selectPage'
 
 const update = '/api/test/select'
 

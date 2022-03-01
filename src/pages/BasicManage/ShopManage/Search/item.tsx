@@ -51,11 +51,16 @@ export const columnsSearch = (
         label: '使用状态',
         widget: 'select',
         option: [
-          { label: '空置', value: '空置' },
-          { label: '已出租', value: '已出租' },
-          { label: '已出售', value: '已出售' },
+          { label: '空置', value: '0' },
+          { label: '已出租', value: '1' },
+          { label: '已出售', value: '2' },
         ],
       },
+      render: (status: number) => (
+        <div style={{ textAlign: 'center' }}>
+          <span>{status === 0 ? '空置' : status === 1 ? '已出租' : '已出售'}</span>
+        </div>
+      ),
     },
     {
       title: '操作',
