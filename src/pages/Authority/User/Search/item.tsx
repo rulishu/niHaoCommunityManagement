@@ -20,6 +20,27 @@ export const columnsSearch = (
       ),
     },
     {
+      title: '账号昵称',
+      key: 'nickName',
+      align: 'center',
+      props: {
+        widget: 'input',
+        initialValue: '',
+        // 组件属性
+        widgetProps: {
+          preIcon: 'user',
+          placeholder: '输入用户名',
+        },
+      },
+      render: (nickName: string) => (
+        <div style={{ textAlign: 'center' }}>
+          <Tooltip placement="topLeft" content={nickName}>
+            <span>{nickName}</span>
+          </Tooltip>
+        </div>
+      ),
+    },
+    {
       title: '用户姓名',
       key: 'userName',
       align: 'center',
@@ -31,7 +52,7 @@ export const columnsSearch = (
       render: (gender: number) => (
         <div style={{ textAlign: 'center' }}>
           <Tooltip placement="topLeft" content={gender}>
-            <span>{gender === 1? '男':'女'}</span>
+            <span>{gender === 1? '男':gender === 2?'女':''}</span>
           </Tooltip>
         </div>
       ),
@@ -64,27 +85,6 @@ export const columnsSearch = (
       title: '头像地址',
       key: 'avatar',
       align: 'center',
-    },
-    {
-      title: '账号昵称',
-      key: 'nickName',
-      align: 'center',
-      props: {
-        widget: 'input',
-        initialValue: '',
-        // 组件属性
-        widgetProps: {
-          preIcon: 'user',
-          placeholder: '输入用户名',
-        },
-      },
-      render: (nickName: string) => (
-        <div style={{ textAlign: 'center' }}>
-          <Tooltip placement="topLeft" content={nickName}>
-            <span>{nickName}</span>
-          </Tooltip>
-        </div>
-      ),
     },
     {
       title: '帐号状态',

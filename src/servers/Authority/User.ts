@@ -26,6 +26,6 @@ const update = '/api/account/edit'
 
 const insert = '/api/account/register'
 
-const deleteData = '/api/test/select'
+const deleteData = '/api/account/delete'
 
 export { selectById, selectPage, update, insert, deleteData }
