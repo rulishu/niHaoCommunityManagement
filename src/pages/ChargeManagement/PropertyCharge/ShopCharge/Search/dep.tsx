@@ -11,8 +11,9 @@ import {
 } from '@/servers/ChargeManagement/ShopCharge'
 import FormSelect from './FormSelect'
 import Detail from '@/components/SimpleDetail/index'
-import { columnsDepAdd } from '../Search/Items/itemsDetail'
+import { columnsDepAdd, columnsBack } from '../Search/Items/itemDep' //弹框表单
 import { columnsDep } from '../Search/Items/itemTable'
+import Print from '../Print'
 
 // interface State {
 //   drawerVisible?: boolean
@@ -41,7 +42,7 @@ const arr = [
 export default function Demo() {
   const dispatch = useDispatch<Dispatch>()
   const {
-    shopCharge: { queryInfo, drawerVisible },
+    shopCharge: { queryInfo, drawerVisible, btnStatus, printDropdown },
   } = useSelector((shopCharge: RootState) => shopCharge)
 
   const updateData = (payload: any) => {
@@ -72,17 +73,10 @@ export default function Demo() {
   // 操作
   function handleEditTable(type: string, obj: Change) {
     updateData({
-      isView: type === 'view',
-      tableType: type,
+      btnStatus: type,
     })
-    if (type === 'add') {
-      updateData({ drawerVisible: true, queryInfo: {} })
-    }
-    if (type === 'edit' || type === 'view') {
+    if (type === 'back') {
       updateData({ drawerVisible: true, queryInfo: obj })
-    }
-    if (type === 'del') {
-      updateData({ delectVisible: true, id: obj?.id })
     }
   }
   // 更新表单
@@ -115,13 +109,19 @@ export default function Demo() {
           },
         ]}
         table={table}
-        columns={columnsDep(handleEditTable) as FormCol[]}
+        columns={
+          columnsDep(handleEditTable, updateData, printDropdown) as FormCol[]
+        }
       />
 
       <Detail
         onSearch={table.onSearch}
-        formDatas={columnsDepAdd(queryInfo)}
-        title={'新增押金'}
+        formDatas={
+          btnStatus === 'back'
+            ? columnsBack(queryInfo)
+            : columnsDepAdd(queryInfo)
+        }
+        title={btnStatus === 'back' ? '押金退还' : '新增押金'}
         insert={insert}
         update={update}
         readOnly={false}
@@ -131,6 +131,9 @@ export default function Demo() {
         drawerVisible={drawerVisible}
         tableType={'add'}
       />
+
+      {/* 打印弹框 */}
+      <Print />
     </React.Fragment>
   )
 }

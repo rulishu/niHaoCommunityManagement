@@ -74,6 +74,7 @@ const Detail = (props: {
       onClose={onClose}
       buttons={[
         {
+          show: !readOnly,
           label: '保存',
           type: 'primary',
           style: { textAlign: 'right' },

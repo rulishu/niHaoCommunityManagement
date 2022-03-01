@@ -67,6 +67,12 @@
             "name": "报修工单",
             "icon": "",
             "component": "../pages/Coordination/RepairOrder"
+          },
+          {
+            "path": "/Coordination/Complaint",
+            "name": "投诉工单",
+            "icon": "",
+            "component": "../pages/Coordination/Complaint"
           }
         ]
       },
@@ -83,7 +89,7 @@
           },
           {
             "path": "/BasicManage/BusinessManage",
-            "name": "商业区管理",
+            "name": "社区管理",
             "icon": "picasa",
             "component": "../pages/BasicManage/BusinessManage"
           },

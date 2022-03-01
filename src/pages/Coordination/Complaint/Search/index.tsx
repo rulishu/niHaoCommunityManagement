@@ -4,7 +4,7 @@ import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import { columnsSearch } from './item'
 import { useDispatch } from 'react-redux'
 import { Dispatch } from '@uiw-admin/models'
-import { selectPage, Change } from '@/servers/Authority/Application'
+import { selectPage, Change } from '@/servers/Coordination/Complaint'
 import Drawer from '../Detail'
 import Modals from '../Modals'
 
@@ -22,17 +22,17 @@ export default function Demo() {
 
   const updateData = (payload: State) => {
     dispatch({
-      type: 'Application/updateState',
+      type: 'Complaint/updateState',
       payload,
     })
   }
-
+  const arr =[{type:'1',}]
   const table = useTable(selectPage, {
     // 格式化接口返回的数据，必须返回{total 总数, data: 列表数据}的格式
     formatData: (data) => {
       return {
         total: data?.data?.total,
-        data: data?.data?.rows || [],
+        data: data?.data?.rows || arr,
       }
     },
     // 格式化查询参数 会接收到pageIndex 当前页  searchValues 表单数据
@@ -52,10 +52,7 @@ export default function Demo() {
       tableType: type,
     })
     if (type === 'add') {
-      updateData({ drawerVisible: true, queryInfo: { parentId: '0' } })
-    }
-    if (type === 'addSecond') {
-      updateData({ drawerVisible: true, queryInfo: { parentId: obj?.id } })
+      updateData({ drawerVisible: true, queryInfo: {} })
     }
     if (type === 'edit' || type === 'view') {
       updateData({ drawerVisible: true, queryInfo: obj })
@@ -70,10 +67,10 @@ export default function Demo() {
         bordered
         operateButtons={[
           {
-            label: '添加根菜单',
+            label: '新增',
             type: 'primary',
             onClick: () => {
-              handleEditTable('add', { parentId: '0' })
+              handleEditTable('add', {})
             },
           },
         ]}

@@ -1,6 +1,11 @@
-import { Button, Tag } from 'uiw' //Tooltip
+import { Dropdown, Menu, Button, Tag } from 'uiw'
 import React from 'react'
-import { Change } from '@/servers/ChargeManagement/ShopCharge'
+// import { Change } from '@/servers/ChargeManagement/ShopCharge'
+
+const option = [
+  { label: '打印收款单', value: 1 },
+  { label: '打印退还单', value: 2 },
+]
 
 export const columnsRout = () => {
   return [
@@ -46,7 +51,7 @@ export const columnsRout = () => {
 }
 
 export const columnsTem = (
-  handleEditTable: (tableType: string, obj: Change) => void
+  handleEditTable: (tableType: string, obj: any) => void
 ) => {
   return [
     {
@@ -62,7 +67,7 @@ export const columnsTem = (
     {
       align: 'center',
       title: '付款方式',
-      key: 'endTime',
+      key: 'select',
     },
 
     {
@@ -98,33 +103,33 @@ export const columnsTem = (
     {
       title: '备注',
       align: 'center',
-      key: 'ramker',
+      key: 'remarks',
     },
     {
       title: '操作',
       align: 'center',
       key: 'edit',
       width: 250,
-      render: (text: string, key: string, rowData: Change) => (
+      render: (text: string, key: string, rowData: any) => (
         <div style={{ textAlign: 'center' }}>
           <Button
             size="small"
             icon="edit"
-            onClick={() => handleEditTable('edit', rowData)}
+            onClick={() => handleEditTable('refund', rowData)}
           >
             退款
           </Button>
           <Button
             size="small"
             icon="eye-o"
-            onClick={() => handleEditTable('view', rowData)}
+            onClick={() => handleEditTable('refundView', rowData)}
           >
             退款详情
           </Button>
           <Button
             size="small"
-            icon="delete"
-            onClick={() => handleEditTable('del', rowData)}
+            icon="down"
+            onClick={() => handleEditTable('print', rowData)}
           >
             打印
           </Button>
@@ -135,7 +140,9 @@ export const columnsTem = (
 }
 
 export const columnsDep = (
-  handleEditTable: (tableType: string, obj: Change) => void
+  handleEditTable: (tableType: string, obj: any) => void,
+  updateData: (payload: any) => void,
+  printDropdown: number
 ) => {
   return [
     {
@@ -204,22 +211,46 @@ export const columnsDep = (
       align: 'center',
       key: 'edit',
       width: 200,
-      render: (text: string, key: string, rowData: Change) => (
+      render: (text: string, key: string, rowData: any) => (
         <div style={{ textAlign: 'center' }}>
           <Button
             size="small"
             icon="edit"
-            onClick={() => handleEditTable('edit', rowData)}
+            onClick={() => handleEditTable('back', rowData)}
           >
             退还
           </Button>
-          <Button
-            size="small"
-            icon="delete"
-            onClick={() => handleEditTable('del', rowData)}
+          <Dropdown
+            onVisibleChange={(isOpen) => updateData({ isOpen: isOpen })}
+            menu={
+              <div>
+                <Menu bordered style={{ minWidth: 120 }}>
+                  {option.map((item, idx) => {
+                    const active = printDropdown === item.value
+                    return (
+                      <Menu.Item
+                        key={idx}
+                        active={active}
+                        text={item.label}
+                        onClick={(e) => {
+                          updateData({
+                            isOpen: false,
+                            printDropdown: item.value,
+                            printVisible: true,
+                            queryInfo: e,
+                          })
+                        }}
+                      />
+                    )
+                  })}
+                </Menu>
+              </div>
+            }
           >
-            打印
-          </Button>
+            <Button size="small" icon="down">
+              打印
+            </Button>
+          </Dropdown>
         </div>
       ),
     },
@@ -227,7 +258,7 @@ export const columnsDep = (
 }
 
 export const columnsAdDep = (
-  handleEditTable: (tableType: string, obj: Change) => void
+  handleEditTable: (tableType: string, obj: any) => void
 ) => {
   return [
     {
@@ -290,18 +321,15 @@ export const columnsAdDep = (
       align: 'center',
       key: 'edit',
       width: 200,
-      render: (text: string, key: string, rowData: Change) => (
+      render: (text: string, key: string, rowData: any) => (
         <div style={{ textAlign: 'center' }}>
           <Button
             size="small"
-            icon="edit"
-            onClick={() => handleEditTable('edit', rowData)}
+            icon="down"
+            onClick={() => handleEditTable('print', rowData)}
           >
             打印退款单
           </Button>
-          {/* <Button size="small" icon="delete" onClick={() => handleEditTable('del', rowData)}>
-            打印
-          </Button> */}
         </div>
       ),
     },
