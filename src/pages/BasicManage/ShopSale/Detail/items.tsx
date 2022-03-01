@@ -1,4 +1,4 @@
-import { Change } from '@/servers/BasicManage/ChargeManage'
+import { Change } from '@/servers/BasicManage/ShopSale'
 
 export const items = (queryInfo: Change, tableType: string) => [
   {
