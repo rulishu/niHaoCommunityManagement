@@ -81,13 +81,13 @@ export const columnsSearch = (
           >
             编辑
           </Button>
-          <Button
+          {/* <Button
             size="small"
             icon="eye"
             onClick={handleEditTable.bind(this, 'view', rowData)}
           >
             查看
-          </Button>
+          </Button> */}
           <Button
             size="small"
             icon="delete"

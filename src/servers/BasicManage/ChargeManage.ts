@@ -22,7 +22,7 @@ function selectById(params: Change) {
 
 const selectPage = '/api/buCharge/selectPage'
 
-const update = '/api/test/select'
+const update = '/api/buCharge/update'
 
 const insert = '/api/buCharge/add'
 
