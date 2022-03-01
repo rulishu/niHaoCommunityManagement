@@ -60,23 +60,30 @@ const Drawers = (props: {
       onClose={onClose}
       buttons={[
         {
-          label: '保存',
-          type: 'danger',
+          label: isView ? '关闭' : '取消',
+          onClick: onClose,
           style: { width: 80 },
           show: !isView,
-          onClick: () => baseRef.submitvalidate(),
         },
-      ]}>
+        {
+          label: '保存',
+          type: 'primary',
+          style: { width: 80 },
+          show: !isView,
+          onClick: async () => {
+            await baseRef?.submitvalidate?.()
+            const errors = baseRef.getError()
+            if (errors && Object.keys(errors).length > 0) return
+            mutate()
+          },
+        },
+      ]}
+    >
       <ProForm
         title="基础信息"
         formType={isView ? 'pure' : 'card'}
         form={baseRef}
         readOnly={isView}
-        onSubmit={(initial, current) => {
-          initial
-          current
-          mutate()
-        }}
         buttonsContainer={{ justifyContent: 'flex-start' }}
         // 更新表单的值
         onChange={(initial, current) =>
