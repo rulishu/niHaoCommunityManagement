@@ -51,11 +51,16 @@ export const columnsSearch = (
         label: '使用状态',
         widget: 'select',
         option: [
-          { label: '空置', value: '空置' },
-          { label: '已出租', value: '已出租' },
-          { label: '已出售', value: '已出售' },
+          { label: '空置', value: '1' },
+          { label: '已出售', value: '2' },
+          { label: '已出租', value: '3' },
         ],
       },
+      render: (status: number) => (
+        <div style={{ textAlign: 'center' }}>
+          <span>{status === 1 ? '空置' : status === 2 ? '已出售' : '已出租'}</span>
+        </div>
+      ),
     },
     {
       title: '操作',
@@ -71,13 +76,13 @@ export const columnsSearch = (
           >
             编辑
           </Button>
-          <Button
+          {/* <Button
             size="small"
             icon="eye"
             onClick={handleEditTable.bind(this, 'view', rowData)}
           >
             查看
-          </Button>
+          </Button> */}
           <Button
             size="small"
             icon="delete"
