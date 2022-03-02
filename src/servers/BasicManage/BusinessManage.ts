@@ -8,19 +8,19 @@ export interface Change {
 }
 
 function selectById(params: Change) {
-  return request('/uap/bu-zone/update', {
+  return request('/api/buZone/selectById', {
     method: 'POST',
     body: { ...params },
   })
 }
 
 
-const selectPage = '/uap/bu-zone/selectPage'
+const selectPage = '/api/buZone/selectPage'
 
-const update = '/uap/bu-zone/update'
+const update = '/api/buZone/update'
 
-const insert = '/uap/bu-zone/add'
+const insert = '/api/buZone/add'
 
-const deleteData = '/uap/bu-zone/delete'
+const deleteData = '/api/buZone/delete'
 
 export { selectById, selectPage, update, insert, deleteData }
