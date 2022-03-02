@@ -97,7 +97,6 @@ const Detail = (props: {
         },
       ]}
     >
-      {' '}
       <ProForm
         title="基础信息"
         formType={isView ? 'pure' : 'card'}
