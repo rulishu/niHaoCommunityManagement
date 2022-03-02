@@ -8,18 +8,12 @@ export const item = (
   return [
     {
       title: '账号名称',
-      key: 'uapAccountNickName',
+      key: 'createName',
       align: 'center',
-      props: {
-        widget: 'input',
-        widgetProps: {
-          placeholder: '请输入账号名称',
-        },
-      },
     },
     {
-      title: '用户真实姓名',
-      key: 'uapUserRealName',
+      title: '用户姓名',
+      key: 'userName',
       align: 'center',
       props: {
         widget: 'input',
@@ -29,67 +23,72 @@ export const item = (
       },
     },
     {
-      title: '用户状态',
-      key: 'cc',
+      title: '联系方式',
+      key: 'phoneNumber',
       align: 'center',
-    },
-    {
-      title: '用户头像',
-      key: 'dd',
-      align: 'center',
-    },
-    {
-      title: '角色名称',
-      align: 'center',
-      key: 'uapRoleName',
-      ellipsis: true,
       props: {
-        label: '角色名称',
-        widget: 'select',
-        option: [
-          { label: '角色1', value: '角色1' },
-          { label: '角色2', value: '角色2' },
+        widget: 'input',
+        widgetProps: {
+          placeholder: '请输入联系方式',
+        },
+        rules: [
+          {
+            pattern: new RegExp(/^1[3|4|5|6|7|8|9][0-9]\d{8}$/),
+            message: '请正确输入手机号',
+          },
         ],
       },
+    },
+    {
+      title: '用户性别',
+      key: 'gender',
+      props: {
+        widget: 'select',
+        key: 'age',
+        option: [
+          { label: '男', value: 1 },
+          { label: '女', value: 2 },
+        ],
+      },
+      render: (text: number) => (
+        <div style={{ textAlign: 'center' }}>{text === 1 ? '男' : '女'}</div>
+      ),
+    },
+    {
+      title: '用户状态',
+      key: 'status',
+      align: 'center',
+      render: (text: number) => (
+        <div style={{ textAlign: 'center' }}>
+          {text === 1 ? '正常' : '禁用'}
+        </div>
+      ),
     },
     {
       title: '注册时间',
       key: 'createTime',
       align: 'center',
       ellipsis: true,
-      props: {
-        label: '注册开始时间',
-        key: 'beginTime',
-        widget: 'dateInput',
-        widgetProps: {
-          datePickerProps: { showTime: true },
-          format: 'YYYY-MM-DD HH:mm:ss',
-        },
-      },
+    },
+    {
+      title: '备注',
+      key: 'remark',
+      align: 'center',
     },
     {
       title: '操作',
       align: 'center',
       key: 'id',
       width: 200,
-      props: {
-        label: '注册结束时间',
-        key: 'endTime',
-        widget: 'dateInput',
-        widgetProps: {
-          datePickerProps: { showTime: true },
-          format: 'YYYY-MM-DD HH:mm:ss',
-        },
-      },
       render: (text: any, key: any, rowData: Usermanagement) => (
-        <div>
-          <Button
+        <div style={{ textAlign: 'center' }}>
+          {/* <Button
             size="small"
             icon="delete"
             onClick={() => handleEditTable('del', rowData)}
           >
             删除
-          </Button>
+          </Button> */}
           <Button
             size="small"
             icon="edit"
