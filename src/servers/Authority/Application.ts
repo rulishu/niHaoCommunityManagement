@@ -12,6 +12,12 @@ export interface Change {
   updateTime?: string
   createTime?: string
   updateName?: string
+  tableVisible?: boolean
+  secondMenu?: any[]
+  thirdVisible?: boolean
+  thirdMenu?: any[]
+  children?: any
+  tableLevel?: string
 }
 
 function selectById(params: Change) {

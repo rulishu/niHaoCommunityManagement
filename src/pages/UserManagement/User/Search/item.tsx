@@ -97,6 +97,13 @@ export const item = (
           >
             编辑
           </Button>
+          <Button
+            size="small"
+            icon="eye"
+            onClick={handleEditTable.bind(this, 'view', rowData)}
+          >
+            查看
+          </Button>
         </div>
       ),
     },

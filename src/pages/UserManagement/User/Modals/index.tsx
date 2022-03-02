@@ -2,7 +2,7 @@ import React from 'react'
 import { Modal } from 'uiw'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
-import { deleteById } from '@/servers/usermanagement'
+import { deleteData } from '@/servers/usermanagement'
 import { Notify } from 'uiw'
 import useSWR from 'swr'
 
@@ -22,7 +22,7 @@ const Modals = (props: { onSearch: () => void }) => {
   }
 
   const { mutate } = useSWR(
-    [deleteById, { method: 'POST', body: { id: systemId } }],
+    [deleteData, { method: 'POST', body: { id: systemId } }],
     {
       revalidateOnMount: false,
       revalidateOnFocus: false,
@@ -48,7 +48,8 @@ const Modals = (props: { onSearch: () => void }) => {
       type="primary"
       onConfirm={() => mutate()}
       onCancel={() => onClose()}
-      onClosed={onClose}>
+      onClosed={onClose}
+    >
       <p>是否确认删除此条数据</p>
     </Modal>
   )

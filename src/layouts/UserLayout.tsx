@@ -12,11 +12,11 @@ const UserLayout = () => {
           title: '登录',
           htmlType: 'submit',
           type: 'primary',
-          style: { width: '45%' },
+          // style: { width: '45%' },
         },
         {
           title: '注册',
-          style: { width: '45%' },
+          // style: { width: '45%' },
           onClick: () => {
             navigate('/register', { replace: true })
           },
