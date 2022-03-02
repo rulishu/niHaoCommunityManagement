@@ -1,6 +1,7 @@
 import React from 'react'
-import { ProForm, useForm } from '@uiw-admin/components'
+import { ProForm } from '@uiw-admin/components'
 import { cardOne, cardTow, cardThree } from './item'
+import { UseFormProps } from '@uiw-admin/components/src/ProForm/type'
 
 interface State {
   drawerVisible?: boolean
@@ -13,10 +14,14 @@ interface State {
 }
 
 export default function details(props: {
+  carOneRef: UseFormProps
+  carTwoRef: UseFormProps
+  carThrRef: UseFormProps
   queryInfo: any
   updateData: (payload: State) => void
 }) {
-  const baseRef = useForm()
+  const { carOneRef, carTwoRef, carThrRef } = props
+  // const baseRef = useForm()
 
   const onCus = () => {
     return <div style={{ marginTop: 30 }}></div>
@@ -27,7 +32,7 @@ export default function details(props: {
         <div className="ProForm-card">
           <ProForm
             formType={'card'}
-            form={baseRef}
+            form={carOneRef}
             buttonsContainer={{ justifyContent: 'flex-start' }}
             // 更新表单的值
             onChange={(initial, current) =>
@@ -41,7 +46,7 @@ export default function details(props: {
         <div className="ProForm-card">
           <ProForm
             formType={'card'}
-            form={baseRef}
+            form={carTwoRef}
             buttonsContainer={{ justifyContent: 'flex-start' }}
             // 更新表单的值
             onChange={(initial, current) =>
@@ -58,7 +63,7 @@ export default function details(props: {
         <div className="ProForm-card-end">
           <ProForm
             formType={'card'}
-            form={baseRef}
+            form={carThrRef}
             buttonsContainer={{ justifyContent: 'flex-start' }}
             // 更新表单的值
             onChange={(initial, current) =>

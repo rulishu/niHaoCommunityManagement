@@ -30,11 +30,15 @@ const Charge = (props: { onSearch: () => void }) => {
     })
   }
   const baseRef = useForm()
+  const carOneRef = useForm()
+  const carTwoRef = useForm()
+  const carThrRef = useForm()
 
   const {
     shopCharge: { chargeVisible, id, queryInfo, chargeDataList, btnStatus },
   } = useSelector((state: RootState) => state)
 
+  const [textStatus, setTextStatus] = React.useState(true)
   const onClose = () => {
     updateData({ chargeVisible: false })
   }
@@ -52,10 +56,29 @@ const Charge = (props: { onSearch: () => void }) => {
       }
     },
   })
-  // 操作
-  const onChange = (text: React.ChangeEvent<HTMLInputElement>) => {
-    window.console.log('text.target.value', text.target.value)
+
+  const getNotify = () => {
+    Notify.error({
+      placement: 'topRight',
+      title: '',
+      description: '请正确输入正确优惠金额金额',
+    })
   }
+  // 操作
+  const onChange = async (text: React.ChangeEvent<HTMLInputElement>) => {
+    // window.console.log('text.target.value', text.target.value)
+    let textValue = text.target.value
+    let reg =
+      /^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/
+    if (textValue && !reg.test(textValue)) {
+      getNotify()
+      await setTextStatus(true)
+      return
+    } else {
+      await setTextStatus(false)
+    }
+  }
+
   const onBtn = () => {
     return (
       <div className="form-onBtn">
@@ -82,9 +105,25 @@ const Charge = (props: { onSearch: () => void }) => {
           type: 'primary',
           style: { textAlign: 'right' },
           onClick: async () => {
+            console.log('textStatus', textStatus)
+
             await baseRef?.submitvalidate?.()
             const errors = baseRef.getError()
             if (errors && Object.keys(errors).length > 0) return
+            if (textStatus === true) {
+              getNotify()
+              return
+            }
+            await carOneRef?.submitvalidate?.()
+            const errorsOne = carOneRef.getError()
+            if (errorsOne && Object.keys(errorsOne).length > 0) return
+            await carTwoRef?.submitvalidate?.()
+            const errorsTwo = carTwoRef.getError()
+            if (errorsTwo && Object.keys(errorsTwo).length > 0) return
+            await carThrRef?.submitvalidate?.()
+            const errorsThr = carThrRef.getError()
+            if (errorsThr && Object.keys(errorsThr).length > 0) return
+
             mutate()
           },
         },
@@ -116,7 +155,13 @@ const Charge = (props: { onSearch: () => void }) => {
         data={chargeDataList}
       />
       {btnStatus === 'char' && (
-        <FormCar queryInfo={queryInfo} updateData={updateData} />
+        <FormCar
+          carOneRef={carOneRef}
+          carTwoRef={carTwoRef}
+          carThrRef={carThrRef}
+          queryInfo={queryInfo}
+          updateData={updateData}
+        />
       )}
     </ProDrawer>
   )
