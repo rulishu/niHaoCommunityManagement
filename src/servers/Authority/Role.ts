@@ -19,7 +19,7 @@ const selectPage = '/api/role/selectPage'
 
 const update = '/api/test/select'
 
-const insert = '/api/test/select'
+const insert = '/api/role/add'
 
 const deleteData = '/api/test/select'
 

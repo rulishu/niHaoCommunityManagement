@@ -48,7 +48,7 @@ export const columnsSearch = (
       align: 'center',
       render: (status: number) => (
         <div style={{ textAlign: 'center' }}>
-            <span>{status === 1? '正常': '停用'}</span>
+            <span>{status === 1? '正常': status === 2?'停用':''}</span>
         </div>
       ),
     },
