@@ -25,6 +25,6 @@ const update = '/api/buShop/edit'
 
 const insert = '/api/buShop/add'
 
-const deleteData = '/api/test/select'
+const deleteData = '/api/buShop/delete'
 
 export { selectById, selectPage, update, insert, deleteData }

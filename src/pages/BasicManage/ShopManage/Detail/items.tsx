@@ -2,7 +2,7 @@ import { Change } from '@/servers/BasicManage/ShopManage'
 
 export const items = (queryInfo: Change, tableType: string) => [
   {
-    label: '商业区',
+    label: '社区',
     key: 'shopName',
     widget: 'select',
     option: [
@@ -14,8 +14,8 @@ export const items = (queryInfo: Change, tableType: string) => [
     initialValue: queryInfo?.shopName,
     widgetProps: {},
     required: true,
-    placeholder: '请选择商业区',
-    rules: [{ required: true, message: '请选择商业区' }],
+    placeholder: '请选择社区',
+    rules: [{ required: true, message: '请选择社区' }],
   },
   {
     label: '商铺编号',
