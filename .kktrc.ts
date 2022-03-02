@@ -1,8 +1,8 @@
-import path from "path";
-import express from "express";
-import { createProxyMiddleware } from "http-proxy-middleware";
-import { MockerAPIOptions } from "kkt";
-import defaultConfig from "@uiw-admin/config";
+import path from 'path'
+import express from 'express'
+import { createProxyMiddleware } from 'http-proxy-middleware'
+import { MockerAPIOptions } from 'kkt'
+import defaultConfig from '@uiw-admin/config'
 
 // import { RematchWebpackPlugin, RoutesWebpackPlugin } from '@uiw-admin/plugins';
 
@@ -25,22 +25,24 @@ export default defaultConfig({
 })
 export const proxySetup = (app: express.Application): MockerAPIOptions => {
   app.use(
-    "/api",
+    '/api',
     createProxyMiddleware({
-      target: "http://192.168.188.87:8200",
-      changeOrigin: true,
+      // target: 'http://192.168.188.87:8200',
+      // target: 'http://192.168.188.8:8200',
+      target: 'http://192.168.188.222:33702/',
+      // changeOrigin: true,
     })
-  );
+  )
   /**
    * mocker-api that creates mocks for REST APIs.
    * It will be helpful when you try to test your application without the actual REST API server.
    * https://github.com/jaywcjlove/mocker-api
    */
   return {
-    path: path.resolve("./mocker/index.js"),
+    path: path.resolve('./mocker/index.js'),
     /**
      * https://github.com/jaywcjlove/mocker-api/tree/96c2eb94694571e0e3003e6ad9ce1c809499f577#options
      */
     option: {},
-  };
-};
+  }
+}
