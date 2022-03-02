@@ -21,7 +21,7 @@ function selectById(params: Change) {
 
 const selectPage = '/api/buShop/selectPage'
 
-const update = '/api/test/select'
+const update = '/api/buShop/edit'
 
 const insert = '/api/buShop/add'
 

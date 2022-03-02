@@ -66,9 +66,9 @@ export const items = (queryInfo: Change, tableType: string) => [
     widget: 'select',
     disabled: true,
     option: [
-      { label: '空置', value: '0' },
-      { label: '已出租', value: '1' },
-      { label: '已出售', value: '2', },
+      { label: '空置', value: '1' },
+      { label: '已出售', value: '2' },
+      { label: '已出租', value: '3', },
     ],
     initialValue: queryInfo?.status,
     widgetProps: {},
