@@ -1,4 +1,4 @@
-import { Change } from '@/servers/BasicManage/ChargeManage'
+import { Change } from '@/servers/Coordination/Complaint'
 
 // 新增
 export const items = (queryInfo: Change, butType: string) => {
