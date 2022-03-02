@@ -30,6 +30,7 @@ export const columnsSearch = (
       title: '收费项目名',
       key: 'chargeName',
       align: 'center',
+      ellipsis: true,
       props: {
         widget: 'input',
         widgetProps: {
@@ -41,6 +42,7 @@ export const columnsSearch = (
       title: '单价',
       key: 'chargePrice',
       align: 'center',
+      ellipsis: true,
     },
     {
       title: '数量',
