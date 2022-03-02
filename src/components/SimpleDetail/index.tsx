@@ -2,6 +2,7 @@ import React from 'react'
 import { ProDrawer, ProForm, useForm } from '@uiw-admin/components'
 import { Notify } from 'uiw'
 import useSWR from 'swr'
+import { FormItemsProps } from '@uiw-admin/components/src/ProForm/type'
 
 const Detail = (props: {
   // 更新表单的值
@@ -11,7 +12,7 @@ const Detail = (props: {
   //抽屉标题
   title?: string
   //表单数据
-  formDatas?: Array<any>
+  formDatas?: FormItemsProps[]
   //新增接口地址
   insert?: string
   //更新接口地址

@@ -1,3 +1,4 @@
+import { request } from '@uiw-admin/utils'
 export interface Usermanagement {
   id?: string
   uapAccountNickName?: string
@@ -6,10 +7,19 @@ export interface Usermanagement {
   uapRoleName?: string
 }
 
-const selectPage = '/api/account/selectPage'
+function selectById(params: Usermanagement) {
+  return request('/api/test/select', {
+    method: 'POST',
+    body: { ...params },
+  })
+}
 
-const update = '/api/uapUser/edit'
+const selectPage = '/api/test/select'
 
-const deleteById = '/api/account/delete'
+const update = '/api/test/select'
 
-export { deleteById, selectPage, update }
+// const insert = '/api/test/select'
+
+const deleteData = '/api/test/select'
+
+export { selectById, selectPage, update, deleteData }

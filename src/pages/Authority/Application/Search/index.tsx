@@ -1,12 +1,13 @@
 import React from 'react'
 import { ProTable, useTable } from '@uiw-admin/components'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
-import { columnsSearch } from './item'
-import { useDispatch } from 'react-redux'
-import { Dispatch } from '@uiw-admin/models'
+import { columnsSearch, columnsEnd } from './item'
+import { useDispatch, useSelector } from 'react-redux'
+import { Dispatch, RootState } from '@uiw-admin/models'
 import { selectPage, Change } from '@/servers/Authority/Application'
-import Drawer from '../Detail'
+import Detail from '../Detail'
 import Modals from '../Modals'
+import TreeTable from '@/components/TreeTable/index'
 
 interface State {
   drawerVisible?: boolean
@@ -15,10 +16,24 @@ interface State {
   isView?: boolean
   delectVisible?: boolean
   id?: string
+  tableVisible?: boolean
+  thirdVisible?: boolean
+  tableLevel?: string
 }
 
 export default function Demo() {
   const dispatch = useDispatch<Dispatch>()
+  const {
+    Application: {
+      drawerVisible,
+      delectVisible,
+      tableVisible,
+      secondMenu,
+      thirdVisible,
+      thirdMenu,
+      tableLevel,
+    },
+  } = useSelector((state: RootState) => state)
 
   const updateData = (payload: State) => {
     dispatch({
@@ -39,20 +54,35 @@ export default function Demo() {
     query: (pageIndex, pageSize, searchValues) => {
       return {
         page: pageIndex,
-        pageSize: 10,
+        pageSize: pageSize,
         ...searchValues,
       }
     },
   })
 
-  // 操作
-  function handleEditTable(type: string, obj: Change) {
+  const seconClose = () => {
+    updateData({ tableVisible: false })
+  }
+  const thirClose = () => {
+    if (drawerVisible === true || delectVisible === true) {
+      updateData({ thirdVisible: false })
+    } else {
+      updateData({ thirdVisible: false, tableVisible: true, tableLevel: '1' })
+    }
+  }
+
+  //增删改查操作
+  const getTrim = (type: string, obj: Change) => {
     updateData({
       isView: type === 'view',
       tableType: type,
     })
     if (type === 'add') {
-      updateData({ drawerVisible: true, queryInfo: { parentId: '0' } })
+      updateData({
+        drawerVisible: true,
+        tableLevel: '0',
+        queryInfo: { parentId: '0' },
+      })
     }
     if (type === 'addSecond') {
       updateData({ drawerVisible: true, queryInfo: { parentId: obj?.id } })
@@ -63,7 +93,15 @@ export default function Demo() {
     if (type === 'del') {
       updateData({ delectVisible: true, id: obj?.id })
     }
+    // 嵌套表格关闭判断
+    if (tableLevel === '1') {
+      updateData({ tableVisible: false })
+    }
+    if (tableLevel === '2') {
+      updateData({ tableVisible: false, thirdVisible: false })
+    }
   }
+
   return (
     <React.Fragment>
       <ProTable
@@ -73,7 +111,7 @@ export default function Demo() {
             label: '添加根菜单',
             type: 'primary',
             onClick: () => {
-              handleEditTable('add', { parentId: '0' })
+              getTrim('add', {})
             },
           },
         ]}
@@ -92,10 +130,29 @@ export default function Demo() {
           },
         ]}
         table={table}
-        columns={columnsSearch(handleEditTable) as FormCol[]}
+        columns={columnsSearch(getTrim, updateData) as FormCol[]}
       />
-      <Drawer updateData={updateData} onSearch={table.onSearch} />
+      <Detail updateData={updateData} onSearch={table.onSearch} />
       <Modals onSearch={table.onSearch} />
+
+      {/* 二级菜单弹框*/}
+      <TreeTable
+        formDates={columnsEnd(getTrim, tableLevel, updateData) as FormCol[]}
+        dataSource={secondMenu}
+        isOpen={tableVisible}
+        maxWidth={1500}
+        title={'二级菜单'}
+        onClose={seconClose}
+      />
+      {/* 三级菜单弹框*/}
+      <TreeTable
+        formDates={columnsEnd(getTrim, tableLevel, updateData) as FormCol[]}
+        dataSource={thirdMenu}
+        isOpen={thirdVisible}
+        maxWidth={1500}
+        title={'三级菜单'}
+        onClose={thirClose}
+      />
     </React.Fragment>
   )
 }

@@ -1,8 +1,8 @@
 import React from 'react'
 import { ProDrawer, ProForm, useForm } from '@uiw-admin/components'
 import { Notify } from 'uiw'
-import { useSelector, useDispatch } from 'react-redux'
-import { RootState, Dispatch } from '@uiw-admin/models'
+import { useSelector } from 'react-redux'
+import { RootState } from '@uiw-admin/models'
 import { insert, update } from '@/servers/Authority/Application'
 import { items } from './items'
 import useSWR from 'swr'
@@ -12,6 +12,8 @@ interface State {
   tableType?: string
   queryInfo?: object
   isView?: boolean
+  tableVisible?: boolean
+  thirdVisible?: boolean
 }
 
 const Detail = (props: {
@@ -19,24 +21,32 @@ const Detail = (props: {
   onSearch: () => void
 }) => {
   const baseRef = useForm()
-  const dispatch = useDispatch<Dispatch>()
   const {
-    Application: { drawerVisible, tableType, queryInfo, isView },
+    Application: { drawerVisible, tableType, queryInfo, isView, tableLevel },
   } = useSelector((Application: RootState) => Application)
 
   const onClose = () => {
-    dispatch({
-      type: 'Application/updateState',
-      payload: {
-        drawerVisible: false,
+    if (tableLevel === '1') {
+      props.updateData({
         isView: false,
-      },
-    })
+        drawerVisible: false,
+        tableVisible: true,
+      })
+    } else if (tableLevel === '2') {
+      props.updateData({
+        isView: false,
+        drawerVisible: false,
+        thirdVisible: true,
+      })
+    } else {
+      props.updateData({ isView: false, drawerVisible: false })
+    }
   }
 
   const { mutate } = useSWR(
     [
-      (tableType === 'add' && insert) || (tableType === 'edit' && update),
+      ((tableType === 'add' || tableType === 'addSecond') && insert) ||
+        (tableType === 'edit' && update),
       { method: 'POST', body: queryInfo },
     ],
     {
@@ -45,7 +55,12 @@ const Detail = (props: {
       onSuccess: (data) => {
         if (data && data.code === 1) {
           Notify.success({ title: data.message })
-          onClose()
+          props.updateData({
+            drawerVisible: false,
+            isView: false,
+            tableVisible: false,
+            thirdVisible: false,
+          })
           props.onSearch()
         } else {
           Notify.error({ title: '提交失败！' })

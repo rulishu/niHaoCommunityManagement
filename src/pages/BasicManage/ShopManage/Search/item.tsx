@@ -9,7 +9,7 @@ export const columnsSearch = (
     {
       title: '商铺编号',
       align: 'center',
-      key: 'type',
+      key: 'shopNo',
       ellipsis: true,
       props: {
         widget: 'input',
@@ -21,31 +21,31 @@ export const columnsSearch = (
     {
       title: '楼层',
       align: 'center',
-      key: 'type',
+      key: 'shopFloor',
       ellipsis: true,
     },
     {
       title: '占地面积',
       align: 'center',
-      key: 'type',
+      key: 'areaCovered',
       ellipsis: true,
     },
     {
       title: '使用面积',
       align: 'center',
-      key: 'type',
+      key: 'areaUsable',
       ellipsis: true,
     },
     {
       title: '租金',
       align: 'center',
-      key: 'type',
+      key: 'shopRent',
       ellipsis: true,
     },
     {
       title: '使用状态',
       align: 'center',
-      key: 'types',
+      key: 'status',
       ellipsis: true,
       props: {
         label: '使用状态',

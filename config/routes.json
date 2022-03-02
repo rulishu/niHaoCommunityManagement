@@ -26,7 +26,7 @@
           {
             "path": "/UserManagement/User",
             "name": "用户管理",
-            "icon": "user",
+            "icon": "usergroup-add",
             "component": "../pages/UserManagement/User"
           }
         ]
@@ -34,12 +34,12 @@
       {
         "path": "/chargeManagement",
         "name": "收费管理",
-        "icon": "appstore-o",
+        "icon": "pay-circle-o",
         "routes": [
           {
             "path": "/chargeManagement/propertyCharge",
             "name": "物业收费",
-            "icon": "shopping-cart",
+            "icon": "laptop",
             "routes": [
               {
                 "path": "/chargeManagement/propertyCharge/shopCharge",
@@ -50,7 +50,7 @@
               {
                 "path": "/chargeManagement/propertyCharge/temporaryCharges",
                 "name": "临时收费",
-                "icon": "shopping-cart",
+                "icon": "link",
                 "component": "../pages/ChargeManagement/PropertyCharge/TemporaryCharges"
               }
             ]
@@ -65,13 +65,13 @@
           {
             "path": "/Coordination/RepairOrder",
             "name": "报修工单",
-            "icon": "",
+            "icon": "filter",
             "component": "../pages/Coordination/RepairOrder"
           },
           {
             "path": "/Coordination/Complaint",
             "name": "投诉工单",
-            "icon": "",
+            "icon": "user-delete",
             "component": "../pages/Coordination/Complaint"
           }
         ]
