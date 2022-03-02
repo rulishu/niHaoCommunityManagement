@@ -20,12 +20,12 @@ export default function PieChart() {
       },
       series: [
         {
-          name: 'Access From',
+          name: '商铺租售比例',
           type: 'pie',
           radius: '50%',
           selectedMode: 'single',
           data: [
-            { value: 21, name: '空置' },
+            { value: 24, name: '空置' },
             { value: 4, name: '出租' },
             { value: 12, name: '出售' },
           ],

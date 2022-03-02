@@ -15,7 +15,7 @@ export default function BarChart() {
       yAxis: {},
       series: [
         {
-          name: 'Access From',
+          name: '收款金额',
           type: 'bar',
           data: [165, 0, 0, 43, 29, 1001],
         },
