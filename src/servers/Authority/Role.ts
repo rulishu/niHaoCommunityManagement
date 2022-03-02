@@ -2,16 +2,10 @@ import { request } from '@uiw-admin/utils'
 
 export interface Change {
   id?: string
+  roleName?: string
   createName?: string
-  uapRightName?: string
-  select?: string
-  uapRightUrl?: number
-  updateTime?: string
-  createTime?: string
-  updateName?: string
-  uapRoleName?: string
-  jurisdiction?: string
-  textarea?: string
+  status?: number
+  remark?: string
 }
 
 function selectById(params: Change) {
@@ -21,7 +15,7 @@ function selectById(params: Change) {
   })
 }
 
-const selectPage = '/api/test/select'
+const selectPage = '/api/role/selectPage'
 
 const update = '/api/test/select'
 
