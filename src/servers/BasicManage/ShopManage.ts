@@ -2,30 +2,29 @@ import { request } from '@uiw-admin/utils'
 
 export interface Change {
   id?: string
-  types?: string
-  chargeName?: string
-  univalent?: string
-  num?: number
-  Formula?: string
-  calculationCycle?: string
-  lateFee?: string
-  lateFeeRatio?: string
-  lateFeeDays?: string
+  shopName?: string
+  shopNo?: string
+  shopFloor?: string
+  areaCovered?: number
+  areaUsable?: number
+  shopRent?: number
+  status?: string
+  remark?: string
 }
 
 function selectById(params: Change) {
-  return request('/api/test/select', {
+  return request('/api/buShop/selectById', {
     method: 'POST',
     body: { ...params },
   })
 }
 
-const selectPage = '/uap/bu-shop/selectPage'
+const selectPage = '/api/buShop/selectPage'
 
-const update = '/api/test/select'
+const update = '/api/buShop/edit'
 
-const insert = '/api/test/select'
+const insert = '/api/buShop/add'
 
-const deleteData = '/api/test/select'
+const deleteData = '/api/buShop/delete'
 
 export { selectById, selectPage, update, insert, deleteData }

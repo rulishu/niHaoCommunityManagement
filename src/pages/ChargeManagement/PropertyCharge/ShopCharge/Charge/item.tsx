@@ -32,9 +32,16 @@ export const columnsList = (
       title: '优惠金额',
       align: 'center',
       key: 'money',
+      // required: true,
+      rules: [
+        {
+          pattern: new RegExp(/^[0-9]+(.[0-9]{2})?$/),
+          message: '请正确输入正确金额',
+        },
+      ],
       render: () => (
         <Input
-          placeholder="请输入内容"
+          placeholder="请输入金额数字"
           style={{ maxWidth: 200 }}
           onChange={onChange}
         />
