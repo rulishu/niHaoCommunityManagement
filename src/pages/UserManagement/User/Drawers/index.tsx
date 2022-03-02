@@ -89,7 +89,8 @@ const Drawers = (props: {
         onChange={(initial, current) =>
           props.updateData({ queryInfo: { ...queryInfo, ...current } })
         }
-        formDatas={items(queryInfo)}
+        formDatas={items(queryInfo, isView)}
+        readOnlyProps={{ column: 2 }}
       />
     </ProDrawer>
   )
