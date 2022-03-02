@@ -70,31 +70,6 @@ export default function Demo() {
       updateData({ thirdVisible: false, tableVisible: true, tableLevel: '1' })
     }
   }
-  // 嵌套表格操作
-  // const getTable = (type: string, obj: Change) => {
-  //   updateData({
-  //     isView: type === 'tableView',
-  //     tableType: type,
-  //   })
-  //   if (type === 'tableAdd') {
-  //     updateData({ tableVisible: false, drawerVisible: true, queryInfo: { parentId: obj?.id } })
-  //   }
-  //   if (type === 'tableEdit' || type === 'tableView') {
-  //     updateData({ tableVisible: false, thirdVisible: false, drawerVisible: true, queryInfo: obj })
-  //   }
-  //   if (type === 'tableDel') {
-  //     updateData({ tableVisible: false, thirdVisible: false, delectVisible: true, id: obj?.id })
-  //   }
-  //   if (type === 'tableAddThird') {
-  //     updateData({ tableVisible: false, thirdVisible: false, drawerVisible: true, queryInfo: { parentId: obj?.id } })
-  //   }
-  //   if (type === 'tableEditThird' || type === 'tableView') {
-  //     updateData({ tableVisible: false, thirdVisible: false, drawerVisible: true, queryInfo: obj })
-  //   }
-  //   if (type === 'tableDelThird') {
-  //     updateData({ tableVisible: false, thirdVisible: false, delectVisible: true, id: obj?.id })
-  //   }
-  // }
 
   //增删改查操作
   const getTrim = (type: string, obj: Change) => {
