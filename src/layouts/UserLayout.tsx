@@ -7,6 +7,7 @@ const UserLayout = () => {
 
   return (
     <UserLogin
+      projectName="共享社区管理平台"
       buttons={[
         {
           title: '登录',
