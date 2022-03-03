@@ -193,33 +193,6 @@ export const columnsEnd = (
       ),
     },
     {
-      title: '更新时间',
-      key: 'updateTime',
-      width: 200,
-      style: { textAlign: 'center' },
-      render: (text: string) => (
-        <div style={{ textAlign: 'center' }}>{text}</div>
-      ),
-    },
-    {
-      title: '创建时间',
-      key: 'createTime',
-      width: 200,
-      style: { textAlign: 'center' },
-      render: (text: string) => (
-        <div style={{ textAlign: 'center' }}>{text}</div>
-      ),
-    },
-    {
-      title: '更新人',
-      key: 'updateName',
-      style: { textAlign: 'center' },
-      render: (text: string) => (
-        <div style={{ textAlign: 'center' }}>{text}</div>
-      ),
-      ellipsis: true,
-    },
-    {
       title: '操作',
       key: 'edit',
       width: 255,

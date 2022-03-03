@@ -1,6 +1,6 @@
 import { Change } from '@/servers/Authority/Application'
 
-export const items = (queryInfo: Change) => [
+export const items = (queryInfo: Change, isView: boolean) => [
   {
     label: '菜单名称',
     key: 'menuName',
@@ -57,6 +57,27 @@ export const items = (queryInfo: Change) => [
     initialValue: queryInfo?.orderNum,
     required: true,
     rules: [{ required: true, message: '显示顺序' }],
+  },
+  {
+    label: '更新时间',
+    key: 'updateTime',
+    widget: 'input',
+    initialValue: queryInfo?.orderNum,
+    hide: !isView,
+  },
+  {
+    label: '创建时间',
+    key: 'createTime',
+    widget: 'input',
+    initialValue: queryInfo?.orderNum,
+    hide: !isView,
+  },
+  {
+    label: '更新人',
+    key: 'updateName',
+    widget: 'input',
+    initialValue: queryInfo?.orderNum,
+    hide: !isView,
   },
   {
     label: '备注',
