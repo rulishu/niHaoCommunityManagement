@@ -39,7 +39,10 @@ const Detail = (props: {
         thirdVisible: true,
       })
     } else {
-      props.updateData({ isView: false, drawerVisible: false })
+      props.updateData({
+        isView: false,
+        drawerVisible: false,
+      })
     }
   }
 
