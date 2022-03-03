@@ -140,7 +140,7 @@ export default function Demo() {
         formDates={columnsEnd(getTrim, tableLevel, updateData) as FormCol[]}
         dataSource={secondMenu}
         isOpen={tableVisible}
-        maxWidth={1500}
+        maxWidth={1100}
         title={'二级菜单'}
         onClose={seconClose}
       />
@@ -149,7 +149,7 @@ export default function Demo() {
         formDates={columnsEnd(getTrim, tableLevel, updateData) as FormCol[]}
         dataSource={thirdMenu}
         isOpen={thirdVisible}
-        maxWidth={1500}
+        maxWidth={1100}
         title={'三级菜单'}
         onClose={thirClose}
       />
