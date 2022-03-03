@@ -61,13 +61,17 @@ export default function Demo() {
   })
 
   const seconClose = () => {
-    updateData({ tableVisible: false })
+    if (drawerVisible === true || delectVisible === true) {
+      updateData({ tableVisible: false })
+    } else {
+      updateData({ tableVisible: false, tableLevel: '0' })
+    }
   }
   const thirClose = () => {
     if (drawerVisible === true || delectVisible === true) {
       updateData({ thirdVisible: false })
     } else {
-      updateData({ thirdVisible: false, tableVisible: true, tableLevel: '1' })
+      updateData({ thirdVisible: false, tableVisible: true, tableLevel: '0' })
     }
   }
 
@@ -80,7 +84,6 @@ export default function Demo() {
     if (type === 'add') {
       updateData({
         drawerVisible: true,
-        tableLevel: '0',
         queryInfo: { parentId: '0' },
       })
     }
