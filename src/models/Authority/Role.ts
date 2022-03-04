@@ -48,24 +48,23 @@ const Role = createModel<RootModel>()({
           }
           // 一级菜单数据处理
           if (item.children && item.children.length > 0) {
-            item.children[0].label = item.children[0].menuName
-            item.children[0].key = item.children[0].id
-            if (item.children[0].children.length === 0) {
-              delete item.children[0].children
-            }
-            // 二级菜单数据处理
-            if (
-              item.children[0].children &&
-              item.children[0].children.length > 0
-            ) {
-              item.children[0].children.map((itm: any) => {
-                itm.label = itm.menuName
-                itm.key = itm.id
-                if (itm.children.length === 0) {
-                  delete itm.children
-                }
-              })
-            }
+            item.children.map((itm: any) => {
+              itm.label = itm.menuName
+              itm.key = itm.id
+              if (itm.children.length === 0) {
+                delete itm.children
+              }
+              // 二级菜单数据处理
+              if (itm.children && itm.children.length > 0) {
+                itm.children.map((value: any) => {
+                  value.label = value.menuName
+                  value.key = value.id
+                  if (value.children.length === 0) {
+                    delete value.children
+                  }
+                })
+              }
+            })
           }
         })
         dph.Role.updateState({
