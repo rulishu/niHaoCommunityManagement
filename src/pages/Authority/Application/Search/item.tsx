@@ -123,9 +123,7 @@ export const columnsEnd = (
       style: { textAlign: 'center' },
       render: (text: any, key: any, rowData: Change) => (
         <div style={{ textAlign: 'center' }}>
-          {tableLevel === '1' &&
-          rowData?.children &&
-          rowData?.children.length > 0 ? (
+          {rowData?.children && rowData?.children.length > 0 ? (
             <Button
               basic
               icon="plus-square-o"
