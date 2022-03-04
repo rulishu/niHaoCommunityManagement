@@ -1,11 +1,12 @@
 import React from 'react'
 import { ProDrawer, ProForm, useForm } from '@uiw-admin/components'
-import { Notify } from 'uiw'
+import { Notify, TreeChecked } from 'uiw'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
-import { insert, update } from '@/servers/Authority/Role'
-import { items } from './items'
+import { insert, update, assignMenu } from '@/servers/Authority/Role'
+import { itemsAdd } from './items'
 import useSWR from 'swr'
+import { TreeData } from '@uiw/react-tree'
 
 interface State {
   drawerVisible?: boolean
@@ -21,7 +22,7 @@ const Detail = (props: {
   const baseRef = useForm()
   const dispatch = useDispatch<Dispatch>()
   const {
-    Role: { drawerVisible, tableType, queryInfo, isView },
+    Role: { drawerVisible, tableType, queryInfo, isView, menuList, selectMenu },
   } = useSelector((Role: RootState) => Role)
 
   const onClose = () => {
@@ -36,7 +37,9 @@ const Detail = (props: {
 
   const { mutate } = useSWR(
     [
-      (tableType === 'add' && insert) || (tableType === 'edit' && update),
+      (tableType === 'add' && insert) ||
+        (tableType === 'edit' && update) ||
+        (tableType === 'aut' && assignMenu),
       { method: 'POST', body: queryInfo },
     ],
     {
@@ -54,11 +57,22 @@ const Detail = (props: {
     }
   )
 
+  const onChecked = (keys: TreeData['key'][]) => {
+    // console.log('keys:', keys);
+    props.updateData({ queryInfo: { ...queryInfo, menuIdList: keys } })
+  }
+
   return (
     <ProDrawer
-      width={800}
+      width={!isView ? 500 : 800}
       title={
-        tableType === 'add' ? '新增' : tableType === 'edit' ? '编辑' : '查看'
+        tableType === 'add'
+          ? '新增'
+          : tableType === 'aut'
+          ? '授权'
+          : tableType === 'edit'
+          ? '编辑'
+          : '查看'
       }
       visible={drawerVisible}
       onClose={onClose}
@@ -82,18 +96,29 @@ const Detail = (props: {
         },
       ]}
     >
-      <ProForm
-        title="基础信息"
-        formType={isView ? 'pure' : 'card'}
-        form={baseRef}
-        readOnly={isView}
-        buttonsContainer={{ justifyContent: 'flex-start' }}
-        // 更新表单的值
-        onChange={(initial, current) =>
-          props.updateData({ queryInfo: { ...queryInfo, ...current } })
-        }
-        formDatas={items(queryInfo)}
-      />
+      {tableType === 'aut' ? (
+        <TreeChecked
+          data={menuList}
+          selectedKeys={selectMenu}
+          onSelected={(keys) => {
+            onChecked(keys)
+          }}
+        />
+      ) : (
+        <ProForm
+          title="基础信息"
+          formType={isView ? 'pure' : 'card'}
+          form={baseRef}
+          readOnly={isView}
+          buttonsContainer={{ justifyContent: 'flex-start' }}
+          // 更新表单的值
+          onChange={(initial, current) =>
+            props.updateData({ queryInfo: { ...queryInfo, ...current } })
+          }
+          formDatas={itemsAdd(queryInfo, isView)}
+          readOnlyProps={{ column: 2 }}
+        />
+      )}
     </ProDrawer>
   )
 }

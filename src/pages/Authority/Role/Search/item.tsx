@@ -19,7 +19,7 @@ export const columnsSearch = (
       },
       render: (roleName: string) => (
         <div style={{ textAlign: 'center' }}>
-            <span>{roleName}</span>
+          <span>{roleName}</span>
         </div>
       ),
     },
@@ -37,7 +37,7 @@ export const columnsSearch = (
       },
       render: (createName: string) => (
         <div style={{ textAlign: 'center' }}>
-            <span>{createName}</span>
+          <span>{createName}</span>
         </div>
       ),
     },
@@ -48,7 +48,7 @@ export const columnsSearch = (
       align: 'center',
       render: (status: number) => (
         <div style={{ textAlign: 'center' }}>
-            <span>{status === 1? '正常': status === 2?'停用':''}</span>
+          <span>{status === 1 ? '正常' : status === 2 ? '停用' : ''}</span>
         </div>
       ),
     },
@@ -59,7 +59,7 @@ export const columnsSearch = (
       align: 'center',
       render: (remark: string) => (
         <div style={{ textAlign: 'center' }}>
-            <span>{remark}</span>
+          <span>{remark}</span>
         </div>
       ),
     },
@@ -67,9 +67,16 @@ export const columnsSearch = (
       title: '操作',
       key: 'edit',
       align: 'center',
-      width: 200,
+      width: 300,
       render: (text: any, key: any, rowData: Change) => (
-        <div>
+        <div style={{ textAlign: 'center' }}>
+          <Button
+            size="small"
+            icon="file-add"
+            onClick={handleEditTable.bind(this, 'aut', rowData)}
+          >
+            授权
+          </Button>
           <Button
             size="small"
             icon="edit"

@@ -54,8 +54,16 @@ export default function Demo() {
     if (type === 'add') {
       updateData({ drawerVisible: true, queryInfo: {} })
     }
+    if (type === 'aut') {
+      dispatch({
+        type: 'Role/selectById',
+        payload: { id: obj.id },
+      })
+      updateData({ drawerVisible: true, queryInfo: { roleId: obj.id } })
+    }
     if (type === 'edit' || type === 'view') {
-      updateData({ drawerVisible: true, queryInfo: obj })
+      let status = obj.status === 1 ? '正常' : obj.status === 2 ? '停用' : ''
+      updateData({ drawerVisible: true, queryInfo: { ...obj, status: status } })
     }
     if (type === 'del') {
       updateData({ delectVisible: true, id: obj?.id })
