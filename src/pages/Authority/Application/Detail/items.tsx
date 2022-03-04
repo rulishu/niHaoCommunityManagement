@@ -1,6 +1,15 @@
 import { Change } from '@/servers/Authority/Application'
 
-export const items = (queryInfo: Change) => [
+export const items = (queryInfo: Change, isView: boolean) => [
+  {
+    label: '菜单URL',
+    key: 'path',
+    widget: 'input',
+    initialValue: queryInfo?.path,
+    readSpan: 2,
+    required: true,
+    rules: [{ required: true, message: '请输入菜单URL' }],
+  },
   {
     label: '菜单名称',
     key: 'menuName',
@@ -9,6 +18,7 @@ export const items = (queryInfo: Change) => [
     widgetProps: {},
     required: true,
     rules: [{ required: true, message: '请输入菜单名称' }],
+    readSpan: 1,
   },
   {
     label: '菜单图标',
@@ -17,7 +27,9 @@ export const items = (queryInfo: Change) => [
     initialValue: queryInfo?.icon,
     required: true,
     rules: [{ required: true, message: '请输入菜单图标' }],
+    readSpan: 1,
   },
+
   {
     label: '菜单类型',
     key: 'menuType',
@@ -30,15 +42,7 @@ export const items = (queryInfo: Change) => [
     initialValue: queryInfo.menuType,
     required: true,
     rules: [{ required: true, message: '请选择菜单类型' }],
-  },
-  {
-    label: '菜单URL',
-    key: 'path',
-    widget: 'input',
-    initialValue: queryInfo?.path,
-    span: '24',
-    required: true,
-    rules: [{ required: true, message: '请输入菜单URL' }],
+    readSpan: 1,
   },
   {
     label: '父菜单ID',
@@ -47,8 +51,7 @@ export const items = (queryInfo: Change) => [
     initialValue: queryInfo?.parentId,
     width: 200,
     disabled: true,
-    // required: true,
-    // rules: [{ required: true, message: '请输入父菜单ID' }],
+    readSpan: 1,
   },
   {
     label: '显示顺序',
@@ -57,13 +60,38 @@ export const items = (queryInfo: Change) => [
     initialValue: queryInfo?.orderNum,
     required: true,
     rules: [{ required: true, message: '显示顺序' }],
+    readSpan: 1,
+  },
+  {
+    label: '创建时间',
+    key: 'createTime',
+    widget: 'input',
+    initialValue: queryInfo?.createTime,
+    hide: !isView,
+    readSpan: 1,
+  },
+  {
+    label: '更新时间',
+    key: 'updateTime',
+    widget: 'input',
+    initialValue: queryInfo?.updateTime,
+    hide: !isView,
+    readSpan: 1,
+  },
+  {
+    label: '更新人',
+    key: 'updateName',
+    widget: 'input',
+    initialValue: queryInfo?.updateName,
+    hide: !isView,
+    readSpan: 1,
   },
   {
     label: '备注',
     key: 'remark',
-    widget: 'input',
+    widget: 'textarea',
     initialValue: queryInfo?.remark,
-    required: true,
-    rules: [{ required: true, message: '备注' }],
+    span: '24',
+    readSpan: 2,
   },
 ]

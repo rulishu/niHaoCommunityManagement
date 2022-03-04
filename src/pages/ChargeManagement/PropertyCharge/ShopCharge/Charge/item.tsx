@@ -32,18 +32,12 @@ export const columnsList = (
       title: '优惠金额',
       align: 'center',
       key: 'money',
-      // required: true,
-      rules: [
-        {
-          pattern: new RegExp(/^[0-9]+(.[0-9]{2})?$/),
-          message: '请正确输入正确金额',
-        },
-      ],
       render: () => (
         <Input
-          placeholder="请输入金额数字"
+          placeholder="请输入金额"
           style={{ maxWidth: 200 }}
           onChange={onChange}
+          addonAfter={<div style={{ marginRight: 5 }}>元</div>}
         />
       ),
     },
@@ -65,11 +59,20 @@ export const cardOne = (queryInfo: any) => [
     label: '滞纳金：',
     key: 'lateFee',
     widget: 'input',
-    initialValue: queryInfo?.createName,
+    initialValue: queryInfo?.lateFee,
     disabled: true,
     inline: true,
     span: '24',
     placeholder: '请输入滞纳金',
+    rules: [
+      {
+        pattern: new RegExp(/(^[1-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/),
+        message: '请正确输入',
+      },
+    ],
+    widgetProps: {
+      addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>元</div>,
+    },
   },
   {
     label: '可用预存款：',
@@ -80,6 +83,15 @@ export const cardOne = (queryInfo: any) => [
     inline: true,
     span: '24',
     placeholder: '请输入可用预存款',
+    rules: [
+      {
+        pattern: new RegExp(/(^[1-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/),
+        message: '请正确输入',
+      },
+    ],
+    widgetProps: {
+      addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>元</div>,
+    },
   },
   {
     label: '找零金额：',
@@ -90,17 +102,34 @@ export const cardOne = (queryInfo: any) => [
     inline: true,
     span: '24',
     placeholder: '请输入找零金额',
+    rules: [
+      {
+        pattern: new RegExp(/(^[1-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/),
+        message: '请正确输入',
+      },
+    ],
+    widgetProps: {
+      addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>元</div>,
+    },
   },
   {
     label: '收款金额：',
     key: 'moneyAmount',
     widget: 'input',
     initialValue: queryInfo?.uapRightUrl,
-    rules: [{ required: true, message: '请输入收款金额：' }],
     required: true,
     inline: true,
     span: '24',
     placeholder: '请输入收款金额',
+    rules: [
+      {
+        pattern: new RegExp(/(^[1-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/),
+        message: '请正确输入金额,例9.99',
+      },
+    ],
+    widgetProps: {
+      addonAfter: <div style={{ marginRight: 5 }}>元</div>,
+    },
   },
 ]
 export const cardTow = (queryInfo: any) => [
@@ -108,11 +137,20 @@ export const cardTow = (queryInfo: any) => [
     label: '优惠金额',
     key: 'lateFee',
     widget: 'input',
-    initialValue: queryInfo?.createName,
+    initialValue: queryInfo?.lateFee,
     disabled: true,
     inline: true,
     span: '24',
     placeholder: '请输入优惠金额',
+    rules: [
+      {
+        pattern: new RegExp(/(^[1-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/),
+        message: '请正确输入',
+      },
+    ],
+    widgetProps: {
+      addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>元</div>,
+    },
   },
   {
     label: '预存款付款',
@@ -123,6 +161,15 @@ export const cardTow = (queryInfo: any) => [
     inline: true,
     span: '24',
     placeholder: '请输入预存款付款',
+    rules: [
+      {
+        pattern: new RegExp(/(^[1-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/),
+        message: '请正确输入',
+      },
+    ],
+    widgetProps: {
+      addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>元</div>,
+    },
   },
   {
     label: '',
@@ -152,11 +199,20 @@ export const cardThree = (queryInfo: any) => [
     label: '实际应收',
     key: 'lateFee',
     widget: 'input',
-    initialValue: queryInfo?.createName,
+    initialValue: queryInfo?.lateFee,
     disabled: true,
     inline: true,
     span: '24',
     placeholder: '请输入实际应收',
+    rules: [
+      {
+        pattern: new RegExp(/(^[1-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/),
+        message: '请正确输入',
+      },
+    ],
+    widgetProps: {
+      addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>元</div>,
+    },
   },
   {
     label: '找零结存',
@@ -167,6 +223,15 @@ export const cardThree = (queryInfo: any) => [
     inline: true,
     span: '24',
     placeholder: '请输入找零结存',
+    rules: [
+      {
+        pattern: new RegExp(/(^[1-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/),
+        message: '请正确输入',
+      },
+    ],
+    widgetProps: {
+      addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>元</div>,
+    },
   },
   {
     label: '',

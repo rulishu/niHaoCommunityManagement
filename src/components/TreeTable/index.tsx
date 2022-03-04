@@ -1,6 +1,5 @@
 import React from 'react'
-import { Modal } from 'uiw'
-import { Table } from 'uiw'
+import { Table, Modal } from 'uiw'
 import { TableColumns } from '@uiw/react-table'
 
 const TreeTable = (props: {

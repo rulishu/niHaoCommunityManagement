@@ -35,6 +35,7 @@ export const columnsSearch = (
                   secondMenu: rowData?.children,
                 })
               }
+              style={{ fontSize: 16, color: '#000' }}
             >
               {text}
             </Button>
@@ -49,6 +50,7 @@ export const columnsSearch = (
       key: 'path',
       align: 'center',
       ellipsis: false,
+      width: 400,
     },
     {
       title: '菜单类型',
@@ -61,21 +63,16 @@ export const columnsSearch = (
         </div>
       ),
     },
+
     {
-      title: '顺序',
-      key: 'orderNum',
-      align: 'center',
-      ellipsis: true,
-    },
-    {
-      title: '更新时间',
-      key: 'updateTime',
+      title: '创建时间',
+      key: 'createTime',
       width: 200,
       align: 'center',
     },
     {
-      title: '创建时间',
-      key: 'createTime',
+      title: '更新时间',
+      key: 'updateTime',
       width: 200,
       align: 'center',
     },
@@ -153,6 +150,7 @@ export const columnsEnd = (
                   thirdMenu: rowData?.children,
                 })
               }}
+              style={{ fontSize: 16, color: '#000' }}
             >
               {text}
             </Button>
@@ -167,6 +165,7 @@ export const columnsEnd = (
       key: 'path',
       ellipsis: false,
       style: { textAlign: 'center' },
+      width: 400,
       render: (text: string) => (
         <div style={{ textAlign: 'center' }}>{text}</div>
       ),
@@ -191,33 +190,6 @@ export const columnsEnd = (
       render: (text: string) => (
         <div style={{ textAlign: 'center' }}>{text}</div>
       ),
-    },
-    {
-      title: '更新时间',
-      key: 'updateTime',
-      width: 200,
-      style: { textAlign: 'center' },
-      render: (text: string) => (
-        <div style={{ textAlign: 'center' }}>{text}</div>
-      ),
-    },
-    {
-      title: '创建时间',
-      key: 'createTime',
-      width: 200,
-      style: { textAlign: 'center' },
-      render: (text: string) => (
-        <div style={{ textAlign: 'center' }}>{text}</div>
-      ),
-    },
-    {
-      title: '更新人',
-      key: 'updateName',
-      style: { textAlign: 'center' },
-      render: (text: string) => (
-        <div style={{ textAlign: 'center' }}>{text}</div>
-      ),
-      ellipsis: true,
     },
     {
       title: '操作',
