@@ -1056,16 +1056,9 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@7.16.7":
-  version "7.16.7"
-  resolved "https://registry.npmmirror.com/@babel/runtime/-/runtime-7.16.7.tgz#03ff99f64106588c9c403c6ecb8c3bafbbdff1fa"
-  integrity sha512-9E9FJowqAsytyOY6LG+1KuueckRL+aQW+mKvXRXnuFGyRAyepJPmEo9vgMfXUA6O9u3IeEdv9MAkppFcaQwogQ==
-  dependencies:
-    regenerator-runtime "^0.13.4"
-
-"@babel/runtime@7.17.2", "@babel/runtime@^7.10.2", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.15.4", "@babel/runtime@^7.16.3", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.6", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7", "@babel/runtime@^7.9.2":
+"@babel/runtime@7.17.2", "@babel/runtime@^7.10.2", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.15.4", "@babel/runtime@^7.16.3", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.6", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7", "@babel/runtime@^7.9.2", "@babel/runtime@~7.17.0":
   version "7.17.2"
-  resolved "https://registry.npmmirror.com/@babel/runtime/-/runtime-7.17.2.tgz#66f68591605e59da47523c631416b18508779941"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.17.2.tgz#66f68591605e59da47523c631416b18508779941"
   integrity sha512-hzeyJyMA1YGdJTuWU0e/j4wKXrU4OMFvY2MSlaI9B7VQb0r5cxTE3EAIS2Q7Tn2RIcDkRvTA/v2JsAEhxe99uw==
   dependencies:
     regenerator-runtime "^0.13.4"
@@ -2302,91 +2295,91 @@
     "@typescript-eslint/types" "5.11.0"
     eslint-visitor-keys "^3.0.0"
 
-"@uiw-admin/authorized@5.2.25":
-  version "5.2.25"
-  resolved "https://registry.yarnpkg.com/@uiw-admin/authorized/-/authorized-5.2.25.tgz#8d473c98fa3305c385e301e2186fae98194b5234"
-  integrity sha512-jFaFTZ/C0izJ8/aJCL5RQzalVobAbEf0QKeCm8Lveih3DPZyPjij0zeOgEF2o5Jf5zBSUXNzJrYb91bkScRGgQ==
+"@uiw-admin/authorized@5.2.26":
+  version "5.2.26"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/authorized/-/authorized-5.2.26.tgz#6f1d67eef5678f78339935e6a92ee36289fdd9f3"
+  integrity sha512-qPKnTaJsppzJ77DeoKTYpMASEJbyjyN9DsoIhnxvYqNdwFzpFsQYlhVhC5Zww5Et52MbQxXKQo+WYCq3nR2f9A==
   dependencies:
-    "@babel/runtime" "7.16.7"
-    "@uiw-admin/router-control" "5.2.25"
+    "@babel/runtime" "~7.17.0"
+    "@uiw-admin/router-control" "5.2.26"
 
-"@uiw-admin/basic-layouts@5.2.25":
-  version "5.2.25"
-  resolved "https://registry.yarnpkg.com/@uiw-admin/basic-layouts/-/basic-layouts-5.2.25.tgz#503e2d7ae1495517229bc158784bf5bc835f3812"
-  integrity sha512-u1Lv9yMrSCc2x/xaDo+zPWasAT2DKQaUIEA+UFHiM0sIHE/N4UY8FBUHFLY48oVDeLixp5KAGo78vS8fl0dfrA==
+"@uiw-admin/basic-layouts@5.2.26":
+  version "5.2.26"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/basic-layouts/-/basic-layouts-5.2.26.tgz#ca51ae347d88e0c9cb5eafec4211aff0d45473a2"
+  integrity sha512-WK5qz+uKsmZwhUlrDkQflF2rLLlcmw2SrGtorpb/yt6/4bZB9Xk0as+BQIKKf2KchcsH7+zMOJxOXDwcxjJatg==
   dependencies:
-    "@babel/runtime" "7.16.7"
-    "@uiw-admin/document-title" "5.2.25"
+    "@babel/runtime" "~7.17.0"
+    "@uiw-admin/document-title" "5.2.26"
     classnames "2.3.1"
 
-"@uiw-admin/components@5.2.25":
-  version "5.2.25"
-  resolved "https://registry.yarnpkg.com/@uiw-admin/components/-/components-5.2.25.tgz#4ef1c92d3f461f2d17ff5aa5e4991c57d89c2b1b"
-  integrity sha512-/O0wEhluZPkdBQzfIiiyVPvcIyIdeFklVv8cnOBe0bdIoq4BC62EluTm8r7m58EWFVmpgRlPbu8bERuaT7M8ug==
+"@uiw-admin/components@5.2.26":
+  version "5.2.26"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/components/-/components-5.2.26.tgz#e4088ebdb52e0051bc077cc1164dde22d8dd81ad"
+  integrity sha512-4+HdsBy5eNavNKVzhRMya6bnnEnY6Sr2PZuv4a6IlEwJyP+lFGCIE8SsQ78NGkPgW6hY+u/XnkY/EJpIOGPvkw==
   dependencies:
-    "@babel/runtime" "7.16.7"
-    "@uiw-admin/authorized" "5.2.25"
-    "@uiw-admin/document-title" "5.2.25"
-    "@uiw-admin/router-control" "5.2.25"
-    "@uiw-admin/utils" "5.2.25"
+    "@babel/runtime" "~7.17.0"
+    "@uiw-admin/authorized" "5.2.26"
+    "@uiw-admin/document-title" "5.2.26"
+    "@uiw-admin/router-control" "5.2.26"
+    "@uiw-admin/utils" "5.2.26"
     classnames "2.3.1"
 
-"@uiw-admin/config@5.2.25":
-  version "5.2.25"
-  resolved "https://registry.yarnpkg.com/@uiw-admin/config/-/config-5.2.25.tgz#117c34d7bc9e7de9390153cdab99cbf8b4f97bee"
-  integrity sha512-KAEuyUw8wFgjDS7ks9kNQGbQoIMTOfHAJUPE2M29LmOl48fqh/t80/CkUxS50zY3GdJBYDMYQMX54F34GHK5ig==
+"@uiw-admin/config@5.2.26":
+  version "5.2.26"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/config/-/config-5.2.26.tgz#2de55cef5a8ff9eb9fba98c7d0e439414cb50a50"
+  integrity sha512-btRAsyAWNgXENTkkaA3kWBqfneL4jfRf/ZCJGbhDsKpoeyof1PmwiiHSlUDJzKMOhUiBkej8tM3FNXiSC0eRmA==
   dependencies:
     "@kkt/less-modules" "~7.1.1"
     "@kkt/raw-modules" "~7.1.1"
     "@kkt/scope-plugin-options" "~7.1.1"
-    "@uiw-admin/plugins" "5.2.25"
-    eslint-config-uiw-admin "5.2.25"
+    "@uiw-admin/plugins" "5.2.26"
+    eslint-config-uiw-admin "5.2.26"
 
-"@uiw-admin/document-title@5.2.25":
-  version "5.2.25"
-  resolved "https://registry.yarnpkg.com/@uiw-admin/document-title/-/document-title-5.2.25.tgz#a84cadf0acfc8de6a3e13f693be4ce4ef59d933d"
-  integrity sha512-UxdKH0znnK2UY6VU2iPBDCpI9cNCbNZFNJsMTurudnCuhQUad6QeVrWm257EN2tT1Ujf4sSqmOWl5sHzHFkWjQ==
+"@uiw-admin/document-title@5.2.26":
+  version "5.2.26"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/document-title/-/document-title-5.2.26.tgz#886b42cf6e1280c7b00d7fa4efcef4bf265bbe9f"
+  integrity sha512-inO7lyl6NV1mzT2d2YmvrYJrwYKtbQ0QiEu6BOf44fbXCRuHU8imo2exF3DEuLuVZNCAIaysCzQXxM4QIuk8BA==
 
-"@uiw-admin/exceptions@5.2.25":
-  version "5.2.25"
-  resolved "https://registry.yarnpkg.com/@uiw-admin/exceptions/-/exceptions-5.2.25.tgz#5ae39c43f41099c419d6facbc502c47a341aca7c"
-  integrity sha512-LlqZHrgJDNt8uHTOywyxoSqlwH5GWnXXElNYyLOwVl15DEayXg+TpJ4PW7xew1hBC6DTBhEm72QKD90qRRELJA==
+"@uiw-admin/exceptions@5.2.26":
+  version "5.2.26"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/exceptions/-/exceptions-5.2.26.tgz#be23dd06fc7fbce00eba77dcbf3d1465ac8079d2"
+  integrity sha512-evBLScgIOGcwHk9lOdgRHUy5DafabkvrxwbIN32sBZyaYbSoYsAVrNHTRJnEmFKWUdfJeBgbcjJwlvs7b/Sk5A==
   dependencies:
-    "@babel/runtime" "7.16.7"
+    "@babel/runtime" "~7.17.0"
 
-"@uiw-admin/models@5.2.25":
-  version "5.2.25"
-  resolved "https://registry.yarnpkg.com/@uiw-admin/models/-/models-5.2.25.tgz#54bfdce611926e125f48dc99dcd8a99ccd9a27d9"
-  integrity sha512-f6tAlcn5LWol+rMCysARP/4fBwhGlZOrHUVKbxlSgMrLe28FnDceYdWs8dKkUeyPcH4PY+yyL/fc3mRMUVz+6g==
+"@uiw-admin/models@5.2.26":
+  version "5.2.26"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/models/-/models-5.2.26.tgz#74ccd410bd512540490af1398a343630e9bf196e"
+  integrity sha512-gJ5G5qdjuUddmfff+Y5YmKGGPOzJ6PzTHk4nCU6B2Pcdkyb4cnJcFjYpiN5cRR3XpcmBEm/ZIzJ4VRmNpg/0aQ==
   dependencies:
     "@rematch/core" "2.2.0"
     "@rematch/loading" "2.1.2"
 
-"@uiw-admin/plugins@5.2.25":
-  version "5.2.25"
-  resolved "https://registry.yarnpkg.com/@uiw-admin/plugins/-/plugins-5.2.25.tgz#3e5163f2ecade5613fb833226f8da8eb72d47f1f"
-  integrity sha512-gu2nW/Ug6/HADCtCDFmSHHGOc6SsO9SohoyCDbNYE27z/zPRpaZ+LudLTvmM42L9rJY3IxiRdM+g8y35DVJxcw==
+"@uiw-admin/plugins@5.2.26":
+  version "5.2.26"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/plugins/-/plugins-5.2.26.tgz#51c4a392083f3d9ee700a810ad5e17a56dd9a1a9"
+  integrity sha512-E1UGv7tIsE9CDkooWNqE4eAFRGVlwjasn3XswHOHSuTJGEjnlIiHaV2CX01rbMaYr0rOTGgsrfvmObFmxvoZtg==
 
-"@uiw-admin/router-control@5.2.25":
-  version "5.2.25"
-  resolved "https://registry.yarnpkg.com/@uiw-admin/router-control/-/router-control-5.2.25.tgz#dd82fe11c834e3e418b81bfd0cb1dacaf97b0789"
-  integrity sha512-fFstNa2VqnzNNE6482g1CCEpbpcs6zYAEenMCIJ4GnPzE65lUkX77xZv7SsC4Mh1XDhP61Rzm9YUep23mBKRhQ==
+"@uiw-admin/router-control@5.2.26":
+  version "5.2.26"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/router-control/-/router-control-5.2.26.tgz#23c18fc4e481d62555eca40d842aab940a5f054e"
+  integrity sha512-yuWtB4e7Clb1qa7L5e5sqwwwqPbQIwSyc3uugxgLb+uR96bAaDy/lgN6hP1FjG40K8l35uzOGC8mCXzGl6qFGA==
 
-"@uiw-admin/user-login@5.2.25":
-  version "5.2.25"
-  resolved "https://registry.yarnpkg.com/@uiw-admin/user-login/-/user-login-5.2.25.tgz#56adb1b4e0e518ea9d4041b51b3b122769c11194"
-  integrity sha512-ALqLT4qLw2dfCBtZL/MEC0z3SbVc6ifJNzbKlAbq0R1q0XUmt3qA6Uic9Fs2B1WTXrnORoTLhYdtOaeLcd5lzQ==
+"@uiw-admin/user-login@5.2.26":
+  version "5.2.26"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/user-login/-/user-login-5.2.26.tgz#8d2cb87dcbf0672803c4c1cad5d48a39ce64d334"
+  integrity sha512-6fdm8xjbb0sepjYecEAfyXBJkH0n3H8qReISB0tgdrq6YY3bguYN+xSWzWSu+YbAgVK0E8hARFKYVH4F6fvwpA==
   dependencies:
-    "@uiw-admin/document-title" "5.2.25"
+    "@uiw-admin/document-title" "5.2.26"
     classnames "^2.3.1"
 
-"@uiw-admin/utils@5.2.25":
-  version "5.2.25"
-  resolved "https://registry.yarnpkg.com/@uiw-admin/utils/-/utils-5.2.25.tgz#89c7130bd936bf33e0292918a8f8f4f01620ccac"
-  integrity sha512-wmEPt082ORjtURKOfr1zmLED2Ct3qrwbhEBylQhG4snHgomnpRjgPuQ7TdKYjZe6KED2TdVd5d/j6sboQDrZdA==
+"@uiw-admin/utils@5.2.26":
+  version "5.2.26"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/utils/-/utils-5.2.26.tgz#4335a6e28ff6077d34baf6ebd7cc156556d94ada"
+  integrity sha512-fqpr2WX0Ux0SKrYXqnAWbRJCUtAgAyJdy0wCzg/yiH/2u571u881394bcI7GstHMwJhetzcCwWTkOUR+JLfaVg==
   dependencies:
-    axios "0.24.0"
-    qs "6.10.3"
+    axios "~0.24.0"
+    qs "~6.10.3"
 
 "@uiw/copy-to-clipboard@~1.0.11":
   version "1.0.12"
@@ -3532,9 +3525,9 @@ axe-core@^4.3.5:
   resolved "https://registry.npmmirror.com/axe-core/-/axe-core-4.4.1.tgz#7dbdc25989298f9ad006645cd396782443757413"
   integrity sha512-gd1kmb21kwNuWr6BQz8fv6GNECPBnUasepcoLbekws23NVBLODdsClRZ+bQ8+9Uomf3Sm3+Vwn0oYG9NvwnJCw==
 
-axios@0.24.0:
+axios@0.24.0, axios@~0.24.0:
   version "0.24.0"
-  resolved "https://registry.npmmirror.com/axios/-/axios-0.24.0.tgz#804e6fa1e4b9c5288501dd9dff56a7a0940d20d6"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.24.0.tgz#804e6fa1e4b9c5288501dd9dff56a7a0940d20d6"
   integrity sha512-Q6cWsys88HoPgAaFAVUb0WpPk0O8iTeisR9IMqy9G8AbO4NlpVknrnQS03zzF9PGAWgO3cgletO3VjV/P7VztA==
   dependencies:
     follow-redirects "^1.14.4"
@@ -5033,10 +5026,10 @@ eslint-config-standard@16.0.3:
   resolved "https://registry.npmmirror.com/eslint-config-standard/-/eslint-config-standard-16.0.3.tgz#6c8761e544e96c531ff92642eeb87842b8488516"
   integrity sha512-x4fmJL5hGqNJKGHSjnLdgA6U6h1YW/G2dW9fA+cyVur4SK6lyue8+UgNKWlZtUDTXvgKDD/Oa3GQjmB5kjtVvg==
 
-eslint-config-uiw-admin@5.2.25:
-  version "5.2.25"
-  resolved "https://registry.yarnpkg.com/eslint-config-uiw-admin/-/eslint-config-uiw-admin-5.2.25.tgz#6e5be7e753e0cdc69cbd54d67cb538e1f35eaff2"
-  integrity sha512-8Gz0ERGaN2r1XuhGtj6Tus9yRDcbNkh2vb7CiLXMqOXQzq35cSdd9xRCLKp051f7LKwTnywtr1CgyC8Yeauwnw==
+eslint-config-uiw-admin@5.2.26:
+  version "5.2.26"
+  resolved "https://registry.yarnpkg.com/eslint-config-uiw-admin/-/eslint-config-uiw-admin-5.2.26.tgz#203ab8d6a1b0c5c01346358011e241760f63e956"
+  integrity sha512-cDquWYH08yX6+QlJX+2e15gvtMtP1iVgt0/HHI+0iuJZh6am8EaPkNNsLi8u76e5E/+gtzsQMXxHqgU+PbMgOw==
 
 eslint-import-resolver-node@^0.3.4, eslint-import-resolver-node@^0.3.6:
   version "0.3.6"
@@ -8779,13 +8772,6 @@ q@^1.1.2:
   resolved "https://registry.npmmirror.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
   integrity sha512-kV/CThkXo6xyFEZUugw/+pIOywXcDbFYgSct5cT3gqlbkBE1SJdwy6UQoZvodiWF/ckQLZyDE/Bu1M6gVu5lVw==
 
-qs@6.10.3:
-  version "6.10.3"
-  resolved "https://registry.npmmirror.com/qs/-/qs-6.10.3.tgz#d6cde1b2ffca87b5aa57889816c5f81535e22e8e"
-  integrity sha512-wr7M2E0OFRfIfJZjKGieI8lBKb7fRCH4Fv5KNPEs7gJ8jadvotdsS08PzOKR7opXhZ/Xkjtt3WF9g38drmyRqQ==
-  dependencies:
-    side-channel "^1.0.4"
-
 qs@6.7.0:
   version "6.7.0"
   resolved "https://registry.npmmirror.com/qs/-/qs-6.7.0.tgz#41dc1a015e3d581f1621776be31afb2876a9b1bc"
@@ -8795,6 +8781,13 @@ qs@6.9.6:
   version "6.9.6"
   resolved "https://registry.npmmirror.com/qs/-/qs-6.9.6.tgz#26ed3c8243a431b2924aca84cc90471f35d5a0ee"
   integrity sha512-TIRk4aqYLNoJUbd+g2lEdz5kLWIuTMRagAXxl78Q0RiVjAOugHmeKNGdd3cwo/ktpf9aL9epCfFqWDEKysUlLQ==
+
+qs@~6.10.3:
+  version "6.10.3"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.10.3.tgz#d6cde1b2ffca87b5aa57889816c5f81535e22e8e"
+  integrity sha512-wr7M2E0OFRfIfJZjKGieI8lBKb7fRCH4Fv5KNPEs7gJ8jadvotdsS08PzOKR7opXhZ/Xkjtt3WF9g38drmyRqQ==
+  dependencies:
+    side-channel "^1.0.4"
 
 queue-microtask@^1.2.2:
   version "1.2.3"
