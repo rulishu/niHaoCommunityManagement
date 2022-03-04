@@ -1,3 +1,5 @@
+import React from 'react'
+
 export const columnsDepAdd = (queryInfo: any) => [
   {
     label: '编号',
@@ -46,10 +48,17 @@ export const columnsDepAdd = (queryInfo: any) => [
     label: '收费金额',
     key: 'fee',
     widget: 'input',
-    widgetProps: {},
     initialValue: queryInfo?.fee,
     required: true,
-    rules: [{ required: true, message: '请输入收费金额' }],
+    rules: [
+      {
+        pattern: new RegExp(/(^[1-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/),
+        message: '请正确输入',
+      },
+    ],
+    widgetProps: {
+      addonAfter: <div style={{ marginRight: 5 }}>元</div>,
+    },
     placeholder: '请输入收费金额',
   },
   {
@@ -116,10 +125,17 @@ export const columnsBack = (queryInfo: any) => [
     key: 'fee',
     widget: 'input',
     disabled: true,
-    widgetProps: {},
     initialValue: queryInfo?.fee,
     required: true,
-    rules: [{ required: true, message: '请输入收费金额' }],
+    rules: [
+      {
+        pattern: new RegExp(/(^[1-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/),
+        message: '请正确输入',
+      },
+    ],
+    widgetProps: {
+      addonAfter: <div style={{ marginRight: 5 }}>元</div>,
+    },
     placeholder: '请输入收费金额',
   },
   {

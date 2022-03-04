@@ -26,7 +26,7 @@ export default function Search() {
     })
   }
 
-  const table = useTable('/api/account/selectPage', {
+  const table = useTable('/api/user/selectPage', {
     // 格式化接口返回的数据，必须返回{total 总数, data: 列表数据}的格式
     formatData: (data) => {
       return {
@@ -36,28 +36,29 @@ export default function Search() {
     },
     // 格式化查询参数 会接收到pageIndex 当前页  pageSize 页码
     query: (pageIndex, pageSize, searchValues) => {
-      function timestampToTime(timestamp: string) {
-        let d = new Date(timestamp)
-        let month =
-          d.getMonth() > 8 ? d.getMonth() + 1 : '0' + (d.getMonth() + 1)
-        let date = d.getFullYear() + '-' + month + '-' + d.getDate()
-        let hour = d.getHours() > 9 ? d.getHours() : '0' + d.getHours()
-        let minute = d.getMinutes() > 9 ? d.getMinutes() : '0' + d.getMinutes()
-        let ss = d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds()
-        let time = date + ' ' + hour + ':' + minute + ':' + ss
-        return time
-      }
+      // function timestampToTime(timestamp: string) {
+      //   let d = new Date(timestamp)
+      //   let month =
+      //     d.getMonth() > 8 ? d.getMonth() + 1 : '0' + (d.getMonth() + 1)
+      //   let date = d.getFullYear() + '-' + month + '-' + d.getDate()
+      //   let hour = d.getHours() > 9 ? d.getHours() : '0' + d.getHours()
+      //   let minute = d.getMinutes() > 9 ? d.getMinutes() : '0' + d.getMinutes()
+      //   let ss = d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds()
+      //   let time = date + ' ' + hour + ':' + minute + ':' + ss
+      //   return time
+      // }
       return {
         page: pageIndex,
-        pageSize: 10,
-        realName: searchValues.uapUserRealName,
-        uapUserMobile: searchValues.uapUserMobile,
-        beginTime: searchValues.beginTime
-          ? timestampToTime(searchValues.beginTime)
-          : '',
-        endTime: searchValues.endTime
-          ? timestampToTime(searchValues.endTime)
-          : '',
+        pageSize: pageSize,
+        userName: searchValues.userName,
+        phoneNumber: searchValues.phoneNumber,
+        gender: searchValues.gender,
+        // beginTime: searchValues.beginTime
+        //   ? timestampToTime(searchValues.beginTime)
+        //   : '',
+        // endTime: searchValues.endTime
+        //   ? timestampToTime(searchValues.endTime)
+        //   : '',
       }
     },
   })

@@ -39,7 +39,10 @@ const Detail = (props: {
         thirdVisible: true,
       })
     } else {
-      props.updateData({ isView: false, drawerVisible: false })
+      props.updateData({
+        isView: false,
+        drawerVisible: false,
+      })
     }
   }
 
@@ -108,7 +111,7 @@ const Detail = (props: {
         onChange={(initial, current) =>
           props.updateData({ queryInfo: { ...queryInfo, ...current } })
         }
-        formDatas={items(queryInfo)}
+        formDatas={items(queryInfo, isView)}
       />
     </ProDrawer>
   )

@@ -29,6 +29,7 @@ const Charge = (props: { onSearch: () => void }) => {
       payload,
     })
   }
+
   const baseRef = useForm()
   const carOneRef = useForm()
   const carTwoRef = useForm()
@@ -61,21 +62,42 @@ const Charge = (props: { onSearch: () => void }) => {
     Notify.error({
       placement: 'topRight',
       title: '',
-      description: '请正确输入正确优惠金额金额',
+      description: '请正确输入金额,例9.99',
     })
   }
   // 操作
   const onChange = async (text: React.ChangeEvent<HTMLInputElement>) => {
     // window.console.log('text.target.value', text.target.value)
     let textValue = text.target.value
-    let reg =
-      /^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/
+    let reg = /(^[1-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/
     if (textValue && !reg.test(textValue)) {
       getNotify()
       await setTextStatus(true)
       return
     } else {
       await setTextStatus(false)
+      carOneRef.setFields &&
+        carOneRef.setFields({
+          ...carOneRef.getFieldValues(),
+          queryInfo: text.target.value,
+          lateFee: textValue,
+          uapRight: textValue,
+          uapRightName: textValue,
+        })
+      carTwoRef.setFields &&
+        carTwoRef.setFields({
+          ...carTwoRef.getFieldValues(),
+          queryInfo: text.target.value,
+          lateFee: textValue,
+          uapRight: textValue,
+        })
+      carThrRef.setFields &&
+        carThrRef.setFields({
+          ...carThrRef.getFieldValues(),
+          queryInfo: text.target.value,
+          lateFee: textValue,
+          uapRight: textValue,
+        })
     }
   }
 
@@ -105,8 +127,6 @@ const Charge = (props: { onSearch: () => void }) => {
           type: 'primary',
           style: { textAlign: 'right' },
           onClick: async () => {
-            console.log('textStatus', textStatus)
-
             await baseRef?.submitvalidate?.()
             const errors = baseRef.getError()
             if (errors && Object.keys(errors).length > 0) return
@@ -123,7 +143,6 @@ const Charge = (props: { onSearch: () => void }) => {
             await carThrRef?.submitvalidate?.()
             const errorsThr = carThrRef.getError()
             if (errorsThr && Object.keys(errorsThr).length > 0) return
-
             mutate()
           },
         },
@@ -154,6 +173,7 @@ const Charge = (props: { onSearch: () => void }) => {
         }
         data={chargeDataList}
       />
+
       {btnStatus === 'char' && (
         <FormCar
           carOneRef={carOneRef}

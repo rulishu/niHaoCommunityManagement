@@ -1,4 +1,4 @@
-import { Button, Tooltip } from 'uiw'
+import { Button } from 'uiw'
 import React from 'react'
 import { Change } from '@/servers/Authority/Role'
 
@@ -7,108 +7,76 @@ export const columnsSearch = (
 ) => {
   return [
     {
-      title: 'id',
-      key: 'id',
-      ellipsis: true,
-      align: 'center',
-      render: (uapRoleName: string) => (
-        <div style={{ textAlign: 'center' }}>
-          <Tooltip placement="bottomRight" content={uapRoleName}>
-            <span>{uapRoleName}</span>
-          </Tooltip>
-        </div>
-      ),
-    },
-    {
-      title: '姓名',
-      key: 'uapRoleName',
+      title: '角色名称',
+      key: 'roleName',
       ellipsis: true,
       align: 'center',
       props: {
         widget: 'input',
-        initialValue: '',
-        // 组件属性
         widgetProps: {
-          preIcon: 'user',
-          placeholder: '输入用户名',
+          placeholder: '输入角色名称',
         },
       },
-      render: (uapRoleName: string) => (
+      render: (roleName: string) => (
         <div style={{ textAlign: 'center' }}>
-          <Tooltip placement="bottomRight" content={uapRoleName}>
-            <span>{uapRoleName}</span>
-          </Tooltip>
+          <span>{roleName}</span>
         </div>
       ),
     },
     {
-      title: '权限',
-      key: 'jurisdiction',
-      align: 'center',
-      ellipsis: true,
-      props: {
-        widget: 'select',
-        option: [
-          { label: '管理员', value: 20 },
-          { label: '超级管理员', value: 10 },
-        ],
-      },
-    },
-    {
-      title: '更新人名称',
-      key: 'updateName',
+      title: '创建人',
+      key: 'createName',
       ellipsis: true,
       align: 'center',
       props: {
         widget: 'input',
-        initialValue: '',
-        // 组件属性
         widgetProps: {
           preIcon: 'user',
-          placeholder: '输入更新人名称',
+          placeholder: '输入创建人',
         },
       },
-    },
-    {
-      title: '更新时间',
-      key: 'updateTime',
-      ellipsis: true,
-      align: 'center',
-      width: 200,
-      render: (updateTime: string) => (
+      render: (createName: string) => (
         <div style={{ textAlign: 'center' }}>
-          <Tooltip placement="leftTop" content={updateTime}>
-            <span>{updateTime}</span>
-          </Tooltip>
+          <span>{createName}</span>
         </div>
       ),
     },
     {
-      title: '创建时间',
-      key: 'createTime',
+      title: '角色状态',
+      key: 'status',
       ellipsis: true,
-      width: 200,
-      props: {
-        widget: 'dateInput',
-        // 组件属性
-        widgetProps: {
-          format: 'YYYY-MM-DD HH:mm:ss',
-          datePickerProps: {
-            showTime: true,
-            todayButton: '今天',
-          },
-          placeholder: '选择创建时间',
-        },
-      },
       align: 'center',
+      render: (status: number) => (
+        <div style={{ textAlign: 'center' }}>
+          <span>{status === 1 ? '正常' : status === 2 ? '停用' : ''}</span>
+        </div>
+      ),
+    },
+    {
+      title: '备注',
+      key: 'remark',
+      ellipsis: true,
+      align: 'center',
+      render: (remark: string) => (
+        <div style={{ textAlign: 'center' }}>
+          <span>{remark}</span>
+        </div>
+      ),
     },
     {
       title: '操作',
       key: 'edit',
       align: 'center',
-      width: 200,
+      width: 300,
       render: (text: any, key: any, rowData: Change) => (
-        <div>
+        <div style={{ textAlign: 'center' }}>
+          <Button
+            size="small"
+            icon="file-add"
+            onClick={handleEditTable.bind(this, 'aut', rowData)}
+          >
+            授权
+          </Button>
           <Button
             size="small"
             icon="edit"
