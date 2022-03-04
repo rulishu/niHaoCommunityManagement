@@ -35,7 +35,7 @@
     "react-redux": "7.2.6",
     "react-router-dom": "6.2.1",
     "swr": "1.2.1",
-    "uiw": "4.13.3",
+    "uiw": "4.13.5",
     "echarts": "^5.3.0"
   },
   "devDependencies": {
