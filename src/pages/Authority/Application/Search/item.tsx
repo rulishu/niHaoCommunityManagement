@@ -63,24 +63,11 @@ export const columnsSearch = (
         </div>
       ),
     },
-
     {
-      title: '创建时间',
-      key: 'createTime',
-      width: 200,
+      title: '显示顺序',
+      key: 'orderNum',
       align: 'center',
-    },
-    {
-      title: '更新时间',
-      key: 'updateTime',
-      width: 200,
-      align: 'center',
-    },
-    {
-      title: '更新人',
-      key: 'updateName',
-      align: 'center',
-      ellipsis: true,
+      ellipsis: false,
     },
     {
       title: '操作',
