@@ -51,11 +51,14 @@ export default function Demo() {
       isView: type === 'view',
       tableType: type,
     })
-    if (type === 'add') {
-      updateData({ drawerVisible: true, queryInfo: {} })
+    if (type === 'edit') {
+      dispatch({
+        type: 'User/selectRoleList',
+      })
     }
-    if (type === 'edit' || type === 'view') {
-      updateData({ drawerVisible: true, queryInfo: obj })
+    if (type === 'view') {
+      let status = obj.status === 0 ? '正常' : obj.status === 1 ? '停用' : ''
+      updateData({ drawerVisible: true, queryInfo: { ...obj, status: status } })
     }
     if (type === 'del') {
       updateData({ delectVisible: true, id: obj?.id })
@@ -65,16 +68,6 @@ export default function Demo() {
     <React.Fragment>
       <ProTable
         bordered
-        operateButtons={[
-          {
-            label: '新增',
-            type: 'primary',
-            // onClick: onAdd,
-            onClick: () => {
-              handleEditTable('add', {})
-            },
-          },
-        ]}
         searchBtns={[
           {
             label: '查询',
