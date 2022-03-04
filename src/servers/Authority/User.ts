@@ -4,7 +4,7 @@ export interface Change {
   id?: string
   roleName?: string
   userName?: string
-  gender?: number
+  gender?: number | string
   cardId?: number
   avatar?: string
   nickName?: string
@@ -12,20 +12,23 @@ export interface Change {
   phoneNumber?: number
   password?: number
 }
-
-function selectById(params: Change) {
-  return request('/api/account/selectAccountDetail', {
+/**
+ * 角色管理-角色列表
+ * @param {Object} params
+ */
+function selectRoleList(params: Change) {
+  return request('/api/role/selectRoleList', {
     method: 'POST',
     body: { ...params },
   })
-} 
+}
 
 const selectPage = '/api/account/selectPage'
 
-const update = '/api/account/edit'
+const update = '/api/test/select'
 
 const insert = '/api/account/register'
 
 const deleteData = '/api/account/delete'
 
-export { selectById, selectPage, update, insert, deleteData }
+export { selectRoleList, selectPage, update, insert, deleteData }

@@ -1,4 +1,4 @@
-import { Button, Tooltip } from 'uiw'
+import { Button } from 'uiw'
 import React from 'react'
 import { Change } from '@/servers/Authority/User'
 
@@ -11,13 +11,6 @@ export const columnsSearch = (
       key: 'roleName',
       ellipsis: true,
       align: 'center',
-      render: (roleName: string) => (
-        <div style={{ textAlign: 'center' }}>
-          <Tooltip placement="topLeft" content={roleName}>
-            <span>{roleName}</span>
-          </Tooltip>
-        </div>
-      ),
     },
     {
       title: '账号昵称',
@@ -32,13 +25,6 @@ export const columnsSearch = (
           placeholder: '输入用户名',
         },
       },
-      render: (nickName: string) => (
-        <div style={{ textAlign: 'center' }}>
-          <Tooltip placement="topLeft" content={nickName}>
-            <span>{nickName}</span>
-          </Tooltip>
-        </div>
-      ),
     },
     {
       title: '用户姓名',
@@ -49,24 +35,9 @@ export const columnsSearch = (
       title: '用户性别',
       key: 'gender',
       align: 'center',
-      render: (gender: number) => (
+      render: (status: number) => (
         <div style={{ textAlign: 'center' }}>
-          <Tooltip placement="topLeft" content={gender}>
-            <span>{gender === 1? '男':gender === 2?'女':''}</span>
-          </Tooltip>
-        </div>
-      ),
-    },
-    {
-      title: '身份证',
-      key: 'cardId',
-      align: 'center',
-      ellipsis: true,
-      render: (cardId: string) => (
-        <div style={{ textAlign: 'center' }}>
-          <Tooltip placement="topLeft" content={cardId}>
-            <span>{cardId}</span>
-          </Tooltip>
+          <span>{status === 0 ? '男' : status === 1 ? '女' : ''}</span>
         </div>
       ),
     },
@@ -81,18 +52,6 @@ export const columnsSearch = (
           placeholder: '请输入手机号',
         },
       },
-      render: (phoneNumber: string) => (
-        <div style={{ textAlign: 'center' }}>
-          <Tooltip placement="topLeft" content={phoneNumber}>
-            <span>{phoneNumber}</span>
-          </Tooltip>
-        </div>
-      ),
-    },
-    {
-      title: '头像地址',
-      key: 'avatar',
-      align: 'center',
     },
     {
       title: '帐号状态',
@@ -101,31 +60,24 @@ export const columnsSearch = (
       ellipsis: true,
       render: (status: number) => (
         <div style={{ textAlign: 'center' }}>
-          <Tooltip placement="topLeft" content={status}>
-            <span>{status === 1? '正常':'停用' }</span>
-          </Tooltip>
+          <span>{status === 0 ? '正常' : status === 1 ? '禁用' : ''}</span>
         </div>
       ),
     },
-    {
-      title: '注册时间',
-      key: 'createTime',
-      width: 200,
-      align: 'center',
-    },
+
     {
       title: '操作',
       key: 'edit',
       align: 'center',
-      width: 200,
+      width: 250,
       render: (text: any, key: any, rowData: Change) => (
-        <div>
+        <div style={{ textAlign: 'center' }}>
           <Button
             size="small"
             icon="edit"
             onClick={handleEditTable.bind(this, 'edit', rowData)}
           >
-            编辑
+            角色授权
           </Button>
           <Button
             size="small"
