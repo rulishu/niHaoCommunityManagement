@@ -1,6 +1,6 @@
 import { Button } from 'uiw'
 import React from 'react'
-import { Change } from '@/servers/BasicManage/ChargeManage'
+import { Change } from '@/servers/BasicManage/ShopSale'
 
 export const columnsSearch = (
   handleEditTable: (tableType: string, obj: Change) => void
@@ -9,7 +9,7 @@ export const columnsSearch = (
     {
       title: '商铺编号',
       align: 'center',
-      key: 'type',
+      key: 'code',
       ellipsis: true,
       props: {
         widget: 'input',
@@ -21,7 +21,7 @@ export const columnsSearch = (
     {
       title: '使用状态',
       align: 'center',
-      key: 'types',
+      key: 'useStatus',
       ellipsis: true,
       props: {
         label: '使用状态',
@@ -36,7 +36,7 @@ export const columnsSearch = (
     {
       title: '客户姓名',
       align: 'center',
-      key: 'typ',
+      key: 'userName',
       ellipsis: true,
       props: {
         widget: 'input',
@@ -48,38 +48,38 @@ export const columnsSearch = (
     {
       title: '电话',
       align: 'center',
-      key: 'type',
+      key: 'phone',
       ellipsis: true,
     },
     {
       title: '租金',
       align: 'center',
-      key: 'type',
+      key: 'sale',
       ellipsis: true,
     },
     {
       title: '行业',
       align: 'center',
-      key: 'type',
+      key: 'industry',
       ellipsis: true,
     },
     {
       title: '开始时间',
       align: 'center',
-      key: 'type',
+      key: 'startTime',
       ellipsis: true,
     },
     {
       title: '结束时间',
       align: 'center',
-      key: 'type',
+      key: 'endTime',
       ellipsis: true,
     },
     {
       title: '操作',
       key: 'edit',
       align: 'center',
-      width: 200,
+      width: 300,
       render: (text: any, key: any, rowData: Change) => (
         <div>
           <Button
@@ -88,13 +88,6 @@ export const columnsSearch = (
             onClick={handleEditTable.bind(this, 'edit', rowData)}
           >
             编辑客户信息
-          </Button>
-          <Button
-            size="small"
-            icon="eye"
-            onClick={handleEditTable.bind(this, 'view', rowData)}
-          >
-            查看
           </Button>
           <Button
             size="small"

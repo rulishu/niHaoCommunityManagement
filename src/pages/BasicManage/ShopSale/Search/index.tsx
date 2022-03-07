@@ -51,10 +51,10 @@ export default function Demo() {
       isView: type === 'view',
       tableType: type,
     })
-    if (type === 'add') {
+    if (type === 'rent' || type === 'sale') {
       updateData({ drawerVisible: true, queryInfo: {} })
     }
-    if (type === 'edit' || type === 'view') {
+    if (type === 'edit') {
       updateData({ drawerVisible: true, queryInfo: obj })
     }
     if (type === 'del') {
@@ -65,22 +65,22 @@ export default function Demo() {
     <React.Fragment>
       <ProTable
         bordered
-        operateButtons={[
-          {
-            label: '默认收费项(出租)',
-            type: 'primary',
-            onClick: () => {
-              handleEditTable('add', {})
-            },
-          },
-          {
-            label: '默认收费项(出售)',
-            type: 'primary',
-            onClick: () => {
-              handleEditTable('add', {})
-            },
-          },
-        ]}
+        // operateButtons={[
+        //   {
+        //     label: '默认收费项(出租)',
+        //     type: 'primary',
+        //     onClick: () => {
+        //       handleEditTable('rent', {})
+        //     },
+        //   },
+        //   {
+        //     label: '默认收费项(出售)',
+        //     type: 'primary',
+        //     onClick: () => {
+        //       handleEditTable('sale', {})
+        //     },
+        //   },
+        // ]}
         searchBtns={[
           {
             label: '查询',

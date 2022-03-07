@@ -1,4 +1,5 @@
 import { Change } from '@/servers/BasicManage/ShopManage'
+import React from 'react';
 
 export const items = (queryInfo: Change, tableType: string) => [
   {
@@ -41,7 +42,15 @@ export const items = (queryInfo: Change, tableType: string) => [
     initialValue: queryInfo?.areaCovered,
     required: true,
     hide: tableType === 'view' ? true : false,
-    rules: [{ required: true, message: '请输入占地面积' }],
+    widgetProps: {
+      addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>m^2</div>,
+    },
+    rules: [
+      {
+        pattern: new RegExp(/(^[1-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/),
+        message: '请正确输入',
+      },
+    ],
   },
   {
     label: '使用面积',
@@ -50,7 +59,15 @@ export const items = (queryInfo: Change, tableType: string) => [
     initialValue: queryInfo?.areaUsable,
     required: true,
     hide: tableType === 'view' ? true : false,
-    rules: [{ required: true, message: '请输入使用面积' }],
+    widgetProps: {
+      addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>m^2</div>,
+    },
+    rules: [
+      {
+        pattern: new RegExp(/(^[1-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/),
+        message: '请正确输入',
+      },
+    ],
   },
   {
     label: '租金',
@@ -58,7 +75,15 @@ export const items = (queryInfo: Change, tableType: string) => [
     widget: 'input',
     initialValue: queryInfo?.shopRent,
     hide: tableType === 'view' ? true : false,
-    rules: [{ required: true, message: '请输入租金' }],
+    widgetProps: {
+      addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>元</div>,
+    },
+    rules: [
+      {
+        pattern: new RegExp(/(^[1-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/),
+        message: '请正确输入',
+      },
+    ],  
   },
   {
     label: '使用状态',
