@@ -27,22 +27,6 @@ import Print from '../Print'
 //   id?: string
 // }
 
-const arr = [
-  {
-    shouName: '1',
-    startingTime: '1',
-    endTime: '1',
-    feeTime: '1',
-    money: '已付款',
-  },
-  {
-    shouName: '1',
-    startingTime: '1',
-    endTime: '1',
-    feeTime: '1',
-    money: '已退款',
-  },
-]
 export default function Demo() {
   const dispatch = useDispatch<Dispatch>()
   const {
@@ -61,7 +45,7 @@ export default function Demo() {
     formatData: (data) => {
       return {
         total: data?.data?.total,
-        data: data?.data?.rows || arr,
+        data: data?.data?.rows || [],
       }
     },
     // 格式化查询参数 会接收到pageIndex 当前页  searchValues 表单数据
