@@ -14,6 +14,9 @@ export interface Change {
   lateFeeDays?: string
   page?:number
   pageSize?:number
+  zoneName?:string
+  zoneNo?: string
+  zoneRemark?: string
 }
 
 function selectById(params: Change) {
@@ -31,20 +34,21 @@ const insert = '/api/test/select'
 
 const deleteData = '/api/test/select'
 
+
+const detailSelectPage = '/api/buCharge/selectPage'
 function detailData(params: Change) {
   return request('/api/buCharge/selectPage', {
     method: 'POST',
     body: { ...params },
   })
 }
-function detailAdd(params: Change) {
-  return request('/api/SaleShops/add', {
-    method: 'POST',
-    body: { ...params },
-  })
-}
+const detailAdd = '/api/SaleShops/add'
+
+
+
+
 
 export {
   selectById, selectPage, update, insert, deleteData,
-  detailData, detailAdd
+  detailData, detailSelectPage, detailAdd,
 }

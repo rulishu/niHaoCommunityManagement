@@ -1,13 +1,13 @@
 import React from 'react'
-import { ProDrawer, ProTable, useTable, useForm } from '@uiw-admin/components'
+import { ProDrawer, ProTable, useTable, ProForm, useForm } from '@uiw-admin/components'
 import { Notify, Button } from 'uiw'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
 import { insert, update } from '@/servers/BasicManage/ShopSale'
-// import { items } from './items'
 import useSWR from 'swr'
-import { selectPage, Change } from '@/servers/BasicManage/ShopSale'
-import DetailAdd from './detailIndex'
+import { detailSelectPage, Change } from '@/servers/BasicManage/ShopSale'
+import { items } from './items'
+import DetailAdd from './detailAdd/Index'
 
 interface State {
   drawerDetailVisible?: boolean
@@ -26,7 +26,7 @@ const Detail = (props: {
   const baseRef = useForm()
   const dispatch = useDispatch<Dispatch>()
   const {
-    ShopSale: { drawerVisible, tableType, queryInfo, isView },
+    ShopSale: { drawerVisible, tableType, queryInfo },
   } = useSelector((ShopSale: RootState) => ShopSale)
 
   const onClose = () => {
@@ -34,14 +34,14 @@ const Detail = (props: {
       type: 'ShopSale/updateState',
       payload: {
         drawerVisible: false,
-        isView: false,
+        // isView: false,
       },
     })
   }
 
   const { mutate } = useSWR(
     [
-      (tableType === 'add' && insert) || 
+      (tableType === 'add' && insert) ||
       (tableType === 'edit' && update),
       { method: 'POST', body: queryInfo },
     ],
@@ -59,7 +59,7 @@ const Detail = (props: {
       },
     }
   )
-  const table = useTable(selectPage, {
+  const deatailTable = useTable(detailSelectPage, {
     // 格式化接口返回的数据，必须返回{total 总数, data: 列表数据}的格式
     formatData: (data) => {
       return {
@@ -83,10 +83,10 @@ const Detail = (props: {
       payload,
     })
   }
-  
+
   function handleEditTable(detailType: string, obj: Change) {
     updateData({
-      isView: detailType === 'deAdd',
+      // isView: detailType === 'deAdd',
       tableType: detailType,
     })
     if (detailType === 'deAdd') {
@@ -100,25 +100,24 @@ const Detail = (props: {
       updateData({ delectVisible: true, id: obj?.id })
     }
   }
+
   return (
     <ProDrawer
       width={800}
-      title={
-        tableType === 'add' ? '新增' : tableType === 'edit' ? '编辑' : '查看'
-      }
+      title={'新增'}
       visible={drawerVisible}
       onClose={onClose}
       buttons={[
         {
           label: '取消',
           onClick: onClose,
-          show: !isView,
+          // show: !isView,
         },
         {
           label: '保存',
           type: 'primary',
           style: { textAlign: 'right' },
-          show: !isView,
+          // show: !isView,
           onClick: async () => {
             await baseRef?.submitvalidate?.()
             const errors = baseRef.getError()
@@ -128,22 +127,35 @@ const Detail = (props: {
         },
       ]}
     >
+      <ProForm
+        title="基础信息"
+        formType={'pure'}
+        form={baseRef}
+        // readOnly={isView}
+        buttonsContainer={{ justifyContent: 'flex-start' }}
+        // 更新表单的值
+        onChange={(initial, current) =>
+          props.updateData({ queryInfo: { ...queryInfo, ...current } })
+        }
+        formDatas={items(queryInfo,)}
+      />
+
       <ProTable
-        searchBtns={[
-          {
-            label: '搜索',
-            type: 'primary',
-            onClick: () => {
-              table.onSearch()
-            },
-          },
-          {
-            label: '重置',
-            onClick: () => {
-              table.onReset()
-            },
-          },
-        ]}
+        // searchBtns={[
+        //   {
+        //     label: '搜索',
+        //     type: 'primary',
+        //     onClick: () => {
+        //       deatailTable.onSearch()
+        //     },
+        //   },
+        //   {
+        //     label: '重置',
+        //     onClick: () => {
+        //       deatailTable.onReset()
+        //     },
+        //   },
+        // ]}
         operateButtons={[
           {
             label: '新增',
@@ -157,7 +169,7 @@ const Detail = (props: {
           pageSizeOptions: [10, 20, 30],
           pageSize: 10,
         }}
-        table={table}
+        table={deatailTable}
         columns={[
           {
             title: '关键词',
@@ -167,20 +179,20 @@ const Detail = (props: {
               initialValue: '',
               widgetProps: {
                 preIcon: 'user',
-                placeholder: '输入用户名',
+                placeholder: '输入关键词',
               },
             },
           },
           {
             title: '收费项目名',
             align: 'center',
-            key: 'phone',
+            key: 'chargeName',
             ellipsis: true,
           },
           {
             title: '单价',
             align: 'center',
-            key: 'phone',
+            key: 'chargePrice',
             ellipsis: true,
           },
           {
@@ -202,7 +214,8 @@ const Detail = (props: {
           },
         ]}
       />
-      <DetailAdd onSearch={table.onSearch} />
+
+      <DetailAdd onSearch={deatailTable.onSearch} />
     </ProDrawer>
   )
 }

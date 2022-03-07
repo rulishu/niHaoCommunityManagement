@@ -12,7 +12,6 @@ const Modals = (props: { onSearch: () => void }) => {
     ShopSale: { drawerDetailVisible, dataSource },
   } = useSelector((state: RootState) => state)
   const [checkList, setCheckList] = useState<any[]>([])
-  // console.log(checkList)
 
   const onClose = () => {
     dispatch({
@@ -23,14 +22,14 @@ const Modals = (props: { onSearch: () => void }) => {
     })
   }
 
+  let chargeIds = checkList.toString()
   const { mutate } = useSWR(
-    [detailAdd, { method: 'POST', body: { checkList } }],
+    [detailAdd, { method: 'POST', body: { chargeIds: chargeIds } }],
     {
       revalidateOnMount: false,
       revalidateOnFocus: false,
       onSuccess: (data) => {
         if (data && data.code === 1) {
-          console.log('data', data);
           onClose()
           props.onSearch()
         } else {
@@ -147,8 +146,8 @@ const Modals = (props: { onSearch: () => void }) => {
       cancelText="取消"
       icon="information"
       type="primary"
+      maxWidth={800}
       onConfirm={() => {
-        // console.log("2222", checkList)
         mutate()
       }}
       onCancel={() => {

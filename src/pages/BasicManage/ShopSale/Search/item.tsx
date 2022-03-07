@@ -91,13 +91,6 @@ export const columnsSearch = (
           </Button>
           <Button
             size="small"
-            icon="eye"
-            onClick={handleEditTable.bind(this, 'view', rowData)}
-          >
-            查看
-          </Button>
-          <Button
-            size="small"
             icon="delete"
             onClick={() => handleEditTable('del', rowData)}
           >
