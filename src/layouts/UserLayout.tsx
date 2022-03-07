@@ -2,6 +2,7 @@ import React from 'react'
 import UserLogin from '@uiw-admin/user-login'
 import { useNavigate } from 'react-router-dom'
 import { Notify } from 'uiw'
+import './index.css'
 const UserLayout = () => {
   const navigate = useNavigate()
 
@@ -25,10 +26,41 @@ const UserLayout = () => {
       ]}
       api="/api/account/pcLogin"
       btnProps={{ type: 'primary' }}
-      saveField={{
-        userName: 'nickName',
-        passWord: 'password',
-      }}
+      fields={[
+        {
+          style: { display: 'flex', flexDirection: 'row' },
+          name: 'nickName',
+          label: '账号',
+          labelFor: 'nickName',
+          children: (
+            <input
+              id={'nickName'}
+              type="text"
+              placeholder={`请输入账号`}
+              className="form-fields"
+            />
+          ),
+        },
+        {
+          style: { display: 'flex', flexDirection: 'row' },
+          name: 'password',
+          label: '密码',
+          labelFor: 'password',
+          children: (
+            <input
+              id={'password'}
+              type="password"
+              placeholder={`请输入密码`}
+              className="form-fields"
+            />
+          ),
+        },
+      ]}
+      isDefaultFields={false}
+      // saveField={{
+      //   userName: 'nickName',
+      //   passWord: 'password',
+      // }}
       onSuccess={(data) => {
         if (data && data.token) {
           sessionStorage.setItem('token', data.token)
