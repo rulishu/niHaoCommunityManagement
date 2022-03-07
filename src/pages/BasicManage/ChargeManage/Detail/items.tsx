@@ -1,4 +1,5 @@
 import { Change } from '@/servers/BasicManage/ChargeManage'
+import React from 'react'
 
 export const items = (queryInfo: Change, tableType: string) => {
 return [
@@ -32,7 +33,15 @@ return [
     initialValue: queryInfo?.chargePrice,
     required: true,
     hide: ((tableType === 'add'|| tableType === 'edit') && queryInfo?.chargeType ==='1')? false : true,
-    rules: [{ required: true, message: '请输入单价' }],
+    widgetProps: {
+      addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>元</div>,
+    },
+    rules: [
+      {
+        pattern: new RegExp(/(^[1-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/),
+        message: '请正确输入',
+      },
+    ],  
   },
   {
     label: '数量',
