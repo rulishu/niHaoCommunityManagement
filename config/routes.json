@@ -5,7 +5,7 @@
   },
   {
     "path": "/register",
-    "component": "@/layouts/Register",
+    "component": "@/layouts/RegisterLayout",
     "isAuth": true
   },
   {
