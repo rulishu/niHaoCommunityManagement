@@ -1,9 +1,9 @@
 import React from 'react'
 import { ProDrawer, ProForm, useForm } from '@uiw-admin/components'
-import { Notify } from 'uiw'
+import { Notify, List, Switch } from 'uiw'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
-import { insert, update } from '@/servers/Authority/User'
+import { update } from '@/servers/Authority/User'
 import { items } from './items'
 import useSWR from 'swr'
 
@@ -21,7 +21,7 @@ const Detail = (props: {
   const baseRef = useForm()
   const dispatch = useDispatch<Dispatch>()
   const {
-    User: { drawerVisible, tableType, queryInfo, isView },
+    User: { drawerVisible, tableType, queryInfo, isView, roleList },
   } = useSelector((User: RootState) => User)
 
   const onClose = () => {
@@ -35,10 +35,7 @@ const Detail = (props: {
   }
 
   const { mutate } = useSWR(
-    [
-      (tableType === 'add' && insert) || (tableType === 'edit' && update),
-      { method: 'POST', body: queryInfo },
-    ],
+    [tableType === 'edit' && update, { method: 'POST', body: queryInfo }],
     {
       revalidateOnMount: false,
       revalidateOnFocus: false,
@@ -53,13 +50,15 @@ const Detail = (props: {
       },
     }
   )
+  // const onChange = (value: React.ChangeEvent<HTMLInputElement>, item: any) => {
+  //   console.log('onChange--->checked', value.target.checked);
+  //   console.log('item', item);
+  // }
 
   return (
     <ProDrawer
-      width={800}
-      title={
-        tableType === 'add' ? '新增' : tableType === 'edit' ? '编辑' : '查看'
-      }
+      width={tableType === 'edit' ? 500 : 800}
+      title={tableType === 'edit' ? '角色授权' : '查看'}
       visible={drawerVisible}
       onClose={onClose}
       buttons={[
@@ -82,18 +81,30 @@ const Detail = (props: {
         },
       ]}
     >
-      <ProForm
-        title="基础信息"
-        formType={isView ? 'pure' : 'card'}
-        form={baseRef}
-        readOnly={isView}
-        buttonsContainer={{ justifyContent: 'flex-start' }}
-        // 更新表单的值
-        onChange={(initial, current) =>
-          props.updateData({ queryInfo: { ...queryInfo, ...current } })
-        }
-        formDatas={items(queryInfo)}
-      />
+      {tableType === 'view' ? (
+        <ProForm
+          title="基础信息"
+          formType={isView ? 'pure' : 'card'}
+          form={baseRef}
+          readOnly={isView}
+          buttonsContainer={{ justifyContent: 'flex-start' }}
+          // 更新表单的值
+          onChange={(initial, current) =>
+            props.updateData({ queryInfo: { ...queryInfo, ...current } })
+          }
+          formDatas={items(queryInfo)}
+        />
+      ) : (
+        <List>
+          {roleList.map((item, index) => {
+            return (
+              <List.Item key={index} extra={<Switch />}>
+                {item.roleName}
+              </List.Item>
+            )
+          })}
+        </List>
+      )}
     </ProDrawer>
   )
 }

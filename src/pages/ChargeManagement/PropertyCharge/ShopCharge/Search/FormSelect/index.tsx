@@ -59,7 +59,7 @@ export default function FormSelect() {
             option={option}
             loading={loading}
             // 组件build报错暂时添加
-            tagProps={{ color: '#1EABCD' }}
+            // tagProps={{ color: '#1EABCD' }}
           />
           <Button type="primary" style={{ marginLeft: 10 }}>
             查询
