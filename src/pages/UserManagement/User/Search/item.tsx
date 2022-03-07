@@ -40,21 +40,6 @@ export const item = (
       },
     },
     {
-      title: '用户性别',
-      key: 'gender',
-      props: {
-        widget: 'select',
-        key: 'age',
-        option: [
-          { label: '男', value: 1 },
-          { label: '女', value: 2 },
-        ],
-      },
-      render: (text: number) => (
-        <div style={{ textAlign: 'center' }}>{text === 1 ? '男' : '女'}</div>
-      ),
-    },
-    {
       title: '用户状态',
       key: 'status',
       align: 'center',
@@ -63,12 +48,6 @@ export const item = (
           {text === 1 ? '正常' : '禁用'}
         </div>
       ),
-    },
-    {
-      title: '注册时间',
-      key: 'createTime',
-      align: 'center',
-      ellipsis: true,
     },
     {
       title: '备注',
