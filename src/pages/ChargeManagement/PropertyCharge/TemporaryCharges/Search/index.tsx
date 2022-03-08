@@ -81,7 +81,7 @@ const Search = () => {
         columns={[
           {
             title: '编号',
-            key: '1',
+            key: 'code',
             props: {
               widget: 'input',
               widgetProps: {
@@ -91,7 +91,7 @@ const Search = () => {
           },
           {
             title: '客户姓名',
-            key: '2',
+            key: 'name',
             props: {
               widget: 'input',
               widgetProps: {
@@ -101,7 +101,7 @@ const Search = () => {
           },
           {
             title: '收费项目',
-            key: '4',
+            key: 'payService',
             props: {
               widget: 'select',
               option: [
@@ -118,7 +118,7 @@ const Search = () => {
           },
           {
             title: '付款方式',
-            key: '5',
+            key: 'payType',
             props: {
               widget: 'select',
               option: [
@@ -132,19 +132,19 @@ const Search = () => {
           },
           {
             title: '收款金额',
-            key: '6',
+            key: 'price',
           },
           {
             title: '收款人',
-            key: '7',
+            key: 'collectionName',
           },
           {
             title: '收款时间',
-            key: '8',
+            key: 'collectionTime',
           },
           {
             title: '状态',
-            key: '3',
+            key: 'status',
             props: {
               widget: 'select',
               option: [
@@ -155,7 +155,7 @@ const Search = () => {
           },
           {
             title: '备注',
-            key: '9',
+            key: 'remark',
           },
           {
             title: '操作',
