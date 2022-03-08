@@ -6,7 +6,7 @@ import { deleteData } from '@/servers/ChargeManagement/temporaryCharges';
 import { Notify } from 'uiw';
 import useSWR from 'swr';
 
-const Modals = () => {
+const Modals = (props: { onSearch: () => void }) => {
   const dispatch = useDispatch<Dispatch>();
   const {
     temporaryCharges: { delectVisible, id },
@@ -28,6 +28,7 @@ const Modals = () => {
       if (data && data.code === 1) {
         Notify.success({ title: data.message });
         onClose();
+        props.onSearch()
       } else {
         Notify.error({ title: '提交失败！' });
       }

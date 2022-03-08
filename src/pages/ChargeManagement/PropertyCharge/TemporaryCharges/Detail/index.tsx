@@ -13,12 +13,16 @@ interface State {
   isView?: boolean;
 }
 
-const Drawer = (props: { updateData: (payload: State) => void }) => {
+const Drawer = (props: {
+  updateData: (payload: State) => void
+  onSearch: () => void
+}) => {
   const baseRef = useForm();
   const dispatch = useDispatch<Dispatch>();
   const {
     temporaryCharges: { drawerVisible, tableType, queryInfo, isView },
   } = useSelector((state: RootState) => state);
+  const [value, getValue] = React.useState(false)
 
   const onClose = () => {
     dispatch({
@@ -37,6 +41,7 @@ const Drawer = (props: { updateData: (payload: State) => void }) => {
       onSuccess: (data) => {
         if (data && data.code === 1) {
           Notify.success({ title: data.message });
+          props.onSearch()
           onClose();
         } else {
           Notify.error({ title: '提交失败！' });
@@ -44,6 +49,26 @@ const Drawer = (props: { updateData: (payload: State) => void }) => {
       },
     },
   );
+  const onChange = (initial: any, current: any) => {
+    if (current?.customerType === '1') {
+      getValue(true),
+      props.updateData({
+        queryInfo: {
+          ...current
+        }
+      })
+    }else{
+      getValue(false),
+      props.updateData({
+        queryInfo: {
+          ...queryInfo,
+          ...current
+        }
+      })
+    }
+   
+  }
+
   return (
     <ProDrawer
       title="基础信息"
@@ -76,8 +101,8 @@ const Drawer = (props: { updateData: (payload: State) => void }) => {
         }}
         buttonsContainer={{ justifyContent: 'flex-start' }}
         // 更新表单的值
-        onChange={(initial: any, current: any) => props.updateData({ queryInfo: { ...queryInfo, ...current } })}
-        formDatas={items(queryInfo)}
+        onChange={(initial, current) => onChange(initial, current)}
+        formDatas={items(queryInfo, value)}
       />
     </ProDrawer>
   )

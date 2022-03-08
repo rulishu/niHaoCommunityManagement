@@ -1,9 +1,17 @@
 import { request } from '@uiw-admin/utils';
 
 export interface Change {
-  id: string;
-  communityId: string;
-  typeCd: string;
+  id?: string;
+  code?: string;
+  name?: string;
+  payService?: string;
+  payType?: string;
+  price?: number;
+  collectionName?: string;
+  collectionTime?: string;
+  status?: string;
+  remark?: string;
+  customerType?: string;
 }
 
 /**
@@ -17,11 +25,11 @@ function selectById(params: Change) {
   });
 }
 
-const selectPage = '/api/parkingArea/selectPage';
+const selectPage = '/api/buTemporaryCharges/selectPage';
 
 const update = '/api/parkingArea/update';
 
-const insert = '/api/parkingArea/insert';
+const insert = '/api/buTemporaryCharges/add';
 
 const deleteData = '/api/parkingArea/delete';
 
