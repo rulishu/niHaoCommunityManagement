@@ -16,6 +16,7 @@ return [
     widgetProps: {},
     required: true,
     placeholder: '请选择类型',
+    span:'8',
     rules: [{ required: true, message: '请选择类型' }],
   },
   {
@@ -24,6 +25,7 @@ return [
     widget: 'input',
     initialValue: queryInfo?.chargeName,
     required: true,
+    span:'8',
     rules: [{ required: true, message: '请输入收费项目名' }],
   },
   {
