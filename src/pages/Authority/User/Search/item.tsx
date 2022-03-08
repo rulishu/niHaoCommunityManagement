@@ -69,7 +69,7 @@ export const columnsSearch = (
       title: '操作',
       key: 'edit',
       align: 'center',
-      width: 250,
+      width: 200,
       render: (text: any, key: any, rowData: Change) => (
         <div style={{ textAlign: 'center' }}>
           <Button
@@ -86,13 +86,13 @@ export const columnsSearch = (
           >
             查看
           </Button>
-          <Button
+          {/* <Button
             size="small"
             icon="delete"
             onClick={() => handleEditTable('del', rowData)}
           >
             删除
-          </Button>
+          </Button> */}
         </div>
       ),
     },

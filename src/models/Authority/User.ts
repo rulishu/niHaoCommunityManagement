@@ -36,7 +36,7 @@ const User = createModel<RootModel>()({
       if (data.code === 1) {
         dph.User.updateState({
           drawerVisible: true,
-          roleList: data.data || [],
+          roleList: data.data.roleList || [],
         })
       }
     },
