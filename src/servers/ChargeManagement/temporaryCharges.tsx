@@ -29,7 +29,7 @@ const selectPage = '/api/buTemporaryCharges/selectPage';
 
 const update = '/api/parkingArea/update';
 
-const insert = '/api/parkingArea/insert';
+const insert = '/api/buTemporaryCharges/add';
 
 const deleteData = '/api/parkingArea/delete';
 

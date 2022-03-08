@@ -1,8 +1,7 @@
 import { Change } from '@/servers/ChargeManagement/temporaryCharges'
 import React from 'react';
 
-export const items = (queryInfo: Change,) => {
-  console.log('queryInfo',queryInfo);
+export const items = (queryInfo: Change, value: boolean) => {
   
 return [
   {
@@ -12,8 +11,8 @@ return [
     initialValue: queryInfo?.customerType,
     required: true,
     option: [
-      { label: '商铺客户', value: 1 },
-      { label: '非商铺客户', value: 2 },
+      { label: '商铺客户', value: '1' },
+      { label: '非商铺客户', value: '2' },
     ],
     span: '24',
     rules: [{ required: true, message: '请输入客户类型' }],
@@ -25,7 +24,8 @@ return [
     initialValue: queryInfo?.code,
     required: true,
     placeholder: '请输入编号',
-    hide: queryInfo && queryInfo.customerType === '1'? false: true
+    hide: !value,
+    rules: [{ required: true, message: '请输入编号' }],
   },
   {
     label: '客户姓名',
@@ -34,6 +34,7 @@ return [
     initialValue: queryInfo?.name,
     required: true,
     placeholder: '请输入客户姓名',
+    rules: [{ required: true, message: '请输入客户姓名' }],
   },
   {
     label: '收费项目',
@@ -45,6 +46,7 @@ return [
       { label: '测试暖气费', value: '测试暖气费' },
       { label: '测试临时收费项', value: '测试临时收费项' },
     ],
+    rules: [{ required: true, message: '请输入收费项目' }],
   },
   {
     label: '付款方式',
@@ -56,6 +58,7 @@ return [
       { label: '现金', value: '现金' },
       { label: '转账', value: '转账' },
     ],
+    rules: [{ required: true, message: '请输入付款方式' }],
   },
   {
     label: '收款金额',
@@ -65,6 +68,7 @@ return [
     required: true,
     rules: [
       {
+        required: true,
         pattern: new RegExp(/(^[1-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/),
         message: '请正确输入',
       },
