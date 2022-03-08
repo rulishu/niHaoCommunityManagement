@@ -8,17 +8,13 @@ import Charge from '../Charge'
 import History from '../History'
 import { columnsRout } from '../Search/Items/itemTable'
 
-const arr = [
-  { shouName: '1', startingTime: '1', endTime: '1', feeTime: '1' },
-  { shouName: '2', startingTime: '1', endTime: '1', feeTime: '1' },
-]
 export default function Demo() {
   const table = useTable(selectPage, {
     // 格式化接口返回的数据，必须返回{total 总数, data: 列表数据}的格式
     formatData: (data) => {
       return {
         total: data?.data?.total,
-        data: data?.data?.rows || arr,
+        data: data?.data?.rows || [],
       }
     },
     // 格式化查询参数 会接收到pageIndex 当前页  searchValues 表单数据

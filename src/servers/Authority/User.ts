@@ -25,10 +25,10 @@ function selectRoleList(params: Change) {
 
 const selectPage = '/api/account/selectPage'
 
-const update = '/api/test/select'
+const assignRole = '/api/account/assignRole'
 
 const insert = '/api/account/register'
 
 const deleteData = '/api/account/delete'
 
-export { selectRoleList, selectPage, update, insert, deleteData }
+export { selectRoleList, selectPage, assignRole, insert, deleteData }

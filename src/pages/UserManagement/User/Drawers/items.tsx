@@ -36,9 +36,13 @@ export const items = (queryInfo: Usermanagement, isView: boolean) => [
   {
     label: '用户性别',
     key: 'gender',
-    widget: 'input',
+    widget: 'select',
     initialValue: queryInfo?.gender,
     hide: !isView,
+    option: [
+      { value: 0, label: '男' },
+      { value: 1, label: '女' },
+    ],
   },
   {
     label: '用户状态',

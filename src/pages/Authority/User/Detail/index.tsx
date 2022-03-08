@@ -1,12 +1,13 @@
 import React from 'react'
 import { ProDrawer, ProForm, useForm } from '@uiw-admin/components'
-import { Notify, List, Switch } from 'uiw'
+import { Notify, Switch, List } from 'uiw'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
-import { update } from '@/servers/Authority/User'
+import { assignRole } from '@/servers/Authority/User'
 import { items } from './items'
 import useSWR from 'swr'
 
+let roleId: number[] = []
 interface State {
   drawerVisible?: boolean
   tableType?: string
@@ -35,7 +36,7 @@ const Detail = (props: {
   }
 
   const { mutate } = useSWR(
-    [tableType === 'edit' && update, { method: 'POST', body: queryInfo }],
+    [tableType === 'edit' && assignRole, { method: 'POST', body: queryInfo }],
     {
       revalidateOnMount: false,
       revalidateOnFocus: false,
@@ -50,10 +51,19 @@ const Detail = (props: {
       },
     }
   )
-  // const onChange = (value: React.ChangeEvent<HTMLInputElement>, item: any) => {
-  //   console.log('onChange--->checked', value.target.checked);
-  //   console.log('item', item);
-  // }
+
+  const onChange = (e: any, value: number) => {
+    if (e.target.checked) {
+      const isIncludes = roleId.includes(value)
+      if (!isIncludes) {
+        roleId.push(value)
+      }
+    } else {
+      roleId = roleId.filter((key) => key !== value)
+    }
+    let roleIdList = roleId
+    props.updateData({ queryInfo: { ...queryInfo, roleIdList } })
+  }
 
   return (
     <ProDrawer
@@ -98,7 +108,11 @@ const Detail = (props: {
         <List>
           {roleList.map((item, index) => {
             return (
-              <List.Item key={index} extra={<Switch />}>
+              <List.Item
+                key={index}
+                extra={<Switch checked={item.selected} />}
+                onChange={(e) => onChange(e, item.id)}
+              >
                 {item.roleName}
               </List.Item>
             )
