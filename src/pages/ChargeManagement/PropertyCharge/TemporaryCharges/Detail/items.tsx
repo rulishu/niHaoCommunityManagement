@@ -1,5 +1,5 @@
 import { Change } from '@/servers/ChargeManagement/temporaryCharges'
-import React from 'react';
+import React from 'react'
 
 export const items = (queryInfo: Change, value: boolean, tableType: string) => {
   // console.log('tableType',tableType);
@@ -16,7 +16,7 @@ export const items = (queryInfo: Change, value: boolean, tableType: string) => {
         { label: '非商铺客户', value: '2' },
       ],
       span: '24',
-      hide: (tableType === 'view' || tableType === 'edit') ? true : false,
+      hide: tableType === 'view' || tableType === 'edit' ? true : false,
       rules: [{ required: true, message: '请输入客户类型' }],
     },
     {
@@ -24,10 +24,9 @@ export const items = (queryInfo: Change, value: boolean, tableType: string) => {
       key: 'code',
       widget: 'input',
       initialValue: queryInfo?.code,
-      // required: true,
       placeholder: '请输入编号',
       hide: !value,
-      disabled:( tableType === 'edit' || tableType === 'view')? true : false,
+      disabled: tableType === 'edit' || tableType === 'view' ? true : false,
       rules: [{ required: true, message: '请输入编号' }],
     },
     {
@@ -88,15 +87,6 @@ export const items = (queryInfo: Change, value: boolean, tableType: string) => {
       disabled: tableType === 'edit' ? true : false,
       placeholder: '请输入收款金额',
     },
-    // {
-    //   label: '收款人',
-    //   key: 'collectionName',
-    //   widget: 'input',
-    //   widgetProps: {},
-    //   initialValue: queryInfo?.collectionName,
-    //   required: true,
-    //   placeholder: '请输入收款人',
-    // },
     {
       label: '收款时间',
       key: 'collectionTime',
@@ -110,16 +100,6 @@ export const items = (queryInfo: Change, value: boolean, tableType: string) => {
       rules: [{ required: true, message: '请选择收款时间' }],
       placeholder: '请选择收款时间',
     },
-    // {
-    //   label: '状态',
-    //   key: 'status',
-    //   initialValue: queryInfo?.status,
-    //   widget: 'select',
-    //   option: [
-    //     { label: '已付款', value: '已付款' },
-    //     { label: '已退款', value: '已退款' },
-    //   ],
-    // },
     {
       label: '退款时间',
       key: 'refundTime',
@@ -129,7 +109,7 @@ export const items = (queryInfo: Change, value: boolean, tableType: string) => {
       },
       initialValue: queryInfo?.refundTime,
       required: true,
-      hide: (tableType === 'edit' || tableType === 'view')? false: true,
+      hide: tableType === 'edit' || tableType === 'view' ? false : true,
       rules: [{ required: true, message: '请选择退款时间' }],
       placeholder: '请选择退款时间',
     },
@@ -145,7 +125,9 @@ export const items = (queryInfo: Change, value: boolean, tableType: string) => {
         { label: '刷卡', value: '4' },
         { label: '转账', value: '5' },
       ],
-      hide: (tableType === 'edit' || tableType === 'view')? false: true,
+      required: true,
+      hide: tableType === 'edit' || tableType === 'view' ? false : true,
+      rules: [{ required: true, message: '请选择退款方式' }],
     },
     {
       label: '备注',
@@ -154,8 +136,7 @@ export const items = (queryInfo: Change, value: boolean, tableType: string) => {
       placeholder: '请输入备注',
       widget: 'textarea',
       widgetProps: {},
-      required: true,
-      hide: (tableType === 'edit' || tableType === 'view')? false: true,
+      hide: tableType === 'edit' || tableType === 'view' ? false : true,
     },
-  ];
+  ]
 }

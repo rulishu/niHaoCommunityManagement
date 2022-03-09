@@ -3,8 +3,8 @@ import { ProTable, useTable } from '@uiw-admin/components'
 import { Dispatch } from '@uiw-admin/models'
 import { useDispatch } from 'react-redux'
 import { selectPage, Change } from '@/servers/ChargeManagement/temporaryCharges'
-import Drawer from '../Detail/index';
-import Modals from '../Modals/index';
+import Drawer from '../Detail/index'
+import Modals from '../Modals/index'
 import { columnsSearch } from './item'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 interface State {
@@ -38,7 +38,7 @@ const Search = () => {
       return {
         page: pageIndex,
         pageSize: 10,
-        ...searchValues
+        ...searchValues,
       }
     },
   })
@@ -49,10 +49,10 @@ const Search = () => {
       tableType: type,
     })
     if (type === 'add') {
-      updateData({ drawerVisible: true, queryInfo: { status: '1', } })
+      updateData({ drawerVisible: true, queryInfo: {} })
     }
     if (type === 'edit' || type === 'view') {
-      updateData({ drawerVisible: true, queryInfo: obj })
+      updateData({ drawerVisible: true, queryInfo: { ...obj, status: '2' } })
     }
     if (type === 'del') {
       updateData({ delectVisible: true, id: obj?.id })
@@ -62,6 +62,7 @@ const Search = () => {
   return (
     <React.Fragment>
       <ProTable
+        bordered
         // 操作栏按钮
         operateButtons={[
           {
@@ -88,10 +89,10 @@ const Search = () => {
           },
         ]}
         table={search}
-        columns={columnsSearch(handleEditTable) as FormCol[]}   
+        columns={columnsSearch(handleEditTable) as FormCol[]}
       />
       <Drawer updateData={updateData} onSearch={search.onSearch} />
-      <Modals onSearch={search.onSearch}/>
+      <Modals onSearch={search.onSearch} />
     </React.Fragment>
   )
 }
