@@ -61,12 +61,17 @@ const Drawer = (props: {
       getValue(false),
       props.updateData({
         queryInfo: {
-          ...queryInfo,
+        ...queryInfo,
           ...current
         }
       })
     }
-   
+    // props.updateData({
+    //   queryInfo: {
+    //     ...queryInfo,
+    //     ...current
+    //   }
+    // })
   }
 
   return (
@@ -102,7 +107,7 @@ const Drawer = (props: {
         buttonsContainer={{ justifyContent: 'flex-start' }}
         // 更新表单的值
         onChange={(initial, current) => onChange(initial, current)}
-        formDatas={items(queryInfo, value)}
+        formDatas={items(queryInfo, value, tableType)}
       />
     </ProDrawer>
   )

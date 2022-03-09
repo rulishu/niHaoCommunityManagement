@@ -12,6 +12,8 @@ export interface Change {
   status?: string;
   remark?: string;
   customerType?: string;
+  refundTime?:string,
+  refundType?:string
 }
 
 /**
@@ -19,7 +21,7 @@ export interface Change {
  * @param {Object} params
  */
 function selectById(params: Change) {
-  return request('/api/parkingArea/selectPage', {
+  return request('/api/buTemporaryCharges/selectPage', {
     method: 'POST',
     body: { ...params },
   });
@@ -27,7 +29,7 @@ function selectById(params: Change) {
 
 const selectPage = '/api/buTemporaryCharges/selectPage';
 
-const update = '/api/parkingArea/update';
+const update = '/api/buTemporaryCharges/update';
 
 const insert = '/api/buTemporaryCharges/add';
 
