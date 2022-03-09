@@ -104,6 +104,21 @@ export default function Demo() {
             render: <FormSelect />,
           },
         ]}
+        searchBtns={[
+          {
+            label: '查询',
+            type: 'primary',
+            onClick: () => {
+              table.onSearch()
+            },
+          },
+          {
+            label: '重置',
+            onClick: () => {
+              table.onReset()
+            },
+          },
+        ]}
         table={table}
         columns={columnsAdDep(handleEditTable) as FormCol[]}
       />

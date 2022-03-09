@@ -25,8 +25,8 @@ import Print from '../Print'
 //   isView?: boolean
 //   delectVisible?: boolean
 //   id?: string
+//   name?: string
 // }
-
 export default function Demo() {
   const dispatch = useDispatch<Dispatch>()
   const {
@@ -103,7 +103,32 @@ export default function Demo() {
             render: <FormSelect />,
           },
         ]}
+        searchBtns={[
+          {
+            label: '查询',
+            type: 'primary',
+            onClick: () => {
+              table.onSearch()
+            },
+          },
+          {
+            label: '重置',
+            onClick: () => {
+              table.onReset()
+            },
+          },
+        ]}
         table={table}
+        // onBeforeSearch={({ initial }) => {
+        //   const errorObj: State = new Object;
+        //   if (!initial.name) errorObj.name = '名字不能为空！';
+        //   if (Object.keys(errorObj).length > 0) {
+        //     const err = new Error();
+        //     err.filed = errorObj;
+        //     throw err;
+        //   }
+        //   return true;
+        // }}
         columns={columnsTem(handleEditTable) as FormCol[]}
       />
       {/* 弹框 */}
