@@ -2,8 +2,6 @@ import { Change } from '@/servers/ChargeManagement/temporaryCharges'
 import React from 'react'
 
 export const items = (queryInfo: Change, value: boolean, tableType: string) => {
-  // console.log('tableType',tableType);
-
   return [
     {
       label: '客户类型',
@@ -25,7 +23,8 @@ export const items = (queryInfo: Change, value: boolean, tableType: string) => {
       widget: 'input',
       initialValue: queryInfo?.code,
       placeholder: '请输入编号',
-      hide: !value,
+      hide: tableType === 'add' && !value,
+      // || (tableType === 'edit' || tableType === 'view') ?  false: true,
       disabled: tableType === 'edit' || tableType === 'view' ? true : false,
       rules: [{ required: true, message: '请输入编号' }],
     },
