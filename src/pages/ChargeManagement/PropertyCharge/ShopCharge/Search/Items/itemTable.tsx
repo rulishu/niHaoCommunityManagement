@@ -10,6 +10,20 @@ const option = [
 export const columnsRout = () => {
   return [
     {
+      title: '商铺编号',
+      key: 'name',
+      props: {
+        widget: 'input',
+        initialValue: '',
+        widgetProps: {
+          placeholder: '输入商铺编号',
+        },
+      },
+      render: (text: any) => {
+        return <div>{text}</div>
+      },
+    },
+    {
       title: '收费项名称',
       align: 'center',
       key: 'shouName',
@@ -54,6 +68,20 @@ export const columnsTem = (
   handleEditTable: (tableType: string, obj: any) => void
 ) => {
   return [
+    {
+      title: '商铺编号',
+      key: 'name',
+      props: {
+        widget: 'input',
+        initialValue: '',
+        widgetProps: {
+          placeholder: '输入商铺编号',
+        },
+      },
+      render: (text: any) => {
+        return <div>{text}</div>
+      },
+    },
     {
       title: '客户姓名',
       align: 'center',
@@ -145,6 +173,20 @@ export const columnsDep = (
   printDropdown: number
 ) => {
   return [
+    {
+      title: '商铺编号',
+      key: 'name',
+      props: {
+        widget: 'input',
+        initialValue: '',
+        widgetProps: {
+          placeholder: '输入商铺编号',
+        },
+      },
+      render: (text: any) => {
+        return <div>{text}</div>
+      },
+    },
     {
       title: '客户姓名',
       align: 'center',
@@ -261,6 +303,20 @@ export const columnsAdDep = (
   handleEditTable: (tableType: string, obj: any) => void
 ) => {
   return [
+    {
+      title: '商铺编号',
+      key: 'name',
+      props: {
+        widget: 'input',
+        initialValue: '',
+        widgetProps: {
+          placeholder: '输入商铺编号',
+        },
+      },
+      render: (text: any) => {
+        return <div>{text}</div>
+      },
+    },
     {
       title: '客户姓名',
       align: 'center',
