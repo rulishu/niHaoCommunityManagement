@@ -46,12 +46,6 @@
                 "name": "商铺综合收费",
                 "icon": "shopping-cart",
                 "component": "../pages/ChargeManagement/PropertyCharge/ShopCharge"
-              },
-              {
-                "path": "/chargeManagement/propertyCharge/temporaryCharges",
-                "name": "临时收费",
-                "icon": "link",
-                "component": "../pages/ChargeManagement/PropertyCharge/TemporaryCharges"
               }
             ]
           }
@@ -98,12 +92,6 @@
             "name": "商铺管理",
             "icon": "foursquare",
             "component": "../pages/BasicManage/ShopManage"
-          },
-          {
-            "path": "/BasicManage/ShopSale",
-            "name": "商铺租售",
-            "icon": "poweroff",
-            "component": "../pages/BasicManage/ShopSale"
           }
         ]
       },

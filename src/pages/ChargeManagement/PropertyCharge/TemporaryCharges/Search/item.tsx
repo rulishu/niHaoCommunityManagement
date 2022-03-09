@@ -113,14 +113,22 @@ export const columnsSearch = (
             width: 200,
             render: (text: any, key: any, rowData: any) => (
                 <div>
-                    <Button
+                    {rowData.status === '1' && <Button
                         size="small"
-                        // icon="refund"
-                        onClick={() => handleEditTable('refund', rowData)}
+                        icon="edit"
+                        onClick={() => handleEditTable('edit', rowData)}
 
                     >
                         退款
-                    </Button>
+                    </Button>}
+                    {rowData.status !== '1' && <Button
+                        size="small"
+                        icon="eye"
+                        onClick={() => handleEditTable('view', rowData)}
+
+                    >
+                        退款详情
+                    </Button>}
                     <Button
                         size="small"
                         // icon="print"
