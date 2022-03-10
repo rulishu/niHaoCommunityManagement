@@ -45,13 +45,13 @@ const Search = () => {
   // 操作
   function handleEditTable(type: string, obj: Change) {
     updateData({
-      isView: type === 'view',
+      isView: type === 'refunded',
       tableType: type,
     })
     if (type === 'add') {
       updateData({ drawerVisible: true, queryInfo: {} })
     }
-    if (type === 'paied' || type === 'view') {
+    if (type === 'paied' || type === 'refunded') {
       updateData({ drawerVisible: true, queryInfo: { ...obj, status: '2' } })
     }
     if (type === 'del') {

@@ -8,13 +8,12 @@ export const items = (queryInfo: Change, value: boolean, tableType: string) => {
       key: 'customerType',
       widget: 'radio',
       initialValue: queryInfo?.customerType,
-      required: true,
       option: [
         { label: '商铺客户', value: '1' },
         { label: '非商铺客户', value: '2' },
       ],
       span: '24',
-      hide: tableType === 'view' || tableType === 'paied' ? true : false,
+      hide: tableType === 'refunded' || tableType === 'paied' ? true : false,
       rules: [{ required: true, message: '请输入客户类型' }],
     },
     {
@@ -24,8 +23,9 @@ export const items = (queryInfo: Change, value: boolean, tableType: string) => {
       initialValue: queryInfo?.code,
       placeholder: '请输入编号',
       hide: tableType === 'add' && !value,
-      // || (tableType === 'paied' || tableType === 'view') ?  false: true,
-      disabled: tableType === 'paied' || tableType === 'view' ? true : false,
+      // || (tableType === 'paied' || tableType === 'refunded') ?  false: true,
+      disabled:
+        tableType === 'paied' || tableType === 'refunded' ? true : false,
       rules: [{ required: true, message: '请输入编号' }],
     },
     {
@@ -110,7 +110,7 @@ export const items = (queryInfo: Change, value: boolean, tableType: string) => {
       },
       initialValue: queryInfo?.refundTime,
       required: true,
-      hide: tableType === 'paied' || tableType === 'view' ? false : true,
+      hide: tableType === 'paied' || tableType === 'refunded' ? false : true,
       rules: [{ required: true, message: '请选择退款时间' }],
       placeholder: '请选择退款时间',
     },
@@ -127,7 +127,7 @@ export const items = (queryInfo: Change, value: boolean, tableType: string) => {
         { label: '转账', value: '5' },
       ],
       required: true,
-      hide: tableType === 'paied' || tableType === 'view' ? false : true,
+      hide: tableType === 'paied' || tableType === 'refunded' ? false : true,
       rules: [{ required: true, message: '请选择退款方式' }],
     },
     {
@@ -137,7 +137,7 @@ export const items = (queryInfo: Change, value: boolean, tableType: string) => {
       placeholder: '请输入备注',
       widget: 'textarea',
       widgetProps: {},
-      hide: tableType === 'paied' || tableType === 'view' ? false : true,
+      hide: tableType === 'paied' || tableType === 'refunded' ? false : true,
     },
   ]
 }

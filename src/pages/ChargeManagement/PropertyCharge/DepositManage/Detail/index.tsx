@@ -35,7 +35,7 @@ const Drawer = (props: {
   }
   const { mutate } = useSWR(
     [
-      (tableType === 'add' && insert) || (tableType === 'edit' && update),
+      (tableType === 'add' && insert) || (tableType === 'paied' && update),
       { method: 'POST', body: queryInfo },
     ],
     {

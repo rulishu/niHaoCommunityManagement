@@ -1,6 +1,11 @@
-import { Button } from 'uiw'
+import { Button, Dropdown, Menu } from 'uiw'
 import React from 'react'
 import { Change } from '@/servers/ChargeManagement/DepositManage'
+
+const option = [
+  { label: '打印收款单', value: 1 },
+  { label: '打印退还单', value: 2 },
+]
 
 export const columnsSearch = (
   handleEditTable: (tableType: string, obj: Change) => void
@@ -121,7 +126,7 @@ export const columnsSearch = (
     render: (status: string) => (
       <div style={{ textAlign: 'center' }}>
         <span>
-          {status === '1' ? '已付款' : status === '2' ? '已退款' : ''}
+          {status === '1' ? '未退款' : status === '2' ? '已退款' : ''}
         </span>
       </div>
     ),
@@ -146,26 +151,56 @@ export const columnsSearch = (
             icon="edit"
             onClick={() => handleEditTable('paied', rowData)}
           >
-            未退款
+            退还
           </Button>
         ) : rowData.status === '2' ? (
           <Button
             size="small"
             icon="eye"
-            onClick={() => handleEditTable('view', rowData)}
+            onClick={() => handleEditTable('refunded', rowData)}
           >
-            已退款
+            已退款详情
           </Button>
         ) : (
           ''
         )}
-        <Button
-          size="small"
-          // icon="print"
-          onClick={() => handleEditTable('print', rowData)}
+        {/* <Button
+            size="small"
+            icon="down"
+            onClick={() => handleEditTable('print', rowData)}
+          >
+            打印
+          </Button> */}
+        <Dropdown
+          trigger="click"
+          // onVisibleChange={}
+          isOpen={true}
+          menu={
+            <div>
+              <Menu bordered style={{ minWidth: 120 }}>
+                {option.map((item, idx) => {
+                  return (
+                    <Menu.Item
+                      key={idx}
+                      text={item.label}
+                      onClick={(e) => {
+                        console.log('e', e)
+                      }}
+                    />
+                  )
+                })}
+              </Menu>
+            </div>
+          }
         >
-          打印
-        </Button>
+          <Button
+            size="small"
+            icon="down"
+            onClick={() => handleEditTable('print', rowData)}
+          >
+            打印
+          </Button>
+        </Dropdown>
       </div>
     ),
   },

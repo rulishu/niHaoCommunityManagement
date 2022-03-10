@@ -21,7 +21,7 @@ export interface Change {
  * @param {Object} params
  */
 function selectById(params: Change) {
-  return request('/api/buTemporaryCharges/selectPage', {
+  return request('/api/buDeposit/selectById', {
     method: 'POST',
     body: { ...params },
   })
@@ -29,7 +29,7 @@ function selectById(params: Change) {
 
 const selectPage = '/api/buDeposit/selectPage'
 
-const update = '/api/buTemporaryCharges/update'
+const update = '/api/buDeposit/update'
 
 const insert = '/api/buDeposit/add'
 
