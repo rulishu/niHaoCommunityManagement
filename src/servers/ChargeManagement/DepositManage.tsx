@@ -27,7 +27,7 @@ function selectById(params: Change) {
   })
 }
 
-const selectPage = '/api/buTemporaryCharges/selectPage'
+const selectPage = '/api/buDeposit/selectPage'
 
 const update = '/api/buTemporaryCharges/update'
 

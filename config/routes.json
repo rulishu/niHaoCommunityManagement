@@ -56,7 +56,7 @@
               {
                 "path": "/chargeManagement/propertyCharge/DepositManage",
                 "name": "押金管理",
-                "icon": "link",
+                "icon": "document",
                 "component": "../pages/ChargeManagement/PropertyCharge/DepositManage"
               }
             ]

@@ -31,47 +31,35 @@ export const columnsSearch = (
   },
   {
     title: '收费项目',
-    key: 'payService',
+    key: 'project',
     props: {
       widget: 'select',
       option: [
-        { label: '测试暖气费', value: '1' },
-        { label: '测试临时收费项', value: '2' },
-        { label: '测试楼宇广告费', value: '3' },
-        { label: '广告费用(公共区域)', value: '4' },
-        { label: '物业违章罚款', value: '5' },
-        { label: '装修违章罚款', value: '6' },
-        { label: '装修垃圾清运费', value: '7' },
-        { label: '场地占用费', value: '8' },
+        { label: '押金2押1付', value: '1' },
+        { label: '测试装修押金', value: '2' },
+        { label: '装修保证金', value: '3' },
+        { label: '履约保证金', value: '4' },
       ],
     },
     align: 'center',
     //ellipsis: true,
-    render: (payService: string) => (
+    render: (project: string) => (
       <div style={{ textAlign: 'center' }}>
         <span>
-          {payService === '1'
-            ? '测试暖气费'
-            : payService === '2'
-            ? '测试临时收费项'
-            : payService === '3'
-            ? '测试楼宇广告费'
-            : payService === '4'
-            ? '广告费用(公共区域)'
-            : payService === '5'
-            ? '物业违章罚款'
-            : payService === '6'
-            ? '装修违章罚款'
-            : payService === '7'
-            ? '装修垃圾清运费'
-            : '场地占用费'}
+          {project === '1'
+            ? '押金2押1付'
+            : project === '2'
+            ? '测试装修押金'
+            : project === '3'
+            ? '装修保证金'
+            : '履约保证金'}
         </span>
       </div>
     ),
   },
   {
     title: '付款方式',
-    key: 'payType',
+    key: 'paymentMethod',
     props: {
       widget: 'select',
       option: [
@@ -84,16 +72,16 @@ export const columnsSearch = (
     },
     align: 'center',
     //ellipsis: true,
-    render: (payType: string) => (
+    render: (paymentMethod: string) => (
       <div style={{ textAlign: 'center' }}>
         <span>
-          {payType === '1'
+          {paymentMethod === '1'
             ? '现金'
-            : payType === '2'
+            : paymentMethod === '2'
             ? '微信支付'
-            : payType === '3'
+            : paymentMethod === '3'
             ? '支付宝支付'
-            : payType === '4'
+            : paymentMethod === '4'
             ? '刷卡'
             : '转账'}
         </span>
