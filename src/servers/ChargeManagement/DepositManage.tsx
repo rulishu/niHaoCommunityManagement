@@ -4,8 +4,8 @@ export interface Change {
   id?: string
   code?: string
   name?: string
-  payService?: string
-  payType?: string
+  project?: string
+  paymentMethod?: string
   price?: number
   collectionName?: string
   collectionTime?: string
@@ -13,7 +13,7 @@ export interface Change {
   remark?: string
   customerType?: string
   refundTime?: string
-  refundType?: string
+  refundMethod?: string
 }
 
 /**
@@ -31,7 +31,7 @@ const selectPage = '/api/buDeposit/selectPage'
 
 const update = '/api/buTemporaryCharges/update'
 
-const insert = '/api/buTemporaryCharges/add'
+const insert = '/api/buDeposit/add'
 
 const deleteData = '/api/parkingArea/delete'
 

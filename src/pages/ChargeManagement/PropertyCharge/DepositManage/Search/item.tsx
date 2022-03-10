@@ -112,7 +112,7 @@ export const columnsSearch = (
     props: {
       widget: 'select',
       option: [
-        { label: '已付款', value: '1' },
+        { label: '未退款', value: '1' },
         { label: '已退款', value: '2' },
       ],
     },
@@ -144,9 +144,9 @@ export const columnsSearch = (
           <Button
             size="small"
             icon="edit"
-            onClick={() => handleEditTable('edit', rowData)}
+            onClick={() => handleEditTable('paied', rowData)}
           >
-            退款
+            未退款
           </Button>
         ) : rowData.status === '2' ? (
           <Button
@@ -154,7 +154,7 @@ export const columnsSearch = (
             icon="eye"
             onClick={() => handleEditTable('view', rowData)}
           >
-            退款详情
+            已退款
           </Button>
         ) : (
           ''

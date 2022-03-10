@@ -51,7 +51,7 @@ const Search = () => {
     if (type === 'add') {
       updateData({ drawerVisible: true, queryInfo: {} })
     }
-    if (type === 'edit' || type === 'view') {
+    if (type === 'paied' || type === 'view') {
       updateData({ drawerVisible: true, queryInfo: { ...obj, status: '2' } })
     }
     if (type === 'del') {
