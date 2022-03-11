@@ -8,7 +8,7 @@ const UserLayout = () => {
 
   return (
     <UserLogin
-      projectName="共享社区管理平台"
+      projectName={'共享社区管理平台'}
       buttons={[
         {
           title: '登录',
@@ -64,7 +64,11 @@ const UserLayout = () => {
       onSuccess={(data) => {
         if (data && data.token) {
           sessionStorage.setItem('token', data.token)
-          sessionStorage.setItem('auth', JSON.stringify(data.authList || []))
+          sessionStorage.setItem(
+            'auth',
+            JSON.stringify(data.data.menuList || [])
+          )
+
           navigate('/home', { replace: true })
         } else {
           Notify.error({
