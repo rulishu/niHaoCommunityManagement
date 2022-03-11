@@ -7,6 +7,8 @@ import {
   selectPage,
   insert,
   update,
+  searchValue,
+  Change,
 } from '@/servers/ChargeManagement/ShopCharge'
 import FormSelect from './FormSelect'
 import Detail from '@/components/SimpleDetail/index'
@@ -18,16 +20,16 @@ import {
 import { columnsTem } from '../Search/Items/itemTable' //Table
 import Print from '../Print'
 
-// interface State {
-//   drawerVisible?: boolean
-//   tableType?: string
-//   queryInfo?: object
-//   isView?: boolean
-//   delectVisible?: boolean
-//   id?: string
-// }
+export default function Demo(props: {
+  option1: searchValue[]
+  loading: boolean
+  value: searchValue[]
+  setValue: React.Dispatch<React.SetStateAction<searchValue[]>>
+  handleSearch: (e: any) => void
+  newCode: string
+}) {
+  const { option1, loading, value, setValue, handleSearch, newCode } = props
 
-export default function Demo() {
   const dispatch = useDispatch<Dispatch>()
   const {
     shopCharge: { queryInfo, drawerVisible, btnStatus },
@@ -49,11 +51,11 @@ export default function Demo() {
       }
     },
     // 格式化查询参数 会接收到pageIndex 当前页  searchValues 表单数据
-    query: (pageIndex, pageSize, searchValues) => {
+    query: (pageIndex, pageSize) => {
       return {
         page: pageIndex,
-        pageSize: 10,
-        ...searchValues,
+        pageSize: pageSize,
+        code: newCode,
       }
     },
   })
@@ -103,8 +105,42 @@ export default function Demo() {
             render: <FormSelect />,
           },
         ]}
+        searchBtns={[
+          {
+            label: '查询',
+            type: 'primary',
+            onClick: () => {
+              table.onSearch()
+            },
+          },
+          {
+            label: '重置',
+            onClick: () => {
+              table.onReset()
+            },
+          },
+        ]}
         table={table}
-        columns={columnsTem(handleEditTable) as FormCol[]}
+        onBeforeSearch={({ initial }) => {
+          const errorObj: Change = {}
+          if (!initial.code) errorObj.code = '商铺编号不能为空！'
+          if (value.length === 0) {
+            const err: any = new Error()
+            err.filed = errorObj
+            throw err
+          }
+          return true
+        }}
+        columns={
+          columnsTem(
+            handleEditTable,
+            option1,
+            loading,
+            value,
+            setValue,
+            handleSearch
+          ) as FormCol[]
+        }
       />
       {/* 弹框 */}
       <Detail

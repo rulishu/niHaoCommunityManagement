@@ -60,7 +60,7 @@ export const columnsSearch = (
       ellipsis: true,
       render: (status: number) => (
         <div style={{ textAlign: 'center' }}>
-          <span>{status === 0 ? '正常' : status === 1 ? '禁用' : ''}</span>
+          <span>{status === 1 ? '正常' : status === 2 ? '禁用' : ''}</span>
         </div>
       ),
     },

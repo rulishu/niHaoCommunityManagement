@@ -2,11 +2,28 @@ import React from 'react'
 import { ProTable, useTable } from '@uiw-admin/components'
 import { Dispatch } from '@uiw-admin/models'
 import { useDispatch } from 'react-redux'
-import { Button } from 'uiw'
-import { selectPage } from '@/servers/ChargeManagement/temporaryCharges'
+import { selectPage, Change } from '@/servers/ChargeManagement/temporaryCharges'
+import Drawer from '../Detail/index'
+import Modals from '../Modals/index'
+import { columnsSearch } from './item'
+import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
+interface State {
+  drawerVisible?: boolean
+  tableType?: string
+  queryInfo?: object
+  isView?: boolean
+  delectVisible?: boolean
+  id?: string
+}
 
 const Search = () => {
   const dispatch = useDispatch<Dispatch>()
+  const updateData = (payload: State) => {
+    dispatch({
+      type: 'temporaryCharges/updateState',
+      payload,
+    })
+  }
 
   const search = useTable(selectPage, {
     // 格式化接口返回的数据，必须返回{total 总数, data: 列表数据}的格式
@@ -21,48 +38,39 @@ const Search = () => {
       return {
         page: pageIndex,
         pageSize: 10,
-        id: searchValues.id,
-        communityId: searchValues.communityId,
-        typeCd: searchValues.typeCd,
+        ...searchValues,
       }
     },
   })
-  const onAdd = () => {
-    dispatch({
-      type: 'temporaryCharges/updateState',
-      payload: {
-        drawerVisible: true,
-        tableType: 'add',
-        queryInfo: {},
-      },
+  // 操作
+  function handleEditTable(type: string, obj: Change) {
+    updateData({
+      isView: type === 'view',
+      tableType: type,
     })
-  }
-  const onRefund = () => {
-    dispatch({
-      type: 'temporaryCharges/updateState',
-      payload: {
-        drawerVisible: true,
-      },
-    })
-  }
-  const onPrint = () => {
-    dispatch({
-      type: 'temporaryCharges/updateState',
-      payload: {
-        drawerVisible: true,
-      },
-    })
+    if (type === 'add') {
+      updateData({ drawerVisible: true, queryInfo: {} })
+    }
+    if (type === 'edit' || type === 'view') {
+      updateData({ drawerVisible: true, queryInfo: { ...obj, status: '2' } })
+    }
+    if (type === 'del') {
+      updateData({ delectVisible: true, id: obj?.id })
+    }
   }
 
   return (
     <React.Fragment>
       <ProTable
+        bordered
         // 操作栏按钮
         operateButtons={[
           {
             label: '新增',
             type: 'primary',
-            onClick: onAdd,
+            onClick: () => {
+              handleEditTable('add', {})
+            },
           },
         ]}
         // 搜索栏按钮
@@ -71,117 +79,20 @@ const Search = () => {
             label: '查询',
             type: 'primary',
             htmlType: 'submit',
+            onClick: () => {
+              search.onSearch()
+            },
           },
           {
             label: '重置',
-            onClick: () => search.onSearch,
+            onClick: () => search.onReset(),
           },
         ]}
         table={search}
-        columns={[
-          {
-            title: '编号',
-            key: '1',
-            props: {
-              widget: 'input',
-              widgetProps: {
-                placeholder: '请输入编号',
-              },
-            },
-          },
-          {
-            title: '客户姓名',
-            key: '2',
-            props: {
-              widget: 'input',
-              widgetProps: {
-                placeholder: '请输入客户姓名',
-              },
-            },
-          },
-          {
-            title: '收费项目',
-            key: '4',
-            props: {
-              widget: 'select',
-              option: [
-                { label: '测试暖气费', value: '测试暖气费' },
-                { label: '测试临时收费项', value: '测试临时收费项' },
-                { label: '测试楼宇广告费', value: '测试楼宇广告费' },
-                { label: '广告费用(公共区域)', value: '广告费用(公共区域)' },
-                { label: '物业违章罚款', value: '物业违章罚款' },
-                { label: '装修违章罚款', value: '装修违章罚款' },
-                { label: '装修垃圾清运费', value: '装修垃圾清运费' },
-                { label: '场地占用费', value: '场地占用费' },
-              ],
-            },
-          },
-          {
-            title: '付款方式',
-            key: '5',
-            props: {
-              widget: 'select',
-              option: [
-                { label: '现金', value: '现金' },
-                { label: '微信支付', value: '微信支付' },
-                { label: '支付宝支付', value: '支付宝支付' },
-                { label: '刷卡', value: '刷卡' },
-                { label: '转账', value: '转账' },
-              ],
-            },
-          },
-          {
-            title: '收款金额',
-            key: '6',
-          },
-          {
-            title: '收款人',
-            key: '7',
-          },
-          {
-            title: '收款时间',
-            key: '8',
-          },
-          {
-            title: '状态',
-            key: '3',
-            props: {
-              widget: 'select',
-              option: [
-                { label: '已付款', value: '已付款' },
-                { label: '已退款', value: '已退款' },
-              ],
-            },
-          },
-          {
-            title: '备注',
-            key: '9',
-          },
-          {
-            title: '操作',
-            key: 'edit',
-            width: 200,
-            render: (text: any, key: any, rowData: any) => (
-              <div>
-                <Button
-                  size="small"
-                  icon="edit"
-                  onClick={onRefund.bind('refund', rowData)}
-                >
-                  退款
-                </Button>
-                <Button
-                  size="small"
-                  icon="delete"
-                  onClick={onPrint.bind('print', rowData)}
-                >
-                  打印
-                </Button>
-              </div>
-            ),
-          },
-        ]}
+        columns={columnsSearch(handleEditTable) as FormCol[]}
       />
+      <Drawer updateData={updateData} onSearch={search.onSearch} />
+      <Modals onSearch={search.onSearch} />
     </React.Fragment>
   )
 }

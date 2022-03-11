@@ -1,9 +1,19 @@
 import { request } from '@uiw-admin/utils';
 
 export interface Change {
-  id: string;
-  communityId: string;
-  typeCd: string;
+  id?: string;
+  code?: string;
+  name?: string;
+  payService?: string;
+  payType?: string;
+  price?: number;
+  collectionName?: string;
+  collectionTime?: string;
+  status?: string;
+  remark?: string;
+  customerType?: string;
+  refundTime?:string,
+  refundType?:string
 }
 
 /**
@@ -11,17 +21,17 @@ export interface Change {
  * @param {Object} params
  */
 function selectById(params: Change) {
-  return request('/api/parkingArea/selectPage', {
+  return request('/api/buTemporaryCharges/selectPage', {
     method: 'POST',
     body: { ...params },
   });
 }
 
-const selectPage = '/api/parkingArea/selectPage';
+const selectPage = '/api/buTemporaryCharges/selectPage';
 
-const update = '/api/parkingArea/update';
+const update = '/api/buTemporaryCharges/update';
 
-const insert = '/api/parkingArea/insert';
+const insert = '/api/buTemporaryCharges/add';
 
 const deleteData = '/api/parkingArea/delete';
 

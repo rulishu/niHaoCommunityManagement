@@ -1,24 +1,28 @@
-import React from 'react';
-import { ProDrawer, ProForm, useForm } from '@uiw-admin/components';
-import { Dispatch, RootState } from '@uiw-admin/models';
+import React from 'react'
+import { ProDrawer, ProForm, useForm } from '@uiw-admin/components'
+import { Dispatch, RootState } from '@uiw-admin/models'
 import { useDispatch, useSelector } from 'react-redux'
-import { Notify } from 'uiw';
-import useSWR from 'swr';
+import { Notify } from 'uiw'
+import useSWR from 'swr'
 import { insert, update } from '@/servers/ChargeManagement/temporaryCharges'
-import { items } from './items';
+import { items } from './items'
 interface State {
-  drawerVisible?: boolean;
-  tableType?: string;
-  queryInfo?: object;
-  isView?: boolean;
+  drawerVisible?: boolean
+  tableType?: string
+  queryInfo?: object
+  isView?: boolean
 }
 
-const Drawer = (props: { updateData: (payload: State) => void }) => {
-  const baseRef = useForm();
-  const dispatch = useDispatch<Dispatch>();
+const Drawer = (props: {
+  updateData: (payload: State) => void
+  onSearch: () => void
+}) => {
+  const baseRef = useForm()
+  const dispatch = useDispatch<Dispatch>()
   const {
     temporaryCharges: { drawerVisible, tableType, queryInfo, isView },
-  } = useSelector((state: RootState) => state);
+  } = useSelector((state: RootState) => state)
+  const [value, getValue] = React.useState(false)
 
   const onClose = () => {
     dispatch({
@@ -27,23 +31,52 @@ const Drawer = (props: { updateData: (payload: State) => void }) => {
         drawerVisible: false,
         isView: false,
       },
-    });
+    })
   }
   const { mutate } = useSWR(
-    [(tableType === 'add' && insert) || (tableType === 'edit' && update), { method: 'POST', body: queryInfo }],
+    [
+      (tableType === 'add' && insert) || (tableType === 'edit' && update),
+      { method: 'POST', body: queryInfo },
+    ],
     {
       revalidateOnMount: false,
       revalidateOnFocus: false,
       onSuccess: (data) => {
         if (data && data.code === 1) {
-          Notify.success({ title: data.message });
-          onClose();
+          Notify.success({ title: data.message })
+          props.onSearch()
+          onClose()
         } else {
-          Notify.error({ title: '提交失败！' });
+          Notify.error({ title: '提交失败！' })
         }
       },
-    },
-  );
+    }
+  )
+  const onChange = (initial: any, current: any) => {
+    if (current?.customerType === '1') {
+      getValue(true),
+        props.updateData({
+          queryInfo: {
+            ...current,
+          },
+        })
+    }
+    if (current?.customerType === '2') {
+      getValue(false),
+        props.updateData({
+          queryInfo: {
+            ...current,
+          },
+        })
+    }
+    props.updateData({
+      queryInfo: {
+        ...queryInfo,
+        ...current,
+      },
+    })
+  }
+
   return (
     <ProDrawer
       title="基础信息"
@@ -54,13 +87,13 @@ const Drawer = (props: { updateData: (payload: State) => void }) => {
         {
           label: '取消',
           onClick: onClose,
-          show: !isView
+          show: !isView,
         },
         {
           label: '保存',
-          type: "primary",
+          type: 'primary',
           onClick: () => baseRef.submitvalidate(),
-          show: !isView
+          show: !isView,
         },
       ]}
     >
@@ -70,14 +103,14 @@ const Drawer = (props: { updateData: (payload: State) => void }) => {
         form={baseRef}
         readOnly={isView}
         onSubmit={(initial, current) => {
-          initial;
-          current;
-          mutate();
+          initial
+          current
+          mutate()
         }}
         buttonsContainer={{ justifyContent: 'flex-start' }}
         // 更新表单的值
-        onChange={(initial: any, current: any) => props.updateData({ queryInfo: { ...queryInfo, ...current } })}
-        formDatas={items(queryInfo)}
+        onChange={(initial, current) => onChange(initial, current)}
+        formDatas={items(queryInfo, value, tableType)}
       />
     </ProDrawer>
   )

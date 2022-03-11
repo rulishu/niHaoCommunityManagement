@@ -34,10 +34,10 @@
 }
 
 .uiw-SearchSelect {
-  display: flex;
+  /* display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 20px 0;
+  margin: 20px 0; */
 }
 
 .uiw-SearchSelect-btn {

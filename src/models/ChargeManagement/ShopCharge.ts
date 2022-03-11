@@ -1,6 +1,10 @@
 import { Dispatch, RootModel } from '@uiw-admin/models'
 import { createModel, RematchDispatch } from '@rematch/core'
-import { selectById, Change } from '../../servers/ChargeManagement/ShopCharge'
+import {
+  shopSelectPage,
+  Change,
+  searchValue,
+} from '../../servers/ChargeManagement/ShopCharge'
 
 interface State {
   drawerVisible: boolean
@@ -19,6 +23,7 @@ interface State {
   printVisible: boolean
   printDropdown: number
   isOpen: boolean
+  shopNoList: Array<searchValue>
 }
 
 const shopCharge = createModel<RootModel>()({
@@ -50,6 +55,8 @@ const shopCharge = createModel<RootModel>()({
     printInfo: {}, //打印数据
     printDropdown: 1, //打印下拉
     isOpen: false, //打印下拉菜单
+
+    shopNoList: [], //商铺查询
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({
@@ -58,13 +65,22 @@ const shopCharge = createModel<RootModel>()({
     }),
   },
   effects: (dispatch: RematchDispatch<RootModel>) => ({
-    async selectById(payload: Change) {
+    async shopSelectPage(payload: Change) {
       const dph = dispatch as Dispatch
-      const data = await selectById(payload)
+      const data = await shopSelectPage(payload)
       if (data.code === 1) {
-        dph.users.updateState({
-          drawerVisible: true,
-          queryInfo: data.data || {},
+        let newList: any[] = data.data.rows
+        let arr: searchValue[] = []
+        if (newList.length > 0)
+          newList.map((item: any) => {
+            arr.push({
+              value: item.shopNo,
+              label: item.shopNo,
+            })
+          })
+
+        dph.shopCharge.updateState({
+          shopNoList: arr,
         })
       }
     },

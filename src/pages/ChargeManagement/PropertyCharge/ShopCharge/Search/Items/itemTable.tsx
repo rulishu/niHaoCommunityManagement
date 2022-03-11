@@ -1,14 +1,48 @@
 import { Dropdown, Menu, Button, Tag } from 'uiw'
 import React from 'react'
-// import { Change } from '@/servers/ChargeManagement/ShopCharge'
+import { searchValue } from '@/servers/ChargeManagement/ShopCharge'
 
 const option = [
   { label: '打印收款单', value: 1 },
   { label: '打印退还单', value: 2 },
 ]
 
-export const columnsRout = () => {
+export const columnsRout = (
+  option1: searchValue[],
+  loading: boolean,
+  value: searchValue[],
+  setValue: React.Dispatch<React.SetStateAction<searchValue[]>>,
+  handleSearch: (e: any) => void
+) => {
   return [
+    {
+      title: '商铺编号',
+      key: 'code',
+      props: {
+        widget: 'searchSelect',
+        option: option1,
+        widgetProps: {
+          mode: 'single',
+          style: { width: 200 },
+          showSearch: true,
+          maxTagCount: 6,
+          allowClear: true,
+          value: value,
+          disabled: false,
+          placeholder: '请输入选择',
+          onSearch: (e: any) => handleSearch(e),
+          // onSelect:{(value):>console.log('onSelect',value)}
+          loading: loading,
+          // option: option,
+          onChange: (e: any) => {
+            setValue([{ label: e, value: e }])
+          },
+        },
+      },
+      render: (text: any) => {
+        return <div>{text}</div>
+      },
+    },
     {
       title: '收费项名称',
       align: 'center',
@@ -51,9 +85,42 @@ export const columnsRout = () => {
 }
 
 export const columnsTem = (
-  handleEditTable: (tableType: string, obj: any) => void
+  handleEditTable: (tableType: string, obj: any) => void,
+  option1: searchValue[],
+  loading: boolean,
+  value: searchValue[],
+  setValue: React.Dispatch<React.SetStateAction<searchValue[]>>,
+  handleSearch: (e: any) => void
 ) => {
   return [
+    {
+      title: '商铺编号',
+      key: 'code',
+      props: {
+        widget: 'searchSelect',
+        option: option1,
+        widgetProps: {
+          mode: 'single',
+          style: { width: 200 },
+          showSearch: true,
+          maxTagCount: 6,
+          allowClear: true,
+          value: value,
+          disabled: false,
+          placeholder: '请输入选择',
+          onSearch: (e: any) => handleSearch(e),
+          // onSelect:{(value):>console.log('onSelect',value)}
+          loading: loading,
+          // option: option,
+          onChange: (e: any) => {
+            setValue([{ label: e, value: e }])
+          },
+        },
+      },
+      render: (text: any) => {
+        return <div>{text}</div>
+      },
+    },
     {
       title: '客户姓名',
       align: 'center',
@@ -142,9 +209,42 @@ export const columnsTem = (
 export const columnsDep = (
   handleEditTable: (tableType: string, obj: any) => void,
   updateData: (payload: any) => void,
-  printDropdown: number
+  printDropdown: number,
+  option1: searchValue[],
+  loading: boolean,
+  value: searchValue[],
+  setValue: React.Dispatch<React.SetStateAction<searchValue[]>>,
+  handleSearch: (e: any) => void
 ) => {
   return [
+    {
+      title: '商铺编号',
+      key: 'code',
+      props: {
+        widget: 'searchSelect',
+        option: option1,
+        widgetProps: {
+          mode: 'single',
+          style: { width: 200 },
+          showSearch: true,
+          maxTagCount: 6,
+          allowClear: true,
+          value: value,
+          disabled: false,
+          placeholder: '请输入选择',
+          onSearch: (e: any) => handleSearch(e),
+          // onSelect:{(value):>console.log('onSelect',value)}
+          loading: loading,
+          // option: option,
+          onChange: (e: any) => {
+            setValue([{ label: e, value: e }])
+          },
+        },
+      },
+      render: (text: any) => {
+        return <div>{text}</div>
+      },
+    },
     {
       title: '客户姓名',
       align: 'center',
@@ -258,9 +358,42 @@ export const columnsDep = (
 }
 
 export const columnsAdDep = (
-  handleEditTable: (tableType: string, obj: any) => void
+  handleEditTable: (tableType: string, obj: any) => void,
+  option1: searchValue[],
+  loading: boolean,
+  value: searchValue[],
+  setValue: React.Dispatch<React.SetStateAction<searchValue[]>>,
+  handleSearch: (e: any) => void
 ) => {
   return [
+    {
+      title: '商铺编号',
+      key: 'code',
+      props: {
+        widget: 'searchSelect',
+        option: option1,
+        widgetProps: {
+          mode: 'single',
+          style: { width: 200 },
+          showSearch: true,
+          maxTagCount: 6,
+          allowClear: true,
+          value: value,
+          disabled: false,
+          placeholder: '请输入选择',
+          onSearch: (e: any) => handleSearch(e),
+          // onSelect:{(value):>console.log('onSelect',value)}
+          loading: loading,
+          // option: option,
+          onChange: (e: any) => {
+            setValue([{ label: e, value: e }])
+          },
+        },
+      },
+      render: (text: any) => {
+        return <div>{text}</div>
+      },
+    },
     {
       title: '客户姓名',
       align: 'center',

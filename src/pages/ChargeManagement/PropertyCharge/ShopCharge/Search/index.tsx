@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Tabs } from 'uiw'
-import { useDispatch } from 'react-redux'
-import { Dispatch } from '@uiw-admin/models'
+import { useDispatch, useSelector } from 'react-redux'
+import { Dispatch, RootState } from '@uiw-admin/models'
 import Rout from './rout'
 import Tem from './tem'
 import Dep from './dep'
 import AdDep from './AdDep'
+import { searchValue } from '@/servers/ChargeManagement/ShopCharge'
 
 interface State {
   drawerVisible?: boolean
@@ -17,6 +18,32 @@ interface State {
 
 export default function Demo() {
   const dispatch = useDispatch<Dispatch>()
+  useEffect(() => {
+    dispatch({
+      type: 'shopCharge/shopSelectPage',
+    })
+  }, [])
+
+  const {
+    shopCharge: { shopNoList },
+  } = useSelector((shopCharge: RootState) => shopCharge)
+
+  const [option1, setOption] = useState<searchValue[]>(shopNoList)
+  const [loading, setLoading] = useState(false)
+  const [value, setValue] = useState<searchValue[]>([])
+  const [newCode, setNewCode] = useState('')
+
+  useEffect(() => {
+    setOption(shopNoList)
+  }, [shopNoList])
+
+  useEffect(() => {
+    if (value.length === 0) {
+      setNewCode('')
+    } else {
+      setNewCode(value[0].value)
+    }
+  }, [value])
 
   const updateData = (payload: State) => {
     dispatch({
@@ -24,6 +51,18 @@ export default function Demo() {
       payload,
     })
   }
+
+  const handleSearch = (e: any) => {
+    setLoading(true)
+    setTimeout(() => {
+      const filterOpion = shopNoList.filter(
+        (item) => !!item.label.includes(e.trim())
+      )
+      setOption([...filterOpion])
+      setLoading(false)
+    }, 500)
+  }
+
   return (
     <React.Fragment>
       <Tabs
@@ -34,16 +73,44 @@ export default function Demo() {
         }}
       >
         <Tabs.Pane label="常规收费" key="rout">
-          <Rout />
+          <Rout
+            option1={option1}
+            loading={loading}
+            value={value}
+            setValue={setValue}
+            handleSearch={handleSearch}
+            newCode={newCode}
+          />
         </Tabs.Pane>
         <Tabs.Pane label="临时收费" key="tem">
-          <Tem />
+          <Tem
+            option1={option1}
+            loading={loading}
+            value={value}
+            setValue={setValue}
+            handleSearch={handleSearch}
+            newCode={newCode}
+          />
         </Tabs.Pane>
         <Tabs.Pane label="收取押金" key="dep">
-          <Dep />
+          <Dep
+            option1={option1}
+            loading={loading}
+            value={value}
+            setValue={setValue}
+            handleSearch={handleSearch}
+            newCode={newCode}
+          />
         </Tabs.Pane>
         <Tabs.Pane label="预存款" key="AdDep">
-          <AdDep />
+          <AdDep
+            option1={option1}
+            loading={loading}
+            value={value}
+            setValue={setValue}
+            handleSearch={handleSearch}
+            newCode={newCode}
+          />
         </Tabs.Pane>
       </Tabs>
     </React.Fragment>
