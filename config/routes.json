@@ -129,6 +129,12 @@
             "name": "用户权限管理",
             "icon": "user-add",
             "component": "../pages/Authority/User"
+          },
+          {
+            "path": "/Authority/Add",
+            "name": "添加后台用户",
+            "icon": "unlock",
+            "component": "../pages/Authority/Add"
           }
         ]
       },

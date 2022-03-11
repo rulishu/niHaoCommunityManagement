@@ -12,6 +12,7 @@ module.exports.authList = [
   '/Authority/Application',
   '/Authority/Role',
   '/Authority/User',
+  '/Authority/Add',
   '/Coordination',
   '/Coordination/RepairOrder',
   '/Coordination/Complaint',
