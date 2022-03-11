@@ -1,5 +1,11 @@
 import React from 'react'
-import { ProDrawer, ProTable, useTable, ProForm, useForm } from '@uiw-admin/components'
+import {
+  ProDrawer,
+  ProTable,
+  useTable,
+  ProForm,
+  useForm,
+} from '@uiw-admin/components'
 import { Notify, Button } from 'uiw'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
@@ -26,7 +32,7 @@ const Detail = (props: {
   const baseRef = useForm()
   const dispatch = useDispatch<Dispatch>()
   const {
-    ShopSale: { drawerVisible, tableType, queryInfo },
+    ShopSale: { drawerVisible, tableType, queryInfo, isView },
   } = useSelector((ShopSale: RootState) => ShopSale)
 
   const onClose = () => {
@@ -34,15 +40,14 @@ const Detail = (props: {
       type: 'ShopSale/updateState',
       payload: {
         drawerVisible: false,
-        // isView: false,
+        isView: false,
       },
     })
   }
 
   const { mutate } = useSWR(
     [
-      (tableType === 'add' && insert) ||
-      (tableType === 'edit' && update),
+      (tableType === 'add' && insert) || (tableType === 'edit' && update),
       { method: 'POST', body: queryInfo },
     ],
     {
@@ -86,13 +91,13 @@ const Detail = (props: {
 
   function handleEditTable(detailType: string, obj: Change) {
     updateData({
-      // isView: detailType === 'deAdd',
+      isView: detailType === 'deAdd',
       tableType: detailType,
     })
     if (detailType === 'deAdd') {
       dispatch({
         type: 'ShopSale/detailData',
-        payload: { page: 1, pageSize: 200, },
+        payload: { page: 1, pageSize: 200 },
       })
       updateData({ drawerDetailVisible: true, queryInfo: {} })
     }
@@ -100,6 +105,7 @@ const Detail = (props: {
       updateData({ delectVisible: true, id: obj?.id })
     }
   }
+  console.log('tableType', tableType)
 
   return (
     <ProDrawer
@@ -111,13 +117,13 @@ const Detail = (props: {
         {
           label: '取消',
           onClick: onClose,
-          // show: !isView,
+          show: !isView,
         },
         {
           label: '保存',
           type: 'primary',
           style: { textAlign: 'right' },
-          // show: !isView,
+          show: !isView,
           onClick: async () => {
             await baseRef?.submitvalidate?.()
             const errors = baseRef.getError()
@@ -127,35 +133,41 @@ const Detail = (props: {
         },
       ]}
     >
-      <ProForm
-        title="基础信息"
-        formType={'pure'}
-        form={baseRef}
-        // readOnly={isView}
-        buttonsContainer={{ justifyContent: 'flex-start' }}
-        // 更新表单的值
-        onChange={(initial, current) =>
-          props.updateData({ queryInfo: { ...queryInfo, ...current } })
-        }
-        formDatas={items(queryInfo,)}
-      />
+      {tableType === 'edit' && (
+        <ProForm
+          title="基础信息"
+          formType={'pure'}
+          form={baseRef}
+          readOnly={isView}
+          buttonsContainer={{ justifyContent: 'flex-start' }}
+          // 更新表单的值
+          onChange={(initial, current) =>
+            props.updateData({ queryInfo: { ...queryInfo, ...current } })
+          }
+          formDatas={items(queryInfo)}
+        />
+      )}
 
       <ProTable
-        // searchBtns={[
-        //   {
-        //     label: '搜索',
-        //     type: 'primary',
-        //     onClick: () => {
-        //       deatailTable.onSearch()
-        //     },
-        //   },
-        //   {
-        //     label: '重置',
-        //     onClick: () => {
-        //       deatailTable.onReset()
-        //     },
-        //   },
-        // ]}
+        searchBtns={
+          tableType !== 'edit'
+            ? [
+                {
+                  label: '搜索',
+                  type: 'primary',
+                  onClick: () => {
+                    deatailTable.onSearch()
+                  },
+                },
+                {
+                  label: '重置',
+                  onClick: () => {
+                    deatailTable.onReset()
+                  },
+                },
+              ]
+            : []
+        }
         operateButtons={[
           {
             label: '新增',

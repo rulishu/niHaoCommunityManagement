@@ -65,22 +65,22 @@ export default function Demo() {
     <React.Fragment>
       <ProTable
         bordered
-        // operateButtons={[
-        //   {
-        //     label: '默认收费项(出租)',
-        //     type: 'primary',
-        //     onClick: () => {
-        //       handleEditTable('rent', {})
-        //     },
-        //   },
-        //   {
-        //     label: '默认收费项(出售)',
-        //     type: 'primary',
-        //     onClick: () => {
-        //       handleEditTable('sale', {})
-        //     },
-        //   },
-        // ]}
+        operateButtons={[
+          {
+            label: '默认收费项(出租)',
+            type: 'primary',
+            onClick: () => {
+              handleEditTable('rent', {})
+            },
+          },
+          {
+            label: '默认收费项(出售)',
+            type: 'primary',
+            onClick: () => {
+              handleEditTable('sale', {})
+            },
+          },
+        ]}
         searchBtns={[
           {
             label: '查询',
