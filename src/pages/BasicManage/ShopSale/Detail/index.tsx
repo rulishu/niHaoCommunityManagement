@@ -17,9 +17,9 @@ import DetailAdd from './detailAdd/Index'
 
 interface State {
   drawerDetailVisible?: boolean
-
-  delectVisible?: boolean
   tableType?: string
+  detailtableType?: string
+  delectVisible?: boolean
   queryInfo?: object
   isView?: boolean
   id?: string
@@ -92,25 +92,26 @@ const Detail = (props: {
   function handleEditTable(detailType: string, obj: Change) {
     updateData({
       isView: detailType === 'deAdd',
-      tableType: detailType,
+      detailtableType: detailType,
     })
     if (detailType === 'deAdd') {
-      dispatch({
-        type: 'ShopSale/detailData',
-        payload: { page: 1, pageSize: 200 },
-      })
       updateData({ drawerDetailVisible: true, queryInfo: {} })
     }
     if (detailType === 'deDel') {
       updateData({ delectVisible: true, id: obj?.id })
     }
   }
-  console.log('tableType', tableType)
 
   return (
     <ProDrawer
       width={800}
-      title={'新增'}
+      title={
+        tableType === 'rent'
+          ? '默认收费项(出租)'
+          : tableType === 'sale'
+          ? '默认收费项(出售)'
+          : ''
+      }
       visible={drawerVisible}
       onClose={onClose}
       buttons={[
@@ -149,28 +150,9 @@ const Detail = (props: {
       )}
 
       <ProTable
-        searchBtns={
-          tableType !== 'edit'
-            ? [
-                {
-                  label: '搜索',
-                  type: 'primary',
-                  onClick: () => {
-                    deatailTable.onSearch()
-                  },
-                },
-                {
-                  label: '重置',
-                  onClick: () => {
-                    deatailTable.onReset()
-                  },
-                },
-              ]
-            : []
-        }
         operateButtons={[
           {
-            label: '新增',
+            label: '新增收费项',
             type: 'primary',
             onClick: () => {
               handleEditTable('deAdd', {})
@@ -184,16 +166,10 @@ const Detail = (props: {
         table={deatailTable}
         columns={[
           {
-            title: '关键词',
-            key: 'name',
-            props: {
-              widget: 'input',
-              initialValue: '',
-              widgetProps: {
-                preIcon: 'user',
-                placeholder: '输入关键词',
-              },
-            },
+            title: '序号',
+            align: 'center',
+            key: 'id',
+            ellipsis: true,
           },
           {
             title: '收费项目名',
