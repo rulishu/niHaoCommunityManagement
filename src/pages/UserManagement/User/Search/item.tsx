@@ -61,13 +61,13 @@ export const item = (
       width: 200,
       render: (text: any, key: any, rowData: Usermanagement) => (
         <div style={{ textAlign: 'center' }}>
-          {/* <Button
+          <Button
             size="small"
             icon="delete"
             onClick={() => handleEditTable('del', rowData)}
           >
             删除
-          </Button> */}
+          </Button>
           <Button
             size="small"
             icon="edit"
