@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Modal, Checkbox } from 'uiw'
 import { ProTable, useTable } from '@uiw-admin/components'
 import { useSelector, useDispatch } from 'react-redux'

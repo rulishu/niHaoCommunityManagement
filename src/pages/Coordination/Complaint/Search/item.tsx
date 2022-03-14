@@ -1,5 +1,4 @@
 import { Button } from 'uiw'
-import React from 'react'
 import { Change } from '@/servers/BasicManage/ChargeManage'
 
 export const columnsSearch = (
@@ -67,13 +66,13 @@ export const columnsSearch = (
     {
       title: '投诉者姓名',
       align: 'center',
-      key: 'type',  
+      key: 'type',
       ellipsis: true,
     },
     {
       title: '投诉时间',
       align: 'center',
-      key: 'type',  
+      key: 'type',
       ellipsis: true,
     },
     {

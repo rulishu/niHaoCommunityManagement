@@ -6,8 +6,8 @@
   "scripts": {
     "start": "kkt start",
     "build": "kkt build",
-    "lint": "eslint \"{src,}/**/*.{ts,tsx,js,jsx}\"",
-    "lint:fix": "yarn lint --fix"
+    "lint": "lint-staged",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -30,15 +30,17 @@
     "@uiw/reset.css": "1.0.5",
     "axios": "0.24.0",
     "classnames": "2.3.1",
+    "echarts": "^5.3.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-redux": "7.2.6",
     "react-router-dom": "6.2.1",
     "swr": "1.2.1",
-    "uiw": "^4.13.6",
-    "echarts": "^5.3.0"
+    "uiw": "^4.13.5"
   },
   "devDependencies": {
+    "@commitlint/cli": "^16.2.1",
+    "@commitlint/config-conventional": "^16.2.1",
     "@types/classnames": "2.3.1",
     "@types/react": "17.0.38",
     "@types/react-dom": "17.0.11",
@@ -46,23 +48,19 @@
     "@uiw-admin/config": "5.2.30",
     "@uiw-admin/plugins": "5.2.30",
     "ajv": "8.9.0",
-    "eslint": "7.28.0",
-    "eslint-config-standard": "16.0.3",
-    "eslint-plugin-import": "2.23.4",
-    "eslint-plugin-node": "11.1.0",
-    "eslint-plugin-promise": "5.2.0",
-    "eslint-plugin-react": "7.28.0",
-    "kkt": "7.0.6",
-    "lint-staged": "12.3.3",
-    "prettier": "2.3.2",
     "eslint-plugin-prettier": "4.0.0",
+    "husky": "^7.0.4",
+    "kkt": "7.0.6",
+    "lint-staged": "^12.3.3",
+    "prettier": "2.3.2",
     "yorkie": "2.0.0"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "eslint --fix"
+      "eslint --fix --max-warnings 0",
+      "git add"
     ],
-    "*.{js,jsx,ts,tsx,less,md,json}": [
+    "*.{js,jsx,ts,tsx,less,json}": [
       "prettier --write"
     ]
   },

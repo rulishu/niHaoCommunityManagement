@@ -1,4 +1,3 @@
-import React from 'react'
 import { ProDrawer } from '@uiw-admin/components'
 import { Descriptions } from 'uiw'
 import { useSelector, useDispatch } from 'react-redux'

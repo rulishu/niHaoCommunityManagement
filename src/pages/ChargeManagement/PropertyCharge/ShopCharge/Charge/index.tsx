@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { Button, Table, Input } from 'uiw'
 import { ProDrawer, useForm, ProForm } from '@uiw-admin/components'
 import { useSelector, useDispatch } from 'react-redux'

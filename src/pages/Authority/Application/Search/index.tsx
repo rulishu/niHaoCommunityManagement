@@ -1,4 +1,4 @@
-import React from 'react'
+import { Fragment } from 'react'
 import { ProTable, useTable } from '@uiw-admin/components'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import { columnsSearch, columnsEnd } from './item'
@@ -106,7 +106,7 @@ export default function Demo() {
   }
 
   return (
-    <React.Fragment>
+    <Fragment>
       <ProTable
         bordered
         operateButtons={[
@@ -156,6 +156,6 @@ export default function Demo() {
         title={'三级菜单'}
         onClose={thirClose}
       />
-    </React.Fragment>
+    </Fragment>
   )
 }
