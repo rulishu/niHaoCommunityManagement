@@ -2,10 +2,7 @@ import { request } from '@uiw-admin/utils'
 
 export interface Change {
   id?: string
-  price?: string
-  code?: String
-  collectionName?: string
-  collectionTime?: string
+  nickName?: string
   password?: string
 }
 
@@ -24,7 +21,7 @@ const selectPage = '/api/innerAccount/selectPage'
 
 const update = '/api/buDeposit/update'
 
-const insert = '/api/buDeposit/add'
+const insert = '/api/innerAccount/add'
 
 const deleteData = '/api/parkingArea/delete'
 

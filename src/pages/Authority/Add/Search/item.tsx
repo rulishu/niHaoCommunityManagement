@@ -28,9 +28,9 @@ export const columnsSearch = (
         { label: '停用', value: '2' },
       ],
     },
-    render: (status: string) => (
+    render: (status: number) => (
       <div style={{ textAlign: 'center' }}>
-        <span>{status === '1' ? '正常' : '停用'}</span>
+        <span>{status === 1 ? '正常' : '停用'}</span>
       </div>
     ),
   },
@@ -38,23 +38,11 @@ export const columnsSearch = (
     title: '创建人名称',
     key: 'createName',
     align: 'center',
-    props: {
-      widget: 'input',
-      widgetProps: {
-        placeholder: '请输入创建人名称',
-      },
-    },
   },
   {
     title: '创建时间',
     key: 'createTime',
     align: 'center',
-    props: {
-      widget: 'input',
-      widgetProps: {
-        placeholder: '请输入创建时间',
-      },
-    },
   },
   {
     title: '操作',

@@ -3,19 +3,18 @@ import { Change } from '@/servers/Authority/Add'
 export const items = (queryInfo: Change) => {
   return [
     {
-      label: '账号',
-      key: 'code',
+      label: '昵称',
+      key: 'nickName',
       widget: 'input',
-      initialValue: queryInfo?.code,
-      placeholder: '请输入账号',
+      initialValue: queryInfo?.nickName,
+      placeholder: '请输入昵称',
       required: true,
       span: '12',
-      rules: [{ required: true, message: '请输入账号' }],
+      rules: [{ required: true, message: '请输入昵称' }],
     },
     {
       label: '密码',
       key: 'password',
-      type: 'password',
       widget: 'input',
       help: '最少6位，允许字母、数字',
       initialValue: queryInfo?.password,
