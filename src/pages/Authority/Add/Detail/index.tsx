@@ -86,8 +86,8 @@ const Drawer = (props: {
         form={baseRef}
         readOnly={isView}
         onSubmit={(initial, current) => {
-          initial
-          current
+          // initial
+          // current
           mutate()
         }}
         buttonsContainer={{ justifyContent: 'flex-start' }}
