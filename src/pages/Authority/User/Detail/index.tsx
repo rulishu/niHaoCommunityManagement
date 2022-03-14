@@ -3,7 +3,7 @@ import { ProDrawer, ProForm, useForm } from '@uiw-admin/components'
 import { Notify, Switch, List } from 'uiw'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
-import { assignRole } from '@/servers/Authority/User'
+import { assignRole, inAssignRole } from '@/servers/Authority/User'
 import { items } from './items'
 import useSWR from 'swr'
 
@@ -22,7 +22,7 @@ const Detail = (props: {
   const baseRef = useForm()
   const dispatch = useDispatch<Dispatch>()
   const {
-    User: { drawerVisible, tableType, queryInfo, isView, roleList },
+    User: { drawerVisible, tableType, queryInfo, isView, roleList, keys },
   } = useSelector((User: RootState) => User)
 
   const onClose = () => {
@@ -36,7 +36,11 @@ const Detail = (props: {
   }
 
   const { mutate } = useSWR(
-    [tableType === 'edit' && assignRole, { method: 'POST', body: queryInfo }],
+    [
+      (tableType === 'edit' && keys === 'outside' && assignRole) ||
+        inAssignRole,
+      { method: 'POST', body: queryInfo },
+    ],
     {
       revalidateOnMount: false,
       revalidateOnFocus: false,
@@ -102,7 +106,7 @@ const Detail = (props: {
           onChange={(initial, current) =>
             props.updateData({ queryInfo: { ...queryInfo, ...current } })
           }
-          formDatas={items(queryInfo)}
+          formDatas={items(queryInfo, keys)}
         />
       ) : (
         <List>
