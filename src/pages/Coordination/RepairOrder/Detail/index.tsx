@@ -1,4 +1,3 @@
-import React from 'react'
 import { Tabs, Steps, Row, Col, Table } from 'uiw'
 import { ProDrawer, ProForm, useForm } from '@uiw-admin/components'
 import { Notify, Button } from 'uiw'
@@ -68,9 +67,27 @@ const Detail = (props: {
   const Btns = () => {
     return (
       <div>
-        {butType === '1' ? <Button type="primary" onClick={() => onEdit('1')}>公司派遣</Button> : <Button onClick={() => onEdit('1')}>公司派遣</Button>}
-        {butType === '2' ? <Button type='primary' onClick={() => onEdit('2')}>业主报修</Button> : <Button onClick={() => onEdit('2')}>业主报修</Button>}
-        {butType === '3' ? <Button type='primary' onClick={() => onEdit('3')}>小程序报修</Button> : <Button onClick={() => onEdit('3')}>小程序报修</Button>}
+        {butType === '1' ? (
+          <Button type="primary" onClick={() => onEdit('1')}>
+            公司派遣
+          </Button>
+        ) : (
+          <Button onClick={() => onEdit('1')}>公司派遣</Button>
+        )}
+        {butType === '2' ? (
+          <Button type="primary" onClick={() => onEdit('2')}>
+            业主报修
+          </Button>
+        ) : (
+          <Button onClick={() => onEdit('2')}>业主报修</Button>
+        )}
+        {butType === '3' ? (
+          <Button type="primary" onClick={() => onEdit('3')}>
+            小程序报修
+          </Button>
+        ) : (
+          <Button onClick={() => onEdit('3')}>小程序报修</Button>
+        )}
       </div>
     )
   }
@@ -114,7 +131,10 @@ const Detail = (props: {
           console.log('tab', tab)
         }}
       >
-        <Tabs.Pane label={tableType === 'view' ? "工单信息" : '新增'} key="workOrder">
+        <Tabs.Pane
+          label={tableType === 'view' ? '工单信息' : '新增'}
+          key="workOrder"
+        >
           <ProForm
             title="基础信息"
             formType={'card'}
@@ -128,34 +148,51 @@ const Detail = (props: {
             onChange={(initial, current) =>
               props.updateData({ queryInfo: { ...queryInfo, ...current } })
             }
-            formDatas={tableType === 'view' ? viewItems(queryInfo,) : items(queryInfo, butType)}
+            formDatas={
+              tableType === 'view'
+                ? viewItems(queryInfo)
+                : items(queryInfo, butType)
+            }
           />
         </Tabs.Pane>
         {tableType === 'view' && (
           <Tabs.Pane label="流程信息" key="process">
             <Row gutter={20}>
               <Col>
-                <Steps direction="vertical" progressDot status="error" current={2} style={{ padding: '20px 0' }}>
-                  <Steps.Step title="步骤一" description="这里是步骤一的说明，可以很长很长哦。" />
-                  <Steps.Step title="步骤二" description="这里是步骤一的说明，可以很长很长哦。" />
-                  <Steps.Step title="步骤三" description="这里是步骤一的说明，可以很长很长哦。" />
-                  <Steps.Step title="步骤四" description="这里是步骤一的说明，可以很长很长哦。" />
+                <Steps
+                  direction="vertical"
+                  progressDot
+                  status="error"
+                  current={2}
+                  style={{ padding: '20px 0' }}
+                >
+                  <Steps.Step
+                    title="步骤一"
+                    description="这里是步骤一的说明，可以很长很长哦。"
+                  />
+                  <Steps.Step
+                    title="步骤二"
+                    description="这里是步骤一的说明，可以很长很长哦。"
+                  />
+                  <Steps.Step
+                    title="步骤三"
+                    description="这里是步骤一的说明，可以很长很长哦。"
+                  />
+                  <Steps.Step
+                    title="步骤四"
+                    description="这里是步骤一的说明，可以很长很长哦。"
+                  />
                 </Steps>
               </Col>
             </Row>
           </Tabs.Pane>
-
         )}
         {tableType === 'view' && (
           <Tabs.Pane label="流转记录" key="move">
-            <Table
-              columns={columns}
-              data={[{ age: '1' }]}
-            />
+            <Table columns={columns} data={[{ age: '1' }]} />
           </Tabs.Pane>
         )}
       </Tabs>
-
     </ProDrawer>
   )
 }

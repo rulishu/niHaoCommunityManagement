@@ -1,4 +1,3 @@
-import React from 'react'
 import { ProDrawer, ProForm, useForm } from '@uiw-admin/components'
 import { Notify } from 'uiw'
 import { useSelector, useDispatch } from 'react-redux'
@@ -92,7 +91,7 @@ const Detail = (props: {
         onChange={(initial, current) =>
           props.updateData({ queryInfo: { ...queryInfo, ...current } })
         }
-        formDatas={items(queryInfo,)}
+        formDatas={items(queryInfo)}
       />
     </ProDrawer>
   )

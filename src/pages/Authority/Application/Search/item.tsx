@@ -1,5 +1,4 @@
 import { Button } from 'uiw'
-import React from 'react'
 import { Change } from '@/servers/Authority/Application'
 
 export const columnsSearch = (

@@ -1,4 +1,3 @@
-import React from 'react'
 import ReactDOM from 'react-dom'
 import Control from '@uiw-admin/router-control'
 import { SWRConfig } from 'swr'
@@ -14,7 +13,8 @@ ReactDOM.render(
         return request(resource, init)
       },
       provider: () => new Map(),
-    }}>
+    }}
+  >
     <Control
       routeType="hash"
       // addModels={(path) => import(`${path}`)}

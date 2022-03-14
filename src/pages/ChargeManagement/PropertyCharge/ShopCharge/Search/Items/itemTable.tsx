@@ -1,5 +1,5 @@
 import { Dropdown, Menu, Button, Tag } from 'uiw'
-import React from 'react'
+import * as React from 'react'
 import { searchValue } from '@/servers/ChargeManagement/ShopCharge'
 
 const option = [

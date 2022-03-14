@@ -1,5 +1,5 @@
 import { selectById, Change } from '../../servers/Authority/Role'
-import { Dispatch, RootModel } from '@uiw-admin/models'
+import { Dispatch } from '@uiw-admin/models'
 import { createModel, RematchDispatch } from '@rematch/core'
 import { TreeData } from '@uiw/react-tree'
 
@@ -14,7 +14,7 @@ interface State {
   selectMenu: TreeData['key'][]
 }
 
-const Role = createModel<RootModel>()({
+const Role = createModel()({
   name: 'Role',
   state: {
     drawerVisible: false,
@@ -32,14 +32,14 @@ const Role = createModel<RootModel>()({
       ...payload,
     }),
   },
-  effects: (dispatch: RematchDispatch<RootModel>) => ({
+  effects: (dispatch: RematchDispatch<any>) => ({
     async selectById(payload: Change) {
       const dph = dispatch as Dispatch
       const data = await selectById(payload)
       if (data.code === 1) {
         let arr = data.data.menuList // 菜单数据
 
-        arr.map((item: any) => {
+        arr.forEach((item: any) => {
           // 根级菜单数据处理
           item.label = item.menuName
           item.key = item.id
@@ -48,7 +48,7 @@ const Role = createModel<RootModel>()({
           }
           // 一级菜单数据处理
           if (item.children && item.children.length > 0) {
-            item.children.map((itm: any) => {
+            item.children.forEach((itm: any) => {
               itm.label = itm.menuName
               itm.key = itm.id
               if (itm.children.length === 0) {
@@ -56,7 +56,7 @@ const Role = createModel<RootModel>()({
               }
               // 二级菜单数据处理
               if (itm.children && itm.children.length > 0) {
-                itm.children.map((value: any) => {
+                itm.children.forEach((value: any) => {
                   value.label = value.menuName
                   value.key = value.id
                   if (value.children.length === 0) {

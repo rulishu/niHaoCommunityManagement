@@ -1,6 +1,5 @@
-import React from 'react';
-import Rows from './Rows';
-import Chart from './Chart';
+import Rows from './Rows'
+import Chart from './Chart'
 
 export default function Home() {
   return (
@@ -8,5 +7,5 @@ export default function Home() {
       <Rows />
       <Chart />
     </div>
-  );
+  )
 }

@@ -1,4 +1,3 @@
-import React from 'react'
 import { ProDrawer, ProForm, useForm } from '@uiw-admin/components'
 import { Notify } from 'uiw'
 import useSWR from 'swr'

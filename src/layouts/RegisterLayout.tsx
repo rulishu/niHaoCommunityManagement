@@ -1,4 +1,3 @@
-import React from 'react'
 import UserLogin from '@uiw-admin/user-login'
 import { useDispatch } from 'react-redux'
 import { Dispatch } from '@uiw-admin/models'

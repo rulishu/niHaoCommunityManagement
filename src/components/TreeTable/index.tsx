@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { Table, Modal } from 'uiw'
 import { TableColumns } from '@uiw/react-table'
 

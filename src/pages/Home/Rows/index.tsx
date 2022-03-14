@@ -1,6 +1,5 @@
-import React from 'react';
-import { Row, Col, Icon, Card } from 'uiw';
-import './index.css';
+import { Row, Col, Icon, Card } from 'uiw'
+import './index.css'
 
 export default function Rows() {
   const list = [
@@ -8,10 +7,13 @@ export default function Rows() {
     { id: 1, num: 27, title: '待收费金额（元）' },
     { id: 2, num: 25, title: '欠费数据（条）' },
     { id: 3, num: 27, title: '欠费金额（元）' },
-  ];
+  ]
 
   function randomColor() {
-    return '#' + ('00000' + ((Math.random() * 16777215 + 0.5) >> 0).toString(16)).slice(-6);
+    return (
+      '#' +
+      ('00000' + ((Math.random() * 16777215 + 0.5) >> 0).toString(16)).slice(-6)
+    )
   }
   return (
     <Row>
@@ -19,15 +21,20 @@ export default function Rows() {
         return (
           <Col key={index} className="col-bag">
             <Card bordered={false} style={{ height: '140px' }}>
-              <Icon type="smile" className="col-bag-icon" color={randomColor()} style={{ fontSize: '50px' }} />
+              <Icon
+                type="smile"
+                className="col-bag-icon"
+                color={randomColor()}
+                style={{ fontSize: '50px' }}
+              />
               <div>
                 <div className="col-num">{item.num}</div>
                 <div className="col-title">{item.title}</div>
               </div>
             </Card>
           </Col>
-        );
+        )
       })}
     </Row>
-  );
+  )
 }

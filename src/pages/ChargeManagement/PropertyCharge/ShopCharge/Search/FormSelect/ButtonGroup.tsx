@@ -1,4 +1,4 @@
-import React from 'react'
+import { Fragment } from 'react'
 import { Button } from 'uiw'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
@@ -39,7 +39,7 @@ export default function ButtonGroup() {
   }
 
   return (
-    <React.Fragment>
+    <Fragment>
       {keys === 'rout' && (
         <div className="uiw-SearchSelect-btn">
           <Button type="primary" onClick={() => handleEditTable('char')}>
@@ -69,6 +69,6 @@ export default function ButtonGroup() {
           </Button>
         </div>
       )}
-    </React.Fragment>
+    </Fragment>
   )
 }

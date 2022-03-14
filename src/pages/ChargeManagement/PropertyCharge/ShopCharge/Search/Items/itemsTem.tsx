@@ -1,5 +1,3 @@
-import React from 'react'
-
 export const columnsAdd = (queryInfo: any) => [
   {
     label: '商铺编号',

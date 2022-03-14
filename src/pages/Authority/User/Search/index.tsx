@@ -1,4 +1,4 @@
-import React from 'react'
+import { Fragment } from 'react'
 import { Tabs } from 'uiw'
 import { useDispatch } from 'react-redux'
 import { Dispatch } from '@uiw-admin/models'
@@ -17,7 +17,7 @@ export default function Demo() {
   }
 
   return (
-    <React.Fragment>
+    <Fragment>
       <Tabs
         type="card"
         activeKey="outside"
@@ -32,6 +32,6 @@ export default function Demo() {
           <Inside />
         </Tabs.Pane>
       </Tabs>
-    </React.Fragment>
+    </Fragment>
   )
 }

@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
-import * as echarts from 'echarts';
+import { useEffect } from 'react'
+import * as echarts from 'echarts'
 
 export default function PieChart() {
   useEffect(() => {
-    const myChart = echarts.init(document.getElementById('main1')!);
+    const myChart = echarts.init(document.getElementById('main1')!)
     myChart.setOption({
       title: {
         text: '商铺租售比列',
@@ -72,7 +72,7 @@ export default function PieChart() {
       //     }
       //   }
       // ]
-    });
-  }, []);
-  return <div id="main1" style={{ width: '100%', height: 500 }}></div>;
+    })
+  }, [])
+  return <div id="main1" style={{ width: '100%', height: 500 }}></div>
 }

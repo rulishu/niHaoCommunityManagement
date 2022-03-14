@@ -1,5 +1,4 @@
 import { Change } from '@/servers/BasicManage/ShopManage'
-import React from 'react'
 
 export const items = (queryInfo: Change, tableType: string) => [
   {

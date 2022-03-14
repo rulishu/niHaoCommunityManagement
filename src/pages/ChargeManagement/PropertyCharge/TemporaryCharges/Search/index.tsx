@@ -1,4 +1,4 @@
-import React from 'react'
+import { Fragment } from 'react'
 import { ProTable, useTable } from '@uiw-admin/components'
 import { Dispatch } from '@uiw-admin/models'
 import { useDispatch } from 'react-redux'
@@ -60,7 +60,7 @@ const Search = () => {
   }
 
   return (
-    <React.Fragment>
+    <Fragment>
       <ProTable
         bordered
         // 操作栏按钮
@@ -93,7 +93,7 @@ const Search = () => {
       />
       <Drawer updateData={updateData} onSearch={search.onSearch} />
       <Modals onSearch={search.onSearch} />
-    </React.Fragment>
+    </Fragment>
   )
 }
 

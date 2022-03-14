@@ -1,9 +1,9 @@
-import React from 'react'
+import { Fragment } from 'react'
 import { Descriptions } from 'uiw'
 
 export default function details() {
   return (
-    <React.Fragment>
+    <Fragment>
       <Descriptions title="商品信息" bordered>
         <Descriptions.Item label="编号">调调</Descriptions.Item>
         <Descriptions.Item label="商品状态">1360000000</Descriptions.Item>
@@ -15,6 +15,6 @@ export default function details() {
         <Descriptions.Item label="联系方式">-</Descriptions.Item>
         <Descriptions.Item label="入住时间">-</Descriptions.Item>
       </Descriptions>
-    </React.Fragment>
+    </Fragment>
   )
 }
