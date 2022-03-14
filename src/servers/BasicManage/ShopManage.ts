@@ -8,7 +8,7 @@ export interface Change {
   areaCovered?: number
   areaUsable?: number
   shopRent?: number
-  status?: string
+  status?: number
   remark?: string
 }
 
