@@ -1,4 +1,8 @@
-import { selectRoleList, Change } from '../../servers/Authority/User'
+import {
+  selectRoleList,
+  Change,
+  inSelectRoleList,
+} from '../../servers/Authority/User'
 import { Dispatch, RootModel } from '@uiw-admin/models'
 import { createModel, RematchDispatch } from '@rematch/core'
 
@@ -10,6 +14,7 @@ interface State {
   id: string
   delectVisible: boolean
   roleList: any[]
+  keys: string
 }
 
 const User = createModel<RootModel>()({
@@ -22,6 +27,7 @@ const User = createModel<RootModel>()({
     isView: false,
     delectVisible: false,
     roleList: [],
+    keys: 'outside',
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({
@@ -37,6 +43,17 @@ const User = createModel<RootModel>()({
         dph.User.updateState({
           drawerVisible: true,
           roleList: data.data.roleList || [],
+        })
+      }
+    },
+
+    async inSelectRoleList(payload: Change) {
+      const dph = dispatch as Dispatch
+      const data = await inSelectRoleList(payload)
+      if (data.code === 1) {
+        dph.User.updateState({
+          drawerVisible: true,
+          roleList: data.data || [],
         })
       }
     },

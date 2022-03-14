@@ -4,6 +4,10 @@ import { Change } from '@/servers/Authority/User'
 
 export const columnsSearch = (
   handleEditTable: (tableType: string, obj: Change) => void
+  // getRowSpan: (text: any, key: any, rowData: Change, rowNum: number) => {
+  //   children: any;
+  //   props: columnsRowSpan;
+  // }
 ) => {
   return [
     {
@@ -25,6 +29,10 @@ export const columnsSearch = (
           placeholder: '输入用户名',
         },
       },
+      // render: (text: any, key: any, rowData: Change, rowNum: number) => {
+      //   const obj = getRowSpan(text, key, rowData, rowNum)
+      //   return obj;
+      // }
     },
     {
       title: '用户姓名',
@@ -86,13 +94,72 @@ export const columnsSearch = (
           >
             查看
           </Button>
-          {/* <Button
+        </div>
+      ),
+    },
+  ]
+}
+
+export const inColumns = (
+  handleEditTable: (tableType: string, obj: Change) => void
+  // getRowSpan: (text: any, key: any, rowData: Change, rowNum: number) => {
+  //   children: any;
+  //   props: columnsRowSpan;
+  // }
+) => {
+  return [
+    {
+      title: '账号昵称',
+      key: 'nickName',
+      align: 'center',
+
+      props: {
+        widget: 'input',
+        initialValue: '',
+        // 组件属性
+        widgetProps: {
+          preIcon: 'user',
+          placeholder: '输入用户名',
+        },
+      },
+      // render: (text: any, key: any, rowData: Change, rowNum: number) => {
+      //   const obj = getRowSpan(text, key, rowData, rowNum)
+      //   return obj;
+      // }
+    },
+    {
+      title: '帐号状态',
+      key: 'status',
+      align: 'center',
+      ellipsis: true,
+      render: (status: number) => (
+        <div style={{ textAlign: 'center' }}>
+          <span>{status === 1 ? '正常' : status === 2 ? '禁用' : ''}</span>
+        </div>
+      ),
+    },
+
+    {
+      title: '操作',
+      key: 'edit',
+      align: 'center',
+      width: 250,
+      render: (text: any, key: any, rowData: Change) => (
+        <div style={{ textAlign: 'center' }}>
+          <Button
             size="small"
-            icon="delete"
-            onClick={() => handleEditTable('del', rowData)}
+            icon="edit"
+            onClick={handleEditTable.bind(this, 'edit', rowData)}
           >
-            删除
-          </Button> */}
+            角色授权
+          </Button>
+          <Button
+            size="small"
+            icon="eye"
+            onClick={handleEditTable.bind(this, 'view', rowData)}
+          >
+            查看
+          </Button>
         </div>
       ),
     },
