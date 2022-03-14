@@ -19,7 +19,7 @@ function selectById(params: Change) {
 
 const selectPage = '/api/innerAccount/selectPage'
 
-const update = '/api/buDeposit/update'
+const update = '/api/innerAccount/edit'
 
 const insert = '/api/innerAccount/add'
 
