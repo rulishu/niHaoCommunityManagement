@@ -71,13 +71,14 @@ const shopCharge = createModel<RootModel>()({
       if (data.code === 1) {
         let newList: any[] = data.data.rows
         let arr: searchValue[] = []
-        if (newList.length > 0)
-          newList.map((item: any) => {
+        if (newList.length > 0) {
+          newList.forEach((item: any) => {
             arr.push({
               value: item.shopNo,
               label: item.shopNo,
             })
           })
+        }
 
         dph.shopCharge.updateState({
           shopNoList: arr,
