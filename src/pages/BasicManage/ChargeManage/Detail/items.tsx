@@ -34,11 +34,7 @@ export const items = (queryInfo: Change, tableType: string) => {
       widget: 'input',
       initialValue: queryInfo?.chargePrice,
       required: true,
-      hide:
-        (tableType === 'add' || tableType === 'edit') &&
-        queryInfo?.chargeType === '1'
-          ? false
-          : true,
+      hide: queryInfo?.chargeType === '1' ? false : true,
       span: '8',
       widgetProps: {
         addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>元</div>,
@@ -56,11 +52,7 @@ export const items = (queryInfo: Change, tableType: string) => {
       widget: 'select',
       initialValue: queryInfo?.chargeNumType,
       required: true,
-      hide:
-        (tableType === 'add' || tableType === 'edit') &&
-        queryInfo?.chargeType === '1'
-          ? false
-          : true,
+      hide: queryInfo?.chargeType === '1' ? false : true,
       option: [
         { label: '按户数收费', value: '1' },
         { label: '按人口数收费', value: '2' },
@@ -79,11 +71,7 @@ export const items = (queryInfo: Change, tableType: string) => {
       widget: 'select',
       initialValue: queryInfo?.chargeFormula,
       required: true,
-      hide:
-        (tableType === 'add' || tableType === 'edit') &&
-        queryInfo?.chargeType === '1'
-          ? false
-          : true,
+      hide: queryInfo?.chargeType === '1' ? false : true,
       option: [
         { label: '单价*数量', value: '1' },
         { label: '自定义', value: '2' },
@@ -97,11 +85,7 @@ export const items = (queryInfo: Change, tableType: string) => {
       widget: 'select',
       initialValue: queryInfo?.chargeMonth,
       required: true,
-      hide:
-        (tableType === 'add' || tableType === 'edit') &&
-        queryInfo?.chargeType === '1'
-          ? false
-          : true,
+      hide: queryInfo?.chargeType === '1' ? false : true,
       option: [
         { label: '1个月', value: 1 },
         { label: '2个月', value: 2 },
@@ -119,11 +103,7 @@ export const items = (queryInfo: Change, tableType: string) => {
       widget: 'radio',
       initialValue: queryInfo?.chargeLateType,
       required: true,
-      hide:
-        (tableType === 'add' || tableType === 'edit') &&
-        queryInfo?.chargeType === '1'
-          ? false
-          : true,
+      hide: queryInfo?.chargeType === '1' ? false : true,
       option: [
         { label: '不适用', value: 1 },
         { label: '适用', value: 2 },

@@ -35,7 +35,7 @@ export const columnsSearch = (
     ),
   },
   {
-    title: '创建人名称',
+    title: '创建人',
     key: 'createName',
     align: 'center',
   },
