@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { ProTable, useTable } from '@uiw-admin/components'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import { useSelector, useDispatch } from 'react-redux'

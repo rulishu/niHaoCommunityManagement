@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
 import { Form, Row, Col, Button, Input, Checkbox } from 'uiw'
 import { useSelector } from 'react-redux'
 import logo from '../../assets/logo-dark.svg'
@@ -18,7 +18,7 @@ const Login = () => {
   const state = useSelector((state: RootState) => state)
   console.log(state)
 
-  const [store, setStore] = React.useState<any>()
+  const [store, setStore] = useState<any>()
 
   const { data } = useSWR(
     store
@@ -34,12 +34,13 @@ const Login = () => {
   if (data && data.token) {
     prt.set('login', { ...data })
   }
-  React.useEffect(() => {
+  useEffect(() => {
     if (data && data.token) {
       sessionStorage.setItem('token', data.token)
       sessionStorage.setItem('auth', JSON.stringify(data.authList || []))
       navigate('/home')
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [JSON.stringify(data)])
 
   return (

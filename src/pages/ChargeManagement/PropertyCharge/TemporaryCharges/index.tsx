@@ -1,12 +1,12 @@
-import React from 'react';
-import Search from './Search';
+import { Fragment } from 'react'
+import Search from './Search'
 
 const Index = () => {
-    return (
-        <React.Fragment>
-            <Search />
-        </React.Fragment>
-    )
+  return (
+    <Fragment>
+      <Search />
+    </Fragment>
+  )
 }
 
-export default Index;
+export default Index

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Tabs } from 'uiw'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch, RootState } from '@uiw-admin/models'
@@ -22,7 +22,7 @@ export default function Demo() {
     dispatch({
       type: 'shopCharge/shopSelectPage',
     })
-  }, [])
+  }, [dispatch])
 
   const {
     shopCharge: { shopNoList },
@@ -56,7 +56,7 @@ export default function Demo() {
     setLoading(true)
     setTimeout(() => {
       const filterOpion = shopNoList.filter(
-        (item) => !!item.label.includes(e.trim())
+        (item: any) => !!item.label.includes(e.trim())
       )
       setOption([...filterOpion])
       setLoading(false)
@@ -64,7 +64,7 @@ export default function Demo() {
   }
 
   return (
-    <React.Fragment>
+    <Fragment>
       <Tabs
         type="card"
         activeKey="rout"
@@ -113,6 +113,6 @@ export default function Demo() {
           />
         </Tabs.Pane>
       </Tabs>
-    </React.Fragment>
+    </Fragment>
   )
 }

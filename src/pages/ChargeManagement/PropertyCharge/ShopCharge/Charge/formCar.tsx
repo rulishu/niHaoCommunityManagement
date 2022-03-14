@@ -1,4 +1,4 @@
-import React from 'react'
+import { Fragment } from 'react'
 import { ProForm } from '@uiw-admin/components'
 import { cardOne, cardTow, cardThree } from './item'
 import { UseFormProps } from '@uiw-admin/components/src/ProForm/type'
@@ -27,7 +27,7 @@ export default function details(props: {
     return <div style={{ marginTop: 30 }}></div>
   }
   return (
-    <React.Fragment>
+    <Fragment>
       <div className="ProForm-body">
         <div className="ProForm-card">
           <ProForm
@@ -78,6 +78,6 @@ export default function details(props: {
           />
         </div>
       </div>
-    </React.Fragment>
+    </Fragment>
   )
 }

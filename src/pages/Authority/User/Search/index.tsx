@@ -1,4 +1,4 @@
-import React from 'react'
+import { Fragment } from 'react'
 import { ProTable, useTable } from '@uiw-admin/components'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import { columnsSearch } from './item'
@@ -67,7 +67,7 @@ export default function Demo() {
     // }
   }
   return (
-    <React.Fragment>
+    <Fragment>
       <ProTable
         bordered
         searchBtns={[
@@ -89,6 +89,6 @@ export default function Demo() {
       />
       <Drawer updateData={updateData} onSearch={table.onSearch} />
       <Modals onSearch={table.onSearch} />
-    </React.Fragment>
+    </Fragment>
   )
 }

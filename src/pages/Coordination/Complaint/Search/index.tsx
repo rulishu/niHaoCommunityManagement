@@ -1,4 +1,4 @@
-import React from 'react'
+import { Fragment } from 'react'
 import { ProTable, useTable } from '@uiw-admin/components'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import { columnsSearch } from './item'
@@ -26,7 +26,7 @@ export default function Demo() {
       payload,
     })
   }
-  const arr =[{type:'1',}]
+  const arr = [{ type: '1' }]
   const table = useTable(selectPage, {
     // 格式化接口返回的数据，必须返回{total 总数, data: 列表数据}的格式
     formatData: (data) => {
@@ -62,7 +62,7 @@ export default function Demo() {
     }
   }
   return (
-    <React.Fragment>
+    <Fragment>
       <ProTable
         bordered
         operateButtons={[
@@ -93,6 +93,6 @@ export default function Demo() {
       />
       <Drawer updateData={updateData} onSearch={table.onSearch} />
       <Modals onSearch={table.onSearch} />
-    </React.Fragment>
+    </Fragment>
   )
 }

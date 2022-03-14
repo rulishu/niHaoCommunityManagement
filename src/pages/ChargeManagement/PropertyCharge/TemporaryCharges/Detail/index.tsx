@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState } from 'react'
 import { ProDrawer, ProForm, useForm } from '@uiw-admin/components'
 import { Dispatch, RootState } from '@uiw-admin/models'
 import { useDispatch, useSelector } from 'react-redux'
@@ -22,7 +22,7 @@ const Drawer = (props: {
   const {
     temporaryCharges: { drawerVisible, tableType, queryInfo, isView },
   } = useSelector((state: RootState) => state)
-  const [value, getValue] = React.useState(false)
+  const [value, getValue] = useState(false)
 
   const onClose = () => {
     dispatch({
@@ -54,20 +54,20 @@ const Drawer = (props: {
   )
   const onChange = (initial: any, current: any) => {
     if (current?.customerType === '1') {
-      getValue(true),
-        props.updateData({
-          queryInfo: {
-            ...current,
-          },
-        })
+      getValue(true)
+      props.updateData({
+        queryInfo: {
+          ...current,
+        },
+      })
     }
     if (current?.customerType === '2') {
-      getValue(false),
-        props.updateData({
-          queryInfo: {
-            ...current,
-          },
-        })
+      getValue(false)
+      props.updateData({
+        queryInfo: {
+          ...current,
+        },
+      })
     }
     props.updateData({
       queryInfo: {
@@ -102,9 +102,7 @@ const Drawer = (props: {
         formType={isView ? 'pure' : 'card'}
         form={baseRef}
         readOnly={isView}
-        onSubmit={(initial, current) => {
-          initial
-          current
+        onSubmit={() => {
           mutate()
         }}
         buttonsContainer={{ justifyContent: 'flex-start' }}

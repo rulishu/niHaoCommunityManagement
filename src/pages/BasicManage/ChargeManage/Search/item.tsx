@@ -1,5 +1,4 @@
 import { Button } from 'uiw'
-import React from 'react'
 import { Change } from '@/servers/BasicManage/ChargeManage'
 
 export const columnsSearch = (
@@ -22,7 +21,13 @@ export const columnsSearch = (
       },
       render: (chargeType: string) => (
         <div style={{ textAlign: 'center' }}>
-          <span>{chargeType === '1' ? '常规收费项(商铺)' : chargeType === '2' ? '临时收费项' : '押金类收费项'}</span>
+          <span>
+            {chargeType === '1'
+              ? '常规收费项(商铺)'
+              : chargeType === '2'
+              ? '临时收费项'
+              : '押金类收费项'}
+          </span>
         </div>
       ),
     },
@@ -51,13 +56,22 @@ export const columnsSearch = (
       ellipsis: true,
       render: (chargeNumType: string) => (
         <div style={{ textAlign: 'center' }}>
-          <span>{chargeNumType === '1' ? '按户数收费'
-            : chargeNumType === '2' ? '按人口数收费'
-              : chargeNumType === '3' ? '按楼层收费'
-                : chargeNumType === '4' ? '按占地面积收费'
-                  : chargeNumType === '5' ? '按使用面积收费'
-                    : chargeNumType === '6' ? '按走表数量'
-                      : chargeNumType === '7' ? '按租金收费' : ''}
+          <span>
+            {chargeNumType === '1'
+              ? '按户数收费'
+              : chargeNumType === '2'
+              ? '按人口数收费'
+              : chargeNumType === '3'
+              ? '按楼层收费'
+              : chargeNumType === '4'
+              ? '按占地面积收费'
+              : chargeNumType === '5'
+              ? '按使用面积收费'
+              : chargeNumType === '6'
+              ? '按走表数量'
+              : chargeNumType === '7'
+              ? '按租金收费'
+              : ''}
           </span>
         </div>
       ),
@@ -69,9 +83,13 @@ export const columnsSearch = (
       ellipsis: true,
       render: (chargeFormula: string) => (
         <div style={{ textAlign: 'center' }}>
-          <span>{chargeFormula === '1' ? '单价*数量'
-            : chargeFormula === '2' ? '自定义' : ''
-          }</span>
+          <span>
+            {chargeFormula === '1'
+              ? '单价*数量'
+              : chargeFormula === '2'
+              ? '自定义'
+              : ''}
+          </span>
         </div>
       ),
     },
@@ -82,12 +100,20 @@ export const columnsSearch = (
       ellipsis: true,
       render: (chargeMonth: number) => (
         <div style={{ textAlign: 'center' }}>
-          <span>{chargeMonth === 1 ? '1个月'
-            : chargeMonth === 2 ? '2个月'
-              : chargeMonth === 3 ? '3个月'
-                : chargeMonth === 4 ? '4个月'
-                  : chargeMonth === 5 ? '6个月'
-                    : chargeMonth === 6 ? '12个月' : ''}
+          <span>
+            {chargeMonth === 1
+              ? '1个月'
+              : chargeMonth === 2
+              ? '2个月'
+              : chargeMonth === 3
+              ? '3个月'
+              : chargeMonth === 4
+              ? '4个月'
+              : chargeMonth === 5
+              ? '6个月'
+              : chargeMonth === 6
+              ? '12个月'
+              : ''}
           </span>
         </div>
       ),
@@ -99,7 +125,13 @@ export const columnsSearch = (
       ellipsis: true,
       render: (chargeLateType: number) => (
         <div style={{ textAlign: 'center' }}>
-          <span>{chargeLateType === 1 ? '不适用' : chargeLateType === 2 ? '适用':''}</span>
+          <span>
+            {chargeLateType === 1
+              ? '不适用'
+              : chargeLateType === 2
+              ? '适用'
+              : ''}
+          </span>
         </div>
       ),
     },

@@ -1,5 +1,4 @@
 import { Change } from '@/servers/BasicManage/ShopManage'
-import React from 'react';
 
 export const items = (queryInfo: Change, tableType: string) => [
   {
@@ -83,7 +82,7 @@ export const items = (queryInfo: Change, tableType: string) => [
         pattern: new RegExp(/(^[1-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/),
         message: '请正确输入',
       },
-    ],  
+    ],
   },
   {
     label: '使用状态',
@@ -93,7 +92,7 @@ export const items = (queryInfo: Change, tableType: string) => [
     option: [
       { label: '空置', value: '1' },
       { label: '已出售', value: '2' },
-      { label: '已出租', value: '3', },
+      { label: '已出租', value: '3' },
     ],
     initialValue: queryInfo?.status,
     widgetProps: {},

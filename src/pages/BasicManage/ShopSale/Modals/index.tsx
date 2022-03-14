@@ -1,4 +1,3 @@
-import React from 'react'
 import { Modal } from 'uiw'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'

@@ -1,5 +1,4 @@
 import { Button } from 'uiw'
-import React from 'react'
 import { Usermanagement } from '@/servers/usermanagement'
 
 export const item = (

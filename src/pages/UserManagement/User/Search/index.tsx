@@ -1,4 +1,4 @@
-import React from 'react'
+import { Fragment } from 'react'
 import { useDispatch } from 'react-redux'
 import { Dispatch } from '@uiw-admin/models'
 import { ProTable, useTable } from '@uiw-admin/components'
@@ -77,7 +77,7 @@ export default function Search() {
   }
 
   return (
-    <React.Fragment>
+    <Fragment>
       <ProTable
         bordered
         searchBtns={[
@@ -102,6 +102,6 @@ export default function Search() {
       />
       <Drawer updateData={updateData} onSearch={table.onSearch} />
       <Modals onSearch={table.onSearch} />
-    </React.Fragment>
+    </Fragment>
   )
 }

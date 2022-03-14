@@ -1,4 +1,3 @@
-import React from 'react'
 import { ProDrawer, ProForm, useForm } from '@uiw-admin/components'
 import { Notify, Switch, List } from 'uiw'
 import { useSelector, useDispatch } from 'react-redux'

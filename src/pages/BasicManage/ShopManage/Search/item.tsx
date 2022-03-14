@@ -1,5 +1,4 @@
 import { Button } from 'uiw'
-import React from 'react'
 import { Change } from '@/servers/BasicManage/ChargeManage'
 
 export const columnsSearch = (
@@ -58,7 +57,9 @@ export const columnsSearch = (
       },
       render: (status: number) => (
         <div style={{ textAlign: 'center' }}>
-          <span>{status === 1 ? '空置' : status === 2 ? '已出售' : '已出租'}</span>
+          <span>
+            {status === 1 ? '空置' : status === 2 ? '已出售' : '已出租'}
+          </span>
         </div>
       ),
     },

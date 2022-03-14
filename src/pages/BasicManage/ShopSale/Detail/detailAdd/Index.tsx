@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Modal, Table, Checkbox } from 'uiw'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
@@ -52,13 +52,13 @@ const Modals = (props: { onSearch: () => void }) => {
               }
             }}
           />
-        );
+        )
       },
       key: 'checked',
-      render: (text: any, key: any, rowData: any,) => {
+      render: (text: any, key: any, rowData: any) => {
         return (
           <Checkbox
-            checked={(checkList.includes(rowData.id))}
+            checked={checkList.includes(rowData.id)}
             onChange={(item) => {
               if (item && item.target.checked) {
                 setCheckList((pre) => pre.concat([rowData.id]))
@@ -67,8 +67,8 @@ const Modals = (props: { onSearch: () => void }) => {
               }
             }}
           />
-        );
-      }
+        )
+      },
     },
     {
       title: '序号',
@@ -95,13 +95,22 @@ const Modals = (props: { onSearch: () => void }) => {
       ellipsis: true,
       render: (chargeNumType: string) => (
         <div style={{ textAlign: 'center' }}>
-          <span>{chargeNumType === '1' ? '按户数收费'
-            : chargeNumType === '2' ? '按人口数收费'
-              : chargeNumType === '3' ? '按楼层收费'
-                : chargeNumType === '4' ? '按占地面积收费'
-                  : chargeNumType === '5' ? '按使用面积收费'
-                    : chargeNumType === '6' ? '按走表数量'
-                      : chargeNumType === '7' ? '按租金收费' : ''}
+          <span>
+            {chargeNumType === '1'
+              ? '按户数收费'
+              : chargeNumType === '2'
+              ? '按人口数收费'
+              : chargeNumType === '3'
+              ? '按楼层收费'
+              : chargeNumType === '4'
+              ? '按占地面积收费'
+              : chargeNumType === '5'
+              ? '按使用面积收费'
+              : chargeNumType === '6'
+              ? '按走表数量'
+              : chargeNumType === '7'
+              ? '按租金收费'
+              : ''}
           </span>
         </div>
       ),
@@ -113,9 +122,13 @@ const Modals = (props: { onSearch: () => void }) => {
       ellipsis: true,
       render: (chargeFormula: string) => (
         <div style={{ textAlign: 'center' }}>
-          <span>{chargeFormula === '1' ? '单价*数量'
-            : chargeFormula === '2' ? '自定义' : ''
-          }</span>
+          <span>
+            {chargeFormula === '1'
+              ? '单价*数量'
+              : chargeFormula === '2'
+              ? '自定义'
+              : ''}
+          </span>
         </div>
       ),
     },
@@ -126,12 +139,20 @@ const Modals = (props: { onSearch: () => void }) => {
       ellipsis: true,
       render: (chargeMonth: any) => (
         <div style={{ textAlign: 'center' }}>
-          <span>{chargeMonth === 1 ? '1个月'
-            : chargeMonth === 2 ? '2个月'
-              : chargeMonth === 3 ? '3个月'
-                : chargeMonth === 4 ? '4个月'
-                  : chargeMonth === 5 ? '6个月'
-                    : chargeMonth === 6 ? '12个月' : ''}
+          <span>
+            {chargeMonth === 1
+              ? '1个月'
+              : chargeMonth === 2
+              ? '2个月'
+              : chargeMonth === 3
+              ? '3个月'
+              : chargeMonth === 4
+              ? '4个月'
+              : chargeMonth === 5
+              ? '6个月'
+              : chargeMonth === 6
+              ? '12个月'
+              : ''}
           </span>
         </div>
       ),
@@ -155,14 +176,8 @@ const Modals = (props: { onSearch: () => void }) => {
       }}
       onClosed={onClose}
     >
-      <Table
-        columns={columns}
-        data={dataSource}
-      />
+      <Table columns={columns} data={dataSource} />
     </Modal>
   )
 }
 export default Modals
-
-
-

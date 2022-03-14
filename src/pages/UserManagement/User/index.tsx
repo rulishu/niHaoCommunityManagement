@@ -1,9 +1,9 @@
-import React from 'react'
+import { Fragment } from 'react'
 import Search from './Search'
 export default function Usermanagement() {
   return (
-    <React.Fragment>
+    <Fragment>
       <Search />
-    </React.Fragment>
+    </Fragment>
   )
 }

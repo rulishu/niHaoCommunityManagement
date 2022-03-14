@@ -1,11 +1,11 @@
-import React from 'react'
+import { Fragment } from 'react'
 import Search from './Search'
 
 const Index = () => {
   return (
-    <React.Fragment>
+    <Fragment>
       <Search />
-    </React.Fragment>
+    </Fragment>
   )
 }
 export default Index

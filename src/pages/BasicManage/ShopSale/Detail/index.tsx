@@ -1,5 +1,10 @@
-import React from 'react'
-import { ProDrawer, ProTable, useTable, ProForm, useForm } from '@uiw-admin/components'
+import {
+  ProDrawer,
+  ProTable,
+  useTable,
+  ProForm,
+  useForm,
+} from '@uiw-admin/components'
 import { Notify, Button } from 'uiw'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
@@ -41,8 +46,7 @@ const Detail = (props: {
 
   const { mutate } = useSWR(
     [
-      (tableType === 'add' && insert) ||
-      (tableType === 'edit' && update),
+      (tableType === 'add' && insert) || (tableType === 'edit' && update),
       { method: 'POST', body: queryInfo },
     ],
     {
@@ -92,7 +96,7 @@ const Detail = (props: {
     if (detailType === 'deAdd') {
       dispatch({
         type: 'ShopSale/detailData',
-        payload: { page: 1, pageSize: 200, },
+        payload: { page: 1, pageSize: 200 },
       })
       updateData({ drawerDetailVisible: true, queryInfo: {} })
     }
@@ -137,7 +141,7 @@ const Detail = (props: {
         onChange={(initial, current) =>
           props.updateData({ queryInfo: { ...queryInfo, ...current } })
         }
-        formDatas={items(queryInfo,)}
+        formDatas={items(queryInfo)}
       />
 
       <ProTable
