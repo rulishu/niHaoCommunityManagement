@@ -23,6 +23,6 @@ const update = '/api/innerAccount/edit'
 
 const insert = '/api/innerAccount/add'
 
-const deleteData = '/api/parkingArea/delete'
+const deleteData = '/api/innerAccount/delete'
 
 export { selectById, selectPage, update, insert, deleteData }
