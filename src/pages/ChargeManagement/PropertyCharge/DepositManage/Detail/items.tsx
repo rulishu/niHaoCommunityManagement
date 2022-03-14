@@ -1,5 +1,4 @@
 import { Change } from '@/servers/ChargeManagement/DepositManage'
-import React from 'react'
 
 export const items = (queryInfo: Change, value: boolean, tableType: string) => {
   return [
