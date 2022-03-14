@@ -12,6 +12,20 @@ export interface Change {
   phoneNumber?: number
   password?: number
 }
+
+export interface State {
+  drawerVisible?: boolean
+  tableType?: string
+  queryInfo?: object
+  isView?: boolean
+  delectVisible?: boolean
+  id?: string
+  keys?: string
+}
+
+export interface columnsRowSpan {
+  rowSpan?: number
+}
 /**
  * 角色管理-角色列表
  * @param {Object} params
@@ -24,11 +38,46 @@ function selectRoleList(params: Change) {
 }
 
 const selectPage = '/api/account/selectPage'
-
+/**
+ * 账号管理-分配角色
+ * @param {Object} params
+ */
 const assignRole = '/api/account/assignRole'
 
 const insert = '/api/account/register'
 
 const deleteData = '/api/account/delete'
 
-export { selectRoleList, selectPage, assignRole, insert, deleteData }
+/**
+ * 内部账号-分页查询
+ * @param {Object} params
+ */
+const inSelectPage = '/api/innerAccount/selectPage'
+
+/**
+ * 内部账号-授权
+ * @param {Object} params
+ */
+const inAssignRole = '/api/innerAccount/assignRole'
+
+/**
+ * 内部账号-角色列表
+ * @param {Object} params
+ */
+function inSelectRoleList(params: Change) {
+  return request('/api/innerAccount/selectRoleList', {
+    method: 'POST',
+    body: { ...params },
+  })
+}
+
+export {
+  selectRoleList,
+  selectPage,
+  assignRole,
+  insert,
+  deleteData,
+  inSelectPage,
+  inSelectRoleList,
+  inAssignRole,
+}
