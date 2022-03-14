@@ -39,17 +39,17 @@ export const columnsSearch = (
           <Button
             size="small"
             icon="edit"
-            onClick={handleEditTable.bind(this, 'edit', rowData)}
+            onClick={() => handleEditTable('edit', rowData)}
           >
             编辑
           </Button>
-          {/* <Button
+          <Button
             size="small"
             icon="eye"
-            onClick={handleEditTable.bind(this, 'view', rowData)}
+            onClick={() => handleEditTable('view', rowData)}
           >
             查看
-          </Button> */}
+          </Button>
           <Button
             size="small"
             icon="delete"
