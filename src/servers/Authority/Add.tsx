@@ -2,10 +2,7 @@ import { request } from '@uiw-admin/utils'
 
 export interface Change {
   id?: string
-  price?: string
-  code?: String
-  collectionName?: string
-  collectionTime?: string
+  nickName?: string
   password?: string
 }
 
@@ -20,12 +17,12 @@ function selectById(params: Change) {
   })
 }
 
-const selectPage = '/api/buDeposit/selectPage'
+const selectPage = '/api/innerAccount/selectPage'
 
-const update = '/api/buDeposit/update'
+const update = '/api/innerAccount/edit'
 
-const insert = '/api/buDeposit/add'
+const insert = '/api/innerAccount/add'
 
-const deleteData = '/api/parkingArea/delete'
+const deleteData = '/api/innerAccount/delete'
 
 export { selectById, selectPage, update, insert, deleteData }

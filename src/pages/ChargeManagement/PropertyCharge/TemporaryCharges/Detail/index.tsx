@@ -54,20 +54,20 @@ const Drawer = (props: {
   )
   const onChange = (initial: any, current: any) => {
     if (current?.customerType === '1') {
-      getValue(true),
-        props.updateData({
-          queryInfo: {
-            ...current,
-          },
-        })
+      getValue(true)
+      props.updateData({
+        queryInfo: {
+          ...current,
+        },
+      })
     }
     if (current?.customerType === '2') {
-      getValue(false),
-        props.updateData({
-          queryInfo: {
-            ...current,
-          },
-        })
+      getValue(false)
+      props.updateData({
+        queryInfo: {
+          ...current,
+        },
+      })
     }
     props.updateData({
       queryInfo: {
@@ -103,8 +103,8 @@ const Drawer = (props: {
         form={baseRef}
         readOnly={isView}
         onSubmit={(initial, current) => {
-          initial
-          current
+          // initial
+          // current
           mutate()
         }}
         buttonsContainer={{ justifyContent: 'flex-start' }}
