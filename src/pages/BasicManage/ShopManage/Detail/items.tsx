@@ -1,5 +1,5 @@
 import { Change } from '@/servers/BasicManage/ShopManage'
-import React from 'react';
+import React from 'react'
 
 export const items = (queryInfo: Change, tableType: string) => [
   {
@@ -32,7 +32,6 @@ export const items = (queryInfo: Change, tableType: string) => [
     widget: 'input',
     initialValue: queryInfo?.shopFloor,
     required: true,
-    hide: tableType === 'view' ? true : false,
     rules: [{ required: true, message: '请输入楼层' }],
   },
   {
@@ -41,7 +40,6 @@ export const items = (queryInfo: Change, tableType: string) => [
     widget: 'input',
     initialValue: queryInfo?.areaCovered,
     required: true,
-    hide: tableType === 'view' ? true : false,
     widgetProps: {
       addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>m^2</div>,
     },
@@ -58,7 +56,6 @@ export const items = (queryInfo: Change, tableType: string) => [
     widget: 'input',
     initialValue: queryInfo?.areaUsable,
     required: true,
-    hide: tableType === 'view' ? true : false,
     widgetProps: {
       addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>m^2</div>,
     },
@@ -74,7 +71,6 @@ export const items = (queryInfo: Change, tableType: string) => [
     key: 'shopRent',
     widget: 'input',
     initialValue: queryInfo?.shopRent,
-    hide: tableType === 'view' ? true : false,
     widgetProps: {
       addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>元</div>,
     },
@@ -83,7 +79,7 @@ export const items = (queryInfo: Change, tableType: string) => [
         pattern: new RegExp(/(^[1-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/),
         message: '请正确输入',
       },
-    ],  
+    ],
   },
   {
     label: '使用状态',
@@ -91,9 +87,9 @@ export const items = (queryInfo: Change, tableType: string) => [
     widget: 'select',
     disabled: true,
     option: [
-      { label: '空置', value: '1' },
-      { label: '已出售', value: '2' },
-      { label: '已出租', value: '3', },
+      { label: '空置', value: 1 },
+      { label: '已出售', value: 2 },
+      { label: '已出租', value: 3 },
     ],
     initialValue: queryInfo?.status,
     widgetProps: {},
@@ -106,6 +102,5 @@ export const items = (queryInfo: Change, tableType: string) => [
     key: 'remark',
     widget: 'textarea',
     initialValue: queryInfo?.remark,
-    hide: tableType === 'view' ? true : false,
   },
 ]

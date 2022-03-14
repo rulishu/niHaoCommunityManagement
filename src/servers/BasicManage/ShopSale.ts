@@ -28,9 +28,10 @@ const insert = '/api/test/select'
 
 const deleteData = '/api/test/select'
 
+// 收费项查询和新增
 const detailSelectPage = '/api/buCharge/selectPage'
 
-const detailAdd = '/api/SaleShops/add'
+const detailAdd = '/api/buCharge/add'
 
 export {
   selectById,

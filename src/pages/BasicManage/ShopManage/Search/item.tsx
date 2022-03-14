@@ -51,14 +51,16 @@ export const columnsSearch = (
         label: '使用状态',
         widget: 'select',
         option: [
-          { label: '空置', value: '1' },
-          { label: '已出售', value: '2' },
-          { label: '已出租', value: '3' },
+          { label: '空置', value: 1 },
+          { label: '已出售', value: 2 },
+          { label: '已出租', value: 3 },
         ],
       },
       render: (status: number) => (
         <div style={{ textAlign: 'center' }}>
-          <span>{status === 1 ? '空置' : status === 2 ? '已出售' : '已出租'}</span>
+          <span>
+            {status === 1 ? '空置' : status === 2 ? '已出售' : '已出租'}
+          </span>
         </div>
       ),
     },
@@ -72,17 +74,17 @@ export const columnsSearch = (
           <Button
             size="small"
             icon="edit"
-            onClick={handleEditTable.bind(this, 'edit', rowData)}
+            onClick={() => handleEditTable('edit', rowData)}
           >
             编辑
           </Button>
-          {/* <Button
+          <Button
             size="small"
             icon="eye"
-            onClick={handleEditTable.bind(this, 'view', rowData)}
+            onClick={() => handleEditTable('view', rowData)}
           >
             查看
-          </Button> */}
+          </Button>
           <Button
             size="small"
             icon="delete"
