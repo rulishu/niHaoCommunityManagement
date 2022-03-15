@@ -15,6 +15,9 @@ stages:
 
 Build Static:
   stage: build
+  only:
+    - master
+    - dev
   before_script:
     - pwd
     - ls -al
@@ -24,10 +27,7 @@ Build Static:
       - build
   script:
     - npm run build
-  only:
-    - master
-    - dev
-    - tags
+
 
 Docker Imgae Build Dev:
   stage: deploy
