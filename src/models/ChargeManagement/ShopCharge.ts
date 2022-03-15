@@ -1,4 +1,4 @@
-import { Dispatch, RootModel } from '@uiw-admin/models'
+import { Dispatch } from '@uiw-admin/models'
 import { createModel, RematchDispatch } from '@rematch/core'
 import {
   shopSelectPage,
@@ -26,7 +26,7 @@ interface State {
   shopNoList: Array<searchValue>
 }
 
-const shopCharge = createModel<RootModel>()({
+const shopCharge = createModel()({
   name: 'shopCharge',
   state: {
     tableType: '1',
@@ -64,7 +64,7 @@ const shopCharge = createModel<RootModel>()({
       ...payload,
     }),
   },
-  effects: (dispatch: RematchDispatch<RootModel>) => ({
+  effects: (dispatch: RematchDispatch<any>) => ({
     async shopSelectPage(payload: Change) {
       const dph = dispatch as Dispatch
       const data = await shopSelectPage(payload)

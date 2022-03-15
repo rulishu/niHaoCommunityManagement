@@ -66,7 +66,7 @@ const Modals = (props: { onSearch: () => void }) => {
           <Checkbox
             onChange={(itm) => {
               if (itm && itm.target.checked) {
-                setCheckList(dataSource.map((item) => item.id))
+                setCheckList(dataSource.map((item: any) => item.id))
               } else {
                 setCheckList([])
               }
