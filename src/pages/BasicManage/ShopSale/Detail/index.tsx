@@ -20,7 +20,6 @@ interface State {
   detailtableType?: string
   delectVisible?: boolean
   queryInfo?: object
-  isView?: boolean
   id?: string
 }
 
@@ -31,7 +30,7 @@ const Detail = (props: {
   const baseRef = useForm()
   const dispatch = useDispatch<Dispatch>()
   const {
-    ShopSale: { drawerVisible, tableType, queryInfo, isView },
+    ShopSale: { drawerVisible, tableType, queryInfo },
   } = useSelector((ShopSale: RootState) => ShopSale)
 
   const onClose = () => {
@@ -39,7 +38,6 @@ const Detail = (props: {
       type: 'ShopSale/updateState',
       payload: {
         drawerVisible: false,
-        isView: false,
       },
     })
   }
@@ -90,10 +88,13 @@ const Detail = (props: {
 
   function handleEditTable(detailType: string, obj: Change) {
     updateData({
-      isView: detailType === 'deAdd',
       detailtableType: detailType,
     })
     if (detailType === 'deAdd') {
+      dispatch({
+        type: 'ShopSale/detailData',
+        payload: { page: 1, pageSize: 200 },
+      })
       updateData({ drawerDetailVisible: true, queryInfo: {} })
     }
     if (detailType === 'deDel') {
@@ -117,13 +118,13 @@ const Detail = (props: {
         {
           label: '取消',
           onClick: onClose,
-          show: !isView,
+          // show: !isView,
         },
         {
           label: '保存',
           type: 'primary',
           style: { textAlign: 'right' },
-          show: !isView,
+          // show: !isView,
           onClick: async () => {
             await baseRef?.submitvalidate?.()
             const errors = baseRef.getError()
@@ -138,7 +139,7 @@ const Detail = (props: {
           title="基础信息"
           formType={'pure'}
           form={baseRef}
-          readOnly={isView}
+          // readOnly={isView}
           buttonsContainer={{ justifyContent: 'flex-start' }}
           // 更新表单的值
           onChange={(initial, current) =>

@@ -37,8 +37,10 @@ export const columnsSearch = (
             {useStatus === '1'
               ? '空置'
               : useStatus === '2'
+              ? '已出租'
+              : useStatus === '3'
               ? '已出售'
-              : '已出租'}
+              : ''}
           </span>
         </div>
       ),
@@ -95,10 +97,17 @@ export const columnsSearch = (
           <Button
             size="small"
             icon="edit"
-            onClick={handleEditTable.bind(this, 'edit', rowData)}
+            onClick={() => handleEditTable('edit', rowData)}
           >
             编辑客户信息
           </Button>
+          {/* <Button
+            size="small"
+            icon="eye"
+            onClick={() => handleEditTable('view', rowData)}
+          >
+            查看
+          </Button> */}
           <Button
             size="small"
             icon="delete"
