@@ -1,10 +1,9 @@
-import {
-  selectRoleList,
-  Change,
-  inSelectRoleList,
-} from '../../servers/Authority/User'
 import { Dispatch, RootModel } from '@uiw-admin/models'
 import { createModel, RematchDispatch } from '@rematch/core'
+import {
+  selectById,
+  Change,
+} from '../../servers/ChargeManagement/DepositManage'
 
 interface State {
   drawerVisible: boolean
@@ -13,12 +12,10 @@ interface State {
   isView: boolean
   id: string
   delectVisible: boolean
-  roleList: any[]
-  keys: string
 }
 
-const User = createModel<RootModel>()({
-  name: 'User',
+const DepositManage = createModel<RootModel>()({
+  name: 'DepositManage',
   state: {
     drawerVisible: false,
     tableType: '',
@@ -26,8 +23,6 @@ const User = createModel<RootModel>()({
     id: '',
     isView: false,
     delectVisible: false,
-    roleList: [],
-    keys: 'outside',
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({
@@ -36,24 +31,13 @@ const User = createModel<RootModel>()({
     }),
   },
   effects: (dispatch: RematchDispatch<RootModel>) => ({
-    async selectRoleList(payload: Change) {
+    async selectById(payload: Change) {
       const dph = dispatch as Dispatch
-      const data = await selectRoleList(payload)
+      const data = await selectById(payload)
       if (data.code === 1) {
-        dph.User.updateState({
+        dph.users.updateState({
           drawerVisible: true,
-          roleList: data.data.roleList || [],
-        })
-      }
-    },
-
-    async inSelectRoleList(payload: Change) {
-      const dph = dispatch as Dispatch
-      const data = await inSelectRoleList(payload)
-      if (data.code === 1) {
-        dph.User.updateState({
-          drawerVisible: true,
-          roleList: data.data || [],
+          queryInfo: data.data || {},
         })
       }
     },
@@ -65,9 +49,10 @@ const User = createModel<RootModel>()({
         tableType: '',
         queryInfo: {},
         isView: false,
+        delectVisible: false,
       })
     },
   }),
 })
 
-export default User
+export default DepositManage

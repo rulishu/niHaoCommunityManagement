@@ -5,13 +5,13 @@ import { useNavigate } from 'react-router-dom'
 import { Form, Row, Col, Button, Select } from 'uiw'
 import { LoginParams } from '@/servers/login'
 import { verifyIDCard, verifyPhone, verifyPassword } from '@/utils'
-import './index.css'
+
 const RegisterLayout = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch<Dispatch>()
 
   return (
-    <UserLogin projectName={'共享社区管理平台'}>
+    <UserLogin projectName={null} logo={null} styleBody={{ width: 400 }}>
       <Form
         resetOnSubmit={false}
         onSubmit={({ current }) => {
@@ -40,7 +40,7 @@ const RegisterLayout = () => {
         }}
         fields={{
           nickName: {
-            inline: true,
+            // inline: true,
             label: `用户账号`,
             labelFor: 'nickName',
             children: (
@@ -48,12 +48,12 @@ const RegisterLayout = () => {
                 type="text"
                 id="nickName"
                 placeholder={`请输入用户账号`}
-                className="form-fields"
+                className="form-field"
               />
             ),
           },
           password: {
-            inline: true,
+            // inline: true,
             label: `用户密码`,
             labelFor: 'password',
             help: '最少6位，允许字母、数字',
@@ -63,12 +63,12 @@ const RegisterLayout = () => {
                 type="password"
                 id="password"
                 placeholder={`请输入用户密码`}
-                className="form-fields"
+                className="form-field"
               />
             ),
           },
           cardId: {
-            inline: true,
+            // inline: true,
             label: `身份证号`,
             labelFor: 'cardId',
             children: (
@@ -76,12 +76,12 @@ const RegisterLayout = () => {
                 type="text"
                 id="cardId"
                 placeholder={`请输入身份证号`}
-                className="form-fields"
+                className="form-field"
               />
             ),
           },
           userName: {
-            inline: true,
+            // inline: true,
             label: `真实姓名`,
             labelFor: 'userName',
             initialValue: '',
@@ -90,12 +90,12 @@ const RegisterLayout = () => {
                 type="text"
                 id="userName"
                 placeholder={`请输入真实姓名`}
-                className="form-fields"
+                className="form-field"
               />
             ),
           },
           gender: {
-            inline: true,
+            // inline: true,
             label: `用户性别`,
             labelFor: 'gender',
             initialValue: 0,
@@ -103,7 +103,7 @@ const RegisterLayout = () => {
               <Select
                 id="gender"
                 placeholder={`请选择用户性别`}
-                className="form-fields"
+                className="form-field"
               >
                 <Select.Option value={0}>男</Select.Option>
                 <Select.Option value={1}>女</Select.Option>
@@ -111,7 +111,7 @@ const RegisterLayout = () => {
             ),
           },
           phoneNumber: {
-            inline: true,
+            // inline: true,
             label: `手机号码`,
             labelFor: 'phoneNumber',
             children: (
@@ -119,7 +119,7 @@ const RegisterLayout = () => {
                 id="phoneNumber"
                 type="text"
                 placeholder={`请输入手机号码`}
-                className="form-fields"
+                className="form-field"
               />
             ),
           },
@@ -131,34 +131,36 @@ const RegisterLayout = () => {
               <Row>
                 <Col style={{ color: '#555' }}>{fields.nickName}</Col>
               </Row>
-              <Row style={{ marginTop: 10 }}>
+              <Row>
                 <Col style={{ color: '#555' }}>{fields.password}</Col>
               </Row>
-              <Row style={{ marginTop: 10 }}>
+              <Row>
                 <Col style={{ color: '#555' }}>{fields.cardId}</Col>
               </Row>
-              <Row style={{ marginTop: 10 }}>
+              <Row>
                 <Col style={{ color: '#555' }}>{fields.userName}</Col>
               </Row>
-              <Row style={{ marginTop: 10 }}>
+              <Row>
                 <Col style={{ color: '#555' }}>{fields.gender}</Col>
               </Row>
-              <Row style={{ marginTop: 10 }}>
+              <Row>
                 <Col style={{ color: '#555' }}>{fields.phoneNumber}</Col>
               </Row>
-              <Row style={{ marginTop: 10 }}>
+              <Row>
                 <Button
                   disabled={!canSubmit()}
                   className="btns"
                   block
                   htmlType="submit"
                   type="primary"
+                  style={{ width: '45%', marginRight: 30 }}
                 >
                   注册
                 </Button>
                 <Button
                   className="btns"
                   onClick={() => navigate('/login', { replace: true })}
+                  style={{ width: '45%' }}
                 >
                   返回
                 </Button>

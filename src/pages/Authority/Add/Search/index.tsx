@@ -1,12 +1,12 @@
-import { Fragment } from 'react'
+import React from 'react'
 import { ProTable, useTable } from '@uiw-admin/components'
-import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
-import { columnsSearch } from './item'
-import { useDispatch } from 'react-redux'
 import { Dispatch } from '@uiw-admin/models'
-import { selectPage, Change } from '@/servers/BasicManage/ShopSale'
-import Drawer from '../Detail'
-import Modals from '../Modals'
+import { useDispatch } from 'react-redux'
+import { selectPage, Change } from '@/servers/Authority/Add'
+import Drawer from '../Detail/index'
+import Modals from '../Modals/index'
+import { columnsSearch } from './item'
+import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 interface State {
   drawerVisible?: boolean
   tableType?: string
@@ -14,20 +14,18 @@ interface State {
   isView?: boolean
   delectVisible?: boolean
   id?: string
-  shopsId?: string
 }
 
-export default function Demo() {
+const Search = () => {
   const dispatch = useDispatch<Dispatch>()
-
   const updateData = (payload: State) => {
     dispatch({
-      type: 'ShopSale/updateState',
+      type: 'Add/updateState',
       payload,
     })
   }
 
-  const table = useTable(selectPage, {
+  const search = useTable(selectPage, {
     // 格式化接口返回的数据，必须返回{total 总数, data: 列表数据}的格式
     formatData: (data) => {
       return {
@@ -44,66 +42,59 @@ export default function Demo() {
       }
     },
   })
-
   // 操作
   function handleEditTable(type: string, obj: Change) {
     updateData({
       isView: type === 'view',
       tableType: type,
     })
-    if (type === 'rent' || type === 'sale') {
+    if (type === 'add') {
       updateData({ drawerVisible: true, queryInfo: {} })
     }
-    if (type === 'edit') {
-      updateData({
-        drawerVisible: true,
-        queryInfo: obj,
-        shopsId: obj?.id,
-      })
+    if (type === 'edit' || type === 'view') {
+      updateData({ drawerVisible: true, queryInfo: obj })
     }
     if (type === 'del') {
       updateData({ delectVisible: true, id: obj?.id })
     }
   }
+
   return (
-    <Fragment>
+    <React.Fragment>
       <ProTable
         bordered
+        // 操作栏按钮
         operateButtons={[
           {
-            label: '默认收费项(出租)',
+            label: '新增',
             type: 'primary',
             onClick: () => {
-              handleEditTable('rent', {})
-            },
-          },
-          {
-            label: '默认收费项(出售)',
-            type: 'primary',
-            onClick: () => {
-              handleEditTable('sale', {})
+              handleEditTable('add', {})
             },
           },
         ]}
+        // 搜索栏按钮
         searchBtns={[
           {
             label: '查询',
             type: 'primary',
             htmlType: 'submit',
             onClick: () => {
-              table.onSearch()
+              search.onSearch()
             },
           },
           {
             label: '重置',
-            onClick: () => table.onReset(),
+            onClick: () => search.onReset(),
           },
         ]}
-        table={table}
+        table={search}
         columns={columnsSearch(handleEditTable) as FormCol[]}
       />
-      <Drawer updateData={updateData} onSearch={table.onSearch} />
-      <Modals onSearch={table.onSearch} />
-    </Fragment>
+      <Drawer updateData={updateData} onSearch={search.onSearch} />
+      <Modals onSearch={search.onSearch} />
+    </React.Fragment>
   )
 }
+
+export default Search

@@ -1,15 +1,18 @@
 import { useState } from 'react'
-import { Modal, Table, Checkbox } from 'uiw'
+import { Modal, Checkbox } from 'uiw'
+import { ProTable, useTable } from '@uiw-admin/components'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
-import { detailAdd } from '@/servers/BasicManage/ShopSale'
+import { detailAdd, detailSelectPage } from '@/servers/BasicManage/ShopSale'
 import { Notify } from 'uiw'
 import useSWR from 'swr'
+import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 
 const Modals = (props: { onSearch: () => void }) => {
   const dispatch = useDispatch<Dispatch>()
+
   const {
-    ShopSale: { drawerDetailVisible, dataSource },
+    ShopSale: { drawerDetailVisible, dataSource, shopsId },
   } = useSelector((state: RootState) => state)
   const [checkList, setCheckList] = useState<any[]>([])
 
@@ -21,10 +24,14 @@ const Modals = (props: { onSearch: () => void }) => {
       },
     })
   }
+  // let chargeIds = checkList.toString()
+  // console.log('checkList',checkList);
 
-  let chargeIds = checkList.toString()
   const { mutate } = useSWR(
-    [detailAdd, { method: 'POST', body: { chargeIds: chargeIds } }],
+    [
+      detailAdd,
+      { method: 'POST', body: { chargeIds: checkList, shopsId: shopsId } },
+    ],
     {
       revalidateOnMount: false,
       revalidateOnFocus: false,
@@ -38,6 +45,23 @@ const Modals = (props: { onSearch: () => void }) => {
       },
     }
   )
+  const deatailTable = useTable(detailSelectPage, {
+    // 格式化接口返回的数据，必须返回{total 总数, data: 列表数据}的格式
+    formatData: (data) => {
+      return {
+        total: data?.data?.total,
+        data: data?.data?.rows || [],
+      }
+    },
+    // 格式化查询参数 会接收到pageIndex 当前页  searchValues 表单数据
+    query: (pageIndex, pageSize, searchValues) => {
+      return {
+        page: pageIndex,
+        pageSize: 10,
+        ...searchValues,
+      }
+    },
+  })
 
   const columns = [
     {
@@ -72,25 +96,36 @@ const Modals = (props: { onSearch: () => void }) => {
     },
     {
       title: '序号',
-      align: 'center',
       key: 'id',
       ellipsis: true,
+      render: (text: string) => (
+        <div style={{ textAlign: 'center' }}> {text} </div>
+      ),
     },
     {
       title: '收费项目名',
-      align: 'center',
       key: 'chargeName',
+      props: {
+        widget: 'input',
+        widgetProps: {
+          placeholder: '请输入收费项目名',
+        },
+      },
       ellipsis: true,
+      render: (text: string) => (
+        <div style={{ textAlign: 'center' }}> {text} </div>
+      ),
     },
     {
       title: '单价',
-      align: 'center',
       key: 'chargePrice',
       ellipsis: true,
+      render: (text: string) => (
+        <div style={{ textAlign: 'center' }}> {text} </div>
+      ),
     },
     {
       title: '数量',
-      align: 'center',
       key: 'chargeNumType',
       ellipsis: true,
       render: (chargeNumType: string) => (
@@ -117,7 +152,6 @@ const Modals = (props: { onSearch: () => void }) => {
     },
     {
       title: '计算公式',
-      align: 'center',
       key: 'chargeFormula',
       ellipsis: true,
       render: (chargeFormula: string) => (
@@ -134,7 +168,6 @@ const Modals = (props: { onSearch: () => void }) => {
     },
     {
       title: '计算周期',
-      align: 'center',
       key: 'chargeMonth',
       ellipsis: true,
       render: (chargeMonth: any) => (
@@ -176,7 +209,29 @@ const Modals = (props: { onSearch: () => void }) => {
       }}
       onClosed={onClose}
     >
-      <Table columns={columns} data={dataSource} />
+      <ProTable
+        bordered
+        searchBtns={[
+          {
+            label: '查询',
+            type: 'primary',
+            htmlType: 'submit',
+            onClick: () => {
+              deatailTable.onSearch()
+            },
+          },
+          {
+            label: '重置',
+            onClick: () => deatailTable.onReset(),
+          },
+        ]}
+        paginationProps={{
+          pageSizeOptions: [10, 20, 30],
+          pageSize: 10,
+        }}
+        table={deatailTable}
+        columns={columns as FormCol[]}
+      />
     </Modal>
   )
 }

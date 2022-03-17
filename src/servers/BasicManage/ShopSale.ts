@@ -2,53 +2,58 @@ import { request } from '@uiw-admin/utils'
 
 export interface Change {
   id?: string
-  types?: string
-  detailType?: string
-  chargeName?: string
-  univalent?: string
-  num?: number
-  Formula?: string
-  calculationCycle?: string
-  lateFee?: string
-  lateFeeRatio?: string
-  lateFeeDays?: string
-  page?:number
-  pageSize?:number
-  zoneName?:string
-  zoneNo?: string
-  zoneRemark?: string
+  zoneName?: string
+  code?: string
+  useStatus?: string
+  userName?: string
+  card?: string
+  gender?: string
+  phone?: string
+  startTime?: string
+  rentalMonth?: number
+  sale?: string
+  industry?: string
+  remark?: string
 }
 
 function selectById(params: Change) {
-  return request('/api/test/select', {
+  return request('/api/SaleShops/selectById', {
     method: 'POST',
     body: { ...params },
   })
 }
-
-const selectPage = '/api/SaleShops/selectPage'
-
-const update = '/api/test/select'
-
-const insert = '/api/test/select'
-
-const deleteData = '/api/test/select'
-
-
-const detailSelectPage = '/api/buCharge/selectPage'
 function detailData(params: Change) {
   return request('/api/buCharge/selectPage', {
     method: 'POST',
     body: { ...params },
   })
 }
-const detailAdd = '/api/SaleShops/add'
 
+// 商铺租售接口
+const selectPage = '/api/SaleShops/selectPage'
 
+const update = '/api/SaleShops/update'
 
+const insert = '/api/test/select'
 
+const deleteData = '/api/SaleShops/delete'
+
+// 收费项接口
+const detailSelectPage = '/api/buCharge/selectPage'
+
+const detailAdd = '/api/buShopsCharge/add'
+
+// 租售和收费相关接口
+const buShopsCharge = '/api/buShopsCharge/selectPage'
 
 export {
-  selectById, selectPage, update, insert, deleteData,
-  detailData, detailSelectPage, detailAdd,
+  selectById,
+  detailData,
+  selectPage,
+  update,
+  insert,
+  deleteData,
+  detailSelectPage,
+  detailAdd,
+  buShopsCharge,
 }

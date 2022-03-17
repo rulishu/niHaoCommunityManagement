@@ -10,17 +10,16 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
 import { insert, update } from '@/servers/BasicManage/ShopSale'
 import useSWR from 'swr'
-import { detailSelectPage, Change } from '@/servers/BasicManage/ShopSale'
+import { buShopsCharge, Change } from '@/servers/BasicManage/ShopSale'
 import { items } from './items'
 import DetailAdd from './detailAdd/Index'
 
 interface State {
   drawerDetailVisible?: boolean
-
-  delectVisible?: boolean
   tableType?: string
+  detailtableType?: string
+  delectVisible?: boolean
   queryInfo?: object
-  isView?: boolean
   id?: string
 }
 
@@ -31,7 +30,7 @@ const Detail = (props: {
   const baseRef = useForm()
   const dispatch = useDispatch<Dispatch>()
   const {
-    ShopSale: { drawerVisible, tableType, queryInfo },
+    ShopSale: { drawerVisible, tableType, queryInfo, shopsId },
   } = useSelector((ShopSale: RootState) => ShopSale)
 
   const onClose = () => {
@@ -39,7 +38,6 @@ const Detail = (props: {
       type: 'ShopSale/updateState',
       payload: {
         drawerVisible: false,
-        // isView: false,
       },
     })
   }
@@ -63,20 +61,24 @@ const Detail = (props: {
       },
     }
   )
-  const deatailTable = useTable(detailSelectPage, {
+  const deatailTable = useTable(buShopsCharge, {
     // 格式化接口返回的数据，必须返回{total 总数, data: 列表数据}的格式
     formatData: (data) => {
+      console.log('data', data)
       return {
         total: data?.data?.total,
-        data: data?.data?.rows || [],
+        data: data?.data.forEach((item: any) => {
+          return item?.buCharge
+        }),
       }
     },
     // 格式化查询参数 会接收到pageIndex 当前页  searchValues 表单数据
     query: (pageIndex, pageSize, searchValues) => {
       return {
-        page: pageIndex,
-        pageSize: 10,
-        ...searchValues,
+        // page: pageIndex,
+        // pageSize: 10,
+        // ...searchValues,
+        id: shopsId,
       }
     },
   })
@@ -90,8 +92,7 @@ const Detail = (props: {
 
   function handleEditTable(detailType: string, obj: Change) {
     updateData({
-      // isView: detailType === 'deAdd',
-      tableType: detailType,
+      detailtableType: detailType,
     })
     if (detailType === 'deAdd') {
       dispatch({
@@ -108,20 +109,24 @@ const Detail = (props: {
   return (
     <ProDrawer
       width={800}
-      title={'新增'}
+      title={
+        tableType === 'rent'
+          ? '默认收费项(出租)'
+          : tableType === 'sale'
+          ? '默认收费项(出售)'
+          : ''
+      }
       visible={drawerVisible}
       onClose={onClose}
       buttons={[
         {
           label: '取消',
           onClick: onClose,
-          // show: !isView,
         },
         {
           label: '保存',
           type: 'primary',
           style: { textAlign: 'right' },
-          // show: !isView,
           onClick: async () => {
             await baseRef?.submitvalidate?.()
             const errors = baseRef.getError()
@@ -131,38 +136,24 @@ const Detail = (props: {
         },
       ]}
     >
-      <ProForm
-        title="基础信息"
-        formType={'pure'}
-        form={baseRef}
-        // readOnly={isView}
-        buttonsContainer={{ justifyContent: 'flex-start' }}
-        // 更新表单的值
-        onChange={(initial, current) =>
-          props.updateData({ queryInfo: { ...queryInfo, ...current } })
-        }
-        formDatas={items(queryInfo)}
-      />
+      {tableType === 'edit' && (
+        <ProForm
+          title="基础信息"
+          formType={'pure'}
+          form={baseRef}
+          buttonsContainer={{ justifyContent: 'flex-start' }}
+          // 更新表单的值
+          onChange={(initial, current) =>
+            props.updateData({ queryInfo: { ...queryInfo, ...current } })
+          }
+          formDatas={items(queryInfo)}
+        />
+      )}
 
       <ProTable
-        // searchBtns={[
-        //   {
-        //     label: '搜索',
-        //     type: 'primary',
-        //     onClick: () => {
-        //       deatailTable.onSearch()
-        //     },
-        //   },
-        //   {
-        //     label: '重置',
-        //     onClick: () => {
-        //       deatailTable.onReset()
-        //     },
-        //   },
-        // ]}
         operateButtons={[
           {
-            label: '新增',
+            label: '新增收费项',
             type: 'primary',
             onClick: () => {
               handleEditTable('deAdd', {})
@@ -175,29 +166,29 @@ const Detail = (props: {
         }}
         table={deatailTable}
         columns={[
-          {
-            title: '关键词',
-            key: 'name',
-            props: {
-              widget: 'input',
-              initialValue: '',
-              widgetProps: {
-                preIcon: 'user',
-                placeholder: '输入关键词',
-              },
-            },
-          },
+          // {
+          //   title: '序号',
+          //   align: 'center',
+          //   key: 'id',
+          //   ellipsis: true,
+          // },
           {
             title: '收费项目名',
             align: 'center',
             key: 'chargeName',
             ellipsis: true,
+            render: (chargeName: string) => {
+              return <div style={{ textAlign: 'center' }}>{chargeName}</div>
+            },
           },
           {
             title: '单价',
             align: 'center',
             key: 'chargePrice',
             ellipsis: true,
+            render: (chargePrice: string) => {
+              return <div style={{ textAlign: 'center' }}>{chargePrice}</div>
+            },
           },
           {
             title: '操作',

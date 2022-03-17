@@ -26,11 +26,24 @@ export const columnsSearch = (
         label: '使用状态',
         widget: 'select',
         option: [
-          { label: '空置', value: '空置' },
-          { label: '已出租', value: '已出租' },
-          { label: '已出售', value: '已出售' },
+          { label: '空置', value: '1' },
+          { label: '已出租', value: '2' },
+          { label: '已出售', value: '3' },
         ],
       },
+      render: (useStatus: string) => (
+        <div style={{ textAlign: 'center' }}>
+          <span>
+            {useStatus === '1'
+              ? '空置'
+              : useStatus === '2'
+              ? '已出租'
+              : useStatus === '3'
+              ? '已出售'
+              : ''}
+          </span>
+        </div>
+      ),
     },
     {
       title: '客户姓名',
@@ -84,10 +97,17 @@ export const columnsSearch = (
           <Button
             size="small"
             icon="edit"
-            onClick={handleEditTable.bind(this, 'edit', rowData)}
+            onClick={() => handleEditTable('edit', rowData)}
           >
             编辑客户信息
           </Button>
+          {/* <Button
+            size="small"
+            icon="eye"
+            onClick={() => handleEditTable('view', rowData)}
+          >
+            查看
+          </Button> */}
           <Button
             size="small"
             icon="delete"

@@ -1,12 +1,13 @@
-import { Fragment } from 'react'
+import React from 'react'
 import { ProTable, useTable } from '@uiw-admin/components'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import { columnsSearch } from './item'
 import { useDispatch } from 'react-redux'
 import { Dispatch } from '@uiw-admin/models'
-import { selectPage, Change } from '@/servers/BasicManage/ShopSale'
+import { selectPage, Change } from '@/servers/Authority/User'
 import Drawer from '../Detail'
 import Modals from '../Modals'
+
 interface State {
   drawerVisible?: boolean
   tableType?: string
@@ -14,7 +15,6 @@ interface State {
   isView?: boolean
   delectVisible?: boolean
   id?: string
-  shopsId?: string
 }
 
 export default function Demo() {
@@ -22,7 +22,7 @@ export default function Demo() {
 
   const updateData = (payload: State) => {
     dispatch({
-      type: 'ShopSale/updateState',
+      type: 'User/updateState',
       payload,
     })
   }
@@ -51,40 +51,26 @@ export default function Demo() {
       isView: type === 'view',
       tableType: type,
     })
-    if (type === 'rent' || type === 'sale') {
-      updateData({ drawerVisible: true, queryInfo: {} })
-    }
     if (type === 'edit') {
-      updateData({
-        drawerVisible: true,
-        queryInfo: obj,
-        shopsId: obj?.id,
+      dispatch({
+        type: 'User/selectRoleList',
+        payload: { id: obj?.id },
       })
+      updateData({ queryInfo: { accountId: obj?.id } })
     }
-    if (type === 'del') {
-      updateData({ delectVisible: true, id: obj?.id })
+    if (type === 'view') {
+      let status = obj.status === 0 ? '正常' : obj.status === 1 ? '停用' : ''
+      updateData({ drawerVisible: true, queryInfo: { ...obj, status: status } })
     }
+    // if (type === 'del') {
+    //   updateData({ delectVisible: true, id: obj?.id })
+    // }
   }
+
   return (
-    <Fragment>
+    <React.Fragment>
       <ProTable
         bordered
-        operateButtons={[
-          {
-            label: '默认收费项(出租)',
-            type: 'primary',
-            onClick: () => {
-              handleEditTable('rent', {})
-            },
-          },
-          {
-            label: '默认收费项(出售)',
-            type: 'primary',
-            onClick: () => {
-              handleEditTable('sale', {})
-            },
-          },
-        ]}
         searchBtns={[
           {
             label: '查询',
@@ -104,6 +90,6 @@ export default function Demo() {
       />
       <Drawer updateData={updateData} onSearch={table.onSearch} />
       <Modals onSearch={table.onSearch} />
-    </Fragment>
+    </React.Fragment>
   )
 }

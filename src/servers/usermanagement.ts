@@ -11,6 +11,10 @@ export interface Usermanagement {
 
 const update = '/api/user/edit'
 
-const deleteData = '/api/test/select'
+/**
+ * 用户管理-删除
+ * @param {Object} params
+ */
+const deleteData = '/api/user/delete'
 
 export { update, deleteData }
