@@ -12,7 +12,7 @@ const Modals = (props: { onSearch: () => void }) => {
   const dispatch = useDispatch<Dispatch>()
 
   const {
-    ShopSale: { drawerDetailVisible, dataSource },
+    ShopSale: { drawerDetailVisible, dataSource, shopsId },
   } = useSelector((state: RootState) => state)
   const [checkList, setCheckList] = useState<any[]>([])
 
@@ -24,10 +24,14 @@ const Modals = (props: { onSearch: () => void }) => {
       },
     })
   }
+  // let chargeIds = checkList.toString()
+  // console.log('checkList',checkList);
 
-  let chargeIds = checkList.toString()
   const { mutate } = useSWR(
-    [detailAdd, { method: 'POST', body: { chargeIds: chargeIds } }],
+    [
+      detailAdd,
+      { method: 'POST', body: { chargeIds: checkList, shopsId: shopsId } },
+    ],
     {
       revalidateOnMount: false,
       revalidateOnFocus: false,

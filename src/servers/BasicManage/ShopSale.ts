@@ -44,6 +44,7 @@ const detailSelectPage = '/api/buCharge/selectPage'
 const detailAdd = '/api/buShopsCharge/add'
 
 // 租售和收费相关接口
+const buShopsCharge = '/api/buShopsCharge/selectPage'
 
 export {
   selectById,
@@ -54,4 +55,5 @@ export {
   deleteData,
   detailSelectPage,
   detailAdd,
+  buShopsCharge,
 }
