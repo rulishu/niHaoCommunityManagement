@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
 import { insert, update } from '@/servers/BasicManage/ShopSale'
 import useSWR from 'swr'
-import { detailSelectPage, Change } from '@/servers/BasicManage/ShopSale'
+import { buShopsCharge, Change } from '@/servers/BasicManage/ShopSale'
 import { items } from './items'
 import DetailAdd from './detailAdd/Index'
 
@@ -30,7 +30,7 @@ const Detail = (props: {
   const baseRef = useForm()
   const dispatch = useDispatch<Dispatch>()
   const {
-    ShopSale: { drawerVisible, tableType, queryInfo },
+    ShopSale: { drawerVisible, tableType, queryInfo, shopsId },
   } = useSelector((ShopSale: RootState) => ShopSale)
 
   const onClose = () => {
@@ -61,20 +61,24 @@ const Detail = (props: {
       },
     }
   )
-  const deatailTable = useTable(detailSelectPage, {
+  const deatailTable = useTable(buShopsCharge, {
     // 格式化接口返回的数据，必须返回{total 总数, data: 列表数据}的格式
     formatData: (data) => {
+      console.log('data', data)
       return {
         total: data?.data?.total,
-        data: data?.data?.rows || [],
+        data: data?.data.forEach((item: any) => {
+          return item?.buCharge
+        }),
       }
     },
     // 格式化查询参数 会接收到pageIndex 当前页  searchValues 表单数据
     query: (pageIndex, pageSize, searchValues) => {
       return {
-        page: pageIndex,
-        pageSize: 10,
-        ...searchValues,
+        // page: pageIndex,
+        // pageSize: 10,
+        // ...searchValues,
+        id: shopsId,
       }
     },
   })
@@ -118,13 +122,11 @@ const Detail = (props: {
         {
           label: '取消',
           onClick: onClose,
-          // show: !isView,
         },
         {
           label: '保存',
           type: 'primary',
           style: { textAlign: 'right' },
-          // show: !isView,
           onClick: async () => {
             await baseRef?.submitvalidate?.()
             const errors = baseRef.getError()
@@ -139,7 +141,6 @@ const Detail = (props: {
           title="基础信息"
           formType={'pure'}
           form={baseRef}
-          // readOnly={isView}
           buttonsContainer={{ justifyContent: 'flex-start' }}
           // 更新表单的值
           onChange={(initial, current) =>
@@ -165,23 +166,29 @@ const Detail = (props: {
         }}
         table={deatailTable}
         columns={[
-          {
-            title: '序号',
-            align: 'center',
-            key: 'id',
-            ellipsis: true,
-          },
+          // {
+          //   title: '序号',
+          //   align: 'center',
+          //   key: 'id',
+          //   ellipsis: true,
+          // },
           {
             title: '收费项目名',
             align: 'center',
             key: 'chargeName',
             ellipsis: true,
+            render: (chargeName: string) => {
+              return <div style={{ textAlign: 'center' }}>{chargeName}</div>
+            },
           },
           {
             title: '单价',
             align: 'center',
             key: 'chargePrice',
             ellipsis: true,
+            render: (chargePrice: string) => {
+              return <div style={{ textAlign: 'center' }}>{chargePrice}</div>
+            },
           },
           {
             title: '操作',

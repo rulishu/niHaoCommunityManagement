@@ -104,6 +104,9 @@ export const items = (queryInfo: Change) => {
       initialValue: queryInfo?.rentalMonth,
       required: true,
       hide: queryInfo?.useStatus === '2' ? false : true,
+      widgetProps: {
+        addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>月</div>,
+      },
       rules: [{ required: true, message: '请输入出租时间' }],
     },
     {
@@ -141,6 +144,7 @@ export const items = (queryInfo: Change) => {
         { label: '工业/工业品', value: '工业/工业品' },
         { label: '商业服务', value: '商业服务' },
         { label: '收破烂', value: '收破烂' },
+        { label: '收废品', value: '收废品' },
       ],
       rules: [{ required: true, message: '请输入从事的行业' }],
     },

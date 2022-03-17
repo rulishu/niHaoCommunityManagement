@@ -7,7 +7,6 @@ import { Dispatch } from '@uiw-admin/models'
 import { selectPage, Change } from '@/servers/BasicManage/ShopSale'
 import Drawer from '../Detail'
 import Modals from '../Modals'
-
 interface State {
   drawerVisible?: boolean
   tableType?: string
@@ -15,6 +14,7 @@ interface State {
   isView?: boolean
   delectVisible?: boolean
   id?: string
+  shopsId?: string
 }
 
 export default function Demo() {
@@ -58,6 +58,7 @@ export default function Demo() {
       updateData({
         drawerVisible: true,
         queryInfo: obj,
+        shopsId: obj?.id,
       })
     }
     if (type === 'del') {
@@ -68,22 +69,22 @@ export default function Demo() {
     <Fragment>
       <ProTable
         bordered
-        // operateButtons={[
-        //   {
-        //     label: '默认收费项(出租)',
-        //     type: 'primary',
-        //     onClick: () => {
-        //       handleEditTable('rent', {})
-        //     },
-        //   },
-        //   {
-        //     label: '默认收费项(出售)',
-        //     type: 'primary',
-        //     onClick: () => {
-        //       handleEditTable('sale', {})
-        //     },
-        //   },
-        // ]}
+        operateButtons={[
+          {
+            label: '默认收费项(出租)',
+            type: 'primary',
+            onClick: () => {
+              handleEditTable('rent', {})
+            },
+          },
+          {
+            label: '默认收费项(出售)',
+            type: 'primary',
+            onClick: () => {
+              handleEditTable('sale', {})
+            },
+          },
+        ]}
         searchBtns={[
           {
             label: '查询',
