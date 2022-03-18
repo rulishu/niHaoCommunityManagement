@@ -18,6 +18,7 @@ interface State {
   id: string
   shopsId: string
   delectVisible: boolean
+  delectDetailVisible: boolean
 }
 
 const ShopSale = createModel<RootModel>()({
@@ -34,6 +35,7 @@ const ShopSale = createModel<RootModel>()({
     shopsId: '',
     isView: false,
     delectVisible: false,
+    delectDetailVisible: false,
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({

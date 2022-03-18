@@ -2,6 +2,7 @@ import { request } from '@uiw-admin/utils'
 
 export interface Change {
   id?: string
+  shopsId?: string
   zoneName?: string
   code?: string
   useStatus?: string
@@ -44,7 +45,9 @@ const detailSelectPage = '/api/buCharge/selectPage'
 const detailAdd = '/api/buShopsCharge/add'
 
 // 租售和收费相关接口
-const buShopsCharge = '/api/buShopsCharge/selectPage'
+const contactSelectPage = '/api/buShopsCharge/selectPage'
+
+const contactDelete = '/api/buShopsCharge/delete'
 
 export {
   selectById,
@@ -55,5 +58,6 @@ export {
   deleteData,
   detailSelectPage,
   detailAdd,
-  buShopsCharge,
+  contactSelectPage,
+  contactDelete,
 }
