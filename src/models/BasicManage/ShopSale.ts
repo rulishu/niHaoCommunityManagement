@@ -1,4 +1,8 @@
-import { selectById, Change, detailData } from '../../servers/BasicManage/ShopSale'
+import {
+  selectById,
+  Change,
+  detailData,
+} from '../../servers/BasicManage/ShopSale'
 import { Dispatch, RootModel } from '@uiw-admin/models'
 import { createModel, RematchDispatch } from '@rematch/core'
 
@@ -12,7 +16,9 @@ interface State {
   detailDataSource: any
   isView: boolean
   id: string
+  shopsId: string
   delectVisible: boolean
+  delectDetailVisible: boolean
 }
 
 const ShopSale = createModel<RootModel>()({
@@ -26,8 +32,10 @@ const ShopSale = createModel<RootModel>()({
     dataSource: [],
     detailDataSource: {},
     id: '',
+    shopsId: '',
     isView: false,
     delectVisible: false,
+    delectDetailVisible: false,
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({
