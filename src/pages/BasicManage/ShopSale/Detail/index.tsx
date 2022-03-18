@@ -10,15 +10,16 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
 import { insert, update } from '@/servers/BasicManage/ShopSale'
 import useSWR from 'swr'
-import { buShopsCharge, Change } from '@/servers/BasicManage/ShopSale'
+import { contactSelectPage, Change } from '@/servers/BasicManage/ShopSale'
 import { items } from './items'
 import DetailAdd from './detailAdd/Index'
+import DeatailModals from '../Modals/detailModals/index'
 
 interface State {
   drawerDetailVisible?: boolean
   tableType?: string
   detailtableType?: string
-  delectVisible?: boolean
+  delectDetailVisible?: boolean
   queryInfo?: object
   id?: string
 }
@@ -61,15 +62,15 @@ const Detail = (props: {
       },
     }
   )
-  const deatailTable = useTable(buShopsCharge, {
+  const deatailTable = useTable(contactSelectPage, {
     // 格式化接口返回的数据，必须返回{total 总数, data: 列表数据}的格式
     formatData: (data) => {
-      console.log('data', data)
+      let buCharge = data?.data.map((item: any) => {
+        return item.buCharge
+      })
       return {
         total: data?.data?.total,
-        data: data?.data.forEach((item: any) => {
-          return item?.buCharge
-        }),
+        data: buCharge,
       }
     },
     // 格式化查询参数 会接收到pageIndex 当前页  searchValues 表单数据
@@ -102,7 +103,7 @@ const Detail = (props: {
       updateData({ drawerDetailVisible: true, queryInfo: {} })
     }
     if (detailType === 'deDel') {
-      updateData({ delectVisible: true, id: obj?.id })
+      updateData({ delectDetailVisible: true, id: obj?.id })
     }
   }
 
@@ -177,18 +178,12 @@ const Detail = (props: {
             align: 'center',
             key: 'chargeName',
             ellipsis: true,
-            render: (chargeName: string) => {
-              return <div style={{ textAlign: 'center' }}>{chargeName}</div>
-            },
           },
           {
             title: '单价',
             align: 'center',
             key: 'chargePrice',
             ellipsis: true,
-            render: (chargePrice: string) => {
-              return <div style={{ textAlign: 'center' }}>{chargePrice}</div>
-            },
           },
           {
             title: '操作',
@@ -211,6 +206,7 @@ const Detail = (props: {
       />
 
       <DetailAdd onSearch={deatailTable.onSearch} />
+      <DeatailModals onSearch={deatailTable.onSearch} />
     </ProDrawer>
   )
 }
