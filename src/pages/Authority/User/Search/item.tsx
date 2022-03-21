@@ -67,7 +67,7 @@ export const columnsSearch = (
       ellipsis: true,
       render: (status: number) => (
         <div style={{ textAlign: 'center' }}>
-          <span>{status === 1 ? '正常' : status === 2 ? '禁用' : ''}</span>
+          <span>{status === 1 ? '正常' : status === 2 ? '停用' : ''}</span>
         </div>
       ),
     },
@@ -125,6 +125,12 @@ export const inColumns = (
       //   const obj = getRowSpan(text, key, rowData, rowNum)
       //   return obj;
       // }
+    },
+    {
+      title: '角色名称',
+      key: 'roleName',
+      align: 'center',
+      ellipsis: true,
     },
     {
       title: '帐号状态',

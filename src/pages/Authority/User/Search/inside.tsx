@@ -59,7 +59,7 @@ export default function Demo() {
       updateData({ queryInfo: { accountId: obj?.id } })
     }
     if (type === 'view') {
-      let status = obj.status === 0 ? '正常' : obj.status === 1 ? '停用' : ''
+      let status = obj.status === 1 ? '正常' : obj.status === 2 ? '停用' : ''
       updateData({ drawerVisible: true, queryInfo: { ...obj, status: status } })
     }
   }
