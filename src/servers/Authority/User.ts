@@ -52,7 +52,7 @@ const deleteData = '/api/account/delete'
  * 内部账号-分页查询
  * @param {Object} params
  */
-const inSelectPage = '/api/innerAccount/selectPage'
+const inSelectPage = '/api/innerAccount/selectAccountDetail'
 
 /**
  * 内部账号-授权
