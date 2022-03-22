@@ -31,7 +31,7 @@ const selectPage = '/api/buAdvanceDeposit/selectPage'
 
 const update = '/api/test/select'
 
-const insert = '/api/test/select'
+const insert = '/api/buAdvanceDeposit/add'
 
 const deleteData = '/api/test/select'
 
