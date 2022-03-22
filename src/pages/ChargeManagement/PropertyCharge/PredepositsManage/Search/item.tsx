@@ -37,10 +37,10 @@ export const columnsSearch = (
     props: {
       widget: 'select',
       option: [
-        { label: '押金2押1付', value: '1' },
-        { label: '测试装修押金', value: '2' },
-        { label: '装修保证金', value: '3' },
-        { label: '履约保证金', value: '4' },
+        { label: '电费', value: '1' },
+        { label: '天然气费', value: '2' },
+        { label: '卫生费', value: '3' },
+        { label: '单元租金', value: '4' },
       ],
     },
     align: 'center',
@@ -48,12 +48,12 @@ export const columnsSearch = (
       <div style={{ textAlign: 'center' }}>
         <span>
           {payService === '1'
-            ? '押金2押1付'
+            ? '电费'
             : payService === '2'
-            ? '测试装修押金'
+            ? '天然气费'
             : payService === '3'
-            ? '装修保证金'
-            : '履约保证金'}
+            ? '卫生费'
+            : '单元租金'}
         </span>
       </div>
     ),
@@ -109,15 +109,23 @@ export const columnsSearch = (
     props: {
       widget: 'select',
       option: [
-        { label: '未退款', value: '1' },
-        { label: '已退款', value: '2' },
+        { label: '预存', value: '1' },
+        { label: '退换', value: '2' },
+        { label: '支付', value: '3' },
+        { label: '找零结转', value: '4' },
       ],
     },
     align: 'center',
     render: (status: string) => (
       <div style={{ textAlign: 'center' }}>
         <span>
-          {status === '1' ? '未退款' : status === '2' ? '已退款' : ''}
+          {status === '1'
+            ? '预存'
+            : status === '2'
+            ? '退换'
+            : status === '3'
+            ? '支付'
+            : '找零结转'}
         </span>
       </div>
     ),
