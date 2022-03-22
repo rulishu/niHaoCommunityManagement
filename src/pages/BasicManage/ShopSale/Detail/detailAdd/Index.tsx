@@ -1,9 +1,8 @@
-import { useState } from 'react'
-import { Modal, Checkbox } from 'uiw'
+import { Modal } from 'uiw'
 import { ProTable, useTable } from '@uiw-admin/components'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
-import { detailAdd, detailSelectPage } from '@/servers/BasicManage/ShopSale'
+import { seraAdd, detailSelectPage } from '@/servers/BasicManage/ShopSale'
 import { Notify } from 'uiw'
 import useSWR from 'swr'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
@@ -12,9 +11,9 @@ const Modals = (props: { onSearch: () => void }) => {
   const dispatch = useDispatch<Dispatch>()
 
   const {
-    ShopSale: { drawerDetailVisible, dataSource, shopsId },
+    ShopSale: { drawerDetailVisible },
   } = useSelector((state: RootState) => state)
-  const [checkList, setCheckList] = useState<any[]>([])
+  // const [checkList, setCheckList] = useState<any[]>([])
 
   const onClose = () => {
     dispatch({
@@ -24,13 +23,32 @@ const Modals = (props: { onSearch: () => void }) => {
       },
     })
   }
-  // let chargeIds = checkList.toString()
-  // console.log('checkList',checkList);
+
+  const deatailTable = useTable(detailSelectPage, {
+    // 格式化接口返回的数据，必须返回{total 总数, data: 列表数据}的格式
+    formatData: (data) => {
+      return {
+        total: data?.data?.total || 0,
+        data: data?.data?.rows || [],
+      }
+    },
+    // 格式化查询参数 会接收到pageIndex 当前页  searchValues 表单数据
+    query: (pageIndex, pageSize, searchValues) => {
+      return {
+        page: pageIndex,
+        pageSize: 10,
+        ...searchValues,
+      }
+    },
+  })
 
   const { mutate } = useSWR(
     [
-      detailAdd,
-      { method: 'POST', body: { chargeIds: checkList, shopsId: shopsId } },
+      seraAdd,
+      {
+        method: 'POST',
+        body: { chargeList: deatailTable.selection.selected, type: 2 },
+      },
     ],
     {
       revalidateOnMount: false,
@@ -45,66 +63,12 @@ const Modals = (props: { onSearch: () => void }) => {
       },
     }
   )
-  const deatailTable = useTable(detailSelectPage, {
-    // 格式化接口返回的数据，必须返回{total 总数, data: 列表数据}的格式
-    formatData: (data) => {
-      return {
-        total: data?.data?.total,
-        data: data?.data?.rows || [],
-      }
-    },
-    // 格式化查询参数 会接收到pageIndex 当前页  searchValues 表单数据
-    query: (pageIndex, pageSize, searchValues) => {
-      return {
-        page: pageIndex,
-        pageSize: 10,
-        ...searchValues,
-      }
-    },
-  })
 
   const columns = [
     {
-      title: () => {
-        return (
-          <Checkbox
-            onChange={(itm) => {
-              if (itm && itm.target.checked) {
-                setCheckList(dataSource.map((item: any) => item.id))
-              } else {
-                setCheckList([])
-              }
-            }}
-          />
-        )
-      },
-      key: 'checked',
-      render: (text: any, key: any, rowData: any) => {
-        return (
-          <Checkbox
-            checked={checkList.includes(rowData.id)}
-            onChange={(item) => {
-              if (item && item.target.checked) {
-                setCheckList((pre) => pre.concat([rowData.id]))
-              } else {
-                setCheckList((pre) => pre.filter((item) => item !== rowData.id))
-              }
-            }}
-          />
-        )
-      },
-    },
-    {
-      title: '序号',
-      key: 'id',
-      ellipsis: true,
-      render: (text: string) => (
-        <div style={{ textAlign: 'center' }}> {text} </div>
-      ),
-    },
-    {
       title: '收费项目名',
       key: 'chargeName',
+      align: 'center',
       props: {
         widget: 'input',
         widgetProps: {
@@ -119,6 +83,7 @@ const Modals = (props: { onSearch: () => void }) => {
     {
       title: '单价',
       key: 'chargePrice',
+      align: 'center',
       ellipsis: true,
       render: (text: string) => (
         <div style={{ textAlign: 'center' }}> {text} </div>
@@ -127,6 +92,7 @@ const Modals = (props: { onSearch: () => void }) => {
     {
       title: '数量',
       key: 'chargeNumType',
+      align: 'center',
       ellipsis: true,
       render: (chargeNumType: string) => (
         <div style={{ textAlign: 'center' }}>
@@ -153,6 +119,7 @@ const Modals = (props: { onSearch: () => void }) => {
     {
       title: '计算公式',
       key: 'chargeFormula',
+      align: 'center',
       ellipsis: true,
       render: (chargeFormula: string) => (
         <div style={{ textAlign: 'center' }}>
@@ -169,6 +136,7 @@ const Modals = (props: { onSearch: () => void }) => {
     {
       title: '计算周期',
       key: 'chargeMonth',
+      align: 'center',
       ellipsis: true,
       render: (chargeMonth: any) => (
         <div style={{ textAlign: 'center' }}>
@@ -194,7 +162,7 @@ const Modals = (props: { onSearch: () => void }) => {
 
   return (
     <Modal
-      title="默认收费项"
+      title="选择收费项"
       isOpen={drawerDetailVisible}
       confirmText="确认"
       cancelText="取消"
@@ -202,6 +170,12 @@ const Modals = (props: { onSearch: () => void }) => {
       type="primary"
       maxWidth={800}
       onConfirm={() => {
+        // let arr = deatailTable.selection.selected
+        // console.log('deatailTable', deatailTable);
+        // if (arr.length > 0) {
+        //   console.log('deatailTable', deatailTable.selection.select);
+        // }
+        // setCheckList(arr)
         mutate()
       }}
       onCancel={() => {
@@ -209,6 +183,7 @@ const Modals = (props: { onSearch: () => void }) => {
       }}
       onClosed={onClose}
     >
+      {/* <div style={{ whiteSpace: 'break-spaces' }}>选中的值{JSON.stringify(deatailTable && deatailTable.selection.selected)}</div> */}
       <ProTable
         bordered
         searchBtns={[
@@ -231,6 +206,18 @@ const Modals = (props: { onSearch: () => void }) => {
         }}
         table={deatailTable}
         columns={columns as FormCol[]}
+        rowSelection={{
+          // 多选 checkbox 单选radio
+          type: 'checkbox',
+          // 选中的键名 column里的key
+          selectKey: 'chargeName',
+          // 默认值
+          defaultSelected: [],
+        }}
+        // 取消全部选择
+        onPageChange={() => {
+          deatailTable.selection.unSelectAll()
+        }}
       />
     </Modal>
   )

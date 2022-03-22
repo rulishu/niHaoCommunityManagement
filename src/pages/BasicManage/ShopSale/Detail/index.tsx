@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
 import { insert, update } from '@/servers/BasicManage/ShopSale'
 import useSWR from 'swr'
-import { contactSelectPage, Change } from '@/servers/BasicManage/ShopSale'
+import { seraSelectPage, Change } from '@/servers/BasicManage/ShopSale'
 import { items } from './items'
 import DetailAdd from './detailAdd/Index'
 import DeatailModals from '../Modals/detailModals/index'
@@ -22,6 +22,7 @@ interface State {
   delectDetailVisible?: boolean
   queryInfo?: object
   id?: string
+  drawerVisible?: boolean
 }
 
 const Detail = (props: {
@@ -33,15 +34,6 @@ const Detail = (props: {
   const {
     ShopSale: { drawerVisible, tableType, queryInfo, shopsId },
   } = useSelector((ShopSale: RootState) => ShopSale)
-
-  const onClose = () => {
-    dispatch({
-      type: 'ShopSale/updateState',
-      payload: {
-        drawerVisible: false,
-      },
-    })
-  }
 
   const { mutate } = useSWR(
     [
@@ -62,7 +54,7 @@ const Detail = (props: {
       },
     }
   )
-  const deatailTable = useTable(contactSelectPage, {
+  const deatailTable = useTable(seraSelectPage, {
     // 格式化接口返回的数据，必须返回{total 总数, data: 列表数据}的格式
     formatData: (data) => {
       let buCharge = data?.data?.map((item: any) => {
@@ -89,6 +81,16 @@ const Detail = (props: {
       type: 'ShopSale/updateState',
       payload,
     })
+  }
+
+  const onClose = () => {
+    updateData({ drawerVisible: false })
+    // dispatch({
+    //   type: 'ShopSale/updateState',
+    //   payload: {
+    //     drawerVisible: false,
+    //   },
+    // })
   }
 
   function handleEditTable(detailType: string, obj: Change) {
