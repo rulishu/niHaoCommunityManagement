@@ -9,7 +9,7 @@ import defaultConfig from '@uiw-admin/config'
 export default defaultConfig({
   define: {
     // VERSION: JSON.stringify(pkg.version),
-    AUTH: undefined,
+    AUTH: true,
     // BASE_NAME: "/uiw"
   },
   // plugins: [new RematchWebpackPlugin(), new RoutesWebpackPlugin()],
@@ -30,7 +30,8 @@ export const proxySetup = (app: express.Application): MockerAPIOptions => {
       // target: 'http://192.168.188.87:8200',
       // target: 'http://192.168.188.8:8200',
       target: 'http://192.168.188.222:33702/',
-      // changeOrigin: true,
+      // target: 'http://7cbf8ab1.cpolar.cn',
+      changeOrigin: true,
     })
   )
   /**
