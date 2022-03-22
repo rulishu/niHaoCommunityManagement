@@ -19,7 +19,6 @@ export const columnsSearch = (
       },
     },
     align: 'center',
-    //ellipsis: true,
   },
   {
     title: '客户姓名',
@@ -31,11 +30,10 @@ export const columnsSearch = (
       },
     },
     align: 'center',
-    //ellipsis: true,
   },
   {
     title: '收费项目',
-    key: 'project',
+    key: 'payService',
     props: {
       widget: 'select',
       option: [
@@ -46,15 +44,14 @@ export const columnsSearch = (
       ],
     },
     align: 'center',
-    //ellipsis: true,
-    render: (project: string) => (
+    render: (payService: string) => (
       <div style={{ textAlign: 'center' }}>
         <span>
-          {project === '1'
+          {payService === '1'
             ? '押金2押1付'
-            : project === '2'
+            : payService === '2'
             ? '测试装修押金'
-            : project === '3'
+            : payService === '3'
             ? '装修保证金'
             : '履约保证金'}
         </span>
@@ -75,7 +72,6 @@ export const columnsSearch = (
       ],
     },
     align: 'center',
-    //ellipsis: true,
     render: (paymentMethod: string) => (
       <div style={{ textAlign: 'center' }}>
         <span>
@@ -94,21 +90,18 @@ export const columnsSearch = (
   },
   {
     title: '收款金额',
-    key: 'price',
+    key: 'chargeAmount',
     align: 'center',
-    //ellipsis: true,
   },
   {
     title: '收款人',
-    key: 'collectionName',
+    key: 'chargeName',
     align: 'center',
-    //ellipsis: true,
   },
   {
     title: '收款时间',
-    key: 'collectionTime',
+    key: 'chargingTime',
     align: 'center',
-    //ellipsis: true,
   },
   {
     title: '状态',
@@ -121,7 +114,6 @@ export const columnsSearch = (
       ],
     },
     align: 'center',
-    //ellipsis: true,
     render: (status: string) => (
       <div style={{ textAlign: 'center' }}>
         <span>
@@ -131,17 +123,15 @@ export const columnsSearch = (
     ),
   },
   {
-    title: '备注',
-    key: 'remark',
+    title: '单号',
+    key: 'oddNumbers',
     align: 'center',
-    //ellipsis: true,
   },
   {
     title: '操作',
     key: 'edit',
     width: 200,
     align: 'center',
-    //ellipsis: true,
     render: (text: any, key: any, rowData: any) => (
       <div>
         {rowData.status === '1' ? (
