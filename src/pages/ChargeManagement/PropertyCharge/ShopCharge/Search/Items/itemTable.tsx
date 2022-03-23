@@ -9,9 +9,6 @@ const option = [
 
 export const columnsRout = (
   option1: searchValue[],
-  loading: boolean,
-  value: searchValue[],
-  setValue: React.Dispatch<React.SetStateAction<searchValue[]>>,
   handleSearch: (e: any) => void
 ) => {
   return [
@@ -27,16 +24,9 @@ export const columnsRout = (
           showSearch: true,
           maxTagCount: 6,
           allowClear: true,
-          value: value,
           disabled: false,
           placeholder: '请输入选择',
-          onSearch: (e: any) => handleSearch(e),
-          // onSelect:{(value):>console.log('onSelect',value)}
-          loading: loading,
-          // option: option,
-          onChange: (e: any) => {
-            setValue([{ label: e, value: e }])
-          },
+          onSearch: (value: String) => handleSearch(value),
         },
       },
       render: (text: any) => {

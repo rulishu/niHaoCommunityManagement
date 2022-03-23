@@ -65,23 +65,20 @@ const shopCharge = createModel()({
     }),
   },
   effects: (dispatch: RematchDispatch<any>) => ({
+    // 查询所有商铺
     async shopSelectPage(payload: Change) {
       const dph = dispatch as Dispatch
       const data = await shopSelectPage(payload)
       if (data.code === 1) {
-        let newList: any[] = data.data.rows
-        let arr: searchValue[] = []
-        if (newList.length > 0) {
-          newList.forEach((item: any) => {
-            arr.push({
-              value: item.shopNo,
-              label: item.shopNo,
-            })
-          })
-        }
-
         dph.shopCharge.updateState({
-          shopNoList: arr,
+          shopNoList: Array.isArray(data?.data?.rows)
+            ? data?.data?.rows.map((item: any) => {
+                return {
+                  value: item.shopNo,
+                  label: item.shopName,
+                }
+              })
+            : [],
         })
       }
     },
