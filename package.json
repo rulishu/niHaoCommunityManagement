@@ -35,7 +35,7 @@
     "react-redux": "7.2.6",
     "react-router-dom": "6.2.1",
     "swr": "1.2.1",
-    "uiw": "4.15.0"
+    "uiw": "^4.15.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.2.1",
@@ -46,7 +46,6 @@
     "@uiw-admin/config": "5.2.36",
     "@uiw-admin/plugins": "5.2.36",
     "ajv": "8.9.0",
-    "eslint-plugin-prettier": "4.0.0",
     "husky": "^7.0.4",
     "kkt": "7.0.6",
     "lint-staged": "^12.3.3",
@@ -66,9 +65,6 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "mini-css-extract-plugin": "2.4.7"
-  },
-  "gitHooks": {
-    "pre-commit": "lint-staged"
   },
   "eslintConfig": {
     "extends": [
