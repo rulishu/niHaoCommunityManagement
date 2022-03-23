@@ -2,18 +2,13 @@ import { request } from '@uiw-admin/utils'
 
 export interface Change {
   id?: string
+  chargeItem?: string
   code?: string
   name?: string
-  project?: string
+  payService?: string
   paymentMethod?: string
-  price?: number
-  collectionName?: string
-  collectionTime?: string
-  status?: string
-  remark?: string
-  customerType?: string
-  refundTime?: string
-  refundMethod?: string
+  chargeAmount?: string
+  chargingTime?: string
 }
 
 /**
