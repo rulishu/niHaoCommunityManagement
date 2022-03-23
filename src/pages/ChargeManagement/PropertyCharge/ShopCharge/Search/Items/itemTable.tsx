@@ -15,6 +15,8 @@ export const columnsRout = (
     {
       title: '商铺编号',
       key: 'code',
+      align: 'center',
+      ellipsis: true,
       props: {
         widget: 'searchSelect',
         option: option1,
@@ -36,40 +38,47 @@ export const columnsRout = (
     {
       title: '收费项名称',
       align: 'center',
-      key: 'shouName',
+      key: 'saleName',
+      ellipsis: true,
     },
     {
       align: 'center',
       title: '起收日期',
-      key: 'startingTime',
+      key: 'startTime',
       ellipsis: true,
+      width: 200,
     },
     {
       align: 'center',
       title: '到期日期',
       key: 'endTime',
       ellipsis: true,
+      width: 200,
     },
     {
       align: 'center',
       title: '缴费日期',
-      key: 'feeTime',
+      key: 'deadlineTime',
       ellipsis: true,
+      width: 200,
     },
     {
       title: '单价',
       align: 'center',
-      key: 'fee',
+      key: 'chargePrice',
+      ellipsis: true,
     },
     {
       title: '数量',
       align: 'center',
-      key: 'num',
+      key: 'number',
+      ellipsis: true,
     },
     {
       title: '金额',
       align: 'center',
-      key: 'money',
+      key: 'price',
+      ellipsis: true,
     },
   ]
 }
