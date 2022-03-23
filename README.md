@@ -16,7 +16,7 @@ npm run build
 
 # 测试地址
 
-http://192.168.188.222:33701/doc.html#/home
+https://scmp-dev.nihaosi.com/#/home
 
 账号 ：nihao  
 密码：123456
