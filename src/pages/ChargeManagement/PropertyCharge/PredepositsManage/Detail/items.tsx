@@ -20,7 +20,7 @@ export const items = (queryInfo: Change, value: boolean, tableType: string) => {
       widget: 'input',
       initialValue: queryInfo?.code,
       placeholder: '请输入编号',
-      hide: tableType === 'add' && !value,
+      required: true,
       rules: [{ required: true, message: '请输入编号' }],
     },
     {
@@ -44,6 +44,7 @@ export const items = (queryInfo: Change, value: boolean, tableType: string) => {
         { label: '卫生费', value: '3' },
         { label: '单位租金', value: '4' },
       ],
+      hide: queryInfo?.chargeItem === '2' ? true : false,
       rules: [{ required: true, message: '请输入收费项目' }],
     },
     {
@@ -59,6 +60,7 @@ export const items = (queryInfo: Change, value: boolean, tableType: string) => {
         { label: '刷卡', value: '4' },
         { label: '转账', value: '5' },
       ],
+      hide: queryInfo?.chargeItem === '2' ? true : false,
       rules: [{ required: true, message: '请输入付款方式' }],
     },
     {
