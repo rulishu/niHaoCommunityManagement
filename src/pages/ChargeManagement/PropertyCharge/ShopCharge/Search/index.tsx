@@ -3,9 +3,9 @@ import { Tabs } from 'uiw'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch, RootState } from '@uiw-admin/models'
 import Rout from './rout'
-import Tem from './tem'
-import Dep from './dep'
-import AdDep from './AdDep'
+// import Tem from './tem'
+// import Dep from './dep'
+// import AdDep from './AdDep'
 import { searchValue } from '@/servers/ChargeManagement/ShopCharge'
 
 interface State {
@@ -18,32 +18,33 @@ interface State {
 
 export default function Demo() {
   const dispatch = useDispatch<Dispatch>()
+  const {
+    shopCharge: { shopNoList },
+  } = useSelector((shopCharge: RootState) => shopCharge)
+
+  const [option1, setOption] = useState<searchValue[]>(shopNoList)
+  // const [loading, setLoading] = useState(false)
+  const [value] = useState<searchValue[]>([])
+  // const [newCode, setNewCode] = useState('')
+
+  // 查询所有商铺
   useEffect(() => {
     dispatch({
       type: 'shopCharge/shopSelectPage',
     })
   }, [dispatch])
 
-  const {
-    shopCharge: { shopNoList },
-  } = useSelector((shopCharge: RootState) => shopCharge)
-
-  const [option1, setOption] = useState<searchValue[]>(shopNoList)
-  const [loading, setLoading] = useState(false)
-  const [value, setValue] = useState<searchValue[]>([])
-  const [newCode, setNewCode] = useState('')
-
   useEffect(() => {
     setOption(shopNoList)
   }, [shopNoList])
 
-  useEffect(() => {
-    if (value.length === 0) {
-      setNewCode('')
-    } else {
-      setNewCode(value[0].value)
-    }
-  }, [value])
+  // useEffect(() => {
+  //   if (value.length === 0) {
+  //     setNewCode('')
+  //   } else {
+  //     setNewCode(value[0].value)
+  //   }
+  // }, [value])
 
   const updateData = (payload: State) => {
     dispatch({
@@ -51,16 +52,9 @@ export default function Demo() {
       payload,
     })
   }
-
   const handleSearch = (e: any) => {
-    setLoading(true)
-    setTimeout(() => {
-      const filterOpion = shopNoList.filter(
-        (item: any) => !!item.label.includes(e.trim())
-      )
-      setOption([...filterOpion])
-      setLoading(false)
-    }, 500)
+    const newList = shopNoList.filter((item) => item.label.startsWith(e))
+    setOption(newList)
   }
 
   return (
@@ -75,14 +69,13 @@ export default function Demo() {
         <Tabs.Pane label="常规收费" key="rout">
           <Rout
             option1={option1}
-            loading={loading}
+            // loading={loading}
             value={value}
-            setValue={setValue}
             handleSearch={handleSearch}
-            newCode={newCode}
+            // newCode={newCode}
           />
         </Tabs.Pane>
-        <Tabs.Pane label="临时收费" key="tem">
+        {/* <Tabs.Pane label="临时收费" key="tem">
           <Tem
             option1={option1}
             loading={loading}
@@ -111,7 +104,7 @@ export default function Demo() {
             handleSearch={handleSearch}
             newCode={newCode}
           />
-        </Tabs.Pane>
+        </Tabs.Pane> */}
       </Tabs>
     </Fragment>
   )

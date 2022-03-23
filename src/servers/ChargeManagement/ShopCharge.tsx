@@ -35,7 +35,7 @@ function shopSelectPage(params: Change) {
  * @param {Object} params
  */
 
-const selectPage = '/api/buComprehensiveSale/selectPage'
+const selectPage = '/api/buComprehensiveSale/selectById'
 
 const update = '/api/test/select'
 
