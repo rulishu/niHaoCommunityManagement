@@ -17,6 +17,19 @@ export interface Change {
   remark?: string
 }
 
+export interface listProps {
+  chargeDay?: number
+  chargeFormula?: string
+  chargeLateProportion?: number
+  chargeLateType?: number
+  chargeMonth?: number
+  chargeName?: string
+  chargeNumType?: string
+  chargePrice?: number
+  chargeType?: string
+  id?: number
+}
+
 function selectById(params: Change) {
   return request('/api/SaleShops/selectById', {
     method: 'POST',

@@ -32,7 +32,7 @@ const Detail = (props: {
   const baseRef = useForm()
   const dispatch = useDispatch<Dispatch>()
   const {
-    ShopSale: { drawerVisible, tableType, queryInfo, shopsId },
+    ShopSale: { drawerVisible, tableType, queryInfo },
   } = useSelector((ShopSale: RootState) => ShopSale)
 
   const { mutate } = useSWR(
@@ -57,12 +57,9 @@ const Detail = (props: {
   const deatailTable = useTable(seraSelectPage, {
     // 格式化接口返回的数据，必须返回{total 总数, data: 列表数据}的格式
     formatData: (data) => {
-      let buCharge = data?.data?.map((item: any) => {
-        return item.buCharge
-      })
       return {
-        total: data?.data?.total,
-        data: buCharge,
+        total: data?.data?.total || 0,
+        data: data?.data || [],
       }
     },
     // 格式化查询参数 会接收到pageIndex 当前页  searchValues 表单数据
@@ -71,7 +68,7 @@ const Detail = (props: {
         // page: pageIndex,
         // pageSize: 10,
         // ...searchValues,
-        id: shopsId,
+        type: tableType === 'rent' ? 2 : 1,
       }
     },
   })
@@ -85,12 +82,6 @@ const Detail = (props: {
 
   const onClose = () => {
     updateData({ drawerVisible: false })
-    // dispatch({
-    //   type: 'ShopSale/updateState',
-    //   payload: {
-    //     drawerVisible: false,
-    //   },
-    // })
   }
 
   function handleEditTable(detailType: string, obj: Change) {

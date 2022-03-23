@@ -2,18 +2,24 @@ import { Modal } from 'uiw'
 import { ProTable, useTable } from '@uiw-admin/components'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
-import { seraAdd, detailSelectPage } from '@/servers/BasicManage/ShopSale'
+import {
+  seraAdd,
+  detailSelectPage,
+  listProps,
+} from '@/servers/BasicManage/ShopSale'
 import { Notify } from 'uiw'
 import useSWR from 'swr'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
+
+let arrData: listProps[] = []
 
 const Modals = (props: { onSearch: () => void }) => {
   const dispatch = useDispatch<Dispatch>()
 
   const {
-    ShopSale: { drawerDetailVisible },
+    ShopSale: { drawerDetailVisible, tableType },
   } = useSelector((state: RootState) => state)
-  // const [checkList, setCheckList] = useState<any[]>([])
+  // const [checkList, setCheckList] = React.useState<any[]>([])
 
   const onClose = () => {
     dispatch({
@@ -24,7 +30,7 @@ const Modals = (props: { onSearch: () => void }) => {
     })
   }
 
-  const deatailTable = useTable(detailSelectPage, {
+  const table = useTable(detailSelectPage, {
     // 格式化接口返回的数据，必须返回{total 总数, data: 列表数据}的格式
     formatData: (data) => {
       return {
@@ -47,7 +53,7 @@ const Modals = (props: { onSearch: () => void }) => {
       seraAdd,
       {
         method: 'POST',
-        body: { chargeList: deatailTable.selection.selected, type: 2 },
+        body: { chargeList: arrData, type: tableType === 'rent' ? 2 : 1 },
       },
     ],
     {
@@ -170,12 +176,19 @@ const Modals = (props: { onSearch: () => void }) => {
       type="primary"
       maxWidth={800}
       onConfirm={() => {
-        // let arr = deatailTable.selection.selected
-        // console.log('deatailTable', deatailTable);
-        // if (arr.length > 0) {
-        //   console.log('deatailTable', deatailTable.selection.select);
-        // }
-        // setCheckList(arr)
+        let arr = table.selection.selected
+        if (arr.length > 0) {
+          let listData: Record<string, string | number | JSX.Element>[] =
+            table.data
+          arr.forEach((item) => {
+            listData.forEach((val) => {
+              if (item === val.id) {
+                arrData.push(val)
+              }
+            })
+          })
+        }
+        // setCheckList(arrData)
         mutate()
       }}
       onCancel={() => {
@@ -183,8 +196,11 @@ const Modals = (props: { onSearch: () => void }) => {
       }}
       onClosed={onClose}
     >
-      {/* <div style={{ whiteSpace: 'break-spaces' }}>选中的值{JSON.stringify(deatailTable && deatailTable.selection.selected)}</div> */}
+      <div style={{ whiteSpace: 'break-spaces' }}>
+        选中的值{JSON.stringify(table && table.selection.selected)}
+      </div>
       <ProTable
+        table={table}
         bordered
         searchBtns={[
           {
@@ -192,31 +208,30 @@ const Modals = (props: { onSearch: () => void }) => {
             type: 'primary',
             htmlType: 'submit',
             onClick: () => {
-              deatailTable.onSearch()
+              table.onSearch()
             },
           },
           {
             label: '重置',
-            onClick: () => deatailTable.onReset(),
+            onClick: () => table.onReset(),
           },
         ]}
         paginationProps={{
           pageSizeOptions: [10, 20, 30],
           pageSize: 10,
         }}
-        table={deatailTable}
         columns={columns as FormCol[]}
         rowSelection={{
           // 多选 checkbox 单选radio
           type: 'checkbox',
           // 选中的键名 column里的key
-          selectKey: 'chargeName',
+          selectKey: 'id',
           // 默认值
           defaultSelected: [],
         }}
         // 取消全部选择
         onPageChange={() => {
-          deatailTable.selection.unSelectAll()
+          table.selection.unSelectAll()
         }}
       />
     </Modal>
