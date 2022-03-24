@@ -2,7 +2,8 @@ import { Fragment, useEffect, useState } from 'react'
 import { Tabs } from 'uiw'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch, RootState } from '@uiw-admin/models'
-import Rout from './rout'
+import Routine from '../TabsList/routine'
+import Temporary from '../TabsList/temporary'
 // import Tem from './tem'
 // import Dep from './dep'
 // import AdDep from './AdDep'
@@ -52,27 +53,22 @@ export default function Demo() {
 
   return (
     <Fragment>
-      <Tabs
-        type="card"
-        activeKey="rout"
-        onTabClick={(tab) => {
-          updateData({ keys: tab })
-        }}
-      >
+      <Tabs type="card" activeKey="rout">
         <Tabs.Pane label="常规收费" key="rout">
-          <Rout option={option} setValue={setValue} updateData={updateData} />
-        </Tabs.Pane>
-        {/* <Tabs.Pane label="临时收费" key="tem">
-          <Tem
-            option1={option1}
-            loading={loading}
-            value={value}
+          <Routine
+            option={option}
             setValue={setValue}
-            handleSearch={handleSearch}
-            newCode={newCode}
+            updateData={updateData}
           />
         </Tabs.Pane>
-        <Tabs.Pane label="收取押金" key="dep">
+        <Tabs.Pane label="临时收费" key="tem">
+          <Temporary
+            option={option}
+            setValue={setValue}
+            updateData={updateData}
+          />
+        </Tabs.Pane>
+        {/* <Tabs.Pane label="收取押金" key="dep">
           <Dep
             option1={option1}
             loading={loading}
