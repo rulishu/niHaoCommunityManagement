@@ -2450,10 +2450,24 @@
     "@typescript-eslint/types" "5.14.0"
     eslint-visitor-keys "^3.0.0"
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+"@uiw-admin/authorized@5.2.34":
+  version "5.2.34"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/authorized/-/authorized-5.2.34.tgz#ec50ce0e381211f11ab6605b5d5497e88e466d48"
+  integrity sha512-cnm8bn9P87XnMIAyQHqHMVcuUFmVXjFWuejdoiR1dJmt3TytrcBqr3UwsM47g0iyRPnflcMoEN9Vnwz3ZMRvlg==
+=======
+=======
+>>>>>>> f2c35d8c191bbd6b36c20ca022e63ec33d8f93d9
 "@uiw-admin/authorized@5.2.36":
   version "5.2.36"
   resolved "https://registry.yarnpkg.com/@uiw-admin/authorized/-/authorized-5.2.36.tgz#e47ec60112a5775d60b5f2cc2ab948d8d08529ee"
   integrity sha512-7ut27/SSG8o2grcNrQPlPDLx1FgqUZ3PZt24OXQtZx+BT6OFGQkjhvl75njWr+BAkaEHLLfDe43YPvIeVdw9Xw==
+<<<<<<< HEAD
+>>>>>>> dc835f9039e1d5c8d791eac8e249292137a6782a
+=======
+>>>>>>> f2c35d8c191bbd6b36c20ca022e63ec33d8f93d9
   dependencies:
     "@babel/runtime" "~7.17.0"
     "@uiw-admin/router-control" "5.2.36"
@@ -2479,16 +2493,75 @@
     "@uiw-admin/utils" "5.2.36"
     classnames "2.3.1"
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+"@uiw-admin/config@5.2.34":
+  version "5.2.34"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/config/-/config-5.2.34.tgz#5f5b54cf9f39f5bc546b4ecb29ad9df2cfb014fe"
+  integrity sha512-rxuv50ZNrlRq5acz8Ffi8T8/hGQUaGa1EBRTwBt+NJhi3w8eEJGtEvktzk23P6MtBNOnISWw+EAP/uyj08w8wg==
+=======
+"@uiw-admin/authorized@5.2.35", "@uiw-admin/authorized@^5.2.30":
+  version "5.2.35"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/authorized/-/authorized-5.2.35.tgz#172d2d7652a41098e173a078cfdc17dc8afe2784"
+  integrity sha512-hhQ+oRTI5U+Ne7bQAzanUC9Z3ZPCiLw44fxwnzjbbDJ5pCcmnVKW5+Wk16XvlygsaOrz4BGdg7KOLW8pxXsuBA==
+  dependencies:
+    "@babel/runtime" "~7.17.0"
+    "@uiw-admin/router-control" "5.2.35"
+
+"@uiw-admin/basic-layouts@^5.2.30":
+  version "5.2.35"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/basic-layouts/-/basic-layouts-5.2.35.tgz#db1f3f9b5c2815589a858d47393d30f86ae2b7f1"
+  integrity sha512-BfwLM7Z2ToBBFuBDPUYThX/JDpA13G2wGdghSl3kzsUue9RmFzcrReEn9nJYs4PNCZwYV+hMFhJHe9SwQYIgXw==
+  dependencies:
+    "@babel/runtime" "~7.17.0"
+    "@uiw-admin/document-title" "5.2.35"
+    classnames "2.3.1"
+
+"@uiw-admin/components@^5.2.30":
+  version "5.2.35"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/components/-/components-5.2.35.tgz#1a4923ccb25673965707b6dc53830fc73dcb4784"
+  integrity sha512-3aJlAb9TZibt/pCJuRcLkWG9lucKhIe1MKtmSRcq1x8WkPLxSqJovGZ9U+StJ2vHpf/CR9jFDnpk7ATCXqXnoQ==
+  dependencies:
+    "@babel/runtime" "~7.17.0"
+    "@uiw-admin/authorized" "5.2.35"
+    "@uiw-admin/document-title" "5.2.35"
+    "@uiw-admin/router-control" "5.2.35"
+    "@uiw-admin/utils" "5.2.35"
+    classnames "2.3.1"
+
+"@uiw-admin/config@^5.2.30":
+  version "5.2.35"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/config/-/config-5.2.35.tgz#a991320a907b3aa268e6ad537a6946142c9c6119"
+  integrity sha512-TkhAYnwnTTAtKDtVVd7NHRHhtm9BYP3hd2lrI59dlF+/hpTtexVwn+mcEdztvjpBjqiGvxfDC+/QhHpSZnLmYA==
+>>>>>>> ba616bf (chore: 去除无用包)
+=======
+=======
+>>>>>>> f2c35d8c191bbd6b36c20ca022e63ec33d8f93d9
 "@uiw-admin/config@5.2.36":
   version "5.2.36"
   resolved "https://registry.yarnpkg.com/@uiw-admin/config/-/config-5.2.36.tgz#3d471a9cf5e086bc4c0f76695f403195b83779fe"
   integrity sha512-QZOr958KLmeMPwHXNbaDhnj6Xj37QaTgtLA0mzDJIpWmrotvRrD0KHBl2Wh/cRJlVAWDspDrEQ67I7R4BjZG3A==
+<<<<<<< HEAD
+>>>>>>> dc835f9039e1d5c8d791eac8e249292137a6782a
+=======
+>>>>>>> f2c35d8c191bbd6b36c20ca022e63ec33d8f93d9
   dependencies:
     "@kkt/less-modules" "~7.1.1"
     "@kkt/raw-modules" "~7.1.1"
     "@kkt/scope-plugin-options" "~7.1.1"
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+    "@uiw-admin/plugins" "5.2.34"
+    eslint-config-uiw-admin "5.2.34"
+=======
     "@uiw-admin/plugins" "5.2.36"
     eslint-config-uiw-admin "5.2.36"
+>>>>>>> dc835f9039e1d5c8d791eac8e249292137a6782a
+=======
+    "@uiw-admin/plugins" "5.2.36"
+    eslint-config-uiw-admin "5.2.36"
+>>>>>>> f2c35d8c191bbd6b36c20ca022e63ec33d8f93d9
 
 "@uiw-admin/document-title@5.2.36":
   version "5.2.36"
@@ -2502,18 +2575,66 @@
   dependencies:
     "@babel/runtime" "~7.17.0"
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+"@uiw-admin/models@5.2.34":
+  version "5.2.34"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/models/-/models-5.2.34.tgz#75f78aed12848d994e3e340f45eb44b662920253"
+  integrity sha512-0+LmYrv+kGzD4qL9+dGx5KPzOq0DbvfqYiJBuproxebM3bhhzLEH74UF6s0QPKFQumxar1U93LJcBD3T8lhXkg==
+=======
+    "@uiw-admin/plugins" "5.2.35"
+    eslint-config-uiw-admin "5.2.35"
+
+"@uiw-admin/document-title@5.2.35", "@uiw-admin/document-title@^5.2.30":
+  version "5.2.35"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/document-title/-/document-title-5.2.35.tgz#95bb67384f856b78dfb1985eccd58454d45a4216"
+  integrity sha512-vgPN0HUJw4W4A6lJ8AL/9G0o455DNNiU8EcRXNSnU6I+WvFEUIOIGFYXarVhhuGXtI1eGkgISVM/qCTQAJe8hQ==
+
+"@uiw-admin/exceptions@^5.2.30":
+  version "5.2.35"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/exceptions/-/exceptions-5.2.35.tgz#f2106e13d23fd650b357fb0e66bc16589c1e2e51"
+  integrity sha512-nHDpHT7wwVr8Z2V/JQ72fvQlWNa0eNtVYizGt8km4GY1vMpaXOOhsHUfIQlT1rMDg/qKe8k9z2y39q05Tk852A==
+  dependencies:
+    "@babel/runtime" "~7.17.0"
+
+"@uiw-admin/models@^5.2.30":
+  version "5.2.35"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/models/-/models-5.2.35.tgz#fe0ed537d518ce20304e1ef3d252e61939e96792"
+  integrity sha512-7PB19QfYo20AkIObYiFyC76+iFBGoAvYjS+zjhRE1O+SIVFKCb2ifQmNIrOFUoMOPEw5fvfNpvniQFdUwAR61w==
+>>>>>>> ba616bf (chore: 去除无用包)
+=======
+=======
+>>>>>>> f2c35d8c191bbd6b36c20ca022e63ec33d8f93d9
 "@uiw-admin/models@5.2.36":
   version "5.2.36"
   resolved "https://registry.yarnpkg.com/@uiw-admin/models/-/models-5.2.36.tgz#20864e369fb45c6a1bd98bbf8b354dc6ec29ce7d"
   integrity sha512-85czdPK/UF9RuJwAk1PF6vm8pveqwTvR67ZvpfcL1uu9Zbdj/NV5kzPBrTcaSya2ZvDtK5fceIDaAEIJvzwSVA==
+<<<<<<< HEAD
+>>>>>>> dc835f9039e1d5c8d791eac8e249292137a6782a
+=======
+>>>>>>> f2c35d8c191bbd6b36c20ca022e63ec33d8f93d9
   dependencies:
     "@rematch/core" "2.2.0"
     "@rematch/loading" "2.1.2"
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+"@uiw-admin/plugins@5.2.34":
+  version "5.2.34"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/plugins/-/plugins-5.2.34.tgz#465ce711a3b514a80517560685d3e6682d703d7f"
+  integrity sha512-x73U4/Apzd2MwxUTCLvzZlNkawy957cMTcZrYdLroDJg02WLkqGEDK/sJ+An/6GKkJiEJbmcna3EzBsdn9i19g==
+=======
+=======
+>>>>>>> f2c35d8c191bbd6b36c20ca022e63ec33d8f93d9
 "@uiw-admin/plugins@5.2.36":
   version "5.2.36"
   resolved "https://registry.yarnpkg.com/@uiw-admin/plugins/-/plugins-5.2.36.tgz#93a318635b1ce0b439759367fc27f64a6a2e217a"
   integrity sha512-XxjC81poyhVtyhcmxPrd/0YB88jLhShYfIXJwinyJTS0Pod7WYTy6Kh/yhIVI28S2BksvF5XZHcrJxA+kDpnBA==
+<<<<<<< HEAD
+>>>>>>> dc835f9039e1d5c8d791eac8e249292137a6782a
+=======
+>>>>>>> f2c35d8c191bbd6b36c20ca022e63ec33d8f93d9
 
 "@uiw-admin/router-control@5.2.36":
   version "5.2.36"
@@ -2528,10 +2649,47 @@
     "@uiw-admin/document-title" "5.2.36"
     classnames "^2.3.1"
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+"@uiw-admin/utils@5.2.34":
+  version "5.2.34"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/utils/-/utils-5.2.34.tgz#1854a171aaf53c40c63e65a7a8dbe781c9c6b0bf"
+  integrity sha512-fBUN5n/AeIW6lb+gtGJaB8K7eYUPgnPqIP85yi1PSjLoLoePMdbwPwtUKpjEx8p64HvrxRSsEbyfGKqvZSajmQ==
+=======
+"@uiw-admin/plugins@5.2.35", "@uiw-admin/plugins@^5.2.30":
+  version "5.2.35"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/plugins/-/plugins-5.2.35.tgz#cc9dfe18dc10fc3be70dee8b098a043ba599f28b"
+  integrity sha512-035Jpfc4YBbtdUHHgnnvYx6dah82lYdGoiGcNPLq7ibVCroPDWASBBbEzhHW9I4aNs3OThEHAXjzLnOI1DRkCw==
+
+"@uiw-admin/router-control@5.2.35", "@uiw-admin/router-control@^5.2.30":
+  version "5.2.35"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/router-control/-/router-control-5.2.35.tgz#7da0bb59e9babddaf43e4db1e800772e769803cb"
+  integrity sha512-XPaunqh8gOWFPCxjbdFZONoShFSfj2VLQLJeZrHqrPXuYQ1TzsHSmUkdWgIMMJlYmTtdpes5QA78RirMxiGaHQ==
+
+"@uiw-admin/user-login@^5.2.30":
+  version "5.2.35"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/user-login/-/user-login-5.2.35.tgz#8fdcf402ff3f5d03ddc5591428935b8477de916a"
+  integrity sha512-FNSijoJXid8p6sqns4wCZHuGNr+iq6gCJoJDw7CWng1/MENZrnDdOHeVVQlDLQjx/tKCkWqOCo0jLl2p5aeA/Q==
+  dependencies:
+    "@uiw-admin/document-title" "5.2.35"
+    classnames "^2.3.1"
+
+"@uiw-admin/utils@5.2.35", "@uiw-admin/utils@^5.2.30":
+  version "5.2.35"
+  resolved "https://registry.yarnpkg.com/@uiw-admin/utils/-/utils-5.2.35.tgz#f734b0206e29d0ebc3318564ac2a7a715d1c3d14"
+  integrity sha512-FtZdPyB+7n4VlUr8qKLPy/xdJZ7ESKJX5Hus9D562tU4Y55+TuYZTmNxXLf0zQF6Oke8D1z7rTDXTy0NlqfnfA==
+>>>>>>> ba616bf (chore: 去除无用包)
+=======
+=======
+>>>>>>> f2c35d8c191bbd6b36c20ca022e63ec33d8f93d9
 "@uiw-admin/utils@5.2.36":
   version "5.2.36"
   resolved "https://registry.yarnpkg.com/@uiw-admin/utils/-/utils-5.2.36.tgz#f1256c5cde68b84804c424e29bcfdb1103c1b0d8"
   integrity sha512-ClwWj+osjbSR00MAfylvJxwVgcEFmaaRx7QY9qiaEkgrnv9NJBkmCOFlx6hFlN/HKaGY9f5FlPgY0+sT1K53qQ==
+<<<<<<< HEAD
+>>>>>>> dc835f9039e1d5c8d791eac8e249292137a6782a
+=======
+>>>>>>> f2c35d8c191bbd6b36c20ca022e63ec33d8f93d9
   dependencies:
     axios "~0.24.0"
     qs "~6.10.3"
@@ -5101,10 +5259,30 @@ eslint-config-react-app@^7.0.0:
     eslint-plugin-react-hooks "^4.3.0"
     eslint-plugin-testing-library "^5.0.1"
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+eslint-config-uiw-admin@5.2.34:
+  version "5.2.34"
+  resolved "https://registry.yarnpkg.com/eslint-config-uiw-admin/-/eslint-config-uiw-admin-5.2.34.tgz#ff54c910a3cb704aff2795c7933f6ed3b8043e6e"
+  integrity sha512-ftCXHDAXFp726JFqhlHBOGRrlBm3RMzLfcbFd8gAHvk53uwy0TmES28mAIkD6/d2+sC2IVRkNcAenUwETwGTsw==
+=======
+eslint-config-uiw-admin@5.2.35:
+  version "5.2.35"
+  resolved "https://registry.yarnpkg.com/eslint-config-uiw-admin/-/eslint-config-uiw-admin-5.2.35.tgz#5fb86c9c1da65d1c1ced04c78caa1c812b642ca8"
+  integrity sha512-rjG3aTIaAd1tj2wMvUCxYfC9WQV/2ZWjCyRMxXBGBGMOeo4uMqt2BWvtMrFtRvsMKr/VUf2o6R1EONF5Dp+5Mw==
+>>>>>>> ba616bf (chore: 去除无用包)
+=======
+=======
+>>>>>>> f2c35d8c191bbd6b36c20ca022e63ec33d8f93d9
 eslint-config-uiw-admin@5.2.36:
   version "5.2.36"
   resolved "https://registry.yarnpkg.com/eslint-config-uiw-admin/-/eslint-config-uiw-admin-5.2.36.tgz#e391ed930c1a98b582d8ecc231b197e268a56ae4"
   integrity sha512-L0DjoktJd5VkwvVPxuliHyNepodHz2s0Fjd9oY3K9d4NvjgCqJid1Y1kXf6kk3wWDxKcPrbkwPmCvAVBgtL/PA==
+<<<<<<< HEAD
+>>>>>>> dc835f9039e1d5c8d791eac8e249292137a6782a
+=======
+>>>>>>> f2c35d8c191bbd6b36c20ca022e63ec33d8f93d9
 
 eslint-import-resolver-node@^0.3.6:
   version "0.3.6"

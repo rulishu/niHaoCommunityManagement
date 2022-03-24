@@ -1,11 +1,7 @@
 import * as React from 'react'
 import { ProTable, useTable } from '@uiw-admin/components'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
-import {
-  selectPage,
-  searchValue,
-  Change,
-} from '@/servers/ChargeManagement/ShopCharge'
+import { selectPage, searchValue } from '@/servers/ChargeManagement/ShopCharge'
 import FormSelect from './FormSelect'
 import Charge from '../Charge'
 import History from '../History'
@@ -13,13 +9,10 @@ import { columnsRout } from '../Search/Items/itemTable'
 
 export default function Demo(props: {
   option1: searchValue[]
-  loading: boolean
   value: searchValue[]
-  setValue: React.Dispatch<React.SetStateAction<searchValue[]>>
   handleSearch: (e: any) => void
-  newCode: string
 }) {
-  const { option1, loading, value, setValue, handleSearch, newCode } = props
+  const { option1, handleSearch } = props
 
   const table = useTable(selectPage, {
     // 格式化接口返回的数据，必须返回{total 总数, data: 列表数据}的格式
@@ -30,11 +23,11 @@ export default function Demo(props: {
       }
     },
     // 格式化查询参数 会接收到pageIndex 当前页  searchValues 表单数据
-    query: (pageIndex, pageSize) => {
+    query: (pageIndex, pageSize, searchValues) => {
       return {
         page: pageIndex,
-        pageSize: pageSize,
-        code: newCode,
+        pageSize,
+        id: searchValues?.code || 0,
       }
     },
   })
@@ -64,16 +57,6 @@ export default function Demo(props: {
             },
           },
         ]}
-        onBeforeSearch={({ initial }) => {
-          const errorObj: Change = {}
-          if (!initial.code) errorObj.code = '商铺编号不能为空！'
-          if (value.length === 0) {
-            const err: any = new Error()
-            err.filed = errorObj
-            throw err
-          }
-          return true
-        }}
         table={table}
         rowSelection={{
           // 多选 checkbox 单选radio
@@ -87,15 +70,7 @@ export default function Demo(props: {
         onPageChange={() => {
           table.selection.unSelectAll()
         }}
-        columns={
-          columnsRout(
-            option1,
-            loading,
-            value,
-            setValue,
-            handleSearch
-          ) as FormCol[]
-        }
+        columns={columnsRout(option1, handleSearch) as FormCol[]}
       />
 
       <Charge onSearch={table.onSearch} />
