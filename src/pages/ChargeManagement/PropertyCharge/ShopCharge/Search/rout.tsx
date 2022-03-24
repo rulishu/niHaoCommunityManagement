@@ -33,18 +33,6 @@ export default function Demo(props: {
   // 操作
   const handleEditTable = (type: string, data?: any) => {
     updateData({ drawerType: type, drawerVisible: true })
-    // if (type === 'charge') {
-    //   updateData({
-    //     drawerVisible: true,
-    //     queryInfo: {},
-    //   })
-    // }
-    // if (type === 'edit') {
-    //   updateData({
-    //     drawerVisible: true,
-    //     queryInfo: { ...data },
-    //   })
-    // }
   }
   return (
     <React.Fragment>
@@ -62,6 +50,7 @@ export default function Demo(props: {
           {
             label: '历史信息',
             type: 'primary',
+            onClick: () => handleEditTable('history'),
           },
         ]}
         searchBtns={[

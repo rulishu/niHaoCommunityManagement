@@ -20,7 +20,13 @@ const Drawer = ({ updateData }: DetailProps) => {
   return (
     <ProDrawer
       width={1000}
-      title="常规收费"
+      title={
+        drawerType === 'charge'
+          ? '常规收费'
+          : drawerType === 'history'
+          ? '历史数据'
+          : ''
+      }
       visible={drawerVisible}
       onClose={onClose}
       buttons={[
@@ -36,19 +42,21 @@ const Drawer = ({ updateData }: DetailProps) => {
     >
       <TableList />
       <div style={{ marginTop: 24 }}></div>
-      <ProForm
-        form={form}
-        formType="card"
-        onSubmit={(_, current: Record<string, any>) => {
-          console.log(current, 'current')
-        }}
-        // 更新表单的值
-        onChange={(_, current: Record<string, any>) =>
-          updateData({ queryInfo: { ...queryInfo, ...current } })
-        }
-        buttonsContainer={{ justifyContent: 'flex-start' }}
-        formDatas={items(queryInfo, drawerType) as any}
-      />
+      {drawerType !== 'history' && (
+        <ProForm
+          form={form}
+          formType="card"
+          onSubmit={(_, current: Record<string, any>) => {
+            console.log(current, 'current')
+          }}
+          // 更新表单的值
+          onChange={(_, current: Record<string, any>) =>
+            updateData({ queryInfo: { ...queryInfo, ...current } })
+          }
+          buttonsContainer={{ justifyContent: 'flex-start' }}
+          formDatas={items(queryInfo, drawerType) as any}
+        />
+      )}
     </ProDrawer>
   )
 }
