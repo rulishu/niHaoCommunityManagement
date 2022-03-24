@@ -6,6 +6,7 @@ import Rout from './rout'
 // import Tem from './tem'
 // import Dep from './dep'
 // import AdDep from './AdDep'
+import Drawer from '../Drawer'
 import { searchValue } from '@/servers/ChargeManagement/ShopCharge'
 
 interface State {
@@ -22,10 +23,8 @@ export default function Demo() {
     shopCharge: { shopNoList },
   } = useSelector((shopCharge: RootState) => shopCharge)
 
-  const [option1, setOption] = useState<searchValue[]>(shopNoList)
-  // const [loading, setLoading] = useState(false)
-  const [value] = useState<searchValue[]>([])
-  // const [newCode, setNewCode] = useState('')
+  const [option, setOption] = useState<searchValue[]>(shopNoList)
+  const [value, setValue] = useState('')
 
   // 查询所有商铺
   useEffect(() => {
@@ -34,27 +33,21 @@ export default function Demo() {
     })
   }, [dispatch])
 
+  // 塞选商铺
   useEffect(() => {
-    setOption(shopNoList)
-  }, [shopNoList])
+    setOption(
+      value
+        ? shopNoList.filter((item) => item.label.startsWith(value))
+        : shopNoList
+    )
+  }, [shopNoList, value])
 
-  // useEffect(() => {
-  //   if (value.length === 0) {
-  //     setNewCode('')
-  //   } else {
-  //     setNewCode(value[0].value)
-  //   }
-  // }, [value])
-
+  // 更新值
   const updateData = (payload: State) => {
     dispatch({
       type: 'shopCharge/updateState',
       payload,
     })
-  }
-  const handleSearch = (e: any) => {
-    const newList = shopNoList.filter((item) => item.label.startsWith(e))
-    setOption(newList)
   }
 
   return (
@@ -67,13 +60,7 @@ export default function Demo() {
         }}
       >
         <Tabs.Pane label="常规收费" key="rout">
-          <Rout
-            option1={option1}
-            // loading={loading}
-            value={value}
-            handleSearch={handleSearch}
-            // newCode={newCode}
-          />
+          <Rout option={option} setValue={setValue} updateData={updateData} />
         </Tabs.Pane>
         {/* <Tabs.Pane label="临时收费" key="tem">
           <Tem
@@ -106,6 +93,7 @@ export default function Demo() {
           />
         </Tabs.Pane> */}
       </Tabs>
+      <Drawer updateData={updateData} />
     </Fragment>
   )
 }

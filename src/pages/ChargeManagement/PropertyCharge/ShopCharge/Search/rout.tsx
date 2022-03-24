@@ -8,21 +8,13 @@ import History from '../History'
 import { columnsRout } from '../Search/Items/itemTable'
 
 export default function Demo(props: {
-  option1: searchValue[]
-  value: searchValue[]
-  handleSearch: (e: any) => void
+  option: searchValue[]
+  setValue: (e: any) => void
+  updateData: (payload: any) => void
 }) {
-  const { option1, handleSearch } = props
+  const { option, setValue, updateData } = props
 
   const table = useTable(selectPage, {
-    // 格式化接口返回的数据，必须返回{total 总数, data: 列表数据}的格式
-    formatData: (data) => {
-      return {
-        total: data?.data?.total,
-        data: data?.data?.rows || [],
-      }
-    },
-    // 格式化查询参数 会接收到pageIndex 当前页  searchValues 表单数据
     query: (pageIndex, pageSize, searchValues) => {
       return {
         page: pageIndex,
@@ -30,16 +22,35 @@ export default function Demo(props: {
         id: searchValues?.code || 0,
       }
     },
+    formatData: (data) => {
+      return {
+        total: data?.data?.total,
+        data: data?.data?.rows || [],
+      }
+    },
   })
 
+  // 操作
+  const handleEditTable = (type: string, data?: any) => {
+    updateData({ drawerType: type, drawerVisible: true })
+  }
   return (
     <React.Fragment>
       <ProTable
         bordered
-        // 操作栏按钮
         operateButtons={[
           {
             render: <FormSelect />,
+          },
+          {
+            label: '收费',
+            type: 'primary',
+            onClick: () => handleEditTable('charge'),
+          },
+          {
+            label: '历史信息',
+            type: 'primary',
+            onClick: () => handleEditTable('history'),
           },
         ]}
         searchBtns={[
@@ -59,18 +70,14 @@ export default function Demo(props: {
         ]}
         table={table}
         rowSelection={{
-          // 多选 checkbox 单选radio
           type: 'checkbox',
-          // 选中的键名 column里的key
-          selectKey: 'shouName',
-          // 默认值
-          defaultSelected: [],
+          selectKey: 'id',
         }}
         // 取消全部选择
         onPageChange={() => {
           table.selection.unSelectAll()
         }}
-        columns={columnsRout(option1, handleSearch) as FormCol[]}
+        columns={columnsRout(option, setValue) as FormCol[]}
       />
 
       <Charge onSearch={table.onSearch} />

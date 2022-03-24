@@ -7,6 +7,7 @@ import {
 } from '../../servers/ChargeManagement/ShopCharge'
 
 interface State {
+  drawerType: string
   drawerVisible: boolean
   tableType: string
   queryInfo: object
@@ -29,9 +30,12 @@ interface State {
 const shopCharge = createModel()({
   name: 'shopCharge',
   state: {
-    tableType: '1',
     drawerVisible: false, //新增、预存弹框
-    queryInfo: {}, //新增、预存
+    drawerType: '',
+    shopNoList: [], //商铺查询
+    queryInfo: {}, //表单信息
+
+    tableType: '1',
     id: '',
     isView: false,
     delectVisible: false,
@@ -55,8 +59,6 @@ const shopCharge = createModel()({
     printInfo: {}, //打印数据
     printDropdown: 1, //打印下拉
     isOpen: false, //打印下拉菜单
-
-    shopNoList: [], //商铺查询
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({
@@ -85,12 +87,9 @@ const shopCharge = createModel()({
 
     clean() {
       const dph = dispatch as Dispatch
-      dph.users.updateState({
+      dph.shopCharge.updateState({
         drawerVisible: false,
-        tableType: '',
-        queryInfo: {},
-        isView: false,
-        delectVisible: false,
+        drawerType: '',
       })
     },
   }),
