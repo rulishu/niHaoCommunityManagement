@@ -9,6 +9,8 @@ export interface Change {
   paymentMethod?: string
   chargeAmount?: string
   chargingTime?: string
+  refundWay?: string
+  refundTime?: string
 }
 
 /**
@@ -16,7 +18,7 @@ export interface Change {
  * @param {Object} params
  */
 function selectById(params: Change) {
-  return request('/api/test/select', {
+  return request('/api/buAdvanceDeposit/selectById', {
     method: 'POST',
     body: { ...params },
   })
@@ -24,7 +26,7 @@ function selectById(params: Change) {
 
 const selectPage = '/api/buAdvanceDeposit/selectPage'
 
-const update = '/api/test/select'
+const update = '/api/buAdvanceDeposit/refund'
 
 const insert = '/api/buAdvanceDeposit/add'
 

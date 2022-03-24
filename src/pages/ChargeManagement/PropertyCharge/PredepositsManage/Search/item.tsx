@@ -137,25 +137,26 @@ export const columnsSearch = (
     align: 'center',
     render: (text: any, key: any, rowData: any) => (
       <div>
+        <Button
+          size="small"
+          icon="edit"
+          onClick={() => handleEditTable('edit', rowData)}
+        >
+          退还
+        </Button>
         {rowData.status === '1' && (
           <Button
             size="small"
-            icon="edit"
-            onClick={() => handleEditTable('edit', rowData)}
+            icon="eye"
+            onClick={() => handleEditTable('view', rowData)}
           >
-            退还
+            打印收款单
           </Button>
         )}
         <Button
           size="small"
           icon="eye"
-          onClick={() => handleEditTable('view', rowData)}
-        >
-          打印收款单
-        </Button>
-        <Button
-          size="small"
-          icon="eye"
+          disabled
           onClick={() => handleEditTable('del', rowData)}
         >
           打印退还单

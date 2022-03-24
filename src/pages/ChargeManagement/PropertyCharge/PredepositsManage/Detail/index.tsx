@@ -2,10 +2,11 @@ import React from 'react'
 import { ProDrawer, ProForm, useForm } from '@uiw-admin/components'
 import { Dispatch, RootState } from '@uiw-admin/models'
 import { useDispatch, useSelector } from 'react-redux'
-import { Notify } from 'uiw'
+import { Notify, Table } from 'uiw'
 import useSWR from 'swr'
 import { insert, update } from '@/servers/ChargeManagement/PredepositsManage'
-import { items } from './items'
+import { items, backList } from './items'
+import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 interface State {
   drawerVisible?: boolean
   tableType?: string
@@ -22,7 +23,7 @@ const Drawer = (props: {
   const {
     PredepositsManage: { drawerVisible, tableType, queryInfo, isView },
   } = useSelector((state: RootState) => state)
-  const [value, getValue] = React.useState(false)
+  const [value] = React.useState(false)
 
   const onClose = () => {
     dispatch({
@@ -33,9 +34,10 @@ const Drawer = (props: {
       },
     })
   }
+
   const { mutate } = useSWR(
     [
-      (tableType === 'add' && insert) || (tableType === 'paied' && update),
+      (tableType === 'add' && insert) || (tableType === 'edit' && update),
       { method: 'POST', body: queryInfo },
     ],
     {
@@ -53,28 +55,47 @@ const Drawer = (props: {
     }
   )
   const onChange = (initial: any, current: any) => {
-    if (current?.customerType === '1') {
-      getValue(true)
+    function checkTime(i: any) {
+      if (i < 10) {
+        i = '0' + i
+      }
+      return i
+    }
+    let date = new Date(current.chargingTime)
+    if (tableType === 'add') {
       props.updateData({
         queryInfo: {
+          ...queryInfo,
           ...current,
+          chargingTime:
+            date.getFullYear() +
+            '-' +
+            (date.getMonth() + 1) +
+            '-' +
+            date.getDate() +
+            ' ' +
+            checkTime(date.getHours()) +
+            ':' +
+            checkTime(date.getMinutes()) +
+            ':' +
+            checkTime(date.getSeconds()),
         },
       })
     }
-    if (current?.customerType === '2') {
-      getValue(false)
+    if (tableType === 'edit') {
       props.updateData({
         queryInfo: {
-          ...current,
+          // ...current,
+          code: current?.code,
+          name: current?.name,
+          refundWay: current?.refundWay,
+          refundTime: current?.refundTime,
         },
       })
     }
-    props.updateData({
-      queryInfo: {
-        ...queryInfo,
-        ...current,
-      },
-    })
+  }
+  const onChangeItem = async (text: React.ChangeEvent<HTMLInputElement>) => {
+    // console.log('text.target.value', text.target.value)
   }
 
   return (
@@ -99,12 +120,10 @@ const Drawer = (props: {
     >
       <ProForm
         title="基础信息"
-        formType={isView ? 'pure' : 'card'}
+        formType={'pure'}
         form={baseRef}
         readOnly={isView}
-        onSubmit={(initial, current) => {
-          // initial
-          // current
+        onSubmit={() => {
           mutate()
         }}
         buttonsContainer={{ justifyContent: 'flex-start' }}
@@ -112,6 +131,17 @@ const Drawer = (props: {
         onChange={(initial, current) => onChange(initial, current)}
         formDatas={items(queryInfo, value, tableType)}
       />
+
+      {tableType === 'edit' && (
+        <Table
+          bordered
+          columns={backList(onChangeItem) as FormCol[]}
+          data={
+            // chargeDataList
+            [{ shouName: '1', fee: '1' }]
+          }
+        />
+      )}
     </ProDrawer>
   )
 }

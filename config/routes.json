@@ -54,13 +54,13 @@
                 "component": "../pages/ChargeManagement/PropertyCharge/TemporaryCharges"
               },
               {
-                "path": "/chargeManagement/propertyCharge/DepositManage",
+                "path": "/chargeManagement/propertyCharge/depositManage",
                 "name": "押金管理",
                 "icon": "document",
                 "component": "../pages/ChargeManagement/PropertyCharge/DepositManage"
               },
               {
-                "path": "/chargeManagement/propertyCharge/PredepositsManage",
+                "path": "/chargeManagement/propertyCharge/predepositsManage",
                 "name": "预存款管理",
                 "icon": "folder-open",
                 "component": "../pages/ChargeManagement/PropertyCharge/PredepositsManage"
