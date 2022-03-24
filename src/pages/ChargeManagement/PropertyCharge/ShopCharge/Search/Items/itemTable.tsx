@@ -8,38 +8,32 @@ const option = [
 ]
 
 export const columnsRout = (
-  option1: searchValue[],
-  handleSearch: (e: any) => void
+  option: searchValue[],
+  setValue: (e: any) => void
 ) => {
   return [
-    {
-      title: '商铺编号',
-      key: 'code',
-      align: 'center',
-      ellipsis: true,
-      props: {
-        widget: 'searchSelect',
-        option: option1,
-        widgetProps: {
-          mode: 'single',
-          style: { width: 200 },
-          showSearch: true,
-          maxTagCount: 6,
-          allowClear: true,
-          disabled: false,
-          placeholder: '请输入选择',
-          onSearch: (value: String) => handleSearch(value),
-        },
-      },
-      render: (text: any) => {
-        return <div>{text}</div>
-      },
-    },
     {
       title: '收费项名称',
       align: 'center',
       key: 'saleName',
       ellipsis: true,
+      props: [
+        {
+          label: '商铺',
+          key: 'code',
+          widget: 'searchSelect',
+          option,
+          widgetProps: {
+            mode: 'single',
+            showSearch: true,
+            maxTagCount: 6,
+            allowClear: true,
+            disabled: false,
+            placeholder: '请输入选择',
+            onSearch: (value: String) => setValue(value),
+          },
+        },
+      ],
     },
     {
       align: 'center',

@@ -9,10 +9,10 @@ import { columnsRout } from '../Search/Items/itemTable'
 
 export default function Demo(props: {
   option1: searchValue[]
-  value: searchValue[]
-  handleSearch: (e: any) => void
+  // value: searchValue[]
+  setValue: (e: any) => void
 }) {
-  const { option1, handleSearch } = props
+  const { option1, setValue } = props
 
   const table = useTable(selectPage, {
     // 格式化接口返回的数据，必须返回{total 总数, data: 列表数据}的格式
@@ -70,7 +70,7 @@ export default function Demo(props: {
         onPageChange={() => {
           table.selection.unSelectAll()
         }}
-        columns={columnsRout(option1, handleSearch) as FormCol[]}
+        columns={columnsRout(option1, setValue) as FormCol[]}
       />
 
       <Charge onSearch={table.onSearch} />
