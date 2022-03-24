@@ -30,7 +30,6 @@ export const proxySetup = (app: express.Application): MockerAPIOptions => {
       // target: 'http://192.168.188.87:8200',
       // target: 'http://192.168.188.8:8200',
       target: 'http://192.168.188.222:33702/',
-      // target: 'http://7cbf8ab1.cpolar.cn',
       changeOrigin: true,
     })
   )
