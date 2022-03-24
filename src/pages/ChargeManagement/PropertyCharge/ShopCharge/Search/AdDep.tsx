@@ -12,10 +12,10 @@ import {
 } from '@/servers/ChargeManagement/ShopCharge'
 import FormSelect from './FormSelect'
 import Detail from '@/components/SimpleDetail/index'
-import Charge from '../Charge'
+// import Charge from '../Charge'
 import { columnsPre } from '../Search/Items//itemAdDep'
 import { columnsAdDep } from '../Search/Items/itemTable'
-import Print from '../Print'
+// import Print from '../Print'
 
 export default function Demo(props: {
   option1: searchValue[]
@@ -156,10 +156,8 @@ export default function Demo(props: {
         tableType={'add'}
       />
 
-      <Charge onSearch={table.onSearch} />
-
-      {/* 打印弹框 */}
-      <Print />
+      {/* <Charge onSearch={table.onSearch} /> */}
+      {/* <Print /> */}
     </React.Fragment>
   )
 }

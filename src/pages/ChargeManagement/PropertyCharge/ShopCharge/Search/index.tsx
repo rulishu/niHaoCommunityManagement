@@ -6,6 +6,7 @@ import Rout from './rout'
 // import Tem from './tem'
 // import Dep from './dep'
 // import AdDep from './AdDep'
+import Drawer from '../Drawer'
 import { searchValue } from '@/servers/ChargeManagement/ShopCharge'
 
 interface State {
@@ -59,7 +60,7 @@ export default function Demo() {
         }}
       >
         <Tabs.Pane label="常规收费" key="rout">
-          <Rout option1={option} setValue={setValue} />
+          <Rout option={option} setValue={setValue} updateData={updateData} />
         </Tabs.Pane>
         {/* <Tabs.Pane label="临时收费" key="tem">
           <Tem
@@ -92,6 +93,7 @@ export default function Demo() {
           />
         </Tabs.Pane> */}
       </Tabs>
+      <Drawer updateData={updateData} />
     </Fragment>
   )
 }

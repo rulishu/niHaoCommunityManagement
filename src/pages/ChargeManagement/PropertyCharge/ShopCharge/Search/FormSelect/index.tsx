@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import '../../index.css'
 import DetailsList from './details'
-import ButtonGroup from './ButtonGroup'
+// import ButtonGroup from './ButtonGroup'
 
 export default function FormSelect() {
   return (
@@ -11,7 +11,7 @@ export default function FormSelect() {
         <DetailsList />
       </div>
       {/* table头部按钮 */}
-      <ButtonGroup />
+      {/* <ButtonGroup /> */}
     </Fragment>
   )
 }
