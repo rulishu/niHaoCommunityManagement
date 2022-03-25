@@ -169,3 +169,108 @@ export const columnsTem = (
     },
   ]
 }
+// 收取押金
+export const columnsDeposit = (
+  option: searchValue[],
+  setValue: (e: any) => void
+) => [
+  {
+    title: '客户姓名',
+    align: 'center',
+    key: 'name',
+    ellipsis: true,
+    props: [
+      {
+        label: '商铺',
+        key: 'code',
+        widget: 'searchSelect',
+        option,
+        widgetProps: {
+          mode: 'single',
+          showSearch: true,
+          maxTagCount: 6,
+          allowClear: true,
+          disabled: false,
+          placeholder: '请输入选择',
+          onSearch: (value: String) => setValue(value),
+        },
+      },
+    ],
+  },
+  {
+    title: '客户姓名',
+    align: 'center',
+    key: 'shouName',
+    ellipsis: true,
+  },
+  {
+    align: 'center',
+    title: '收费项目',
+    key: 'startingTime',
+    ellipsis: true,
+  },
+  {
+    align: 'center',
+    title: '付款方式',
+    key: 'endTime',
+    ellipsis: true,
+  },
+  {
+    title: '收费金额',
+    align: 'center',
+    key: 'fee',
+    ellipsis: true,
+  },
+  {
+    title: '收款人',
+    align: 'center',
+    key: 'num',
+    ellipsis: true,
+  },
+  {
+    align: 'center',
+    title: '收款时间',
+    key: 'feeTime',
+    ellipsis: true,
+  },
+  {
+    title: '退款人',
+    align: 'center',
+    key: 'num',
+    ellipsis: true,
+  },
+  {
+    align: 'center',
+    title: '退款时间',
+    key: 'feeTime',
+    ellipsis: true,
+  },
+  {
+    title: '状态',
+    align: 'center',
+    key: 'money',
+    ellipsis: true,
+  },
+  {
+    title: '备注',
+    align: 'center',
+    key: 'ramker',
+    ellipsis: true,
+  },
+  {
+    title: '操作',
+    key: 'edit',
+    align: 'center',
+    ellipsis: true,
+    width: 150,
+    render: () => (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      ></div>
+    ),
+  },
+]

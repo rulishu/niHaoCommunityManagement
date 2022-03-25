@@ -1,4 +1,29 @@
-export const items = (queryInfo: any) => [
+export const drawerTitle = (type: string) => {
+  switch (type) {
+    case 'charge':
+      return '常规收费'
+    case 'history':
+      return '历史数据'
+    case 'temAdd':
+      return '新建临时收费'
+    case 'depositAdd':
+      return '新增押金'
+    default:
+      return ''
+  }
+}
+export const matching = (type: string, queryInfo: any) => {
+  switch (type) {
+    case 'charge':
+      return items(queryInfo)
+    case 'temAdd':
+    case 'depositAdd':
+      return temAddItems(queryInfo)
+    default:
+      return []
+  }
+}
+const items = (queryInfo: any) => [
   {
     label: '滞纳金',
     key: 'name',
@@ -90,7 +115,7 @@ export const items = (queryInfo: any) => [
   },
 ]
 
-export const temAddItems = (queryInfo: any) => {
+const temAddItems = (queryInfo: any) => {
   return [
     {
       label: '商铺',

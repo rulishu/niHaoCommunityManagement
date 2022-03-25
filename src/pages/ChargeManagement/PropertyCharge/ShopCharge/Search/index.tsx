@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch, RootState } from '@uiw-admin/models'
 import Routine from '../TabsList/routine'
 import Temporary from '../TabsList/temporary'
+import Deposit from '../TabsList/deposit'
 // import Tem from './tem'
 // import Dep from './dep'
 // import AdDep from './AdDep'
@@ -63,6 +64,13 @@ export default function Demo() {
         </Tabs.Pane>
         <Tabs.Pane label="临时收费" key="tem">
           <Temporary
+            option={option}
+            setValue={setValue}
+            updateData={updateData}
+          />
+        </Tabs.Pane>
+        <Tabs.Pane label="收取押金" key="dep">
+          <Deposit
             option={option}
             setValue={setValue}
             updateData={updateData}
