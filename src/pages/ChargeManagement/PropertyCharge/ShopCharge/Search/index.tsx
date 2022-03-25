@@ -5,6 +5,7 @@ import { Dispatch, RootState } from '@uiw-admin/models'
 import Routine from '../TabsList/routine'
 import Temporary from '../TabsList/temporary'
 import Deposit from '../TabsList/deposit'
+import Advance from '../TabsList/advance'
 // import Tem from './tem'
 // import Dep from './dep'
 // import AdDep from './AdDep'
@@ -76,26 +77,13 @@ export default function Demo() {
             updateData={updateData}
           />
         </Tabs.Pane>
-        {/* <Tabs.Pane label="收取押金" key="dep">
-          <Dep
-            option1={option1}
-            loading={loading}
-            value={value}
+        <Tabs.Pane label="预存款" key="adv">
+          <Advance
+            option={option}
             setValue={setValue}
-            handleSearch={handleSearch}
-            newCode={newCode}
+            updateData={updateData}
           />
         </Tabs.Pane>
-        <Tabs.Pane label="预存款" key="AdDep">
-          <AdDep
-            option1={option1}
-            loading={loading}
-            value={value}
-            setValue={setValue}
-            handleSearch={handleSearch}
-            newCode={newCode}
-          />
-        </Tabs.Pane> */}
       </Tabs>
       <Drawer updateData={updateData} />
     </Fragment>
