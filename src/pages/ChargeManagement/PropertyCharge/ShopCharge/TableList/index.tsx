@@ -1,8 +1,7 @@
 import { ProTable, useTable } from '@uiw-admin/components'
 import { useSelector } from 'react-redux'
 import { RootState } from '@uiw-admin/models'
-import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
-import { columnsList, columnsHistory } from './item'
+import { matching } from './item'
 export default function Index() {
   const {
     shopCharge: { drawerType },
@@ -31,14 +30,8 @@ export default function Index() {
         pageSizeOptions: [10, 20, 30],
         pageSize: 10,
       }}
-      columns={
-        drawerType === 'charge'
-          ? (columnsList() as FormCol[])
-          : drawerType === 'history'
-          ? (columnsHistory() as FormCol[])
-          : []
-      }
-      scroll={{ x: 1600 }}
+      columns={matching(drawerType) as any}
+      scroll={{ x: drawerType === 'return' ? '100%' : 1600 }}
     />
   )
 }

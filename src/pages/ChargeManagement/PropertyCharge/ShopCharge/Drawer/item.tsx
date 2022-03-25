@@ -8,17 +8,25 @@ export const drawerTitle = (type: string) => {
       return '新建临时收费'
     case 'depositAdd':
       return '新增押金'
+    case 'storage':
+      return '预存'
+    case 'return':
+      return '退还'
     default:
       return ''
   }
 }
-export const matching = (type: string, queryInfo: any) => {
+export const matching = (type: string, queryInfo: any, option: any) => {
   switch (type) {
     case 'charge':
       return items(queryInfo)
     case 'temAdd':
     case 'depositAdd':
-      return temAddItems(queryInfo)
+      return temAddItems(queryInfo, option)
+    case 'storage':
+      return storageItem(queryInfo, option)
+    case 'return':
+      return returnItem(queryInfo, option)
     default:
       return []
   }
@@ -115,14 +123,22 @@ const items = (queryInfo: any) => [
   },
 ]
 
-const temAddItems = (queryInfo: any) => {
+const temAddItems = (queryInfo: any, option: any) => {
   return [
     {
       label: '商铺',
       key: 'name',
-      widget: 'input',
+      widget: 'searchSelect',
+      option,
       required: true,
       span: 8,
+      widgetProps: {
+        placeholder: '请选择商铺',
+        labelInValue: true,
+        mode: 'single',
+        allowClear: true,
+        showSearch: true,
+      },
       initialValue: queryInfo?.name,
     },
     {
@@ -159,11 +175,130 @@ const temAddItems = (queryInfo: any) => {
     },
     {
       label: '收费时间',
-      key: 'name5',
-      widget: 'input',
-      required: true,
-      span: 8,
-      initialValue: queryInfo?.name,
+      key: 'dateInputsecond',
+      widget: 'dateInput',
+      widgetProps: {
+        format: 'YYYY-MM-DD HH:mm:ss',
+      },
     },
   ]
 }
+
+const storageItem = (queryInfo: any, option: any) => [
+  {
+    label: '商铺',
+    key: 'name',
+    widget: 'searchSelect',
+    option,
+    required: true,
+    span: 8,
+    widgetProps: {
+      placeholder: '请选择商铺',
+      labelInValue: true,
+      mode: 'single',
+      allowClear: true,
+      showSearch: true,
+    },
+    initialValue: queryInfo?.name,
+  },
+  {
+    label: '客户姓名',
+    key: 'name1',
+    widget: 'input',
+    required: true,
+    disabled: true,
+    span: 8,
+    initialValue: queryInfo?.name,
+    widgetProps: {
+      placeholder: '请选择商铺',
+    },
+  },
+  {
+    label: '付款方式',
+    key: 'name3',
+    widget: 'input',
+    required: true,
+    span: 8,
+    initialValue: queryInfo?.name,
+  },
+  {
+    label: '收费金额',
+    key: 'name4',
+    widget: 'input',
+    required: true,
+    span: 8,
+    initialValue: queryInfo?.name,
+  },
+  {
+    label: '收费时间',
+    key: 'dateInputsecond',
+    widget: 'dateInput',
+    widgetProps: {
+      format: 'YYYY-MM-DD HH:mm:ss',
+    },
+  },
+  {
+    label: 'radio',
+    widget: 'radio',
+    key: 'radio',
+    option: [
+      { label: '指定收费项', value: '1' },
+      { label: '所有收费项', value: '2' },
+    ],
+  },
+  {
+    label: '收费项目',
+    key: 'name9',
+    widget: 'input',
+    required: true,
+    span: 8,
+    initialValue: queryInfo?.name,
+  },
+]
+
+const returnItem = (queryInfo: any, option: any) => [
+  {
+    label: '商铺',
+    key: 'name',
+    widget: 'searchSelect',
+    option,
+    required: true,
+    span: 8,
+    widgetProps: {
+      placeholder: '请选择商铺',
+      labelInValue: true,
+      mode: 'single',
+      allowClear: true,
+      showSearch: true,
+    },
+    initialValue: queryInfo?.name,
+  },
+  {
+    label: '客户姓名',
+    key: 'name1',
+    widget: 'input',
+    required: true,
+    disabled: true,
+    span: 8,
+    initialValue: queryInfo?.name,
+    widgetProps: {
+      placeholder: '请选择商铺',
+    },
+  },
+  {
+    label: '付款方式',
+    key: 'name3',
+    widget: 'input',
+    required: true,
+    span: 8,
+    initialValue: queryInfo?.name,
+  },
+  {
+    label: '退还时间',
+    key: 'dateInputsecond',
+    widget: 'dateInput',
+    widgetProps: {
+      format: 'YYYY-MM-DD HH:mm:ss',
+    },
+  },
+]

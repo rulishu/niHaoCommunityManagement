@@ -1,5 +1,17 @@
 import { Input, Tag } from 'uiw'
-export const columnsList = () => {
+export const matching = (type: string) => {
+  switch (type) {
+    case 'charge':
+      return columnsList()
+    case 'history':
+      return columnsHistory()
+    case 'return':
+      return columnsReturn()
+    default:
+      return []
+  }
+}
+const columnsList = () => {
   return [
     {
       title: '收费项名称',
@@ -49,7 +61,7 @@ export const columnsList = () => {
   ]
 }
 // 历史数据
-export const columnsHistory = () => [
+const columnsHistory = () => [
   {
     title: '打印',
     key: 'print',
@@ -125,5 +137,24 @@ export const columnsHistory = () => [
     key: 'feeTime',
     ellipsis: true,
     with: 200,
+  },
+]
+
+// 退还
+const columnsReturn = () => [
+  {
+    title: '收费项',
+    key: 'print',
+    align: 'center',
+  },
+  {
+    title: '账户金额',
+    key: 'number',
+    align: 'center',
+  },
+  {
+    title: '退还金额',
+    key: 'phone',
+    align: 'center',
   },
 ]
