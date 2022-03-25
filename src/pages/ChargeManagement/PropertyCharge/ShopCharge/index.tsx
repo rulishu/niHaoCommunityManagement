@@ -6,9 +6,6 @@ import Routine from './TabsList/routine'
 import Temporary from './TabsList/temporary'
 import Deposit from './TabsList/deposit'
 import Advance from './TabsList/advance'
-// import Tem from './tem'
-// import Dep from './dep'
-// import AdDep from './AdDep'
 import Drawer from './Drawer'
 import { searchValue } from '@/servers/ChargeManagement/ShopCharge'
 
@@ -40,7 +37,7 @@ export default function Demo() {
   useEffect(() => {
     setOption(
       value
-        ? shopNoList.filter((item) => item.label.startsWith(value))
+        ? shopNoList.filter((item: any) => item.label.indexOf(value) !== -1)
         : shopNoList
     )
   }, [shopNoList, value])

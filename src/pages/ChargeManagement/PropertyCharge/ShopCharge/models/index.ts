@@ -4,7 +4,7 @@ import {
   shopSelectPage,
   Change,
   searchValue,
-} from '../../servers/ChargeManagement/ShopCharge'
+} from '@/servers/ChargeManagement/ShopCharge'
 
 interface State {
   drawerType: string
