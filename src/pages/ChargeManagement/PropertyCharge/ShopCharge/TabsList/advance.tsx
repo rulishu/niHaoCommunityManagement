@@ -2,7 +2,7 @@ import * as React from 'react'
 import { ProTable, useTable } from '@uiw-admin/components'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import { selectPage, searchValue } from '@/servers/ChargeManagement/ShopCharge'
-import FormSelect from '../Search/FormSelect'
+import FormSelect from '../FormSelect'
 import { columnsDeposit } from './item'
 
 export default function Demo(props: {
