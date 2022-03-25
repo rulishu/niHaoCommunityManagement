@@ -11,10 +11,8 @@ import { searchValue } from '@/servers/ChargeManagement/ShopCharge'
 
 interface State {
   drawerVisible?: boolean
-  tableType?: string
+  drawerType?: string
   queryInfo?: object
-  isView?: boolean
-  keys?: string
 }
 
 export default function Demo() {
@@ -50,36 +48,25 @@ export default function Demo() {
     })
   }
 
+  const payload = {
+    option,
+    setValue,
+    updateData,
+  }
   return (
     <Fragment>
       <Tabs type="card" activeKey="rout">
         <Tabs.Pane label="常规收费" key="rout">
-          <Routine
-            option={option}
-            setValue={setValue}
-            updateData={updateData}
-          />
+          <Routine {...payload} />
         </Tabs.Pane>
         <Tabs.Pane label="临时收费" key="tem">
-          <Temporary
-            option={option}
-            setValue={setValue}
-            updateData={updateData}
-          />
+          <Temporary {...payload} />
         </Tabs.Pane>
         <Tabs.Pane label="收取押金" key="dep">
-          <Deposit
-            option={option}
-            setValue={setValue}
-            updateData={updateData}
-          />
+          <Deposit {...payload} />
         </Tabs.Pane>
         <Tabs.Pane label="预存款" key="adv">
-          <Advance
-            option={option}
-            setValue={setValue}
-            updateData={updateData}
-          />
+          <Advance {...payload} />
         </Tabs.Pane>
       </Tabs>
       <Drawer updateData={updateData} />

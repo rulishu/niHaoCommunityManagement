@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { ProTable, useTable } from '@uiw-admin/components'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
-import { selectPage, searchValue } from '@/servers/ChargeManagement/ShopCharge'
+import { searchValue } from '@/servers/ChargeManagement/ShopCharge'
 import FormSelect from '../FormSelect'
 import { columnsDeposit } from './item'
 
@@ -12,7 +12,7 @@ export default function Demo(props: {
 }) {
   const { option, setValue, updateData } = props
 
-  const table = useTable(selectPage, {
+  const table = useTable('api/buDeposit/selectPage', {
     query: (pageIndex, pageSize, searchValues) => {
       return {
         page: pageIndex,
@@ -32,6 +32,7 @@ export default function Demo(props: {
   const handleEditTable = (type: string, data?: any) => {
     updateData({ drawerType: type, drawerVisible: true })
   }
+
   return (
     <React.Fragment>
       <ProTable
