@@ -2,7 +2,7 @@ import { ProDrawer, ProForm, useForm } from '@uiw-admin/components'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
 import TableList from '../TableList'
-import { items } from './item'
+import { drawerTitle, matching } from './item'
 interface DetailProps {
   updateData?: any
 }
@@ -19,14 +19,8 @@ const Drawer = ({ updateData }: DetailProps) => {
 
   return (
     <ProDrawer
-      width={1000}
-      title={
-        drawerType === 'charge'
-          ? '常规收费'
-          : drawerType === 'history'
-          ? '历史数据'
-          : ''
-      }
+      width={drawerType === 'temAdd' ? 800 : 1000}
+      title={drawerTitle(drawerType)}
       visible={drawerVisible}
       onClose={onClose}
       buttons={[
@@ -40,8 +34,12 @@ const Drawer = ({ updateData }: DetailProps) => {
         },
       ]}
     >
-      <TableList />
-      <div style={{ marginTop: 24 }}></div>
+      {(drawerType === 'charge' || drawerType === 'history') && (
+        <>
+          <TableList />
+          <div style={{ marginTop: 24 }}></div>
+        </>
+      )}
       {drawerType !== 'history' && (
         <ProForm
           form={form}
@@ -54,7 +52,7 @@ const Drawer = ({ updateData }: DetailProps) => {
             updateData({ queryInfo: { ...queryInfo, ...current } })
           }
           buttonsContainer={{ justifyContent: 'flex-start' }}
-          formDatas={items(queryInfo, drawerType) as any}
+          formDatas={matching(drawerType, queryInfo) as any}
         />
       )}
     </ProDrawer>

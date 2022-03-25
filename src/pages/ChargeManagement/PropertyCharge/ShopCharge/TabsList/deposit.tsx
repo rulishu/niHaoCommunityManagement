@@ -3,7 +3,7 @@ import { ProTable, useTable } from '@uiw-admin/components'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import { selectPage, searchValue } from '@/servers/ChargeManagement/ShopCharge'
 import FormSelect from '../FormSelect'
-import { columnsRout } from './item'
+import { columnsDeposit } from './item'
 
 export default function Demo(props: {
   option: searchValue[]
@@ -41,14 +41,9 @@ export default function Demo(props: {
             render: <FormSelect />,
           },
           {
-            label: '收费',
+            label: '新增',
             type: 'primary',
-            onClick: () => handleEditTable('charge'),
-          },
-          {
-            label: '历史信息',
-            type: 'primary',
-            onClick: () => handleEditTable('history'),
+            onClick: () => handleEditTable('depositAdd'),
           },
         ]}
         searchBtns={[
@@ -75,7 +70,7 @@ export default function Demo(props: {
         onPageChange={() => {
           table.selection.unSelectAll()
         }}
-        columns={columnsRout(option, setValue) as FormCol[]}
+        columns={columnsDeposit(option, setValue) as FormCol[]}
       />
     </React.Fragment>
   )

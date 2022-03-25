@@ -2,10 +2,8 @@ import * as React from 'react'
 import { ProTable, useTable } from '@uiw-admin/components'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import { selectPage, searchValue } from '@/servers/ChargeManagement/ShopCharge'
-import FormSelect from './FormSelect'
-import Charge from '../Charge'
-import History from '../History'
-import { columnsRout } from '../Search/Items/itemTable'
+import FormSelect from '../FormSelect'
+import { columnsDeposit } from './item'
 
 export default function Demo(props: {
   option: searchValue[]
@@ -43,14 +41,14 @@ export default function Demo(props: {
             render: <FormSelect />,
           },
           {
-            label: '收费',
+            label: '预存',
             type: 'primary',
-            onClick: () => handleEditTable('charge'),
+            onClick: () => handleEditTable('storage'),
           },
           {
-            label: '历史信息',
+            label: '退还',
             type: 'primary',
-            onClick: () => handleEditTable('history'),
+            onClick: () => handleEditTable('return'),
           },
         ]}
         searchBtns={[
@@ -77,11 +75,8 @@ export default function Demo(props: {
         onPageChange={() => {
           table.selection.unSelectAll()
         }}
-        columns={columnsRout(option, setValue) as FormCol[]}
+        columns={columnsDeposit(option, setValue) as FormCol[]}
       />
-
-      <Charge onSearch={table.onSearch} />
-      <History />
     </React.Fragment>
   )
 }
