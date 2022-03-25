@@ -82,6 +82,7 @@ const Drawer = (props: {
         },
       })
     }
+    let refundTime = new Date(current?.refundTime)
     if (tableType === 'edit') {
       props.updateData({
         queryInfo: {
@@ -89,7 +90,18 @@ const Drawer = (props: {
           code: current?.code,
           name: current?.name,
           refundWay: current?.refundWay,
-          refundTime: current?.refundTime,
+          refundTime:
+            refundTime.getFullYear() +
+            '-' +
+            (refundTime.getMonth() + 1) +
+            '-' +
+            refundTime.getDate() +
+            ' ' +
+            checkTime(refundTime.getHours()) +
+            ':' +
+            checkTime(refundTime.getMinutes()) +
+            ':' +
+            checkTime(refundTime.getSeconds()),
         },
       })
     }
@@ -97,7 +109,7 @@ const Drawer = (props: {
   const onChangeItem = async (text: React.ChangeEvent<HTMLInputElement>) => {
     // console.log('text.target.value', text.target.value)
   }
-
+  let chargeDataList = [{ payService: queryInfo, chargeAmount: queryInfo }]
   return (
     <ProDrawer
       title="基础信息"
@@ -136,10 +148,7 @@ const Drawer = (props: {
         <Table
           bordered
           columns={backList(onChangeItem) as FormCol[]}
-          data={
-            // chargeDataList
-            [{ shouName: '1', fee: '1' }]
-          }
+          data={chargeDataList}
         />
       )}
     </ProDrawer>
