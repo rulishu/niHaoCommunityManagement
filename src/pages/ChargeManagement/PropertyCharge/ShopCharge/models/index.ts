@@ -50,6 +50,7 @@ const shopCharge = createModel()({
       dph.shopCharge.updateState({
         drawerVisible: false,
         drawerType: '',
+        queryInfo: {},
       })
     },
   }),

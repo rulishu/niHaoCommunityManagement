@@ -69,7 +69,7 @@ export default function Demo() {
           <Advance {...payload} />
         </Tabs.Pane>
       </Tabs>
-      <Drawer updateData={updateData} />
+      <Drawer {...payload} />
     </Fragment>
   )
 }

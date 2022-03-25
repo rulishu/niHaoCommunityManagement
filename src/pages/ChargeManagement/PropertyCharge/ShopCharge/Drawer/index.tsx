@@ -1,12 +1,14 @@
 import { ProDrawer, ProForm, useForm } from '@uiw-admin/components'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
+import { searchValue } from '@/servers/ChargeManagement/ShopCharge'
 import TableList from '../TableList'
 import { drawerTitle, matching } from './item'
 interface DetailProps {
   updateData?: any
+  option?: searchValue[]
 }
-const Drawer = ({ updateData }: DetailProps) => {
+const Drawer = ({ updateData, option }: DetailProps) => {
   const dispatch = useDispatch<Dispatch>()
 
   const form = useForm()
@@ -34,7 +36,9 @@ const Drawer = ({ updateData }: DetailProps) => {
         },
       ]}
     >
-      {(drawerType === 'charge' || drawerType === 'history') && (
+      {(drawerType === 'charge' ||
+        drawerType === 'history' ||
+        drawerType === 'return') && (
         <>
           <TableList />
           <div style={{ marginTop: 24 }}></div>
@@ -52,7 +56,7 @@ const Drawer = ({ updateData }: DetailProps) => {
             updateData({ queryInfo: { ...queryInfo, ...current } })
           }
           buttonsContainer={{ justifyContent: 'flex-start' }}
-          formDatas={matching(drawerType, queryInfo) as any}
+          formDatas={matching(drawerType, queryInfo, option) as any}
         />
       )}
     </ProDrawer>
