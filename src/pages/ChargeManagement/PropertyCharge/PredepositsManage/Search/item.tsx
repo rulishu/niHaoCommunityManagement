@@ -134,21 +134,32 @@ export const columnsSearch = (
         >
           退还
         </Button>
+
+        {rowData.status === '1' ? (
+          <Button
+            size="small"
+            icon="eye"
+            // disabled={rowData.status === '1' ? false : true}
+            onClick={() => handleEditTable('view', rowData)}
+          >
+            打印收款单
+          </Button>
+        ) : (
+          <Button
+            size="small"
+            icon="eye"
+            // disabled={rowData.status === '2' ? false : true}
+            onClick={() => handleEditTable('refundview', rowData)}
+          >
+            打印退款单
+          </Button>
+        )}
         <Button
           size="small"
           icon="eye"
-          disabled={rowData.status === '1' ? false : true}
-          onClick={() => handleEditTable('view', rowData)}
+          onClick={() => handleEditTable('del', rowData)}
         >
-          打印收款单
-        </Button>
-        <Button
-          size="small"
-          icon="eye"
-          disabled={rowData.status === '2' ? false : true}
-          onClick={() => handleEditTable('refundview', rowData)}
-        >
-          打印退款单
+          删除
         </Button>
       </div>
     ),
