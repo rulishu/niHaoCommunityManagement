@@ -33,40 +33,54 @@ const Role = createModel()({
     }),
   },
   effects: (dispatch: RematchDispatch<any>) => ({
+    test(router) {
+      const dph = dispatch as Dispatch
+      router.filter((rt: any) => {
+        rt.label = rt.menuName
+        rt.key = rt.id
+        if (rt.children.length > 0) {
+          dph.Role.test(rt.children)
+        } else {
+          delete rt.children
+        }
+        return router
+      })
+    },
     async selectById(payload: Change) {
       const dph = dispatch as Dispatch
       const data = await selectById(payload)
       if (data.code === 1) {
         let arr = data.data.menuList // 菜单数据
+        dph.Role.test(arr)
 
-        arr.forEach((item: any) => {
-          // 根级菜单数据处理
-          item.label = item.menuName
-          item.key = item.id
-          if (item.children.length === 0) {
-            delete item.children
-          }
-          // 一级菜单数据处理
-          if (item.children && item.children.length > 0) {
-            item.children.forEach((itm: any) => {
-              itm.label = itm.menuName
-              itm.key = itm.id
-              if (itm.children.length === 0) {
-                delete itm.children
-              }
-              // 二级菜单数据处理
-              if (itm.children && itm.children.length > 0) {
-                itm.children.forEach((value: any) => {
-                  value.label = value.menuName
-                  value.key = value.id
-                  if (value.children.length === 0) {
-                    delete value.children
-                  }
-                })
-              }
-            })
-          }
-        })
+        // arr.forEach((item: any) => {
+        //   // 根级菜单数据处理
+        //   item.label = item.menuName
+        //   item.key = item.id
+        //   if (item.children.length === 0) {
+        //     delete item.children
+        //   }
+        //   // 一级菜单数据处理
+        //   if (item.children && item.children.length > 0) {
+        //     item.children.forEach((itm: any) => {
+        //       itm.label = itm.menuName
+        //       itm.key = itm.id
+        //       if (itm.children.length === 0) {
+        //         delete itm.children
+        //       }
+        //       // 二级菜单数据处理
+        //       if (itm.children && itm.children.length > 0) {
+        //         itm.children.forEach((value: any) => {
+        //           value.label = value.menuName
+        //           value.key = value.id
+        //           if (value.children.length === 0) {
+        //             delete value.children
+        //           }
+        //         })
+        //       }
+        //     })
+        //   }
+        // })
         dph.Role.updateState({
           menuList: arr,
           selectMenu: data.data.selected,
