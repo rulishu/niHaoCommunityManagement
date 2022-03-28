@@ -1,10 +1,5 @@
-import { Button, Dropdown, Menu } from 'uiw'
+import { Button } from 'uiw'
 import { Change } from '@/servers/ChargeManagement/PredepositsManage'
-
-const option = [
-  { label: '打印收款单', value: 1 },
-  { label: '打印退还单', value: 2 },
-]
 
 export const columnsSearch = (
   handleEditTable: (tableType: string, obj: Change) => void
@@ -110,23 +105,13 @@ export const columnsSearch = (
       widget: 'select',
       option: [
         { label: '预存', value: '1' },
-        { label: '退换', value: '2' },
-        { label: '支付', value: '3' },
-        { label: '找零结转', value: '4' },
+        { label: '退还', value: '2' },
       ],
     },
     align: 'center',
     render: (status: string) => (
       <div style={{ textAlign: 'center' }}>
-        <span>
-          {status === '1'
-            ? '预存'
-            : status === '2'
-            ? '退换'
-            : status === '3'
-            ? '支付'
-            : '找零结转'}
-        </span>
+        <span>{status === '1' ? '预存' : status === '2' ? '退还' : ''}</span>
       </div>
     ),
   },
@@ -138,66 +123,44 @@ export const columnsSearch = (
   {
     title: '操作',
     key: 'edit',
-    width: 200,
+    width: 280,
     align: 'center',
     render: (text: any, key: any, rowData: any) => (
       <div>
+        <Button
+          size="small"
+          icon="edit"
+          onClick={() => handleEditTable('edit', rowData)}
+        >
+          退还
+        </Button>
+
         {rowData.status === '1' ? (
           <Button
             size="small"
-            icon="edit"
-            onClick={() => handleEditTable('paied', rowData)}
+            icon="eye"
+            // disabled={rowData.status === '1' ? false : true}
+            onClick={() => handleEditTable('view', rowData)}
           >
-            退还
+            打印收款单
           </Button>
-        ) : rowData.status === '2' ? (
+        ) : (
           <Button
             size="small"
             icon="eye"
-            onClick={() => handleEditTable('refunded', rowData)}
+            // disabled={rowData.status === '2' ? false : true}
+            onClick={() => handleEditTable('refundview', rowData)}
           >
-            已退款详情
+            打印退款单
           </Button>
-        ) : (
-          ''
         )}
-        {/* <Button
-            size="small"
-            icon="down"
-            onClick={() => handleEditTable('print', rowData)}
-          >
-            打印
-          </Button> */}
-        <Dropdown
-          trigger="click"
-          // onVisibleChange={}
-          isOpen={true}
-          menu={
-            <div>
-              <Menu bordered style={{ minWidth: 120 }}>
-                {option.map((item, idx) => {
-                  return (
-                    <Menu.Item
-                      key={idx}
-                      text={item.label}
-                      onClick={(e) => {
-                        console.log('e', e)
-                      }}
-                    />
-                  )
-                })}
-              </Menu>
-            </div>
-          }
+        <Button
+          size="small"
+          icon="eye"
+          onClick={() => handleEditTable('del', rowData)}
         >
-          <Button
-            size="small"
-            icon="down"
-            onClick={() => handleEditTable('print', rowData)}
-          >
-            打印
-          </Button>
-        </Dropdown>
+          删除
+        </Button>
       </div>
     ),
   },

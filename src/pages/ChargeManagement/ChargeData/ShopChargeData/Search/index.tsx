@@ -2,10 +2,7 @@ import React from 'react'
 import { ProTable, useTable } from '@uiw-admin/components'
 import { Dispatch } from '@uiw-admin/models'
 import { useDispatch } from 'react-redux'
-import {
-  selectPage,
-  Change,
-} from '@/servers/ChargeManagement/PredepositsManage'
+import { selectPage, Change } from '@/servers/ChargeManagement/ShopChargeData'
 import Drawer from '../Detail/index'
 import Modals from '../Modals/index'
 import { columnsSearch } from './item'
@@ -23,7 +20,7 @@ const Search = () => {
   const dispatch = useDispatch<Dispatch>()
   const updateData = (payload: State) => {
     dispatch({
-      type: 'PredepositsManage/updateState',
+      type: 'ShopChargeData/updateState',
       payload,
     })
   }
@@ -48,14 +45,14 @@ const Search = () => {
   // 操作
   function handleEditTable(type: string, obj: Change) {
     updateData({
-      isView: type === 'view' || type === 'refundview',
+      isView: type === 'refunded',
       tableType: type,
     })
     if (type === 'add') {
       updateData({ drawerVisible: true, queryInfo: {} })
     }
-    if (type === 'edit' || type === 'view' || type === 'refundview') {
-      updateData({ drawerVisible: true, queryInfo: obj })
+    if (type === 'paied' || type === 'refunded') {
+      updateData({ drawerVisible: true, queryInfo: { ...obj, status: '2' } })
     }
     if (type === 'del') {
       updateData({ delectVisible: true, id: obj?.id })

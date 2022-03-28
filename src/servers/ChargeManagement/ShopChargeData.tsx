@@ -2,15 +2,18 @@ import { request } from '@uiw-admin/utils'
 
 export interface Change {
   id?: string
-  chargeItem?: string
   code?: string
   name?: string
-  payService?: string
+  project?: string
   paymentMethod?: string
-  chargeAmount?: string
-  chargingTime?: string
-  refundWay?: string
+  price?: number
+  collectionName?: string
+  collectionTime?: string
+  status?: string
+  remark?: string
+  customerType?: string
   refundTime?: string
+  refundMethod?: string
 }
 
 /**
@@ -18,18 +21,18 @@ export interface Change {
  * @param {Object} params
  */
 function selectById(params: Change) {
-  return request('/api/buAdvanceDeposit/selectById', {
+  return request('', {
     method: 'POST',
     body: { ...params },
   })
 }
 
-const selectPage = '/api/buAdvanceDeposit/selectPage'
+const selectPage = ''
 
-const update = '/api/buAdvanceDeposit/refund'
+const update = ''
 
-const insert = '/api/buAdvanceDeposit/add'
+const insert = ''
 
-const deleteData = '/api/buAdvanceDeposit/delete'
+const deleteData = ''
 
 export { selectById, selectPage, update, insert, deleteData }
