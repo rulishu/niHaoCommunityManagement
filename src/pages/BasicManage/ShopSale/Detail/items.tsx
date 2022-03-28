@@ -159,7 +159,6 @@ export const items = (queryInfo: Change) => {
 }
 
 export const itemsList = (
-  // queryInfoList: Change,
   handleEditTable: (tableType: string, obj: Change) => void
 ) => {
   return [
@@ -191,8 +190,8 @@ export const itemsList = (
           <Button
             size="small"
             icon="delete"
-            onClick={(rowData) => {
-              console.log('rowData', rowData)
+            onClick={() => {
+              handleEditTable('deDel', rowData)
             }}
           >
             删除

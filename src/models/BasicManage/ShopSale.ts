@@ -17,7 +17,7 @@ export interface State {
   dataSource: Array<[]>
   detailDataSource: any
   isView: boolean
-  id: string
+  id?: number
   shopsId: string
   delectVisible: boolean
   delectDetailVisible: boolean
@@ -36,7 +36,7 @@ const ShopSale = createModel<RootModel>()({
     queryInfo: { chargeList: [] },
     dataSource: [],
     detailDataSource: {},
-    id: '',
+    id: undefined,
     shopsId: '',
     isView: false,
     delectVisible: false,

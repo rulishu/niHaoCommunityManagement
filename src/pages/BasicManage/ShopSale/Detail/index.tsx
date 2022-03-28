@@ -93,6 +93,9 @@ const Detail = (props: {
       })
       updateData({ drawerDetailVisible: true, queryInfo: {} })
     }
+    if (detailType === 'deDel') {
+      updateData({ delectDetailVisible: true, id: obj?.id })
+    }
   }
 
   return (
@@ -209,7 +212,7 @@ const Detail = (props: {
       /> */}
 
       <DetailAdd onSearch={deatailTable.onSearch} updateData={updateData} />
-      <DeatailModals onSearch={deatailTable.onSearch} />
+      <DeatailModals onSearch={deatailTable.onSearch} updateData={updateData} />
     </ProDrawer>
   )
 }
