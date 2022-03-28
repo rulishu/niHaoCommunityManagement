@@ -91,16 +91,27 @@ export const columnsSearch = (
       title: '操作',
       key: 'edit',
       align: 'center',
-      width: 300,
+      width: 330,
       render: (text: any, key: any, rowData: Change) => (
         <div>
-          <Button
-            size="small"
-            icon="edit"
-            onClick={() => handleEditTable('edit', rowData)}
-          >
-            编辑客户信息
-          </Button>
+          {rowData.useStatus === '1' && (
+            <Button
+              size="small"
+              icon="eye"
+              onClick={() => handleEditTable('add', rowData)}
+            >
+              绑定客户
+            </Button>
+          )}
+          {rowData.useStatus !== '1' && (
+            <Button
+              size="small"
+              icon="edit"
+              onClick={() => handleEditTable('edit', rowData)}
+            >
+              编辑客户信息
+            </Button>
+          )}
           {/* <Button
             size="small"
             icon="eye"
@@ -108,13 +119,15 @@ export const columnsSearch = (
           >
             查看
           </Button> */}
-          <Button
-            size="small"
-            icon="delete"
-            onClick={() => handleEditTable('del', rowData)}
-          >
-            删除客户信息
-          </Button>
+          {rowData.useStatus !== '1' && (
+            <Button
+              size="small"
+              icon="delete"
+              onClick={() => handleEditTable('del', rowData)}
+            >
+              删除客户信息
+            </Button>
+          )}
         </div>
       ),
     },

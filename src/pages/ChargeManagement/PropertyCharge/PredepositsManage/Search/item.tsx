@@ -48,7 +48,9 @@ export const columnsSearch = (
             ? '天然气费'
             : payService === '3'
             ? '卫生费'
-            : '单元租金'}
+            : payService === '4'
+            ? '单元租金'
+            : '不指定收费项'}
         </span>
       </div>
     ),

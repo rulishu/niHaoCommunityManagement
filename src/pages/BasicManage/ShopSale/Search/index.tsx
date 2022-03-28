@@ -51,14 +51,13 @@ export default function Demo() {
       isView: type === 'view',
       tableType: type,
     })
-    if (type === 'rent' || type === 'sale') {
+    if (type === 'rent' || type === 'sale' || type === 'add') {
       updateData({ drawerVisible: true, queryInfo: {} })
     }
     if (type === 'edit') {
       updateData({
         drawerVisible: true,
         queryInfo: obj,
-        shopsId: obj?.id,
       })
     }
     if (type === 'del') {

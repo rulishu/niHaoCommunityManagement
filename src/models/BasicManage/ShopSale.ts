@@ -12,7 +12,7 @@ interface State {
   tableType: string
   detailType: string
   queryInfo: object
-  dataSource: any[]
+  dataSource: Array<[]>
   detailDataSource: any
   isView: boolean
   id: string
