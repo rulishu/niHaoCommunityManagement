@@ -18,7 +18,7 @@ interface State {
 export default function Demo() {
   const dispatch = useDispatch<Dispatch>()
   const {
-    shopCharge: { shopNoList, payment, payService },
+    shopCharge: { shopNoList },
   } = useSelector((shopCharge: RootState) => shopCharge)
 
   const [option, setOption] = useState<searchValue[]>(shopNoList)
@@ -47,7 +47,6 @@ export default function Demo() {
     )
   }, [shopNoList, value])
 
-  console.log(payment, payService)
   // 更新值
   const updateData = (payload: State) => {
     dispatch({

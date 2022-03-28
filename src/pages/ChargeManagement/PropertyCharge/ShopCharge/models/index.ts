@@ -6,6 +6,7 @@ import {
   searchValue,
   dictionary,
   buCharge,
+  buTemporaryCharges,
 } from '@/servers/ChargeManagement/ShopCharge'
 
 interface State {
@@ -35,6 +36,15 @@ const shopCharge = createModel()({
     }),
   },
   effects: (dispatch: RematchDispatch<any>) => ({
+    clean() {
+      const dph = dispatch as Dispatch
+      dph.shopCharge.updateState({
+        drawerVisible: false,
+        drawerType: '',
+        queryInfo: {},
+      })
+    },
+
     // 查询所有商铺
     async shopSelectPage(payload: Change) {
       const dph = dispatch as Dispatch
@@ -88,13 +98,10 @@ const shopCharge = createModel()({
         })
       }
     },
-    clean() {
-      const dph = dispatch as Dispatch
-      dph.shopCharge.updateState({
-        drawerVisible: false,
-        drawerType: '',
-        queryInfo: {},
-      })
+
+    // 添加零时收费
+    async buTemporaryCharges(payload: any) {
+      return await buTemporaryCharges({ ...payload })
     },
   }),
 })
