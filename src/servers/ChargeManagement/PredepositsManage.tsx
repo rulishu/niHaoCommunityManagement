@@ -30,6 +30,6 @@ const update = '/api/buAdvanceDeposit/refund'
 
 const insert = '/api/buAdvanceDeposit/add'
 
-const deleteData = '/api/test/select'
+const deleteData = '/api/buAdvanceDeposit/delete'
 
 export { selectById, selectPage, update, insert, deleteData }

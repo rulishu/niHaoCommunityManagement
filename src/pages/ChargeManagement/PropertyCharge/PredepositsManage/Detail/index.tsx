@@ -109,7 +109,6 @@ const Drawer = (props: {
   const onChangeItem = async (text: React.ChangeEvent<HTMLInputElement>) => {
     // console.log('text.target.value', text.target.value)
   }
-  let chargeDataList = [{ payService: queryInfo, chargeAmount: queryInfo }]
   return (
     <ProDrawer
       title="基础信息"
@@ -148,7 +147,10 @@ const Drawer = (props: {
         <Table
           bordered
           columns={backList(onChangeItem) as FormCol[]}
-          data={chargeDataList}
+          data={
+            // chargeDataList
+            [{ payService: '1', chargeAmount: '1' }]
+          }
         />
       )}
     </ProDrawer>
