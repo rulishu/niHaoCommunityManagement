@@ -31,6 +31,11 @@ function shopSelectPage(params: Change) {
 }
 
 /**
+ * 商铺-分页查询
+ * @param {Object} params
+ */
+
+/**
  * 商铺综合收费-分页查询
  * @param {Object} params
  */
@@ -43,4 +48,29 @@ const insert = '/api/test/select'
 
 const deleteData = '/api/test/select'
 
-export { selectById, selectPage, update, insert, deleteData, shopSelectPage }
+//支付方式
+function dictionary(params: any) {
+  return request('/api/dictionary/selectDictList', {
+    method: 'POST',
+    body: { ...params },
+  })
+}
+
+//收费项目
+function buCharge(params: any) {
+  return request('/api/buCharge/selectList', {
+    method: 'POST',
+    body: { ...params },
+  })
+}
+
+export {
+  selectById,
+  selectPage,
+  update,
+  insert,
+  deleteData,
+  shopSelectPage,
+  buCharge,
+  dictionary,
+}
