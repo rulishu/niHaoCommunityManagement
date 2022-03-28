@@ -18,19 +18,26 @@ interface State {
 export default function Demo() {
   const dispatch = useDispatch<Dispatch>()
   const {
-    shopCharge: { shopNoList },
+    shopCharge: { shopNoList, payment, payService },
   } = useSelector((shopCharge: RootState) => shopCharge)
 
   const [option, setOption] = useState<searchValue[]>(shopNoList)
   const [value, setValue] = useState('')
 
-  // 查询所有商铺
   useEffect(() => {
+    // 查询所有商铺
     dispatch({
       type: 'shopCharge/shopSelectPage',
     })
+    // 支付方式
+    dispatch({
+      type: 'shopCharge/pay',
+    })
+    // 收费项目
+    dispatch({
+      type: 'shopCharge/service',
+    })
   }, [dispatch])
-
   // 塞选商铺
   useEffect(() => {
     setOption(
@@ -40,6 +47,7 @@ export default function Demo() {
     )
   }, [shopNoList, value])
 
+  console.log(payment, payService)
   // 更新值
   const updateData = (payload: State) => {
     dispatch({

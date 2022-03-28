@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Notify } from 'uiw'
 import { ProTable, useTable } from '@uiw-admin/components'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import { searchValue } from '@/servers/ChargeManagement/ShopCharge'
@@ -30,6 +31,8 @@ export default function Demo(props: {
 
   // 操作
   const handleEditTable = (type: string, data?: any) => {
+    if (type === 'depositAdd' && !table?.searchValues?.code)
+      return Notify.warning({ description: '请先输入商铺进行搜索 !' })
     updateData({ drawerType: type, drawerVisible: true })
   }
 
@@ -63,14 +66,6 @@ export default function Demo(props: {
           },
         ]}
         table={table}
-        rowSelection={{
-          type: 'checkbox',
-          selectKey: 'id',
-        }}
-        // 取消全部选择
-        onPageChange={() => {
-          table.selection.unSelectAll()
-        }}
         columns={columnsDeposit(option, setValue) as FormCol[]}
       />
     </React.Fragment>
