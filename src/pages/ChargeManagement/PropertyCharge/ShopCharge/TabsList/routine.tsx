@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { ProTable, useTable } from '@uiw-admin/components'
+import { Notify } from 'uiw'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import { selectPage, searchValue } from '@/servers/ChargeManagement/ShopCharge'
 import FormSelect from '../FormSelect'
@@ -22,19 +23,26 @@ export default function Demo(props: {
     },
     formatData: (data) => {
       return {
-        total: data?.data?.total,
+        total: data?.data?.total || 0,
         data: data?.data?.rows || [],
       }
     },
   })
 
   // 操作
-  const handleEditTable = (type: string, data?: any) => {
+  const handleEditTable = (type: string) => {
+    if (
+      type === 'charge' &&
+      Array.isArray(table?.selection?.selected) &&
+      table.selection.selected.length === 0
+    )
+      return Notify.warning({ description: '请选择要缴费的数据 !' })
     updateData({ drawerType: type, drawerVisible: true })
   }
   return (
     <React.Fragment>
       <ProTable
+        table={table}
         bordered
         operateButtons={[
           {
@@ -66,14 +74,9 @@ export default function Demo(props: {
             },
           },
         ]}
-        table={table}
         rowSelection={{
           type: 'checkbox',
           selectKey: 'id',
-        }}
-        // 取消全部选择
-        onPageChange={() => {
-          table.selection.unSelectAll()
         }}
         columns={columnsRout(option, setValue) as FormCol[]}
       />

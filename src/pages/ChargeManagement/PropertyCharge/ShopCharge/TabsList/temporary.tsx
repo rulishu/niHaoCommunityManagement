@@ -1,5 +1,6 @@
-import * as React from 'react'
+import React from 'react'
 import { ProTable, useTable } from '@uiw-admin/components'
+import { Notify } from 'uiw'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import { searchValue } from '@/servers/ChargeManagement/ShopCharge'
 import FormSelect from '../FormSelect'
@@ -27,9 +28,10 @@ export default function Demo(props: {
       }
     },
   })
-
   // 操作
-  const handleEditTable = (type: string, data?: any) => {
+  const handleEditTable = (type: string) => {
+    if (!table?.searchValues?.code)
+      return Notify.warning({ description: '请先输入商铺进行搜索 !' })
     updateData({ drawerType: type, drawerVisible: true })
   }
   return (
