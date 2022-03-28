@@ -2,16 +2,18 @@ import {
   selectById,
   Change,
   detailData,
+  listProps,
 } from '../../servers/BasicManage/ShopSale'
 import { Dispatch, RootModel } from '@uiw-admin/models'
 import { createModel, RematchDispatch } from '@rematch/core'
 
-interface State {
+export interface State {
   drawerVisible: boolean
   drawerDetailVisible: boolean
   tableType: string
   detailType: string
-  queryInfo: object
+  detailtableType: string
+  queryInfo: Change
   dataSource: Array<[]>
   detailDataSource: any
   isView: boolean
@@ -19,6 +21,8 @@ interface State {
   shopsId: string
   delectVisible: boolean
   delectDetailVisible: boolean
+  arrData: listProps[]
+  queryInfoList: listProps[]
 }
 
 const ShopSale = createModel<RootModel>()({
@@ -28,7 +32,8 @@ const ShopSale = createModel<RootModel>()({
     drawerDetailVisible: false,
     tableType: '',
     detailType: '',
-    queryInfo: {},
+    detailtableType: '',
+    queryInfo: { chargeList: [] },
     dataSource: [],
     detailDataSource: {},
     id: '',
@@ -36,6 +41,8 @@ const ShopSale = createModel<RootModel>()({
     isView: false,
     delectVisible: false,
     delectDetailVisible: false,
+    arrData: [],
+    queryInfoList: [],
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({
@@ -51,7 +58,7 @@ const ShopSale = createModel<RootModel>()({
         dph.ShopSale.updateState({
           drawerVisible: true,
           drawerDetailVisible: true,
-          queryInfo: data.data || {},
+          queryInfo: data.data.rows || {},
         })
       }
     },
@@ -73,7 +80,7 @@ const ShopSale = createModel<RootModel>()({
         drawerDetailVisible: false,
         tableType: '',
         detailType: '',
-        queryInfo: {},
+        queryInfo: { chargeList: [] },
         dataSource: [],
         isView: false,
       })

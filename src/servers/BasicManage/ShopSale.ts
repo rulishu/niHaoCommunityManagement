@@ -1,5 +1,23 @@
 import { request } from '@uiw-admin/utils'
 
+export interface State {
+  drawerVisible: boolean
+  drawerDetailVisible: boolean
+  tableType: string
+  detailType: string
+  detailtableType: string
+  queryInfo: Change
+  dataSource: Array<[]>
+  detailDataSource: any
+  isView: boolean
+  id: string
+  shopsId: string
+  delectVisible: boolean
+  delectDetailVisible: boolean
+  arrData: listProps[]
+  queryInfoList: listProps[]
+}
+
 export interface Change {
   id?: string
   shopsId?: string
@@ -15,6 +33,7 @@ export interface Change {
   sale?: string
   industry?: string
   remark?: string
+  chargeList: listProps[]
 }
 
 export interface listProps {
@@ -28,6 +47,7 @@ export interface listProps {
   chargePrice?: number
   chargeType?: string
   id?: number
+  chargeId?: string
 }
 
 function selectById(params: Change) {

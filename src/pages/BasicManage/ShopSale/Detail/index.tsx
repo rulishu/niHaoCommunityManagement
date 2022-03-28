@@ -8,7 +8,7 @@ import {
 import { Notify, Table, Button } from 'uiw'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
-import { insert, update } from '@/servers/BasicManage/ShopSale'
+import { update } from '@/servers/BasicManage/ShopSale'
 import useSWR from 'swr'
 import { seraSelectPage, Change } from '@/servers/BasicManage/ShopSale'
 import { items, itemsList } from './items'
@@ -33,14 +33,11 @@ const Detail = (props: {
   const baseRef = useForm()
   const dispatch = useDispatch<Dispatch>()
   const {
-    ShopSale: { drawerVisible, tableType, queryInfo },
+    ShopSale: { drawerVisible, tableType, queryInfo, queryInfoList },
   } = useSelector((ShopSale: RootState) => ShopSale)
 
   const { mutate } = useSWR(
-    [
-      (tableType === 'add' && insert) || (tableType === 'edit' && update),
-      { method: 'POST', body: queryInfo },
-    ],
+    [tableType === 'edit' && update, { method: 'POST', body: queryInfo }],
     {
       revalidateOnMount: false,
       revalidateOnFocus: false,
@@ -96,9 +93,6 @@ const Detail = (props: {
       })
       updateData({ drawerDetailVisible: true, queryInfo: {} })
     }
-    if (detailType === 'deDel') {
-      updateData({ delectDetailVisible: true, id: obj?.id })
-    }
   }
 
   return (
@@ -147,12 +141,15 @@ const Detail = (props: {
 
       <Table
         title={
-          <Button type="primary" onClick={() => handleEditTable('deAdd', {})}>
+          <Button
+            type="primary"
+            onClick={() => handleEditTable('deAdd', { chargeList: [] })}
+          >
             新增收费项
           </Button>
         }
         columns={itemsList(handleEditTable) as FormCol[]}
-        data={[{ chargeName: '1' }]}
+        data={queryInfoList}
       />
 
       {/* <ProTable
@@ -211,7 +208,7 @@ const Detail = (props: {
       }
       /> */}
 
-      <DetailAdd onSearch={deatailTable.onSearch} />
+      <DetailAdd onSearch={deatailTable.onSearch} updateData={updateData} />
       <DeatailModals onSearch={deatailTable.onSearch} />
     </ProDrawer>
   )

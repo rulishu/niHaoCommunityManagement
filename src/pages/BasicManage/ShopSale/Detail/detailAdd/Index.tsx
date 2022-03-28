@@ -3,31 +3,41 @@ import { ProTable, useTable } from '@uiw-admin/components'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
 import {
-  seraAdd,
   detailSelectPage,
   listProps,
+  Change,
 } from '@/servers/BasicManage/ShopSale'
-import { Notify } from 'uiw'
-import useSWR from 'swr'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 
-let arrData: listProps[] = []
-
-const Modals = (props: { onSearch: () => void }) => {
+interface State {
+  drawerDetailVisible?: boolean
+  tableType?: string
+  detailtableType?: string
+  delectDetailVisible?: boolean
+  queryInfo?: Change
+  id?: string
+  drawerVisible?: boolean
+  queryInfoList?: listProps[]
+}
+const Modals = (props: {
+  onSearch: () => void
+  updateData: (payload: State) => void
+}) => {
   const dispatch = useDispatch<Dispatch>()
 
   const {
-    ShopSale: { drawerDetailVisible, tableType },
+    ShopSale: { drawerDetailVisible, queryInfoList },
   } = useSelector((state: RootState) => state)
-  // const [checkList, setCheckList] = React.useState<any[]>([])
 
-  const onClose = () => {
+  const updateData = (payload: State) => {
     dispatch({
       type: 'ShopSale/updateState',
-      payload: {
-        drawerDetailVisible: false,
-      },
+      payload,
     })
+  }
+
+  const onClose = () => {
+    updateData({ drawerDetailVisible: false })
   }
 
   const table = useTable(detailSelectPage, {
@@ -48,27 +58,27 @@ const Modals = (props: { onSearch: () => void }) => {
     },
   })
 
-  const { mutate } = useSWR(
-    [
-      seraAdd,
-      {
-        method: 'POST',
-        body: { chargeList: arrData, type: tableType === 'rent' ? 2 : 1 },
-      },
-    ],
-    {
-      revalidateOnMount: false,
-      revalidateOnFocus: false,
-      onSuccess: (data) => {
-        if (data && data.code === 1) {
-          onClose()
-          props.onSearch()
-        } else {
-          Notify.error({ title: '提交失败！' })
-        }
-      },
-    }
-  )
+  // const { mutate } = useSWR(
+  //   [
+  //     seraAdd,
+  //     {
+  //       method: 'POST',
+  //       body: { chargeList: arrData, type: tableType === 'rent' ? 2 : 1 },
+  //     },
+  //   ],
+  //   {
+  //     revalidateOnMount: false,
+  //     revalidateOnFocus: false,
+  //     onSuccess: (data) => {
+  //       if (data && data.code === 1) {
+  //         onClose()
+  //         props.onSearch()
+  //       } else {
+  //         Notify.error({ title: '提交失败！' })
+  //       }
+  //     },
+  //   }
+  // )
 
   const columns = [
     {
@@ -177,19 +187,24 @@ const Modals = (props: { onSearch: () => void }) => {
       maxWidth={800}
       onConfirm={() => {
         let arr = table.selection.selected
+
         if (arr.length > 0) {
           let listData: Record<string, string | number | JSX.Element>[] =
             table.data
+          let newArr: any = []
           arr.forEach((item) => {
             listData.forEach((val) => {
               if (item === val.id) {
-                arrData.push(val)
+                newArr.push(val)
               }
             })
           })
+
+          updateData({
+            queryInfoList: (queryInfoList || []).concat(newArr),
+          })
         }
-        // setCheckList(arrData)
-        mutate()
+        // mutate()
       }}
       onCancel={() => {
         onClose()

@@ -2,7 +2,6 @@ import { Change } from '@/servers/BasicManage/ShopSale'
 import { Button } from 'uiw'
 
 export const items = (queryInfo: Change) => {
-  // console.log('queryInfo', queryInfo);
   return [
     // {
     //   label: '商铺',
@@ -160,6 +159,7 @@ export const items = (queryInfo: Change) => {
 }
 
 export const itemsList = (
+  // queryInfoList: Change,
   handleEditTable: (tableType: string, obj: Change) => void
 ) => {
   return [
@@ -191,7 +191,9 @@ export const itemsList = (
           <Button
             size="small"
             icon="delete"
-            onClick={() => handleEditTable('deDel', rowData)}
+            onClick={(rowData) => {
+              console.log('rowData', rowData)
+            }}
           >
             删除
           </Button>
