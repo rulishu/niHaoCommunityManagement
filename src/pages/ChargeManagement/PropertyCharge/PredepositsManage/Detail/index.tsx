@@ -25,7 +25,7 @@ const Drawer = (props: {
   const {
     PredepositsManage: { drawerVisible, tableType, queryInfo, isView },
   } = useSelector((state: RootState) => state)
-  const [value] = React.useState(false)
+  const [value, setValue] = React.useState(false)
 
   const onClose = () => {
     dispatch({
@@ -57,12 +57,20 @@ const Drawer = (props: {
     }
   )
   const onChange = (initial: any, current: any) => {
+    console.log('current', current?.chargeItem)
+
+    if (current?.chargeItem === '1') {
+      setValue(true)
+    }
+    if (current?.chargeItem === '2') {
+      setValue(false)
+    }
     props.updateData({
       queryInfo: {
         ...queryInfo,
         ...current,
         chargingTime: formatter('YYYY-MM-DD HH:mm:ss', current?.chargingTime),
-        chargeItem: current?.chargeItem === '1' ? current?.chargeItem : null,
+        payService: current?.chargeItem === '1' ? current?.payService : null,
       },
     })
   }
