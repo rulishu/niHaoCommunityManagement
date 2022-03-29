@@ -16,7 +16,15 @@ const Drawer = ({ updateData, option }: DetailProps) => {
   const form = useForm()
 
   const {
-    shopCharge: { drawerVisible, queryInfo, drawerType, payment, payService },
+    shopCharge: {
+      drawerVisible,
+      queryInfo,
+      drawerType,
+      payment,
+      payService,
+      searchParms,
+      detailed,
+    },
   }: any = useSelector((state: RootState) => state)
 
   const onClose = () => dispatch({ type: 'shopCharge/clean' })
@@ -45,6 +53,7 @@ const Drawer = ({ updateData, option }: DetailProps) => {
   // 提交
   const onSubmit = (current: any) => {
     verification(current)
+    console.log(current, 'current')
     // 添加零时收费
     if (drawerType === 'temAdd')
       (
@@ -52,7 +61,7 @@ const Drawer = ({ updateData, option }: DetailProps) => {
           type: 'shopCharge/buTemporaryCharges',
           payload: {
             ...current,
-            code: current?.code[0]?.value,
+            code: current?.code[0],
             payService: current?.payService[0]?.value,
             payType: current?.payType[0]?.value,
             collectionTime: changeTimeFormat(current?.collectionTime),
@@ -127,7 +136,15 @@ const Drawer = ({ updateData, option }: DetailProps) => {
           }
           buttonsContainer={{ justifyContent: 'flex-start' }}
           formDatas={
-            matching(drawerType, queryInfo, option, payment, payService) as any
+            matching(
+              drawerType,
+              queryInfo,
+              option,
+              payment,
+              payService,
+              searchParms,
+              detailed
+            ) as any
           }
         />
       )}

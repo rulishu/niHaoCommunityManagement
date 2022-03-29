@@ -21,14 +21,23 @@ export const matching = (
   queryInfo: any,
   option: any,
   payment: any,
-  payService: any
+  payService: any,
+  searchParms: any,
+  detailed: any
 ) => {
   switch (type) {
     case 'charge':
       return items(queryInfo)
     case 'temAdd':
     case 'depositAdd':
-      return temAddItems(queryInfo, option, payment, payService)
+      return temAddItems(
+        queryInfo,
+        option,
+        payment,
+        payService,
+        searchParms,
+        detailed
+      )
     case 'storage':
       return storageItem(queryInfo, option)
     case 'return':
@@ -133,7 +142,9 @@ const temAddItems = (
   queryInfo: any,
   option: any,
   payment: any,
-  payService: any
+  payService: any,
+  searchParms: any,
+  detailed: any
 ) => {
   return [
     {
@@ -143,13 +154,13 @@ const temAddItems = (
       option,
       required: true,
       span: 8,
+      disabled: true,
+      initialValue: [searchParms?.code || ''],
       widgetProps: {
         placeholder: '请选择商铺',
-        labelInValue: true,
         mode: 'single',
-        allowClear: true,
+        allowClear: false,
       },
-      initialValue: queryInfo?.name,
     },
     {
       label: '客户姓名',
@@ -157,7 +168,8 @@ const temAddItems = (
       widget: 'input',
       required: true,
       span: 8,
-      initialValue: queryInfo?.name,
+      disabled: true,
+      initialValue: detailed?.userName || '',
     },
     {
       label: '收费项目',
@@ -167,7 +179,7 @@ const temAddItems = (
       required: true,
       span: 8,
       widgetProps: {
-        placeholder: '请选择商铺',
+        placeholder: '请选择收费项目',
         labelInValue: true,
         mode: 'single',
         allowClear: true,
@@ -182,7 +194,7 @@ const temAddItems = (
       required: true,
       span: 8,
       widgetProps: {
-        placeholder: '请选择商铺',
+        placeholder: '请选择付款方式',
         labelInValue: true,
         mode: 'single',
         allowClear: true,

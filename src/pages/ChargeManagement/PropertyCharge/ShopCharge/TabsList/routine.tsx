@@ -10,9 +10,9 @@ export default function Demo(props: {
   option: searchValue[]
   setValue: (e: any) => void
   updateData: (payload: any) => void
-  dispatch: any
+  onSearch: (e: any) => void
 }) {
-  const { option, setValue, updateData, dispatch } = props
+  const { option, setValue, updateData, onSearch } = props
 
   const table = useTable(selectPage, {
     query: (pageIndex, pageSize, searchValues) => {
@@ -65,16 +65,7 @@ export default function Demo(props: {
           {
             label: '查询',
             type: 'primary',
-            onClick: async () => {
-              table.onSearch()
-              dispatch({
-                type: 'shopCharge/buShop',
-                payload: {
-                  // @ts-ignorets-ignore
-                  code: table?.form?.current?.getFieldValues()?.code || '',
-                },
-              })
-            },
+            onClick: () => onSearch(table),
           },
           {
             label: '重置',

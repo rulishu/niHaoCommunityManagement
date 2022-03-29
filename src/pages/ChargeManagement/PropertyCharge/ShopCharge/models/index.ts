@@ -16,6 +16,8 @@ interface State {
   drawerType: string
   drawerVisible: boolean
   queryInfo: object
+  searchParms: object
+  detailed: object
   shopNoList: Array<searchValue>
   payment: Array<searchValue>
   payService: Array<searchValue>
@@ -28,6 +30,7 @@ const shopCharge = createModel()({
     drawerType: '',
     queryInfo: {}, //表单信息
     detailed: {},
+    searchParms: {},
 
     shopNoList: [], //商铺查询
     payment: [], //支付方式
@@ -119,7 +122,7 @@ const shopCharge = createModel()({
       const data = await buShop({ ...payload })
       if (data?.code === 1) {
         dph.shopCharge.updateState({
-          queryInfo: data?.data || {},
+          detailed: data?.data || {},
         })
       } else {
         Notify.warning({ description: data?.message || '' })

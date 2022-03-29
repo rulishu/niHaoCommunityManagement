@@ -10,8 +10,9 @@ export default function Demo(props: {
   option: searchValue[]
   setValue: (e: any) => void
   updateData: (payload: any) => void
+  onSearch: (payload: any) => void
 }) {
-  const { option, setValue, updateData } = props
+  const { option, setValue, updateData, onSearch } = props
 
   const table = useTable('api/buAdvanceDeposit/selectPage', {
     query: (pageIndex, pageSize, searchValues) => {
@@ -58,9 +59,7 @@ export default function Demo(props: {
           {
             label: '查询',
             type: 'primary',
-            onClick: () => {
-              table.onSearch()
-            },
+            onClick: () => onSearch(table),
           },
           {
             label: '重置',

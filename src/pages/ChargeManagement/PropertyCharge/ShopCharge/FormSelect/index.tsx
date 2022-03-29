@@ -4,43 +4,43 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@uiw-admin/models'
 export default function Details() {
   const {
-    shopCharge: { queryInfo },
+    shopCharge: { detailed },
   }: any = useSelector((shopCharge: RootState) => shopCharge)
   return (
     <Fragment>
       <Descriptions title="商品信息" bordered>
         <Descriptions.Item label="编号">
-          {queryInfo?.shopNo || ''}
+          {detailed?.shopNo || ''}
         </Descriptions.Item>
         <Descriptions.Item label="商品状态">
-          {queryInfo?.status === 1
+          {detailed?.status === 1
             ? '空置'
-            : queryInfo?.status === 2
+            : detailed?.status === 2
             ? '已出售'
-            : queryInfo?.status === 3
+            : detailed?.status === 3
             ? '已出租'
             : ''}
         </Descriptions.Item>
         <Descriptions.Item label="到期日期">
-          {queryInfo?.endTime || ''}
+          {detailed?.endTime || ''}
         </Descriptions.Item>
         <Descriptions.Item label="占地面积">
-          {queryInfo?.areaCovered || ''}
+          {detailed?.areaCovered || ''}
         </Descriptions.Item>
         <Descriptions.Item label="使用面积">
-          {queryInfo?.areaUsable || ''}
+          {detailed?.areaUsable || ''}
         </Descriptions.Item>
         <Descriptions.Item label="行业">
-          {queryInfo?.industry || ''}
+          {detailed?.industry || ''}
         </Descriptions.Item>
         <Descriptions.Item label="客户姓名">
-          {queryInfo?.userName || ''}
+          {detailed?.userName || ''}
         </Descriptions.Item>
         <Descriptions.Item label="联系方式">
-          {queryInfo?.phone}
+          {detailed?.phone}
         </Descriptions.Item>
         <Descriptions.Item label="入住时间">
-          {queryInfo?.startTime || ''}
+          {detailed?.startTime || ''}
         </Descriptions.Item>
       </Descriptions>
       <div style={{ marginBottom: 10 }}></div>
