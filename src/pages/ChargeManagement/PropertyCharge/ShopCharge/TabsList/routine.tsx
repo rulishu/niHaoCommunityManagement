@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { ProTable, useTable } from '@uiw-admin/components'
 import { Notify } from 'uiw'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
@@ -39,6 +39,8 @@ export default function Demo(props: {
       return Notify.warning({ description: '请选择要缴费的数据 !' })
     updateData({ drawerType: type, drawerVisible: true })
   }
+
+  console.log(table, '[拥抱]')
   return (
     <React.Fragment>
       <ProTable
@@ -63,14 +65,18 @@ export default function Demo(props: {
           {
             label: '查询',
             type: 'primary',
-            onClick: () => {
+            onClick: async () => {
               table.onSearch()
+              // updateData({
+              //   // @ts-ignorets-ignore
+              //   searchValue: { ...table.form.current.getFieldValues() },
+              // })
             },
           },
           {
             label: '重置',
             onClick: () => {
-              table.onReset()
+              table?.onReset()
             },
           },
         ]}

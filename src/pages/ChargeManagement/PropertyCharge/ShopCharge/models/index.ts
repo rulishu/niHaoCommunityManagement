@@ -7,6 +7,7 @@ import {
   dictionary,
   buCharge,
   buTemporaryCharges,
+  buDeposit,
 } from '@/servers/ChargeManagement/ShopCharge'
 
 interface State {
@@ -102,6 +103,11 @@ const shopCharge = createModel()({
     // 添加零时收费
     async buTemporaryCharges(payload: any) {
       return await buTemporaryCharges({ ...payload })
+    },
+
+    // 添加押金
+    async getBuDeposit(payload: any) {
+      return await buDeposit({ ...payload })
     },
   }),
 })

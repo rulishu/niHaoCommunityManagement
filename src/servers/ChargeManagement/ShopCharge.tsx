@@ -71,6 +71,14 @@ function buTemporaryCharges(params: any) {
     body: { ...params },
   })
 }
+
+// 添加押金
+function buDeposit(params: any) {
+  return request('/api/buDeposit/add', {
+    method: 'POST',
+    body: { ...params },
+  })
+}
 export {
   selectById,
   selectPage,
@@ -81,4 +89,5 @@ export {
   buCharge,
   dictionary,
   buTemporaryCharges,
+  buDeposit,
 }

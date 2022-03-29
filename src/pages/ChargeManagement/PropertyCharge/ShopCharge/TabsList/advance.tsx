@@ -74,10 +74,6 @@ export default function Demo(props: {
           type: 'checkbox',
           selectKey: 'id',
         }}
-        // 取消全部选择
-        onPageChange={() => {
-          table.selection.unSelectAll()
-        }}
         columns={columnsDeposit(option, setValue) as FormCol[]}
       />
     </React.Fragment>

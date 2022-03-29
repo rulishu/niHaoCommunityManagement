@@ -45,6 +45,7 @@ const Drawer = ({ updateData, option }: DetailProps) => {
   // 提交
   const onSubmit = (current: any) => {
     verification(current)
+    // 添加零时收费
     if (drawerType === 'temAdd')
       (
         dispatch({
@@ -65,11 +66,34 @@ const Drawer = ({ updateData, option }: DetailProps) => {
           Notify.error({ description: data?.message || '' })
         }
       })
+
+    // 添加押金
+    if (drawerType === 'depositAdd')
+      (
+        dispatch({
+          type: 'shopCharge/getBuDeposit',
+          payload: {
+            name: current?.name || '',
+            code: current?.code[0]?.value,
+            project: current?.payService[0]?.value,
+            paymentMethod: current?.payType[0]?.value,
+            price: current?.price || '',
+            collectionTime: changeTimeFormat(current?.collectionTime),
+          },
+        }) as any
+      ).then((data: any) => {
+        if (data?.code === 1) {
+          onClose()
+          Notify.success({ titdescriptionle: data?.message || '' })
+        } else {
+          Notify.error({ description: data?.message || '' })
+        }
+      })
   }
 
   return (
     <ProDrawer
-      width={drawerType === 'temAdd' ? 800 : 1000}
+      width={1000}
       title={drawerTitle(drawerType)}
       visible={drawerVisible}
       onClose={onClose}
