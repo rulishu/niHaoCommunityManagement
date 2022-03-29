@@ -1,19 +1,20 @@
 import {
   ProDrawer,
-  ProTable,
+  // ProTable,
   useTable,
   ProForm,
   useForm,
 } from '@uiw-admin/components'
-import { Notify, Button } from 'uiw'
+import { Notify, Table, Button } from 'uiw'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
-import { insert, update } from '@/servers/BasicManage/ShopSale'
+import { update } from '@/servers/BasicManage/ShopSale'
 import useSWR from 'swr'
 import { seraSelectPage, Change } from '@/servers/BasicManage/ShopSale'
-import { items } from './items'
+import { items, itemsList } from './items'
 import DetailAdd from './detailAdd/Index'
 import DeatailModals from '../Modals/detailModals/index'
+import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 
 interface State {
   drawerDetailVisible?: boolean
@@ -32,14 +33,11 @@ const Detail = (props: {
   const baseRef = useForm()
   const dispatch = useDispatch<Dispatch>()
   const {
-    ShopSale: { drawerVisible, tableType, queryInfo },
+    ShopSale: { drawerVisible, tableType, queryInfo, queryInfoList },
   } = useSelector((ShopSale: RootState) => ShopSale)
 
   const { mutate } = useSWR(
-    [
-      (tableType === 'add' && insert) || (tableType === 'edit' && update),
-      { method: 'POST', body: queryInfo },
-    ],
+    [tableType === 'edit' && update, { method: 'POST', body: queryInfo }],
     {
       revalidateOnMount: false,
       revalidateOnFocus: false,
@@ -130,7 +128,7 @@ const Detail = (props: {
         },
       ]}
     >
-      {tableType === 'edit' && (
+      {(tableType === 'edit' || tableType === 'add') && (
         <ProForm
           title="基础信息"
           formType={'pure'}
@@ -144,7 +142,20 @@ const Detail = (props: {
         />
       )}
 
-      <ProTable
+      <Table
+        title={
+          <Button
+            type="primary"
+            onClick={() => handleEditTable('deAdd', { chargeList: [] })}
+          >
+            新增收费项
+          </Button>
+        }
+        columns={itemsList(handleEditTable) as FormCol[]}
+        data={queryInfoList}
+      />
+
+      {/* <ProTable
         operateButtons={[
           {
             label: '新增收费项',
@@ -159,7 +170,8 @@ const Detail = (props: {
           pageSize: 10,
         }}
         table={deatailTable}
-        columns={[
+        columns={
+          [
           // {
           //   title: '序号',
           //   align: 'center',
@@ -195,11 +207,12 @@ const Detail = (props: {
               </div>
             ),
           },
-        ]}
-      />
+        ]
+      }
+      /> */}
 
-      <DetailAdd onSearch={deatailTable.onSearch} />
-      <DeatailModals onSearch={deatailTable.onSearch} />
+      <DetailAdd onSearch={deatailTable.onSearch} updateData={updateData} />
+      <DeatailModals onSearch={deatailTable.onSearch} updateData={updateData} />
     </ProDrawer>
   )
 }
