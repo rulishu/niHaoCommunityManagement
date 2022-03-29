@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { ProTable, useTable } from '@uiw-admin/components'
 import { Notify } from 'uiw'
+import { ProTable, useTable } from '@uiw-admin/components'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
-import { selectPage, searchValue } from '@/servers/ChargeManagement/ShopCharge'
+import { searchValue } from '@/servers/ChargeManagement/ShopCharge'
 import FormSelect from '../FormSelect'
-import { columnsRout } from './item'
+import { columnsDeposit } from './item'
 
 export default function Demo(props: {
   option: searchValue[]
@@ -13,7 +13,7 @@ export default function Demo(props: {
 }) {
   const { option, setValue, updateData } = props
 
-  const table = useTable(selectPage, {
+  const table = useTable('api/buAdvanceDeposit/selectPage', {
     query: (pageIndex, pageSize, searchValues) => {
       return {
         page: pageIndex,
@@ -23,40 +23,35 @@ export default function Demo(props: {
     },
     formatData: (data) => {
       return {
-        total: data?.data?.total || 0,
+        total: data?.data?.total,
         data: data?.data?.rows || [],
       }
     },
   })
 
   // 操作
-  const handleEditTable = (type: string) => {
-    if (
-      type === 'charge' &&
-      Array.isArray(table?.selection?.selected) &&
-      table.selection.selected.length === 0
-    )
-      return Notify.warning({ description: '请选择要缴费的数据 !' })
+  const handleEditTable = (type: string, data?: any) => {
+    if (!table?.searchValues?.code)
+      return Notify.warning({ description: '请先输入商铺进行搜索 !' })
     updateData({ drawerType: type, drawerVisible: true })
   }
   return (
     <React.Fragment>
       <ProTable
-        table={table}
         bordered
         operateButtons={[
           {
             render: <FormSelect />,
           },
           {
-            label: '收费',
+            label: '预存',
             type: 'primary',
-            onClick: () => handleEditTable('charge'),
+            onClick: () => handleEditTable('storage'),
           },
           {
-            label: '历史信息',
+            label: '退还',
             type: 'primary',
-            onClick: () => handleEditTable('history'),
+            onClick: () => handleEditTable('return'),
           },
         ]}
         searchBtns={[
@@ -74,11 +69,16 @@ export default function Demo(props: {
             },
           },
         ]}
+        table={table}
         rowSelection={{
           type: 'checkbox',
           selectKey: 'id',
         }}
-        columns={columnsRout(option, setValue) as FormCol[]}
+        // 取消全部选择
+        onPageChange={() => {
+          table.selection.unSelectAll()
+        }}
+        columns={columnsDeposit(option, setValue) as FormCol[]}
       />
     </React.Fragment>
   )

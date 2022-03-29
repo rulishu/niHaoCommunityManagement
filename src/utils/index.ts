@@ -17,3 +17,18 @@ export function verifyPhone(phone: string) {
     /^1(3[0-9]|4[01456879]|5[0-35-9]|6[2567]|7[0-8]|8[0-9]|9[0-35-9])\d{8}$/
   return phoneReg.test(phone)
 }
+
+// 时间转化
+export function changeTimeFormat(str: any) {
+  const clock = (str + '').split(' ')[4]
+  if ((str + '').indexOf('-') !== -1) {
+    str = str.replace(new RegExp(/-/gm), '/')
+  }
+  const d = new Date(str)
+  const newDateYear = d.getFullYear()
+  const newDateMonth =
+    d.getMonth() + 1 < 10 ? '0' + (d.getMonth() + 1) : d.getMonth() + 1
+  const newDateDay =
+    d.getDate() < 10 ? '0' + d.getDate() + '' : d.getDate() + ''
+  return newDateYear + '-' + newDateMonth + '-' + newDateDay + ' ' + clock
+}

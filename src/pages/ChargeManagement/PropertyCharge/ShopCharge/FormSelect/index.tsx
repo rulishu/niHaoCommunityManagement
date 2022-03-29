@@ -15,6 +15,7 @@ export default function details() {
         <Descriptions.Item label="联系方式">-</Descriptions.Item>
         <Descriptions.Item label="入住时间">-</Descriptions.Item>
       </Descriptions>
+      <div style={{ marginBottom: 10 }}></div>
     </Fragment>
   )
 }
