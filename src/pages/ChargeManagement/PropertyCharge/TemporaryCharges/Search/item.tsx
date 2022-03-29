@@ -170,12 +170,19 @@ export const columnsSearch = (
         ) : (
           ''
         )}
-        <Button
+        {/* <Button
           size="small"
           // icon="print"
           onClick={() => handleEditTable('print', rowData)}
         >
           打印
+        </Button> */}
+        <Button
+          size="small"
+          icon="delete"
+          onClick={() => handleEditTable('del', rowData)}
+        >
+          删除
         </Button>
       </div>
     ),

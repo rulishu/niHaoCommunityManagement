@@ -6,11 +6,13 @@ import { Notify } from 'uiw'
 import useSWR from 'swr'
 import { insert, update } from '@/servers/ChargeManagement/temporaryCharges'
 import { items } from './items'
+import formatter from '@uiw/formatter'
 interface State {
   drawerVisible?: boolean
   tableType?: string
   queryInfo?: object
   isView?: boolean
+  value?: boolean
 }
 
 const Drawer = (props: {
@@ -52,27 +54,25 @@ const Drawer = (props: {
       },
     }
   )
+
   const onChange = (initial: any, current: any) => {
     if (current?.customerType === '1') {
       getValue(true)
-      props.updateData({
-        queryInfo: {
-          ...current,
-        },
-      })
     }
     if (current?.customerType === '2') {
-      getValue(false)
-      props.updateData({
-        queryInfo: {
-          ...current,
-        },
-      })
+      getValue(true)
     }
     props.updateData({
       queryInfo: {
         ...queryInfo,
         ...current,
+        collectionTime:
+          tableType === 'add'
+            ? formatter('YYYY-MM-DD HH:mm:ss', current?.collectionTime)
+            : null,
+        refundTime:
+          current?.refundTime &&
+          formatter('YYYY-MM-DD HH:mm:ss', current?.refundTime),
       },
     })
   }
@@ -92,8 +92,13 @@ const Drawer = (props: {
         {
           label: '保存',
           type: 'primary',
-          onClick: () => baseRef.submitvalidate(),
           show: !isView,
+          onClick: async () => {
+            await baseRef?.submitvalidate?.()
+            const errors = baseRef.getError()
+            if (errors && Object.keys(errors).length > 0) return
+            mutate()
+          },
         },
       ]}
     >
@@ -102,9 +107,6 @@ const Drawer = (props: {
         formType={isView ? 'pure' : 'card'}
         form={baseRef}
         readOnly={isView}
-        onSubmit={() => {
-          mutate()
-        }}
         buttonsContainer={{ justifyContent: 'flex-start' }}
         // 更新表单的值
         onChange={(initial, current) => onChange(initial, current)}
