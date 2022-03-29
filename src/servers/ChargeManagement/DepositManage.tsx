@@ -33,6 +33,6 @@ const update = '/api/buDeposit/update'
 
 const insert = '/api/buDeposit/add'
 
-const deleteData = '/api/parkingArea/delete'
+const deleteData = '/api/buDeposit/delete'
 
 export { selectById, selectPage, update, insert, deleteData }

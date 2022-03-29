@@ -1,10 +1,10 @@
-import { Button, Dropdown, Menu } from 'uiw'
+import { Button } from 'uiw'
 import { Change } from '@/servers/ChargeManagement/DepositManage'
 
-const option = [
-  { label: '打印收款单', value: 1 },
-  { label: '打印退还单', value: 2 },
-]
+// const option = [
+//   { label: '打印收款单', value: 1 },
+//   { label: '打印退还单', value: 2 },
+// ]
 
 export const columnsSearch = (
   handleEditTable: (tableType: string, obj: Change) => void
@@ -163,14 +163,14 @@ export const columnsSearch = (
         ) : (
           ''
         )}
-        {/* <Button
-            size="small"
-            icon="down"
-            onClick={() => handleEditTable('print', rowData)}
-          >
-            打印
-          </Button> */}
-        <Dropdown
+        <Button
+          size="small"
+          icon="delete"
+          onClick={() => handleEditTable('del', rowData)}
+        >
+          删除
+        </Button>
+        {/* <Dropdown
           trigger="click"
           // onVisibleChange={}
           isOpen={true}
@@ -199,7 +199,7 @@ export const columnsSearch = (
           >
             打印
           </Button>
-        </Dropdown>
+        </Dropdown> */}
       </div>
     ),
   },
