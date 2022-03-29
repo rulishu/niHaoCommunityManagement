@@ -60,7 +60,7 @@ const Drawer = (props: {
       getValue(true)
     }
     if (current?.customerType === '2') {
-      getValue(true)
+      getValue(false)
     }
     props.updateData({
       queryInfo: {

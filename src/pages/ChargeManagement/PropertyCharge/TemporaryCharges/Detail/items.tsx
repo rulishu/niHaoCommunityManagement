@@ -22,10 +22,10 @@ export const items = (queryInfo: Change, value: boolean, tableType: string) => {
       widget: 'input',
       initialValue: queryInfo?.code,
       placeholder: '请输入编号',
-      hide: tableType === 'add' && !value,
+      hide: queryInfo?.customerType === '2' ? true : false,
       // || (tableType === 'edit' || tableType === 'view') ?  false: true,
       disabled: tableType === 'edit' || tableType === 'view' ? true : false,
-      rules: [{ required: true, message: '请输入编号' }],
+      rules: [{ message: '请输入编号' }],
     },
     {
       label: '客户姓名',
