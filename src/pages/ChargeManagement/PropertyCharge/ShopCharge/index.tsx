@@ -59,6 +59,7 @@ export default function Demo() {
     option,
     setValue,
     updateData,
+    dispatch,
   }
   return (
     <Fragment>

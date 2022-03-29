@@ -79,6 +79,14 @@ function buDeposit(params: any) {
     body: { ...params },
   })
 }
+
+// 商铺-编号查已出租或出售商铺信息
+function buShop(params: any) {
+  return request('/api/buShop/selectByCode', {
+    method: 'POST',
+    body: { ...params },
+  })
+}
 export {
   selectById,
   selectPage,
@@ -90,4 +98,5 @@ export {
   dictionary,
   buTemporaryCharges,
   buDeposit,
+  buShop,
 }

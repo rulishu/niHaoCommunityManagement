@@ -10,8 +10,9 @@ export default function Demo(props: {
   option: searchValue[]
   setValue: (e: any) => void
   updateData: (payload: any) => void
+  dispatch: any
 }) {
-  const { option, setValue, updateData } = props
+  const { option, setValue, updateData, dispatch } = props
 
   const table = useTable(selectPage, {
     query: (pageIndex, pageSize, searchValues) => {
@@ -40,7 +41,6 @@ export default function Demo(props: {
     updateData({ drawerType: type, drawerVisible: true })
   }
 
-  console.log(table, '[拥抱]')
   return (
     <React.Fragment>
       <ProTable
@@ -67,10 +67,13 @@ export default function Demo(props: {
             type: 'primary',
             onClick: async () => {
               table.onSearch()
-              // updateData({
-              //   // @ts-ignorets-ignore
-              //   searchValue: { ...table.form.current.getFieldValues() },
-              // })
+              dispatch({
+                type: 'shopCharge/buShop',
+                payload: {
+                  // @ts-ignorets-ignore
+                  code: table?.form?.current?.getFieldValues()?.code || '',
+                },
+              })
             },
           },
           {
