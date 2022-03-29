@@ -38,6 +38,7 @@ export default function Demo() {
       type: 'shopCharge/service',
     })
   }, [dispatch])
+
   // 塞选商铺
   useEffect(() => {
     setOption(
@@ -55,10 +56,28 @@ export default function Demo() {
     })
   }
 
+  // 查询
+  const onSearch = (table: any) => {
+    table.onSearch()
+    updateData({
+      // @ts-ignorets-ignore
+      searchParms: { code: table?.form?.current?.getFieldValues()?.code || '' },
+    })
+    dispatch({
+      type: 'shopCharge/buShop',
+      payload: {
+        // @ts-ignorets-ignore
+        code: table?.form?.current?.getFieldValues()?.code || '',
+      },
+    })
+  }
+
   const payload = {
     option,
     setValue,
     updateData,
+    dispatch,
+    onSearch,
   }
   return (
     <Fragment>
