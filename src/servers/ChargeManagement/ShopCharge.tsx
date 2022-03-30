@@ -90,6 +90,14 @@ function buShop(params: any) {
 
 // 商铺收费数据-历史收费数据
 const selectHistoryPayList = '/api/buShopChargeData/selectHistoryPayList'
+
+// 预存款-添加
+function buAdvanceDeposit(params: any) {
+  return request('/api/buAdvanceDeposit/add', {
+    method: 'POST',
+    body: { ...params },
+  })
+}
 export {
   selectById,
   selectPage,
@@ -103,4 +111,5 @@ export {
   buDeposit,
   buShop,
   selectHistoryPayList,
+  buAdvanceDeposit,
 }
