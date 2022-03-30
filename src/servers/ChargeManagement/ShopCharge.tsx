@@ -87,6 +87,9 @@ function buShop(params: any) {
     body: { ...params },
   })
 }
+
+// 商铺收费数据-历史收费数据
+const selectHistoryPayList = '/api/buShopChargeData/selectHistoryPayList'
 export {
   selectById,
   selectPage,
@@ -99,4 +102,5 @@ export {
   buTemporaryCharges,
   buDeposit,
   buShop,
+  selectHistoryPayList,
 }
