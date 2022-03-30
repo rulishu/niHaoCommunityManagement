@@ -4,7 +4,7 @@ import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import { columnsSearch } from './item'
 import { useDispatch } from 'react-redux'
 import { Dispatch } from '@uiw-admin/models'
-import { selectPage, Change } from '@/servers/BasicManage/ShopSale'
+import { selectPage, Change, listProps } from '@/servers/BasicManage/ShopSale'
 import Drawer from '../Detail'
 import Modals from '../Modals'
 interface State {
@@ -15,6 +15,7 @@ interface State {
   delectVisible?: boolean
   id?: string
   shopsId?: string
+  queryInfoList?: listProps[]
 }
 
 export default function Demo() {
@@ -51,14 +52,14 @@ export default function Demo() {
       isView: type === 'view',
       tableType: type,
     })
-    if (type === 'rent' || type === 'sale') {
+    if (type === 'rent' || type === 'sale' || type === 'add') {
       updateData({ drawerVisible: true, queryInfo: {} })
     }
     if (type === 'edit') {
       updateData({
         drawerVisible: true,
         queryInfo: obj,
-        shopsId: obj?.id,
+        queryInfoList: obj?.chargeList,
       })
     }
     if (type === 'del') {
@@ -74,14 +75,14 @@ export default function Demo() {
             label: '默认收费项(出租)',
             type: 'primary',
             onClick: () => {
-              handleEditTable('rent', {})
+              handleEditTable('rent', { chargeList: [] })
             },
           },
           {
             label: '默认收费项(出售)',
             type: 'primary',
             onClick: () => {
-              handleEditTable('sale', {})
+              handleEditTable('sale', { chargeList: [] })
             },
           },
         ]}

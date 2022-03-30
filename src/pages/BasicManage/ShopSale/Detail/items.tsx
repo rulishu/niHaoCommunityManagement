@@ -1,7 +1,7 @@
 import { Change } from '@/servers/BasicManage/ShopSale'
+import { Button } from 'uiw'
 
 export const items = (queryInfo: Change) => {
-  // console.log('queryInfo', queryInfo);
   return [
     // {
     //   label: '商铺',
@@ -154,6 +154,50 @@ export const items = (queryInfo: Change) => {
       widget: 'textarea',
       initialValue: queryInfo?.remark,
       rules: [{ required: true, message: '备注' }],
+    },
+  ]
+}
+
+export const itemsList = (
+  handleEditTable: (tableType: string, obj: Change) => void
+) => {
+  return [
+    // {
+    //   title: '序号',
+    //   align: 'center',
+    //   key: 'id',
+    //   ellipsis: true,
+    // },
+    {
+      title: '收费项目名',
+      align: 'center',
+      key: 'chargeName',
+      ellipsis: true,
+    },
+    {
+      title: '单价',
+      align: 'center',
+      key: 'chargePrice',
+      ellipsis: true,
+    },
+    {
+      title: '操作',
+      key: 'edit',
+      align: 'center',
+      width: 80,
+      render: (text: any, key: any, rowData: Change) => (
+        <div>
+          <Button
+            size="small"
+            icon="delete"
+            onClick={() => {
+              handleEditTable('deDel', rowData)
+            }}
+          >
+            删除
+          </Button>
+        </div>
+      ),
     },
   ]
 }

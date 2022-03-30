@@ -48,7 +48,9 @@ export const columnsSearch = (
             ? '天然气费'
             : payService === '3'
             ? '卫生费'
-            : '单元租金'}
+            : payService === '4'
+            ? '单元租金'
+            : '不指定收费项'}
         </span>
       </div>
     ),
@@ -123,40 +125,48 @@ export const columnsSearch = (
   {
     title: '操作',
     key: 'edit',
-    width: 280,
+    width: 200,
     align: 'center',
     render: (text: any, key: any, rowData: any) => (
       <div>
-        <Button
-          size="small"
-          icon="edit"
-          onClick={() => handleEditTable('edit', rowData)}
-        >
-          退还
-        </Button>
+        {/* <Button
+            size="small"
+            icon="edit"
+            onClick={() => handleEditTable('edit', rowData)}
+          >
+            退还
+          </Button> */}
 
-        {rowData.status === '1' ? (
-          <Button
-            size="small"
-            icon="eye"
-            // disabled={rowData.status === '1' ? false : true}
-            onClick={() => handleEditTable('view', rowData)}
-          >
-            打印收款单
-          </Button>
-        ) : (
-          <Button
-            size="small"
-            icon="eye"
-            // disabled={rowData.status === '2' ? false : true}
-            onClick={() => handleEditTable('refundview', rowData)}
-          >
-            打印退款单
-          </Button>
-        )}
+        {/* {rowData.status === '1' ? (
+            <Button
+              size="small"
+              icon="eye"
+              // disabled={rowData.status === '1' ? false : true}
+              onClick={() => handleEditTable('view', rowData)}
+            >
+              打印收款单
+            </Button>
+          ) : (
+            <Button
+              size="small"
+              icon="eye"
+              // disabled={rowData.status === '2' ? false : true}
+              onClick={() => handleEditTable('refundview', rowData)}
+            >
+              打印退款单
+            </Button>
+          )} */}
+
         <Button
           size="small"
           icon="eye"
+          onClick={() => handleEditTable('view', rowData)}
+        >
+          查看
+        </Button>
+        <Button
+          size="small"
+          icon="delete"
           onClick={() => handleEditTable('del', rowData)}
         >
           删除
