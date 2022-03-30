@@ -1,4 +1,5 @@
 import { Dispatch } from '@uiw-admin/models'
+import { Notify } from 'uiw'
 import { createModel, RematchDispatch } from '@rematch/core'
 import {
   shopSelectPage,
@@ -7,12 +8,16 @@ import {
   dictionary,
   buCharge,
   buTemporaryCharges,
+  buDeposit,
+  buShop,
 } from '@/servers/ChargeManagement/ShopCharge'
 
 interface State {
   drawerType: string
   drawerVisible: boolean
   queryInfo: object
+  searchParms: object
+  detailed: object
   shopNoList: Array<searchValue>
   payment: Array<searchValue>
   payService: Array<searchValue>
@@ -24,6 +29,8 @@ const shopCharge = createModel()({
     drawerVisible: false, //新增、预存弹框
     drawerType: '',
     queryInfo: {}, //表单信息
+    detailed: {},
+    searchParms: {},
 
     shopNoList: [], //商铺查询
     payment: [], //支付方式
@@ -102,6 +109,24 @@ const shopCharge = createModel()({
     // 添加零时收费
     async buTemporaryCharges(payload: any) {
       return await buTemporaryCharges({ ...payload })
+    },
+
+    // 添加押金
+    async getBuDeposit(payload: any) {
+      return await buDeposit({ ...payload })
+    },
+
+    // 商铺-编号查已出租或出售商铺信息
+    async buShop(payload: any) {
+      const dph = dispatch as Dispatch
+      const data = await buShop({ ...payload })
+      if (data?.code === 1) {
+        dph.shopCharge.updateState({
+          detailed: data?.data || {},
+        })
+      } else {
+        Notify.warning({ description: data?.message || '' })
+      }
     },
   }),
 })
