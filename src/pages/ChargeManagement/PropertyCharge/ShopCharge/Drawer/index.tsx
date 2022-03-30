@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { ProDrawer, ProForm, useForm } from '@uiw-admin/components'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
@@ -15,6 +16,8 @@ const Drawer = ({ updateData, option }: DetailProps) => {
 
   const form = useForm()
 
+  const [show, setShow] = useState(false)
+
   const {
     shopCharge: {
       drawerVisible,
@@ -27,7 +30,10 @@ const Drawer = ({ updateData, option }: DetailProps) => {
     },
   }: any = useSelector((state: RootState) => state)
 
-  const onClose = () => dispatch({ type: 'shopCharge/clean' })
+  const onClose = () => {
+    dispatch({ type: 'shopCharge/clean' })
+    setShow(false)
+  }
 
   // 验证
   const verification = (current: any) => {
@@ -37,8 +43,6 @@ const Drawer = ({ updateData, option }: DetailProps) => {
       if (
         !current[element] ||
         (Array.isArray(current[element]) && current[element].length === 0)
-          ? true
-          : false
       ) {
         errorObj[element] = '此项不能为空'
       }
@@ -143,7 +147,9 @@ const Drawer = ({ updateData, option }: DetailProps) => {
               payment,
               payService,
               searchParms,
-              detailed
+              detailed,
+              show,
+              setShow
             ) as any
           }
         />
