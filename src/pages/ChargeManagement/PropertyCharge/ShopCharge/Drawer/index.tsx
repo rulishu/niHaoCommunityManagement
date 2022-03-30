@@ -37,6 +37,9 @@ const Drawer = ({ updateData, option }: DetailProps) => {
 
   // 验证
   const verification = (current: any) => {
+    if (current?.chargeltem === '2') {
+      delete current.payService
+    }
     const errorObj: any = {}
     const arr = Object.keys(current)
     arr.forEach((element: any) => {
@@ -74,9 +77,9 @@ const Drawer = ({ updateData, option }: DetailProps) => {
       ).then((data: any) => {
         if (data?.code === 1) {
           onClose()
-          Notify.success({ titdescriptionle: data?.message || '' })
+          Notify.success({ title: data?.message || '' })
         } else {
-          Notify.error({ description: data?.message || '' })
+          Notify.error({ title: data?.message || '' })
         }
       })
 
@@ -97,11 +100,37 @@ const Drawer = ({ updateData, option }: DetailProps) => {
       ).then((data: any) => {
         if (data?.code === 1) {
           onClose()
-          Notify.success({ titdescriptionle: data?.message || '' })
+          Notify.success({ title: data?.message || '' })
         } else {
-          Notify.error({ description: data?.message || '' })
+          Notify.error({ title: data?.message || '' })
         }
       })
+
+    // 预存
+    if (drawerType === 'storage') {
+      const payload = {
+        ...current,
+        code: current?.code[0],
+        chargeltem: Number(current?.chargeltem),
+        chargingTime: changeTimeFormat(current?.chargingTime),
+      }
+      if (payload.chargeltem === 2) {
+        delete payload.payService
+      }
+      ;(
+        dispatch({
+          type: 'shopCharge/getBuAdvanceDeposit',
+          payload,
+        }) as any
+      ).then((data: any) => {
+        if (data?.code === 1) {
+          onClose()
+          Notify.success({ title: data?.message || '' })
+        } else {
+          Notify.error({ title: data?.message || '' })
+        }
+      })
+    }
   }
 
   return (
@@ -112,10 +141,11 @@ const Drawer = ({ updateData, option }: DetailProps) => {
       onClose={onClose}
       buttons={[
         {
-          label: '保存',
+          label: drawerType === 'history' ? '关闭' : '保存',
           type: 'primary',
           style: { width: 80 },
           onClick: () => {
+            if (drawerType === 'history') return onClose()
             form.submitvalidate()
           },
         },

@@ -62,68 +62,58 @@ const columnsList = () => {
 }
 // 历史数据
 const columnsHistory = () => [
-  {
-    title: '打印',
-    key: 'print',
-    align: 'center',
-  },
+  // {
+  //   title: '打印',
+  //   key: 'print',
+  //   align: 'center',
+  // },
   {
     title: '编号',
-    key: 'number',
+    key: 'code',
     align: 'center',
     with: 200,
   },
   {
     title: '收费项名',
-    key: 'phone',
+    key: 'saleType',
     align: 'center',
   },
   {
     title: '客户姓名',
-    key: 'name',
+    key: 'username',
     align: 'center',
   },
   {
     title: '费用开始时间',
     align: 'center',
-    key: 'feeStartTime',
+    key: 'startTime',
     ellipsis: true,
     with: 230,
   },
   {
     title: '费用结束时间',
     align: 'center',
-    key: 'feeEndTime',
+    key: 'endTime',
     ellipsis: true,
     with: 230,
   },
   {
     title: '金额',
-    key: 'fee',
-    align: 'center',
-  },
-  {
-    title: '滞纳金',
-    key: 'lateFee',
-    align: 'center',
-  },
-  {
-    title: '优惠金额',
-    key: 'center',
+    key: 'money',
     align: 'center',
   },
   {
     title: '实收金额',
     align: 'center',
-    key: 'moneyAmount',
+    key: 'paidMoney',
   },
   {
     title: '付款状态',
     align: 'center',
-    key: 'money',
-    render: (createName: string) => (
+    key: 'status',
+    render: (text: number) => (
       <div style={{ textAlign: 'center' }}>
-        {createName === '已付款' ? (
+        {text === 1 ? (
           <Tag disabled title="已付款" color="#28a745" />
         ) : (
           <Tag disabled title="未付款" color="#ffc107" />
@@ -134,7 +124,7 @@ const columnsHistory = () => [
   {
     title: '缴费时间',
     align: 'center',
-    key: 'feeTime',
+    key: 'paymentTime',
     ellipsis: true,
     with: 200,
   },

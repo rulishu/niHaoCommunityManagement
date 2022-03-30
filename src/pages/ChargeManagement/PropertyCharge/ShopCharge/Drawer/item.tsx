@@ -247,7 +247,7 @@ const storageItem = (
 ) => [
   {
     label: '商铺',
-    key: 'name',
+    key: 'code',
     widget: 'searchSelect',
     option,
     required: true,
@@ -260,7 +260,7 @@ const storageItem = (
   },
   {
     label: '客户姓名',
-    key: 'name1',
+    key: 'name',
     widget: 'input',
     required: true,
     disabled: true,
@@ -272,7 +272,7 @@ const storageItem = (
   },
   {
     label: '付款方式',
-    key: 'payType',
+    key: 'paymentMethod',
     widget: 'searchSelect',
     option: payment,
     required: true,
@@ -285,7 +285,7 @@ const storageItem = (
   },
   {
     label: '收费金额',
-    key: 'name4',
+    key: 'chargeAmount',
     widget: 'input',
     required: true,
     span: 8,
@@ -293,7 +293,7 @@ const storageItem = (
   },
   {
     label: '收费时间',
-    key: 'dateInputsecond',
+    key: 'chargingTime',
     widget: 'dateInput',
     widgetProps: {
       format: 'YYYY-MM-DD HH:mm:ss',
@@ -302,7 +302,7 @@ const storageItem = (
   {
     label: '可用收费项',
     widget: 'radio',
-    key: 'radio',
+    key: 'chargeltem',
     option: [
       { label: '指定收费项', value: '1' },
       { label: '所有收费项', value: '2' },

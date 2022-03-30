@@ -33,6 +33,8 @@ export default function Demo(props: {
 
   // 操作
   const handleEditTable = (type: string) => {
+    if (!searchParms?.code)
+      return Notify.warning({ description: '请先输入商铺进行搜索 !' })
     if (
       type === 'charge' &&
       Array.isArray(table?.selection?.selected) &&

@@ -28,8 +28,8 @@ export const proxySetup = (app: express.Application): MockerAPIOptions => {
     '/api',
     createProxyMiddleware({
       // target: 'http://192.168.188.87:8200',
-      // target: 'http://192.168.188.8:8200',
-      target: 'http://192.168.188.222:33702/',
+      target: 'http://1f5c268.cpolar.cn/',
+      // target: 'http://192.168.188.222:33702/',
       changeOrigin: true,
     })
   )

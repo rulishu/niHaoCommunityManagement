@@ -10,6 +10,7 @@ import {
   buTemporaryCharges,
   buDeposit,
   buShop,
+  buAdvanceDeposit,
 } from '@/servers/ChargeManagement/ShopCharge'
 
 interface State {
@@ -71,7 +72,7 @@ const shopCharge = createModel()({
     },
 
     // 支付方式
-    async pay(payload: any) {
+    async pay() {
       const dph = dispatch as Dispatch
       const data = await dictionary({ dictType: '付款方式' })
       if (data.code === 1) {
@@ -127,6 +128,11 @@ const shopCharge = createModel()({
       } else {
         Notify.warning({ description: data?.message || '' })
       }
+    },
+
+    // 预存款-添加
+    async getBuAdvanceDeposit(payload: any) {
+      return await buAdvanceDeposit({ ...payload })
     },
   }),
 })
