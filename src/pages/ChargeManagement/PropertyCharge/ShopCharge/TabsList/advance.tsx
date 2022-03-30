@@ -11,8 +11,9 @@ export default function Demo(props: {
   setValue: (e: any) => void
   updateData: (payload: any) => void
   onSearch: (payload: any) => void
+  searchParms: any
 }) {
-  const { option, setValue, updateData, onSearch } = props
+  const { option, setValue, updateData, onSearch, searchParms } = props
 
   const table = useTable('api/buAdvanceDeposit/selectPage', {
     query: (pageIndex, pageSize, searchValues) => {
@@ -73,7 +74,7 @@ export default function Demo(props: {
           type: 'checkbox',
           selectKey: 'id',
         }}
-        columns={columnsDeposit(option, setValue) as FormCol[]}
+        columns={columnsDeposit(option, setValue, searchParms) as FormCol[]}
       />
     </React.Fragment>
   )

@@ -11,8 +11,9 @@ export default function Demo(props: {
   setValue: (e: any) => void
   updateData: (payload: any) => void
   onSearch: (e: any) => void
+  searchParms: any
 }) {
-  const { option, setValue, updateData, onSearch } = props
+  const { option, setValue, updateData, onSearch, searchParms } = props
 
   const table = useTable(selectPage, {
     query: (pageIndex, pageSize, searchValues) => {
@@ -78,7 +79,7 @@ export default function Demo(props: {
           type: 'checkbox',
           selectKey: 'id',
         }}
-        columns={columnsRout(option, setValue) as FormCol[]}
+        columns={columnsRout(option, setValue, searchParms) as FormCol[]}
       />
     </React.Fragment>
   )
