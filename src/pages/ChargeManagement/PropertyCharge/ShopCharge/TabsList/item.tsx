@@ -1,4 +1,5 @@
 import { searchValue } from '@/servers/ChargeManagement/ShopCharge'
+import { Button } from 'uiw'
 // 常规收费
 export const columnsRout = (
   option: searchValue[],
@@ -73,7 +74,8 @@ export const columnsRout = (
 export const columnsTem = (
   option: searchValue[],
   setValue: (e: any) => void,
-  searchParms: any
+  searchParms: any,
+  handleEditTable: any
 ) => {
   return [
     {
@@ -157,14 +159,18 @@ export const columnsTem = (
       key: 'edit',
       align: 'center',
       width: 150,
-      render: () => (
+      render: (text: any, type: string, data: object) => (
         <div
           style={{
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
           }}
-        ></div>
+        >
+          <Button onClick={() => handleEditTable('details', data)}>
+            退款详情
+          </Button>
+        </div>
       ),
     },
   ]
