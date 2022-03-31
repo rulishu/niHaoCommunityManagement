@@ -31,10 +31,14 @@ export default function Demo(props: {
     },
   })
   // 操作
-  const handleEditTable = (type: string) => {
+  const handleEditTable = (type: string, data: object = {}) => {
     if (!table?.searchValues?.code)
       return Notify.warning({ description: '请先输入商铺进行搜索 !' })
-    updateData({ drawerType: type, drawerVisible: true })
+    updateData({
+      drawerType: type,
+      drawerVisible: true,
+      queryInfo: { ...data },
+    })
   }
   return (
     <React.Fragment>
@@ -68,7 +72,14 @@ export default function Demo(props: {
           type: 'checkbox',
           selectKey: 'id',
         }}
-        columns={columnsTem(option, setValue, searchParms) as FormCol[]}
+        columns={
+          columnsTem(
+            option,
+            setValue,
+            searchParms,
+            handleEditTable
+          ) as FormCol[]
+        }
       />
     </React.Fragment>
   )
