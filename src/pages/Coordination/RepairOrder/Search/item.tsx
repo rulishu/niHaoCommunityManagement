@@ -113,7 +113,7 @@ export const columnsSearch = (
       title: '操作',
       key: 'edit',
       align: 'center',
-      width: 200,
+      width: 120,
       render: (text: any, key: any, rowData: Change) => (
         <div>
           {/* <Button
