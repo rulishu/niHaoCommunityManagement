@@ -21,18 +21,18 @@ export interface Change {
  * @param {Object} params
  */
 function selectById(params: Change) {
-  return request('', {
+  return request('/api/test/selectPage', {
     method: 'POST',
     body: { ...params },
   })
 }
 
-const selectPage = ''
+const selectPage = '/api/test/selectPage'
 
-const update = ''
+const update = '/api/test/selectPage'
 
-const insert = ''
+const insert = '/api/test/selectPage'
 
-const deleteData = ''
+const deleteData = '/api/test/selectPage'
 
 export { selectById, selectPage, update, insert, deleteData }
