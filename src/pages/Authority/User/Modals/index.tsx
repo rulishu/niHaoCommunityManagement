@@ -41,8 +41,8 @@ const Modals = (props: { onSearch: () => void }) => {
     <Modal
       title="删除"
       isOpen={delectVisible}
-      confirmText="确定按钮"
-      cancelText="取消按钮"
+      confirmText="确定"
+      cancelText="取消"
       icon="information"
       type="primary"
       onConfirm={() => mutate()}
