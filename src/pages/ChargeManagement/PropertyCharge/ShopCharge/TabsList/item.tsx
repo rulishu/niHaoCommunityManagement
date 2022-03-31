@@ -179,7 +179,8 @@ export const columnsTem = (
 export const columnsDeposit = (
   option: searchValue[],
   setValue: (e: any) => void,
-  searchParms: any
+  searchParms: any,
+  handleEditTable: Function
 ) => [
   {
     title: '客户姓名',
@@ -265,14 +266,18 @@ export const columnsDeposit = (
     align: 'center',
     ellipsis: true,
     width: 150,
-    render: () => (
+    render: (text: any, type: string, data: object) => (
       <div
         style={{
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
         }}
-      ></div>
+      >
+        <Button onClick={() => handleEditTable('returnMoney', data)}>
+          退还
+        </Button>
+      </div>
     ),
   },
 ]
