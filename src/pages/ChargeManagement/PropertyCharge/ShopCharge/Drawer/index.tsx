@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { ProDrawer, ProForm, useForm } from '@uiw-admin/components'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
@@ -15,6 +16,8 @@ const Drawer = ({ updateData, option }: DetailProps) => {
 
   const form = useForm()
 
+  const [show, setShow] = useState(false)
+
   const {
     shopCharge: {
       drawerVisible,
@@ -27,18 +30,22 @@ const Drawer = ({ updateData, option }: DetailProps) => {
     },
   }: any = useSelector((state: RootState) => state)
 
-  const onClose = () => dispatch({ type: 'shopCharge/clean' })
+  const onClose = () => {
+    dispatch({ type: 'shopCharge/clean' })
+    setShow(false)
+  }
 
   // 验证
   const verification = (current: any) => {
+    if (current?.chargeltem === '2') {
+      delete current.payService
+    }
     const errorObj: any = {}
     const arr = Object.keys(current)
     arr.forEach((element: any) => {
       if (
         !current[element] ||
         (Array.isArray(current[element]) && current[element].length === 0)
-          ? true
-          : false
       ) {
         errorObj[element] = '此项不能为空'
       }
@@ -70,9 +77,9 @@ const Drawer = ({ updateData, option }: DetailProps) => {
       ).then((data: any) => {
         if (data?.code === 1) {
           onClose()
-          Notify.success({ titdescriptionle: data?.message || '' })
+          Notify.success({ title: data?.message || '' })
         } else {
-          Notify.error({ description: data?.message || '' })
+          Notify.error({ title: data?.message || '' })
         }
       })
 
@@ -93,11 +100,37 @@ const Drawer = ({ updateData, option }: DetailProps) => {
       ).then((data: any) => {
         if (data?.code === 1) {
           onClose()
-          Notify.success({ titdescriptionle: data?.message || '' })
+          Notify.success({ title: data?.message || '' })
         } else {
-          Notify.error({ description: data?.message || '' })
+          Notify.error({ title: data?.message || '' })
         }
       })
+
+    // 预存
+    if (drawerType === 'storage') {
+      const payload = {
+        ...current,
+        code: current?.code[0],
+        chargeltem: Number(current?.chargeltem),
+        chargingTime: changeTimeFormat(current?.chargingTime),
+      }
+      if (payload.chargeltem === 2) {
+        delete payload.payService
+      }
+      ;(
+        dispatch({
+          type: 'shopCharge/getBuAdvanceDeposit',
+          payload,
+        }) as any
+      ).then((data: any) => {
+        if (data?.code === 1) {
+          onClose()
+          Notify.success({ title: data?.message || '' })
+        } else {
+          Notify.error({ title: data?.message || '' })
+        }
+      })
+    }
   }
 
   return (
@@ -108,10 +141,11 @@ const Drawer = ({ updateData, option }: DetailProps) => {
       onClose={onClose}
       buttons={[
         {
-          label: '保存',
+          label: drawerType === 'history' ? '关闭' : '保存',
           type: 'primary',
           style: { width: 80 },
           onClick: () => {
+            if (drawerType === 'history') return onClose()
             form.submitvalidate()
           },
         },
@@ -143,7 +177,9 @@ const Drawer = ({ updateData, option }: DetailProps) => {
               payment,
               payService,
               searchParms,
-              detailed
+              detailed,
+              show,
+              setShow
             ) as any
           }
         />

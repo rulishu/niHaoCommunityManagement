@@ -18,7 +18,7 @@ interface State {
 export default function Demo() {
   const dispatch = useDispatch<Dispatch>()
   const {
-    shopCharge: { shopNoList },
+    shopCharge: { shopNoList, searchParms },
   } = useSelector((shopCharge: RootState) => shopCharge)
 
   const [option, setOption] = useState<searchValue[]>(shopNoList)
@@ -78,6 +78,7 @@ export default function Demo() {
     updateData,
     dispatch,
     onSearch,
+    searchParms,
   }
   return (
     <Fragment>

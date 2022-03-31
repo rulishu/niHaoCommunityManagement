@@ -2,7 +2,8 @@ import { searchValue } from '@/servers/ChargeManagement/ShopCharge'
 // 常规收费
 export const columnsRout = (
   option: searchValue[],
-  setValue: (e: any) => void
+  setValue: (e: any) => void,
+  searchParms: any
 ) => {
   return [
     {
@@ -15,13 +16,12 @@ export const columnsRout = (
           label: '商铺',
           key: 'code',
           widget: 'searchSelect',
+          initialValue: [searchParms?.code],
           option,
           widgetProps: {
             mode: 'single',
             showSearch: true,
             maxTagCount: 6,
-            allowClear: true,
-            disabled: false,
             placeholder: '请输入选择',
             onSearch: (value: String) => setValue(value),
           },
@@ -72,7 +72,8 @@ export const columnsRout = (
 // 临时收费
 export const columnsTem = (
   option: searchValue[],
-  setValue: (e: any) => void
+  setValue: (e: any) => void,
+  searchParms: any
 ) => {
   return [
     {
@@ -85,13 +86,12 @@ export const columnsTem = (
           label: '商铺',
           key: 'code',
           widget: 'searchSelect',
+          initialValue: [searchParms?.code],
           option,
           widgetProps: {
             mode: 'single',
             showSearch: true,
             maxTagCount: 6,
-            allowClear: true,
-            disabled: false,
             placeholder: '请输入选择',
             onSearch: (value: String) => setValue(value),
           },
@@ -172,7 +172,8 @@ export const columnsTem = (
 // 收取押金
 export const columnsDeposit = (
   option: searchValue[],
-  setValue: (e: any) => void
+  setValue: (e: any) => void,
+  searchParms: any
 ) => [
   {
     title: '客户姓名',
@@ -184,13 +185,12 @@ export const columnsDeposit = (
         label: '商铺',
         key: 'code',
         widget: 'searchSelect',
+        initialValue: [searchParms?.code],
         option,
         widgetProps: {
           mode: 'single',
           showSearch: true,
           maxTagCount: 6,
-          allowClear: true,
-          disabled: false,
           placeholder: '请输入选择',
           onSearch: (value: String) => setValue(value),
         },
@@ -274,7 +274,8 @@ export const columnsDeposit = (
 // 预存款
 export const columnsAdvance = (
   option: searchValue[],
-  setValue: (e: any) => void
+  setValue: (e: any) => void,
+  searchParms: any
 ) => [
   {
     title: '客户姓名',
@@ -286,13 +287,12 @@ export const columnsAdvance = (
         label: '商铺',
         key: 'code',
         widget: 'searchSelect',
+        initialValue: [searchParms?.code],
         option,
         widgetProps: {
           mode: 'single',
           showSearch: true,
           maxTagCount: 6,
-          allowClear: true,
-          disabled: false,
           placeholder: '请输入选择',
           onSearch: (value: String) => setValue(value),
         },

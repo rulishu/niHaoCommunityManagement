@@ -11,8 +11,9 @@ export default function Demo(props: {
   setValue: (e: any) => void
   updateData: (payload: any) => void
   onSearch: (e: any) => void
+  searchParms: any
 }) {
-  const { option, setValue, updateData, onSearch } = props
+  const { option, setValue, updateData, onSearch, searchParms } = props
 
   const table = useTable(selectPage, {
     query: (pageIndex, pageSize, searchValues) => {
@@ -32,6 +33,8 @@ export default function Demo(props: {
 
   // 操作
   const handleEditTable = (type: string) => {
+    if (!searchParms?.code)
+      return Notify.warning({ description: '请先输入商铺进行搜索 !' })
     if (
       type === 'charge' &&
       Array.isArray(table?.selection?.selected) &&
@@ -78,7 +81,7 @@ export default function Demo(props: {
           type: 'checkbox',
           selectKey: 'id',
         }}
-        columns={columnsRout(option, setValue) as FormCol[]}
+        columns={columnsRout(option, setValue, searchParms) as FormCol[]}
       />
     </React.Fragment>
   )
