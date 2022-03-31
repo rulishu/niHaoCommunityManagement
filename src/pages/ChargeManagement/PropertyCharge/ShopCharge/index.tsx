@@ -18,16 +18,24 @@ interface State {
 export default function Demo() {
   const dispatch = useDispatch<Dispatch>()
   const {
-    shopCharge: { shopNoList },
+    shopCharge: { shopNoList, searchParms },
   } = useSelector((shopCharge: RootState) => shopCharge)
 
   const [option, setOption] = useState<searchValue[]>(shopNoList)
   const [value, setValue] = useState('')
 
-  // 查询所有商铺
   useEffect(() => {
+    // 查询所有商铺
     dispatch({
       type: 'shopCharge/shopSelectPage',
+    })
+    // 支付方式
+    dispatch({
+      type: 'shopCharge/pay',
+    })
+    // 收费项目
+    dispatch({
+      type: 'shopCharge/service',
     })
   }, [dispatch])
 
@@ -48,10 +56,29 @@ export default function Demo() {
     })
   }
 
+  // 查询
+  const onSearch = (table: any) => {
+    table.onSearch()
+    updateData({
+      // @ts-ignorets-ignore
+      searchParms: { code: table?.form?.current?.getFieldValues()?.code || '' },
+    })
+    dispatch({
+      type: 'shopCharge/buShop',
+      payload: {
+        // @ts-ignorets-ignore
+        code: table?.form?.current?.getFieldValues()?.code || '',
+      },
+    })
+  }
+
   const payload = {
     option,
     setValue,
     updateData,
+    dispatch,
+    onSearch,
+    searchParms,
   }
   return (
     <Fragment>

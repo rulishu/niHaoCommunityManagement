@@ -16,17 +16,43 @@ export const drawerTitle = (type: string) => {
       return ''
   }
 }
-export const matching = (type: string, queryInfo: any, option: any) => {
+export const matching = (
+  type: string,
+  queryInfo: any,
+  option: any,
+  payment: any,
+  payService: any,
+  searchParms: any,
+  detailed: any,
+  show: boolean,
+  setShow: any
+) => {
   switch (type) {
     case 'charge':
       return items(queryInfo)
     case 'temAdd':
     case 'depositAdd':
-      return temAddItems(queryInfo, option)
+      return temAddItems(
+        queryInfo,
+        option,
+        payment,
+        payService,
+        searchParms,
+        detailed
+      )
     case 'storage':
-      return storageItem(queryInfo, option)
+      return storageItem(
+        queryInfo,
+        option,
+        searchParms,
+        detailed,
+        show,
+        setShow,
+        payment,
+        payService
+      )
     case 'return':
-      return returnItem(queryInfo, option)
+      return returnItem(queryInfo, option, searchParms, detailed, payment)
     default:
       return []
   }
@@ -123,51 +149,75 @@ const items = (queryInfo: any) => [
   },
 ]
 
-const temAddItems = (queryInfo: any, option: any) => {
+const temAddItems = (
+  queryInfo: any,
+  option: any,
+  payment: any,
+  payService: any,
+  searchParms: any,
+  detailed: any
+) => {
   return [
     {
       label: '商铺',
-      key: 'name',
+      key: 'code',
       widget: 'searchSelect',
       option,
       required: true,
       span: 8,
+      disabled: true,
+      initialValue: [searchParms?.code || ''],
       widgetProps: {
         placeholder: '请选择商铺',
+        mode: 'single',
+        allowClear: false,
+      },
+    },
+    {
+      label: '客户姓名',
+      key: 'name',
+      widget: 'input',
+      required: true,
+      span: 8,
+      disabled: true,
+      initialValue: detailed?.userName || '',
+      widgetProps: {
+        placeholder: '请填写客户姓名',
+      },
+    },
+    {
+      label: '收费项目',
+      key: 'payService',
+      widget: 'searchSelect',
+      option: payService,
+      required: true,
+      span: 8,
+      widgetProps: {
+        placeholder: '请选择收费项目',
         labelInValue: true,
         mode: 'single',
         allowClear: true,
-        showSearch: true,
       },
       initialValue: queryInfo?.name,
     },
     {
-      label: '客户姓名',
-      key: 'name1',
-      widget: 'input',
-      required: true,
-      span: 8,
-      initialValue: queryInfo?.name,
-    },
-    {
-      label: '收费项目',
-      key: 'name2',
-      widget: 'input',
-      required: true,
-      span: 8,
-      initialValue: queryInfo?.name,
-    },
-    {
       label: '付款方式',
-      key: 'name3',
-      widget: 'input',
+      key: 'payType',
+      widget: 'searchSelect',
+      option: payment,
       required: true,
       span: 8,
+      widgetProps: {
+        placeholder: '请选择付款方式',
+        labelInValue: true,
+        mode: 'single',
+        allowClear: true,
+      },
       initialValue: queryInfo?.name,
     },
     {
       label: '收费金额',
-      key: 'name4',
+      key: 'price',
       widget: 'input',
       required: true,
       span: 8,
@@ -175,55 +225,67 @@ const temAddItems = (queryInfo: any, option: any) => {
     },
     {
       label: '收费时间',
-      key: 'dateInputsecond',
+      key: 'collectionTime',
       widget: 'dateInput',
       widgetProps: {
+        allowClear: false,
         format: 'YYYY-MM-DD HH:mm:ss',
       },
     },
   ]
 }
 
-const storageItem = (queryInfo: any, option: any) => [
+const storageItem = (
+  queryInfo: any,
+  option: any,
+  searchParms: any,
+  detailed: any,
+  show: boolean,
+  setShow: any,
+  payment: any,
+  payService: any
+) => [
   {
     label: '商铺',
-    key: 'name',
+    key: 'code',
     widget: 'searchSelect',
     option,
     required: true,
     span: 8,
+    initialValue: [searchParms?.code || ''],
     widgetProps: {
       placeholder: '请选择商铺',
-      labelInValue: true,
       mode: 'single',
-      allowClear: true,
-      showSearch: true,
     },
-    initialValue: queryInfo?.name,
   },
   {
     label: '客户姓名',
-    key: 'name1',
+    key: 'name',
     widget: 'input',
     required: true,
     disabled: true,
     span: 8,
-    initialValue: queryInfo?.name,
+    initialValue: detailed?.userName || '',
     widgetProps: {
-      placeholder: '请选择商铺',
+      placeholder: '请填写用户姓名',
     },
   },
   {
     label: '付款方式',
-    key: 'name3',
-    widget: 'input',
+    key: 'paymentMethod',
+    widget: 'searchSelect',
+    option: payment,
     required: true,
     span: 8,
+    widgetProps: {
+      placeholder: '请选择付款方式',
+      mode: 'single',
+    },
     initialValue: queryInfo?.name,
   },
   {
     label: '收费金额',
-    key: 'name4',
+    key: 'chargeAmount',
     widget: 'input',
     required: true,
     span: 8,
@@ -231,32 +293,53 @@ const storageItem = (queryInfo: any, option: any) => [
   },
   {
     label: '收费时间',
-    key: 'dateInputsecond',
+    key: 'chargingTime',
     widget: 'dateInput',
     widgetProps: {
       format: 'YYYY-MM-DD HH:mm:ss',
     },
   },
   {
-    label: 'radio',
+    label: '可用收费项',
     widget: 'radio',
-    key: 'radio',
+    key: 'chargeltem',
     option: [
       { label: '指定收费项', value: '1' },
       { label: '所有收费项', value: '2' },
     ],
+    widgetProps: {
+      onChange: (value: any) => {
+        if (value?.target?.value !== '1') {
+          setShow(true)
+        } else {
+          setShow(false)
+        }
+      },
+    },
   },
   {
     label: '收费项目',
-    key: 'name9',
-    widget: 'input',
+    key: 'payService',
+    widget: 'searchSelect',
+    option: payService,
     required: true,
+    hide: show,
     span: 8,
+    widgetProps: {
+      placeholder: '请选择收费项目',
+      mode: 'single',
+    },
     initialValue: queryInfo?.name,
   },
 ]
 
-const returnItem = (queryInfo: any, option: any) => [
+const returnItem = (
+  queryInfo: any,
+  option: any,
+  searchParms: any,
+  detailed: any,
+  payment: any
+) => [
   {
     label: '商铺',
     key: 'name',
@@ -264,14 +347,11 @@ const returnItem = (queryInfo: any, option: any) => [
     option,
     required: true,
     span: 8,
+    initialValue: [searchParms?.code || ''],
     widgetProps: {
       placeholder: '请选择商铺',
-      labelInValue: true,
       mode: 'single',
-      allowClear: true,
-      showSearch: true,
     },
-    initialValue: queryInfo?.name,
   },
   {
     label: '客户姓名',
@@ -280,17 +360,22 @@ const returnItem = (queryInfo: any, option: any) => [
     required: true,
     disabled: true,
     span: 8,
-    initialValue: queryInfo?.name,
+    initialValue: detailed?.userName || '',
     widgetProps: {
-      placeholder: '请选择商铺',
+      placeholder: '请填写用户姓名',
     },
   },
   {
     label: '付款方式',
-    key: 'name3',
-    widget: 'input',
+    key: 'payType',
+    widget: 'searchSelect',
+    option: payment,
     required: true,
     span: 8,
+    widgetProps: {
+      placeholder: '请选择付款方式',
+      mode: 'single',
+    },
     initialValue: queryInfo?.name,
   },
   {

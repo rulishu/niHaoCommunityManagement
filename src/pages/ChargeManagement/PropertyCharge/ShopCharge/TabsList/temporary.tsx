@@ -1,5 +1,6 @@
-import * as React from 'react'
+import React from 'react'
 import { ProTable, useTable } from '@uiw-admin/components'
+import { Notify } from 'uiw'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import { searchValue } from '@/servers/ChargeManagement/ShopCharge'
 import FormSelect from '../FormSelect'
@@ -9,8 +10,10 @@ export default function Demo(props: {
   option: searchValue[]
   setValue: (e: any) => void
   updateData: (payload: any) => void
+  onSearch: (payload: any) => void
+  searchParms: any
 }) {
-  const { option, setValue, updateData } = props
+  const { option, setValue, updateData, onSearch, searchParms } = props
 
   const table = useTable('/api/buTemporaryCharges/selectPage', {
     query: (pageIndex, pageSize, searchValues) => {
@@ -27,9 +30,10 @@ export default function Demo(props: {
       }
     },
   })
-
   // 操作
-  const handleEditTable = (type: string, data?: any) => {
+  const handleEditTable = (type: string) => {
+    if (!table?.searchValues?.code)
+      return Notify.warning({ description: '请先输入商铺进行搜索 !' })
     updateData({ drawerType: type, drawerVisible: true })
   }
   return (
@@ -50,9 +54,7 @@ export default function Demo(props: {
           {
             label: '查询',
             type: 'primary',
-            onClick: () => {
-              table.onSearch()
-            },
+            onClick: () => onSearch(table),
           },
           {
             label: '重置',
@@ -66,11 +68,7 @@ export default function Demo(props: {
           type: 'checkbox',
           selectKey: 'id',
         }}
-        // 取消全部选择
-        onPageChange={() => {
-          table.selection.unSelectAll()
-        }}
-        columns={columnsTem(option, setValue) as FormCol[]}
+        columns={columnsTem(option, setValue, searchParms) as FormCol[]}
       />
     </React.Fragment>
   )
