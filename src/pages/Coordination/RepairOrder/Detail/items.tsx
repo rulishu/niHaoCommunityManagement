@@ -34,7 +34,7 @@ export const items = (queryInfo: Change, butType: string) => {
       widget: 'input',
       initialValue: queryInfo?.chargeName,
       required: true,
-      hide: (butType === '2' || butType === '3') ? false : true,
+      hide: butType === '2' || butType === '3' ? false : true,
       rules: [{ required: true, message: '请输入商铺编号' }],
     },
     {
@@ -51,14 +51,22 @@ export const items = (queryInfo: Change, butType: string) => {
       widget: 'input',
       initialValue: queryInfo?.chargeName,
       required: true,
-      rules: [{ required: true, message: '请输入报修电话' }],
+      rules: [
+        {
+          required: true,
+          pattern: new RegExp(
+            /^1(3[0-9]|4[01456879]|5[0-35-9]|6[2567]|7[0-8]|8[0-9]|9[0-35-9])\d{8}$/
+          ),
+          message: '请输入正确的报修电话',
+        },
+      ],
     },
     {
       label: '预约时间',
       key: 'time',
       widget: 'dateInput',
       initialValue: queryInfo?.chargeName,
-      hide: (butType === '2' || butType === '3') ? false : true,
+      hide: butType === '2' || butType === '3' ? false : true,
       span: '8',
       rules: [{ required: true, message: '请输入预约时间' }],
     },
@@ -68,6 +76,7 @@ export const items = (queryInfo: Change, butType: string) => {
       widget: 'textarea',
       initialValue: queryInfo?.univalent,
       required: true,
+      rules: [{ required: true, message: '请输入报修内容' }],
     },
     {
       label: '报修图片',
@@ -81,7 +90,7 @@ export const items = (queryInfo: Change, butType: string) => {
   ]
 }
 // 详情
-export const viewItems = (queryInfo: Change,) => {
+export const viewItems = (queryInfo: Change) => {
   return [
     {
       label: '流程标题',
@@ -165,7 +174,7 @@ export const viewItems = (queryInfo: Change,) => {
     },
   ]
 }
-export const columns =[
+export const columns = [
   {
     title: '序号',
     key: 'age',
