@@ -9,7 +9,7 @@ export const columnsRout = (
     {
       title: '收费项名称',
       align: 'center',
-      key: 'saleName',
+      key: 'saleType',
       ellipsis: true,
       props: [
         {
@@ -45,26 +45,26 @@ export const columnsRout = (
     {
       align: 'center',
       title: '缴费日期',
-      key: 'deadlineTime',
+      key: 'deadline',
       ellipsis: true,
       width: 200,
     },
     {
       title: '单价',
       align: 'center',
-      key: 'chargePrice',
+      key: 'price',
       ellipsis: true,
     },
     {
       title: '数量',
       align: 'center',
-      key: 'number',
+      key: 'quantity',
       ellipsis: true,
     },
     {
       title: '金额',
       align: 'center',
-      key: 'price',
+      key: 'money',
       ellipsis: true,
     },
   ]
