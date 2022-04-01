@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import {} from 'uiw'
 import { ProDrawer, ProForm, useForm } from '@uiw-admin/components'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
@@ -14,7 +15,7 @@ interface DetailProps {
 const Drawer = ({ updateData, option }: DetailProps) => {
   const dispatch = useDispatch<Dispatch>()
 
-  const form = useForm()
+  const form: any = useForm()
 
   const [show, setShow] = useState(false)
 
@@ -133,6 +134,19 @@ const Drawer = ({ updateData, option }: DetailProps) => {
     }
   }
 
+  useEffect(() => {
+    if (queryInfo?.shouldPaySum && !queryInfo?.type) {
+      if (typeof form.setFields === 'function') {
+        console.log('执行！！！', queryInfo)
+        form.setFields({
+          preBunt: queryInfo?.preBunt,
+          shouldPaySum: queryInfo?.shouldPaySum,
+          sumByZero: 0 - queryInfo?.shouldPaySum,
+        })
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [queryInfo])
   return (
     <ProDrawer
       width={1000}
@@ -165,9 +179,29 @@ const Drawer = ({ updateData, option }: DetailProps) => {
           formType="card"
           onSubmit={(_, current: Record<string, any>) => onSubmit(current)}
           // 更新表单的值
-          onChange={(_, current: Record<string, any>) =>
+          onChange={(_, current: Record<string, any>) => {
+            console.log(current, 'current')
+            if (drawerType === 'charge') {
+              if (Array.isArray(current?.type) && current?.type.includes(1)) {
+                form.setFields({
+                  preBuntPaySum: current?.preBunt,
+                  preBunt: current?.preBunt,
+                  sumByZero: current?.sumByZero + current?.preBunt,
+                })
+                current.preBuntPaySum = current?.preBunt
+                current.sumByZero = current?.sumByZero + current?.preBunt
+              } else {
+                form.setFields({
+                  preBunt: current?.preBunt,
+                  sumByZero: current?.sumByZero - current?.preBunt,
+                  preBuntPaySum: 0,
+                })
+                current.sumByZero = current?.sumByZero - current?.preBunt
+                current.sumByZero = 0
+              }
+            }
             updateData({ queryInfo: { ...queryInfo, ...current } })
-          }
+          }}
           buttonsContainer={{ justifyContent: 'flex-start' }}
           formDatas={
             matching(
@@ -179,7 +213,8 @@ const Drawer = ({ updateData, option }: DetailProps) => {
               searchParms,
               detailed,
               show,
-              setShow
+              setShow,
+              form
             ) as any
           }
         />

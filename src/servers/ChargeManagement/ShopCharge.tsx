@@ -100,8 +100,12 @@ function buAdvanceDeposit(params: any) {
 }
 
 // 商铺收费数据-收费计算
-const buShopChargeData = 'api/buShopChargeData/normalCalcPay'
-
+function buShopChargeData(params: any) {
+  return request('/api/buShopChargeData/normalCalcPay', {
+    method: 'POST',
+    body: { ...params },
+  })
+}
 export {
   selectById,
   selectPage,

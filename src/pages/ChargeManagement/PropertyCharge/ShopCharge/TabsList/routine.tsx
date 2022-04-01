@@ -1,5 +1,7 @@
 import React from 'react'
 import { ProTable, useTable } from '@uiw-admin/components'
+import { useDispatch } from 'react-redux'
+import { Dispatch } from '@uiw-admin/models'
 import { Notify } from 'uiw'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import { selectPage, searchValue } from '@/servers/ChargeManagement/ShopCharge'
@@ -13,6 +15,8 @@ export default function Demo(props: {
   onSearch: (e: any) => void
   searchParms: any
 }) {
+  const dispatch = useDispatch<Dispatch>()
+
   const { option, setValue, updateData, onSearch, searchParms } = props
 
   const table = useTable(selectPage, {
@@ -33,7 +37,6 @@ export default function Demo(props: {
 
   // 操作
   const handleEditTable = (type: string) => {
-    console.log(table, 'sssss')
     if (!searchParms?.code)
       return Notify.warning({ description: '请先输入商铺进行搜索 !' })
     if (
@@ -44,13 +47,19 @@ export default function Demo(props: {
       return Notify.warning({ description: '请选择要缴费的数据 !' })
     if (type === 'charge') {
       const selected = table?.selection?.selected || []
-      // const selectedList = []
-      // const data = table?.data || []
-      // for (let i of selected) {
-      //   const itemJson = data.find((item)=>{return item.id === i})
-      //   if (itemJson) selectedList.push(itemJson)
-      // }
-      updateData({ selectedList: selected })
+      const ids = []
+      const data = table?.data || []
+      for (let i of selected) {
+        const itemJson = data.find((item) => {
+          return item.id === i
+        })
+        if (itemJson) ids.push(itemJson)
+      }
+      dispatch({
+        type: 'shopCharge/getBuShopChargeData',
+        payload: { ids: ids.map((item) => item?.id) },
+      })
+      updateData({ selectedList: ids })
     }
     updateData({ drawerType: type, drawerVisible: true })
   }
