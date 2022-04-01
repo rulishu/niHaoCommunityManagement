@@ -19,6 +19,7 @@ interface State {
   queryInfo: object
   searchParms: object
   detailed: object
+  selectedList: Array<any>
   shopNoList: Array<searchValue>
   payment: Array<searchValue>
   payService: Array<searchValue>
@@ -32,6 +33,7 @@ const shopCharge = createModel()({
     queryInfo: {}, //表单信息
     detailed: {},
     searchParms: {},
+    selectedList: [], // 勾选项
 
     shopNoList: [], //商铺查询
     payment: [], //支付方式
@@ -50,6 +52,7 @@ const shopCharge = createModel()({
         drawerVisible: false,
         drawerType: '',
         queryInfo: {},
+        selectedList: [],
       })
     },
 

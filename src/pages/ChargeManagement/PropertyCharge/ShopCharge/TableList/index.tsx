@@ -1,11 +1,14 @@
 import { ProTable, useTable } from '@uiw-admin/components'
 import { useSelector } from 'react-redux'
 import { RootState } from '@uiw-admin/models'
-import { selectHistoryPayList } from '@/servers/ChargeManagement/ShopCharge'
+import {
+  selectHistoryPayList,
+  buShopChargeData,
+} from '@/servers/ChargeManagement/ShopCharge'
 import { matching } from './item'
 export default function Index() {
   const {
-    shopCharge: { drawerType, searchParms },
+    shopCharge: { drawerType, searchParms, selectedList },
   } = useSelector((shopCharge: RootState) => shopCharge) as any
 
   const table = useTable(
@@ -13,16 +16,20 @@ export default function Index() {
       drawerType === 'history'
         ? selectHistoryPayList
         : drawerType === 'charge'
-        ? '11'
+        ? buShopChargeData
         : '/api'
     }`,
     {
       query: (pageIndex, pageSize) => {
-        return {
-          code: searchParms?.code || '',
-          page: pageIndex,
-          pageSize,
-        }
+        const data =
+          drawerType === 'charge'
+            ? { ids: selectedList }
+            : {
+                code: searchParms?.code || '',
+                page: pageIndex,
+                pageSize,
+              }
+        return data
       },
       formatData: (data) => {
         return {

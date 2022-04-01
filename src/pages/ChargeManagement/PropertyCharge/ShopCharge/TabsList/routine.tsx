@@ -33,6 +33,7 @@ export default function Demo(props: {
 
   // 操作
   const handleEditTable = (type: string) => {
+    console.log(table, 'sssss')
     if (!searchParms?.code)
       return Notify.warning({ description: '请先输入商铺进行搜索 !' })
     if (
@@ -41,6 +42,16 @@ export default function Demo(props: {
       table.selection.selected.length === 0
     )
       return Notify.warning({ description: '请选择要缴费的数据 !' })
+    if (type === 'charge') {
+      const selected = table?.selection?.selected || []
+      // const selectedList = []
+      // const data = table?.data || []
+      // for (let i of selected) {
+      //   const itemJson = data.find((item)=>{return item.id === i})
+      //   if (itemJson) selectedList.push(itemJson)
+      // }
+      updateData({ selectedList: selected })
+    }
     updateData({ drawerType: type, drawerVisible: true })
   }
 
