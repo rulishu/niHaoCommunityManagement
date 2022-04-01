@@ -21,7 +21,7 @@ export const columnsSearch = (
         },
       },
       render: (text: any, key: any, rowData: Change) => (
-        <div style={{ textAlign: 'center' }}>
+        <div style={{ textAlign: 'left' }}>
           {rowData?.children && rowData?.children.length > 0 ? (
             <Button
               basic

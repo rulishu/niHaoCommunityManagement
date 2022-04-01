@@ -19,7 +19,7 @@ const Drawer = (props: {
   const baseRef = useForm()
   const dispatch = useDispatch<Dispatch>()
   const {
-    Add: { drawerVisible, tableType, queryInfo, isView },
+    Add: { drawerVisible, tableType, queryInfo, isView, loading },
   } = useSelector((state: RootState) => state)
 
   const onClose = () => {
@@ -44,8 +44,20 @@ const Drawer = (props: {
           Notify.success({ title: data.message })
           props.onSearch()
           onClose()
+          dispatch({
+            type: 'Add/updateState',
+            payload: {
+              loading: false,
+            },
+          })
         } else {
           Notify.error({ title: '提交失败！' })
+          dispatch({
+            type: 'Add/updateState',
+            payload: {
+              loading: false,
+            },
+          })
         }
       },
     }
@@ -74,8 +86,28 @@ const Drawer = (props: {
         {
           label: '保存',
           type: 'primary',
-          onClick: () => baseRef.submitvalidate(),
           show: !isView,
+          loading: loading,
+          onClick: async () => {
+            dispatch({
+              type: 'Add/updateState',
+              payload: {
+                loading: true,
+              },
+            })
+            await baseRef?.submitvalidate?.()
+            const errors = baseRef.getError()
+            if (errors && Object.keys(errors).length > 0) {
+              dispatch({
+                type: 'Add/updateState',
+                payload: {
+                  loading: false,
+                },
+              })
+              return
+            }
+            mutate()
+          },
         },
       ]}
     >
@@ -84,11 +116,6 @@ const Drawer = (props: {
         formType={isView ? 'pure' : 'card'}
         form={baseRef}
         readOnly={isView}
-        onSubmit={(initial, current) => {
-          // initial
-          // current
-          mutate()
-        }}
         buttonsContainer={{ justifyContent: 'flex-start' }}
         // 更新表单的值
         onChange={(initial, current) => onChange(initial, current)}
