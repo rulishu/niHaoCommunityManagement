@@ -61,7 +61,7 @@ export const columnsSearch = (
       title: '电话',
       align: 'center',
       key: 'phone',
-      ellipsis: true,
+      width: 130,
     },
     {
       title: '租金',

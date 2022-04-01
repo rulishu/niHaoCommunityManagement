@@ -62,11 +62,6 @@ const columnsList = () => {
 }
 // 历史数据
 const columnsHistory = () => [
-  // {
-  //   title: '打印',
-  //   key: 'print',
-  //   align: 'center',
-  // },
   {
     title: '编号',
     key: 'code',

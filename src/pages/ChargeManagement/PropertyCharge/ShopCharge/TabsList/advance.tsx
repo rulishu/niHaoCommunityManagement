@@ -4,7 +4,7 @@ import { ProTable, useTable } from '@uiw-admin/components'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import { searchValue } from '@/servers/ChargeManagement/ShopCharge'
 import FormSelect from '../FormSelect'
-import { columnsDeposit } from './item'
+import { columnsAdvance } from './item'
 
 export default function Demo(props: {
   option: searchValue[]
@@ -74,7 +74,7 @@ export default function Demo(props: {
           type: 'checkbox',
           selectKey: 'id',
         }}
-        columns={columnsDeposit(option, setValue, searchParms) as FormCol[]}
+        columns={columnsAdvance(option, setValue, searchParms) as FormCol[]}
       />
     </React.Fragment>
   )

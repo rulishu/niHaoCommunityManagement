@@ -9,7 +9,13 @@ export default function Index() {
   } = useSelector((shopCharge: RootState) => shopCharge) as any
 
   const table = useTable(
-    `${drawerType === 'history' ? selectHistoryPayList : '/api'}`,
+    `${
+      drawerType === 'history'
+        ? selectHistoryPayList
+        : drawerType === 'charge'
+        ? '11'
+        : '/api'
+    }`,
     {
       query: (pageIndex, pageSize) => {
         return {

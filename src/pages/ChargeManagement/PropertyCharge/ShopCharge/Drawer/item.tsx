@@ -12,10 +12,15 @@ export const drawerTitle = (type: string) => {
       return '预存'
     case 'return':
       return '退还'
+    case 'details':
+      return '临时收费退款'
+    case 'returnMoney':
+      return '押金退还'
     default:
       return ''
   }
 }
+
 export const matching = (
   type: string,
   queryInfo: any,
@@ -53,10 +58,22 @@ export const matching = (
       )
     case 'return':
       return returnItem(queryInfo, option, searchParms, detailed, payment)
+    case 'details':
+    case 'returnMoney':
+      return details(
+        queryInfo,
+        option,
+        searchParms,
+        detailed,
+        payment,
+        payService,
+        type
+      )
     default:
       return []
   }
 }
+
 const items = (queryInfo: any) => [
   {
     label: '滞纳金',
@@ -181,9 +198,7 @@ const temAddItems = (
       span: 8,
       disabled: true,
       initialValue: detailed?.userName || '',
-      widgetProps: {
-        placeholder: '请填写客户姓名',
-      },
+      widgetProps: { placeholder: '请填写客户姓名' },
     },
     {
       label: '收费项目',
@@ -227,10 +242,7 @@ const temAddItems = (
       label: '收费时间',
       key: 'collectionTime',
       widget: 'dateInput',
-      widgetProps: {
-        allowClear: false,
-        format: 'YYYY-MM-DD HH:mm:ss',
-      },
+      widgetProps: { allowClear: false, format: 'YYYY-MM-DD HH:mm:ss' },
     },
   ]
 }
@@ -266,9 +278,7 @@ const storageItem = (
     disabled: true,
     span: 8,
     initialValue: detailed?.userName || '',
-    widgetProps: {
-      placeholder: '请填写用户姓名',
-    },
+    widgetProps: { placeholder: '请填写用户姓名' },
   },
   {
     label: '付款方式',
@@ -295,9 +305,7 @@ const storageItem = (
     label: '收费时间',
     key: 'chargingTime',
     widget: 'dateInput',
-    widgetProps: {
-      format: 'YYYY-MM-DD HH:mm:ss',
-    },
+    widgetProps: { format: 'YYYY-MM-DD HH:mm:ss' },
   },
   {
     label: '可用收费项',
@@ -361,9 +369,7 @@ const returnItem = (
     disabled: true,
     span: 8,
     initialValue: detailed?.userName || '',
-    widgetProps: {
-      placeholder: '请填写用户姓名',
-    },
+    widgetProps: { placeholder: '请填写用户姓名' },
   },
   {
     label: '付款方式',
@@ -372,6 +378,108 @@ const returnItem = (
     option: payment,
     required: true,
     span: 8,
+    widgetProps: { placeholder: '请选择付款方式', mode: 'single' },
+    initialValue: queryInfo?.name,
+  },
+  {
+    label: '退还时间',
+    key: 'dateInputsecond',
+    widget: 'dateInput',
+    widgetProps: { format: 'YYYY-MM-DD HH:mm:ss' },
+  },
+]
+
+const details = (
+  queryInfo: any,
+  option: any,
+  searchParms: any,
+  detailed: any,
+  payment: any,
+  payService: any,
+  type: string
+) => [
+  {
+    label: '商铺',
+    key: 'name',
+    widget: 'searchSelect',
+    option,
+    required: true,
+    disabled: true,
+    span: 8,
+    initialValue: [searchParms?.code || ''],
+    widgetProps: {
+      placeholder: '请选择商铺',
+      mode: 'single',
+    },
+  },
+  {
+    label: '客户姓名',
+    key: 'name1',
+    widget: 'input',
+    required: true,
+    disabled: true,
+    span: 8,
+    initialValue: detailed?.userName || '',
+    widgetProps: { placeholder: '请填写用户姓名' },
+  },
+  {
+    label: '收费项目',
+    key: 'payService',
+    widget: 'searchSelect',
+    option: payService,
+    required: true,
+    disabled: true,
+    span: 8,
+    widgetProps: {
+      placeholder: '请选择收费项目',
+      mode: 'single',
+    },
+    initialValue: queryInfo?.name,
+  },
+  {
+    label: '付款方式',
+    key: 'payType',
+    widget: 'searchSelect',
+    option: payment,
+    disabled: true,
+    required: true,
+    span: 8,
+    widgetProps: { placeholder: '请选择付款方式', mode: 'single' },
+    initialValue: queryInfo?.name,
+  },
+  {
+    label: '收费金额',
+    key: 'chargeAmount',
+    widget: 'input',
+    disabled: true,
+    required: true,
+    span: 8,
+    initialValue: queryInfo?.name,
+  },
+  {
+    label: '收费时间',
+    key: 'chargingTime',
+    widget: 'dateInput',
+    required: true,
+    disabled: true,
+    widgetProps: { format: 'YYYY-MM-DD HH:mm:ss' },
+  },
+  {
+    label: '退款时间',
+    key: 'chargingTime1',
+    widget: 'dateInput',
+    required: true,
+    disabled: type !== 'returnMoney',
+    widgetProps: { format: 'YYYY-MM-DD HH:mm:ss' },
+  },
+  {
+    label: '退款方式',
+    key: 'payType1',
+    widget: 'searchSelect',
+    option: payment,
+    required: true,
+    disabled: type !== 'returnMoney',
+    span: 8,
     widgetProps: {
       placeholder: '请选择付款方式',
       mode: 'single',
@@ -379,11 +487,12 @@ const returnItem = (
     initialValue: queryInfo?.name,
   },
   {
-    label: '退还时间',
-    key: 'dateInputsecond',
-    widget: 'dateInput',
-    widgetProps: {
-      format: 'YYYY-MM-DD HH:mm:ss',
-    },
+    label: '备注',
+    disabled: type !== 'returnMoney',
+    key: 'chargeAmount1',
+    widget: 'input',
+    required: true,
+    span: 8,
+    initialValue: queryInfo?.name,
   },
 ]

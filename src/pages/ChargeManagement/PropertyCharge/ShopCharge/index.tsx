@@ -61,7 +61,9 @@ export default function Demo() {
     table.onSearch()
     updateData({
       // @ts-ignorets-ignore
-      searchParms: { code: table?.form?.current?.getFieldValues()?.code || '' },
+      searchParms: {
+        code: table?.form?.current?.getFieldValues()?.code || '',
+      },
     })
     dispatch({
       type: 'shopCharge/buShop',

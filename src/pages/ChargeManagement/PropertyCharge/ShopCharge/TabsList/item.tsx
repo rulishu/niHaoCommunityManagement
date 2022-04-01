@@ -1,4 +1,5 @@
 import { searchValue } from '@/servers/ChargeManagement/ShopCharge'
+import { Button } from 'uiw'
 // 常规收费
 export const columnsRout = (
   option: searchValue[],
@@ -9,7 +10,7 @@ export const columnsRout = (
     {
       title: '收费项名称',
       align: 'center',
-      key: 'saleName',
+      key: 'saleType',
       ellipsis: true,
       props: [
         {
@@ -45,26 +46,26 @@ export const columnsRout = (
     {
       align: 'center',
       title: '缴费日期',
-      key: 'deadlineTime',
+      key: 'deadline',
       ellipsis: true,
       width: 200,
     },
     {
       title: '单价',
       align: 'center',
-      key: 'chargePrice',
+      key: 'price',
       ellipsis: true,
     },
     {
       title: '数量',
       align: 'center',
-      key: 'number',
+      key: 'quantity',
       ellipsis: true,
     },
     {
       title: '金额',
       align: 'center',
-      key: 'price',
+      key: 'money',
       ellipsis: true,
     },
   ]
@@ -73,7 +74,8 @@ export const columnsRout = (
 export const columnsTem = (
   option: searchValue[],
   setValue: (e: any) => void,
-  searchParms: any
+  searchParms: any,
+  handleEditTable: any
 ) => {
   return [
     {
@@ -157,14 +159,18 @@ export const columnsTem = (
       key: 'edit',
       align: 'center',
       width: 150,
-      render: () => (
+      render: (text: any, type: string, data: object) => (
         <div
           style={{
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
           }}
-        ></div>
+        >
+          <Button onClick={() => handleEditTable('details', data)}>
+            退款详情
+          </Button>
+        </div>
       ),
     },
   ]
@@ -173,7 +179,8 @@ export const columnsTem = (
 export const columnsDeposit = (
   option: searchValue[],
   setValue: (e: any) => void,
-  searchParms: any
+  searchParms: any,
+  handleEditTable: Function
 ) => [
   {
     title: '客户姓名',
@@ -259,14 +266,18 @@ export const columnsDeposit = (
     align: 'center',
     ellipsis: true,
     width: 150,
-    render: () => (
+    render: (text: any, type: string, data: object) => (
       <div
         style={{
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
         }}
-      ></div>
+      >
+        <Button onClick={() => handleEditTable('returnMoney', data)}>
+          退还
+        </Button>
+      </div>
     ),
   },
 ]

@@ -35,7 +35,11 @@ export default function Demo(props: {
   const handleEditTable = (type: string, data?: any) => {
     if (type === 'depositAdd' && !table?.searchValues?.code)
       return Notify.warning({ description: '请先输入商铺进行搜索 !' })
-    updateData({ drawerType: type, drawerVisible: true })
+    updateData({
+      drawerType: type,
+      drawerVisible: true,
+      queryInfo: { ...data },
+    })
   }
 
   return (
@@ -66,7 +70,14 @@ export default function Demo(props: {
           },
         ]}
         table={table}
-        columns={columnsDeposit(option, setValue, searchParms) as FormCol[]}
+        columns={
+          columnsDeposit(
+            option,
+            setValue,
+            searchParms,
+            handleEditTable
+          ) as FormCol[]
+        }
       />
     </React.Fragment>
   )
