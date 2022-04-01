@@ -74,8 +74,13 @@ const Drawer = (props: {
         {
           label: '保存',
           type: 'primary',
-          onClick: () => baseRef.submitvalidate(),
           show: !isView,
+          onClick: async () => {
+            await baseRef?.submitvalidate?.()
+            const errors = baseRef.getError()
+            if (errors && Object.keys(errors).length > 0) return
+            mutate()
+          },
         },
       ]}
     >
@@ -84,11 +89,6 @@ const Drawer = (props: {
         formType={isView ? 'pure' : 'card'}
         form={baseRef}
         readOnly={isView}
-        onSubmit={(initial, current) => {
-          // initial
-          // current
-          mutate()
-        }}
         buttonsContainer={{ justifyContent: 'flex-start' }}
         // 更新表单的值
         onChange={(initial, current) => onChange(initial, current)}
