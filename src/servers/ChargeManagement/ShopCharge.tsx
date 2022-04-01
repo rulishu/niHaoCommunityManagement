@@ -98,6 +98,14 @@ function buAdvanceDeposit(params: any) {
     body: { ...params },
   })
 }
+
+// 商铺收费数据-收费计算
+function buShopChargeData(params: any) {
+  return request('/api/buShopChargeData/normalCalcPay', {
+    method: 'POST',
+    body: { ...params },
+  })
+}
 export {
   selectById,
   selectPage,
@@ -112,4 +120,5 @@ export {
   buShop,
   selectHistoryPayList,
   buAdvanceDeposit,
+  buShopChargeData,
 }

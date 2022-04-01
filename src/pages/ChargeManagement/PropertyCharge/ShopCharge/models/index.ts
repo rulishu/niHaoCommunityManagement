@@ -11,6 +11,7 @@ import {
   buDeposit,
   buShop,
   buAdvanceDeposit,
+  buShopChargeData,
 } from '@/servers/ChargeManagement/ShopCharge'
 
 interface State {
@@ -19,6 +20,7 @@ interface State {
   queryInfo: object
   searchParms: object
   detailed: object
+  selectedList: Array<any>
   shopNoList: Array<searchValue>
   payment: Array<searchValue>
   payService: Array<searchValue>
@@ -32,6 +34,7 @@ const shopCharge = createModel()({
     queryInfo: {}, //表单信息
     detailed: {},
     searchParms: {},
+    selectedList: [], // 勾选项
 
     shopNoList: [], //商铺查询
     payment: [], //支付方式
@@ -50,6 +53,7 @@ const shopCharge = createModel()({
         drawerVisible: false,
         drawerType: '',
         queryInfo: {},
+        selectedList: [],
       })
     },
 
@@ -126,13 +130,25 @@ const shopCharge = createModel()({
           detailed: data?.data || {},
         })
       } else {
-        Notify.warning({ description: data?.message || '' })
+        Notify.warning({ title: data?.message || '' })
       }
     },
 
     // 预存款-添加
     async getBuAdvanceDeposit(payload: any) {
       return await buAdvanceDeposit({ ...payload })
+    },
+
+    async getBuShopChargeData(payload: any) {
+      const dph = dispatch as Dispatch
+      const data = await buShopChargeData({ ...payload })
+      if (data?.code === 1) {
+        dph.shopCharge.updateState({
+          queryInfo: data?.data || {},
+        })
+      } else {
+        Notify.warning({ title: data?.message || '' })
+      }
     },
   }),
 })

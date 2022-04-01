@@ -30,11 +30,12 @@ export const matching = (
   searchParms: any,
   detailed: any,
   show: boolean,
-  setShow: any
+  setShow: any,
+  form: any
 ) => {
   switch (type) {
     case 'charge':
-      return items(queryInfo)
+      return items(queryInfo, payment)
     case 'temAdd':
     case 'depositAdd':
       return temAddItems(
@@ -74,98 +75,74 @@ export const matching = (
   }
 }
 
-const items = (queryInfo: any) => [
-  {
-    label: '滞纳金',
-    key: 'name',
-    widget: 'input',
-    required: true,
-    span: 6,
-    disabled: true,
-    initialValue: queryInfo?.name,
-  },
-  {
-    label: '优惠金额',
-    key: 'phone',
-    widget: 'input',
-    span: 6,
-    required: true,
-    disabled: true,
-    initialValue: queryInfo?.phone,
-  },
-  {
-    label: '可用预存款',
-    key: 'name6',
-    widget: 'input',
-    required: true,
-    disabled: true,
-    span: 6,
-    initialValue: queryInfo?.name,
-  },
-  {
-    label: '预存款付款',
-    key: 'name5',
-    widget: 'input',
-    required: true,
-    disabled: true,
-    span: 6,
-    initialValue: queryInfo?.name,
-  },
-  {
-    label: '找零结存',
-    key: 'name4',
-    widget: 'input',
-    required: true,
-    span: 6,
-    disabled: true,
-    initialValue: queryInfo?.name,
-  },
-  {
-    label: '找零金额',
-    key: 'name3',
-    widget: 'input',
-    span: 6,
-    required: true,
-    disabled: true,
-    initialValue: queryInfo?.name,
-  },
-  {
-    label: '实际应收',
-    key: 'name7',
-    span: 6,
-    widget: 'input',
-    required: true,
-    disabled: true,
-    initialValue: queryInfo?.name,
-  },
-  {
-    label: '收款金额',
-    key: 'name2',
-    widget: 'input',
-    required: true,
-    span: 6,
-    initialValue: queryInfo?.name,
-  },
-  {
-    label: '付款方式',
-    key: 'name1',
-    widget: 'input',
-    required: true,
-    span: 6,
-    initialValue: queryInfo?.name,
-  },
-  {
-    label: '额外付款',
-    widget: 'checkbox',
-    key: 'checkbox',
-    span: 6,
-    option: [
-      { label: '使用预付款', value: 'sichuan' },
-      { label: '找零结存', value: 'hubei' },
-    ],
-  },
-]
-
+const items = (queryInfo: any, payment: any) => {
+  return [
+    {
+      label: '实际应收',
+      key: 'shouldPaySum',
+      span: 6,
+      widget: 'input',
+      required: true,
+      disabled: true,
+      initialValue: queryInfo?.shouldPaySum,
+    },
+    {
+      label: '找零金额',
+      key: 'sumByZero',
+      widget: 'input',
+      span: 6,
+      required: true,
+      disabled: true,
+      initialValue: queryInfo?.sumByZero,
+    },
+    {
+      label: '可用预存款',
+      key: 'preBunt',
+      widget: 'input',
+      required: true,
+      disabled: true,
+      span: 6,
+      initialValue: queryInfo?.preBunt,
+    },
+    {
+      label: '预存款付款',
+      key: 'preBuntPaySum',
+      widget: 'input',
+      required: true,
+      disabled: true,
+      span: 6,
+      initialValue: queryInfo?.preBuntPaySum,
+    },
+    {
+      label: '收款金额',
+      key: 'name2',
+      widget: 'input',
+      required: true,
+      span: 6,
+      initialValue: queryInfo?.name,
+    },
+    {
+      label: '付款方式',
+      key: 'payType',
+      widget: 'searchSelect',
+      option: payment,
+      required: true,
+      span: 6,
+      widgetProps: {
+        placeholder: '请选择付款方式',
+        mode: 'single',
+      },
+      initialValue: queryInfo?.name,
+    },
+    {
+      label: '额外付款',
+      widget: 'checkbox',
+      key: 'type',
+      span: 6,
+      option: [{ label: '使用预付款', value: 1 }],
+    },
+  ]
+}
 const temAddItems = (
   queryInfo: any,
   option: any,
