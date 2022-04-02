@@ -8,6 +8,7 @@ interface State {
   tableType: string
   queryInfo: object
   isView: boolean
+  loading: boolean
 }
 
 const usermanagement = createModel<RootModel>()({
@@ -19,6 +20,7 @@ const usermanagement = createModel<RootModel>()({
     isView: false,
     delectVisible: false,
     systemId: '',
+    loading: false,
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({

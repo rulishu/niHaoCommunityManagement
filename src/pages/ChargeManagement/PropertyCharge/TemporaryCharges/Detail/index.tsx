@@ -22,7 +22,7 @@ const Drawer = (props: {
   const baseRef = useForm()
   const dispatch = useDispatch<Dispatch>()
   const {
-    temporaryCharges: { drawerVisible, tableType, queryInfo, isView },
+    temporaryCharges: { drawerVisible, tableType, queryInfo, isView, loading },
   } = useSelector((state: RootState) => state)
   const [value, getValue] = useState(false)
 
@@ -48,8 +48,20 @@ const Drawer = (props: {
           Notify.success({ title: data.message })
           props.onSearch()
           onClose()
+          dispatch({
+            type: 'temporaryCharges/updateState',
+            payload: {
+              loading: false,
+            },
+          })
         } else {
           Notify.error({ title: '提交失败！' })
+          dispatch({
+            type: 'temporaryCharges/updateState',
+            payload: {
+              loading: false,
+            },
+          })
         }
       },
     }
@@ -93,10 +105,25 @@ const Drawer = (props: {
           label: '保存',
           type: 'primary',
           show: !isView,
+          loading: loading,
           onClick: async () => {
+            dispatch({
+              type: 'temporaryCharges/updateState',
+              payload: {
+                loading: true,
+              },
+            })
             await baseRef?.submitvalidate?.()
             const errors = baseRef.getError()
-            if (errors && Object.keys(errors).length > 0) return
+            if (errors && Object.keys(errors).length > 0) {
+              dispatch({
+                type: 'temporaryCharges/updateState',
+                payload: {
+                  loading: false,
+                },
+              })
+              return
+            }
             mutate()
           },
         },

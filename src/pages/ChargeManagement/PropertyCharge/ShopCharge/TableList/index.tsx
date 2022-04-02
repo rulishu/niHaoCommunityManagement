@@ -5,15 +5,14 @@ import { selectHistoryPayList } from '@/servers/ChargeManagement/ShopCharge'
 import { matching } from './item'
 export default function Index() {
   const {
-    shopCharge: { drawerType, searchParms },
+    shopCharge: { drawerType, searchParms, selectedList },
   } = useSelector((shopCharge: RootState) => shopCharge) as any
-
   const table = useTable(
     `${
       drawerType === 'history'
         ? selectHistoryPayList
         : drawerType === 'charge'
-        ? '11'
+        ? 111111
         : '/api'
     }`,
     {
@@ -26,12 +25,16 @@ export default function Index() {
       },
       formatData: (data) => {
         return {
-          total: data?.data?.total || 0,
-          data: data?.data?.rows || [],
+          total:
+            drawerType === 'charge'
+              ? selectedList.length
+              : data?.data?.total || 0,
+          data: drawerType === 'charge' ? selectedList : data?.data?.rows || [],
         }
       },
     }
   )
+
   return (
     <ProTable
       table={table}
@@ -41,7 +44,9 @@ export default function Index() {
         pageSize: 10,
       }}
       columns={matching(drawerType) as any}
-      scroll={{ x: drawerType === 'return' ? '100%' : 1700 }}
+      scroll={{
+        x: drawerType === 'return' || drawerType === 'charge' ? '100%' : 1700,
+      }}
     />
   )
 }

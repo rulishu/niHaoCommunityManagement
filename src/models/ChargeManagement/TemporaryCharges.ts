@@ -1,14 +1,18 @@
 import { Dispatch, RootModel } from '@uiw-admin/models'
 import { createModel, RematchDispatch } from '@rematch/core'
-import { selectById, Change } from '../../servers/ChargeManagement/temporaryCharges'
+import {
+  selectById,
+  Change,
+} from '../../servers/ChargeManagement/temporaryCharges'
 
 interface State {
-  drawerVisible: boolean;
-  tableType: string;
-  queryInfo: object;
-  isView: boolean;
-  id: string;
-  delectVisible: boolean;
+  drawerVisible: boolean
+  tableType: string
+  queryInfo: object
+  isView: boolean
+  id: string
+  delectVisible: boolean
+  loading: boolean
 }
 
 const temporaryCharges = createModel<RootModel>()({
@@ -20,6 +24,7 @@ const temporaryCharges = createModel<RootModel>()({
     id: '',
     isView: false,
     delectVisible: false,
+    loading: false,
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({
@@ -29,27 +34,27 @@ const temporaryCharges = createModel<RootModel>()({
   },
   effects: (dispatch: RematchDispatch<RootModel>) => ({
     async selectById(payload: Change) {
-      const dph = dispatch as Dispatch;
-      const data = await selectById(payload);
+      const dph = dispatch as Dispatch
+      const data = await selectById(payload)
       if (data.code === 1) {
         dph.users.updateState({
           drawerVisible: true,
           queryInfo: data.data || {},
-        });
+        })
       }
     },
 
     clean() {
-      const dph = dispatch as Dispatch;
+      const dph = dispatch as Dispatch
       dph.users.updateState({
         drawerVisible: false,
         tableType: '',
         queryInfo: {},
         isView: false,
         delectVisible: false,
-      });
+      })
     },
   }),
-});
+})
 
-export default temporaryCharges;
+export default temporaryCharges

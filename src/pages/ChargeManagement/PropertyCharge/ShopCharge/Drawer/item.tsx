@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 export const drawerTitle = (type: string) => {
   switch (type) {
     case 'charge':
@@ -30,11 +31,14 @@ export const matching = (
   searchParms: any,
   detailed: any,
   show: boolean,
-  setShow: any
+  setShow: any,
+  form: any,
+  tyoeList: any,
+  setTyoeList: any
 ) => {
   switch (type) {
     case 'charge':
-      return items(queryInfo)
+      return items(queryInfo, payment, form, tyoeList, setTyoeList)
     case 'temAdd':
     case 'depositAdd':
       return temAddItems(
@@ -74,98 +78,182 @@ export const matching = (
   }
 }
 
-const items = (queryInfo: any) => [
-  {
-    label: '滞纳金',
-    key: 'name',
-    widget: 'input',
-    required: true,
-    span: 6,
-    disabled: true,
-    initialValue: queryInfo?.name,
-  },
-  {
-    label: '优惠金额',
-    key: 'phone',
-    widget: 'input',
-    span: 6,
-    required: true,
-    disabled: true,
-    initialValue: queryInfo?.phone,
-  },
-  {
-    label: '可用预存款',
-    key: 'name6',
-    widget: 'input',
-    required: true,
-    disabled: true,
-    span: 6,
-    initialValue: queryInfo?.name,
-  },
-  {
-    label: '预存款付款',
-    key: 'name5',
-    widget: 'input',
-    required: true,
-    disabled: true,
-    span: 6,
-    initialValue: queryInfo?.name,
-  },
-  {
-    label: '找零结存',
-    key: 'name4',
-    widget: 'input',
-    required: true,
-    span: 6,
-    disabled: true,
-    initialValue: queryInfo?.name,
-  },
-  {
-    label: '找零金额',
-    key: 'name3',
-    widget: 'input',
-    span: 6,
-    required: true,
-    disabled: true,
-    initialValue: queryInfo?.name,
-  },
-  {
-    label: '实际应收',
-    key: 'name7',
-    span: 6,
-    widget: 'input',
-    required: true,
-    disabled: true,
-    initialValue: queryInfo?.name,
-  },
-  {
-    label: '收款金额',
-    key: 'name2',
-    widget: 'input',
-    required: true,
-    span: 6,
-    initialValue: queryInfo?.name,
-  },
-  {
-    label: '付款方式',
-    key: 'name1',
-    widget: 'input',
-    required: true,
-    span: 6,
-    initialValue: queryInfo?.name,
-  },
-  {
-    label: '额外付款',
-    widget: 'checkbox',
-    key: 'checkbox',
-    span: 6,
-    option: [
-      { label: '使用预付款', value: 'sichuan' },
-      { label: '找零结存', value: 'hubei' },
-    ],
-  },
-]
+const items = (
+  queryInfo: any,
+  payment: any,
+  form: any,
+  tyoeList: any,
+  setTyoeList: any
+) => {
+  return [
+    {
+      label: '实际应收',
+      key: 'shouldPaySum',
+      span: 6,
+      widget: 'input',
+      disabled: true,
+      initialValue: queryInfo?.shouldPaySum,
+    },
+    {
+      label: '找零金额',
+      key: 'sumByZero',
+      widget: 'input',
+      span: 6,
+      disabled: true,
+      initialValue: queryInfo?.sumByZero,
+    },
+    {
+      label: '可用预存款',
+      key: 'preBunt',
+      widget: 'input',
+      disabled: true,
+      span: 6,
+      initialValue: queryInfo?.preBunt,
+    },
+    {
+      label: '预存款付款',
+      key: 'preBuntPaySum',
+      widget: 'input',
+      disabled: true,
+      span: 6,
+      initialValue: queryInfo?.preBuntPaySum,
+    },
+    {
+      label: '找零结存',
+      key: 'balanceByZero',
+      widget: 'input',
+      disabled: true,
+      span: 6,
+      initialValue: queryInfo?.balanceByZero,
+    },
+    {
+      label: '收款金额',
+      key: 'fund',
+      widget: 'input',
+      span: 6,
+      initialValue: queryInfo?.name,
+      widgetProps: {
+        onBlur: (e: any) => {
+          const fromData = form.getFieldValues()
+          if (tyoeList.length === 0) {
+            form.setFields({
+              ...fromData,
+              sumByZero:
+                -fromData?.shouldPaySum + Number(e?.target?.value || 0),
+            })
+            return
+          }
+          if (tyoeList.includes(1) && tyoeList.includes(2)) {
+            form.setFields({
+              ...fromData,
+              balanceByZero:
+                -fromData?.shouldPaySum +
+                (fromData?.preBunt || 0) +
+                Number(e?.target?.value || 0),
+            })
+            return
+          }
+          if (tyoeList.includes(1)) {
+            form.setFields({
+              ...fromData,
+              sumByZero:
+                -fromData?.shouldPaySum +
+                (fromData?.preBunt || 0) +
+                Number(e?.target?.value || 0),
+            })
+            return
+          }
+          if (tyoeList.includes(2)) {
+            form.setFields({
+              ...fromData,
+              balanceByZero:
+                -fromData?.shouldPaySum + Number(e?.target?.value || 0),
+            })
+            return
+          }
+        },
+      },
+    },
+    {
+      label: '付款方式',
+      key: 'payMode',
+      widget: 'searchSelect',
+      option: payment,
+      required: true,
+      span: 6,
+      widgetProps: {
+        placeholder: '请选择付款方式',
+        mode: 'single',
+      },
+      initialValue: queryInfo?.name,
+    },
 
+    {
+      label: '额外付款',
+      key: 'type',
+      widget: 'searchSelect',
+      span: 6,
+      option: [
+        { label: '使用预付款', value: 1 },
+        { label: '找零结存', value: 2 },
+      ],
+      widgetProps: {
+        mode: 'multiple',
+        onChange: (value: any) => {
+          const fromData = form.getFieldValues()
+          setTyoeList(value)
+          if (value.length === 0) {
+            form.setFields({
+              ...fromData,
+              preBuntPaySum: 0,
+              balanceByZero: 0,
+              sumByZero:
+                -fromData?.shouldPaySum + (Number(fromData?.fund) || 0),
+            })
+            return
+          }
+          if (value.includes(1) && value.includes(2)) {
+            form.setFields({
+              ...fromData,
+              preBuntPaySum: fromData?.preBunt,
+              balanceByZero:
+                -fromData?.shouldPaySum +
+                fromData?.preBunt +
+                (Number(fromData?.fund) || 0),
+              sumByZero: 0,
+            })
+            return
+          }
+          if (value.includes(1)) {
+            console.log(fromData?.fund)
+            form.setFields({
+              ...fromData,
+              preBuntPaySum: fromData?.preBunt,
+              sumByZero:
+                -fromData?.shouldPaySum +
+                fromData?.preBunt +
+                Number(fromData?.fund || 0),
+              balanceByZero: 0,
+            })
+            return
+          }
+          if (value.includes(2)) {
+            form.setFields({
+              ...fromData,
+              balanceByZero:
+                -fromData?.shouldPaySum + (Number(fromData?.fund) || 0),
+              sumByZero: 0,
+              preBuntPaySum: 0,
+            })
+            return
+          }
+        },
+        allowClear: true,
+        style: { width: '100%' },
+      },
+    },
+  ]
+}
 const temAddItems = (
   queryInfo: any,
   option: any,

@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import {} from 'uiw'
 import { ProDrawer, ProForm, useForm } from '@uiw-admin/components'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
@@ -14,9 +15,10 @@ interface DetailProps {
 const Drawer = ({ updateData, option }: DetailProps) => {
   const dispatch = useDispatch<Dispatch>()
 
-  const form = useForm()
+  const form: any = useForm()
 
   const [show, setShow] = useState(false)
+  const [tyoeList, setTyoeList] = useState([])
 
   const {
     shopCharge: {
@@ -27,12 +29,15 @@ const Drawer = ({ updateData, option }: DetailProps) => {
       payService,
       searchParms,
       detailed,
+      selectedList,
+      table,
     },
   }: any = useSelector((state: RootState) => state)
 
   const onClose = () => {
     dispatch({ type: 'shopCharge/clean' })
     setShow(false)
+    setTyoeList([])
   }
 
   // 验证
@@ -43,7 +48,17 @@ const Drawer = ({ updateData, option }: DetailProps) => {
     const errorObj: any = {}
     const arr = Object.keys(current)
     arr.forEach((element: any) => {
-      if (
+      if (drawerType === 'charge') {
+        if (!current?.payMode) {
+          errorObj.payMode = '付款方式不能为空'
+        }
+        if (Number(current?.sumByZero < 0)) {
+          errorObj.sumByZero = '找零金额不能小于0'
+        }
+        if (Number(current?.balanceByZero < 0)) {
+          errorObj.balanceByZero = '找零结转金额不能小于0'
+        }
+      } else if (
         !current[element] ||
         (Array.isArray(current[element]) && current[element].length === 0)
       ) {
@@ -60,7 +75,6 @@ const Drawer = ({ updateData, option }: DetailProps) => {
   // 提交
   const onSubmit = (current: any) => {
     verification(current)
-    console.log(current, 'current')
     // 添加零时收费
     if (drawerType === 'temAdd')
       (
@@ -131,8 +145,50 @@ const Drawer = ({ updateData, option }: DetailProps) => {
         }
       })
     }
-  }
 
+    if (drawerType === 'charge') {
+      const payload = {
+        fund: 0,
+        chargeList: selectedList.map((item: any) => item?.id),
+        type: tyoeList,
+        ...current,
+      }
+      ;(
+        dispatch({
+          type: 'shopCharge/getBuShopChargeDatapay',
+          payload,
+        }) as any
+      ).then((data: any) => {
+        if (data?.code === 1) {
+          onClose()
+          table.onSearch()
+          table.selection.unSelectAll()
+          Notify.success({ title: data?.message || '' })
+        } else {
+          Notify.error({ title: data?.message || '' })
+        }
+      })
+    }
+  }
+  useEffect(() => {
+    if (drawerType === 'charge') {
+      if (
+        queryInfo?.shouldPaySum &&
+        !queryInfo?.type &&
+        !queryInfo?.fund &&
+        !queryInfo?.payType
+      ) {
+        if (typeof form.setFields === 'function') {
+          form.setFields({
+            preBunt: queryInfo?.preBunt,
+            shouldPaySum: queryInfo?.shouldPaySum,
+            sumByZero: 0 - queryInfo?.shouldPaySum,
+          })
+        }
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [queryInfo])
   return (
     <ProDrawer
       width={1000}
@@ -165,9 +221,9 @@ const Drawer = ({ updateData, option }: DetailProps) => {
           formType="card"
           onSubmit={(_, current: Record<string, any>) => onSubmit(current)}
           // 更新表单的值
-          onChange={(_, current: Record<string, any>) =>
+          onChange={async (_, current: Record<string, any>) => {
             updateData({ queryInfo: { ...queryInfo, ...current } })
-          }
+          }}
           buttonsContainer={{ justifyContent: 'flex-start' }}
           formDatas={
             matching(
@@ -179,7 +235,10 @@ const Drawer = ({ updateData, option }: DetailProps) => {
               searchParms,
               detailed,
               show,
-              setShow
+              setShow,
+              form,
+              tyoeList,
+              setTyoeList
             ) as any
           }
         />
