@@ -61,7 +61,7 @@ export default function Demo(props: {
       })
       updateData({ selectedList: ids })
     }
-    updateData({ drawerType: type, drawerVisible: true })
+    updateData({ drawerType: type, drawerVisible: true, table })
   }
 
   return (

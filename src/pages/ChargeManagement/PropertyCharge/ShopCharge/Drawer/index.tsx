@@ -29,6 +29,8 @@ const Drawer = ({ updateData, option }: DetailProps) => {
       payService,
       searchParms,
       detailed,
+      selectedList,
+      table,
     },
   }: any = useSelector((state: RootState) => state)
 
@@ -47,8 +49,8 @@ const Drawer = ({ updateData, option }: DetailProps) => {
     const arr = Object.keys(current)
     arr.forEach((element: any) => {
       if (drawerType === 'charge') {
-        if (!current?.payType) {
-          errorObj.payType = '付款方式不能为空'
+        if (!current?.payMode) {
+          errorObj.payMode = '付款方式不能为空'
         }
         if (Number(current?.sumByZero < 0)) {
           errorObj.sumByZero = '找零金额不能小于0'
@@ -72,7 +74,6 @@ const Drawer = ({ updateData, option }: DetailProps) => {
 
   // 提交
   const onSubmit = (current: any) => {
-    console.log(current, 'current')
     verification(current)
     // 添加零时收费
     if (drawerType === 'temAdd')
@@ -138,6 +139,30 @@ const Drawer = ({ updateData, option }: DetailProps) => {
       ).then((data: any) => {
         if (data?.code === 1) {
           onClose()
+          Notify.success({ title: data?.message || '' })
+        } else {
+          Notify.error({ title: data?.message || '' })
+        }
+      })
+    }
+
+    if (drawerType === 'charge') {
+      const payload = {
+        fund: 0,
+        chargeList: selectedList.map((item: any) => item?.id),
+        type: tyoeList,
+        ...current,
+      }
+      ;(
+        dispatch({
+          type: 'shopCharge/getBuShopChargeDatapay',
+          payload,
+        }) as any
+      ).then((data: any) => {
+        if (data?.code === 1) {
+          onClose()
+          table.onSearch()
+          table.selection.unSelectAll()
           Notify.success({ title: data?.message || '' })
         } else {
           Notify.error({ title: data?.message || '' })
