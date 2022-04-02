@@ -21,7 +21,15 @@ const Detail = (props: {
   const baseRef = useForm()
   const dispatch = useDispatch<Dispatch>()
   const {
-    Role: { drawerVisible, tableType, queryInfo, isView, menuList, selectMenu },
+    Role: {
+      drawerVisible,
+      tableType,
+      queryInfo,
+      isView,
+      menuList,
+      selectMenu,
+      loading,
+    },
   } = useSelector((Role: RootState) => Role)
 
   const onClose = () => {
@@ -49,8 +57,20 @@ const Detail = (props: {
           Notify.success({ title: data.message })
           onClose()
           props.onSearch()
+          dispatch({
+            type: 'Role/updateState',
+            payload: {
+              loading: false,
+            },
+          })
         } else {
           Notify.error({ title: '提交失败！' })
+          dispatch({
+            type: 'Role/updateState',
+            payload: {
+              loading: false,
+            },
+          })
         }
       },
     }
@@ -86,10 +106,25 @@ const Detail = (props: {
           type: 'primary',
           style: { textAlign: 'right' },
           show: !isView,
+          loading: loading,
           onClick: async () => {
+            dispatch({
+              type: 'Role/updateState',
+              payload: {
+                loading: true,
+              },
+            })
             await baseRef?.submitvalidate?.()
             const errors = baseRef.getError()
-            if (errors && Object.keys(errors).length > 0) return
+            if (errors && Object.keys(errors).length > 0) {
+              dispatch({
+                type: 'Role/updateState',
+                payload: {
+                  loading: false,
+                },
+              })
+              return
+            }
             mutate()
           },
         },
