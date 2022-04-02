@@ -20,7 +20,7 @@ export default function Demo(props: {
       return {
         page: pageIndex,
         pageSize,
-        id: searchValues?.code || 0,
+        id: String(searchValues.code || ''),
       }
     },
     formatData: (data) => {
