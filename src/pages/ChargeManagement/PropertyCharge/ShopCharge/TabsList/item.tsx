@@ -17,7 +17,7 @@ export const columnsRout = (
           label: '商铺',
           key: 'code',
           widget: 'searchSelect',
-          initialValue: [searchParms?.code],
+          initialValue: searchParms?.code ? [searchParms?.code] : '',
           option,
           widgetProps: {
             mode: 'single',
@@ -88,7 +88,7 @@ export const columnsTem = (
           label: '商铺',
           key: 'code',
           widget: 'searchSelect',
-          initialValue: [searchParms?.code],
+          initialValue: searchParms?.code ? [searchParms?.code] : '',
           option,
           widgetProps: {
             mode: 'single',
@@ -192,7 +192,7 @@ export const columnsDeposit = (
         label: '商铺',
         key: 'code',
         widget: 'searchSelect',
-        initialValue: [searchParms?.code],
+        initialValue: searchParms?.code ? [searchParms?.code] : '',
         option,
         widgetProps: {
           mode: 'single',
@@ -298,7 +298,7 @@ export const columnsAdvance = (
         label: '商铺',
         key: 'code',
         widget: 'searchSelect',
-        initialValue: [searchParms?.code],
+        initialValue: searchParms?.code ? [searchParms?.code] : '',
         option,
         widgetProps: {
           mode: 'single',

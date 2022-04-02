@@ -106,6 +106,14 @@ function buShopChargeData(params: any) {
     body: { ...params },
   })
 }
+
+// 商铺收费数据-收费保存
+function buShopChargeDatapay(params: any) {
+  return request('/api/buShopChargeData/pay', {
+    method: 'POST',
+    body: { ...params },
+  })
+}
 export {
   selectById,
   selectPage,
@@ -121,4 +129,5 @@ export {
   selectHistoryPayList,
   buAdvanceDeposit,
   buShopChargeData,
+  buShopChargeDatapay,
 }

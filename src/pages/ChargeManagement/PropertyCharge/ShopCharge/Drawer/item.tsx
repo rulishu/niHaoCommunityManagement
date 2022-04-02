@@ -91,7 +91,6 @@ const items = (
       key: 'shouldPaySum',
       span: 6,
       widget: 'input',
-      required: true,
       disabled: true,
       initialValue: queryInfo?.shouldPaySum,
     },
@@ -100,7 +99,6 @@ const items = (
       key: 'sumByZero',
       widget: 'input',
       span: 6,
-      required: true,
       disabled: true,
       initialValue: queryInfo?.sumByZero,
     },
@@ -108,7 +106,6 @@ const items = (
       label: '可用预存款',
       key: 'preBunt',
       widget: 'input',
-      required: true,
       disabled: true,
       span: 6,
       initialValue: queryInfo?.preBunt,
@@ -117,7 +114,6 @@ const items = (
       label: '预存款付款',
       key: 'preBuntPaySum',
       widget: 'input',
-      required: true,
       disabled: true,
       span: 6,
       initialValue: queryInfo?.preBuntPaySum,
@@ -126,7 +122,6 @@ const items = (
       label: '找零结存',
       key: 'balanceByZero',
       widget: 'input',
-      required: true,
       disabled: true,
       span: 6,
       initialValue: queryInfo?.balanceByZero,
@@ -135,14 +130,11 @@ const items = (
       label: '收款金额',
       key: 'fund',
       widget: 'input',
-      required: true,
       span: 6,
       initialValue: queryInfo?.name,
       widgetProps: {
         onBlur: (e: any) => {
           const fromData = form.getFieldValues()
-          console.log(fromData, 'fromData')
-          console.log(tyoeList, 'tyoeList')
           if (tyoeList.length === 0) {
             form.setFields({
               ...fromData,
@@ -184,7 +176,7 @@ const items = (
     },
     {
       label: '付款方式',
-      key: 'payType',
+      key: 'payMode',
       widget: 'searchSelect',
       option: payment,
       required: true,
