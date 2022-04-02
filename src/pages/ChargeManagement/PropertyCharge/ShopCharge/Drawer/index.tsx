@@ -18,6 +18,7 @@ const Drawer = ({ updateData, option }: DetailProps) => {
   const form: any = useForm()
 
   const [show, setShow] = useState(false)
+  const [tyoeList, setTyoeList] = useState([])
 
   const {
     shopCharge: {
@@ -34,6 +35,7 @@ const Drawer = ({ updateData, option }: DetailProps) => {
   const onClose = () => {
     dispatch({ type: 'shopCharge/clean' })
     setShow(false)
+    setTyoeList([])
   }
 
   // 验证
@@ -44,7 +46,17 @@ const Drawer = ({ updateData, option }: DetailProps) => {
     const errorObj: any = {}
     const arr = Object.keys(current)
     arr.forEach((element: any) => {
-      if (
+      if (drawerType === 'charge') {
+        if (!current?.payType) {
+          errorObj.payType = '付款方式不能为空'
+        }
+        if (Number(current?.sumByZero < 0)) {
+          errorObj.sumByZero = '找零金额不能小于0'
+        }
+        if (Number(current?.balanceByZero < 0)) {
+          errorObj.balanceByZero = '找零结转金额不能小于0'
+        }
+      } else if (
         !current[element] ||
         (Array.isArray(current[element]) && current[element].length === 0)
       ) {
@@ -60,8 +72,8 @@ const Drawer = ({ updateData, option }: DetailProps) => {
 
   // 提交
   const onSubmit = (current: any) => {
-    verification(current)
     console.log(current, 'current')
+    verification(current)
     // 添加零时收费
     if (drawerType === 'temAdd')
       (
@@ -133,16 +145,21 @@ const Drawer = ({ updateData, option }: DetailProps) => {
       })
     }
   }
-
   useEffect(() => {
-    if (queryInfo?.shouldPaySum && !queryInfo?.type) {
-      if (typeof form.setFields === 'function') {
-        console.log('执行！！！', queryInfo)
-        form.setFields({
-          preBunt: queryInfo?.preBunt,
-          shouldPaySum: queryInfo?.shouldPaySum,
-          sumByZero: 0 - queryInfo?.shouldPaySum,
-        })
+    if (drawerType === 'charge') {
+      if (
+        queryInfo?.shouldPaySum &&
+        !queryInfo?.type &&
+        !queryInfo?.fund &&
+        !queryInfo?.payType
+      ) {
+        if (typeof form.setFields === 'function') {
+          form.setFields({
+            preBunt: queryInfo?.preBunt,
+            shouldPaySum: queryInfo?.shouldPaySum,
+            sumByZero: 0 - queryInfo?.shouldPaySum,
+          })
+        }
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -179,27 +196,7 @@ const Drawer = ({ updateData, option }: DetailProps) => {
           formType="card"
           onSubmit={(_, current: Record<string, any>) => onSubmit(current)}
           // 更新表单的值
-          onChange={(_, current: Record<string, any>) => {
-            console.log(current, 'current')
-            if (drawerType === 'charge') {
-              if (Array.isArray(current?.type) && current?.type.includes(1)) {
-                form.setFields({
-                  preBuntPaySum: current?.preBunt,
-                  preBunt: current?.preBunt,
-                  sumByZero: current?.sumByZero + current?.preBunt,
-                })
-                current.preBuntPaySum = current?.preBunt
-                current.sumByZero = current?.sumByZero + current?.preBunt
-              } else {
-                form.setFields({
-                  preBunt: current?.preBunt,
-                  sumByZero: current?.sumByZero - current?.preBunt,
-                  preBuntPaySum: 0,
-                })
-                current.sumByZero = current?.sumByZero - current?.preBunt
-                current.sumByZero = 0
-              }
-            }
+          onChange={async (_, current: Record<string, any>) => {
             updateData({ queryInfo: { ...queryInfo, ...current } })
           }}
           buttonsContainer={{ justifyContent: 'flex-start' }}
@@ -214,7 +211,9 @@ const Drawer = ({ updateData, option }: DetailProps) => {
               detailed,
               show,
               setShow,
-              form
+              form,
+              tyoeList,
+              setTyoeList
             ) as any
           }
         />

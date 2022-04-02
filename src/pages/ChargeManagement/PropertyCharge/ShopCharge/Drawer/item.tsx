@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 export const drawerTitle = (type: string) => {
   switch (type) {
     case 'charge':
@@ -31,11 +32,13 @@ export const matching = (
   detailed: any,
   show: boolean,
   setShow: any,
-  form: any
+  form: any,
+  tyoeList: any,
+  setTyoeList: any
 ) => {
   switch (type) {
     case 'charge':
-      return items(queryInfo, payment)
+      return items(queryInfo, payment, form, tyoeList, setTyoeList)
     case 'temAdd':
     case 'depositAdd':
       return temAddItems(
@@ -75,7 +78,13 @@ export const matching = (
   }
 }
 
-const items = (queryInfo: any, payment: any) => {
+const items = (
+  queryInfo: any,
+  payment: any,
+  form: any,
+  tyoeList: any,
+  setTyoeList: any
+) => {
   return [
     {
       label: '实际应收',
@@ -114,12 +123,64 @@ const items = (queryInfo: any, payment: any) => {
       initialValue: queryInfo?.preBuntPaySum,
     },
     {
+      label: '找零结存',
+      key: 'balanceByZero',
+      widget: 'input',
+      required: true,
+      disabled: true,
+      span: 6,
+      initialValue: queryInfo?.balanceByZero,
+    },
+    {
       label: '收款金额',
-      key: 'name2',
+      key: 'fund',
       widget: 'input',
       required: true,
       span: 6,
       initialValue: queryInfo?.name,
+      widgetProps: {
+        onBlur: (e: any) => {
+          const fromData = form.getFieldValues()
+          console.log(fromData, 'fromData')
+          console.log(tyoeList, 'tyoeList')
+          if (tyoeList.length === 0) {
+            form.setFields({
+              ...fromData,
+              sumByZero:
+                -fromData?.shouldPaySum + Number(e?.target?.value || 0),
+            })
+            return
+          }
+          if (tyoeList.includes(1) && tyoeList.includes(2)) {
+            form.setFields({
+              ...fromData,
+              balanceByZero:
+                -fromData?.shouldPaySum +
+                (fromData?.preBunt || 0) +
+                Number(e?.target?.value || 0),
+            })
+            return
+          }
+          if (tyoeList.includes(1)) {
+            form.setFields({
+              ...fromData,
+              sumByZero:
+                -fromData?.shouldPaySum +
+                (fromData?.preBunt || 0) +
+                Number(e?.target?.value || 0),
+            })
+            return
+          }
+          if (tyoeList.includes(2)) {
+            form.setFields({
+              ...fromData,
+              balanceByZero:
+                -fromData?.shouldPaySum + Number(e?.target?.value || 0),
+            })
+            return
+          }
+        },
+      },
     },
     {
       label: '付款方式',
@@ -134,12 +195,70 @@ const items = (queryInfo: any, payment: any) => {
       },
       initialValue: queryInfo?.name,
     },
+
     {
       label: '额外付款',
-      widget: 'checkbox',
       key: 'type',
+      widget: 'searchSelect',
       span: 6,
-      option: [{ label: '使用预付款', value: 1 }],
+      option: [
+        { label: '使用预付款', value: 1 },
+        { label: '找零结存', value: 2 },
+      ],
+      widgetProps: {
+        mode: 'multiple',
+        onChange: (value: any) => {
+          const fromData = form.getFieldValues()
+          setTyoeList(value)
+          if (value.length === 0) {
+            form.setFields({
+              ...fromData,
+              preBuntPaySum: 0,
+              balanceByZero: 0,
+              sumByZero:
+                -fromData?.shouldPaySum + (Number(fromData?.fund) || 0),
+            })
+            return
+          }
+          if (value.includes(1) && value.includes(2)) {
+            form.setFields({
+              ...fromData,
+              preBuntPaySum: fromData?.preBunt,
+              balanceByZero:
+                -fromData?.shouldPaySum +
+                fromData?.preBunt +
+                (Number(fromData?.fund) || 0),
+              sumByZero: 0,
+            })
+            return
+          }
+          if (value.includes(1)) {
+            console.log(fromData?.fund)
+            form.setFields({
+              ...fromData,
+              preBuntPaySum: fromData?.preBunt,
+              sumByZero:
+                -fromData?.shouldPaySum +
+                fromData?.preBunt +
+                Number(fromData?.fund || 0),
+              balanceByZero: 0,
+            })
+            return
+          }
+          if (value.includes(2)) {
+            form.setFields({
+              ...fromData,
+              balanceByZero:
+                -fromData?.shouldPaySum + (Number(fromData?.fund) || 0),
+              sumByZero: 0,
+              preBuntPaySum: 0,
+            })
+            return
+          }
+        },
+        allowClear: true,
+        style: { width: '100%' },
+      },
     },
   ]
 }
