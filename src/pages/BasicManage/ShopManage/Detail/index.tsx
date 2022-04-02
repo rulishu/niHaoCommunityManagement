@@ -20,7 +20,7 @@ const Detail = (props: {
   const baseRef = useForm()
   const dispatch = useDispatch<Dispatch>()
   const {
-    ShopManage: { drawerVisible, tableType, queryInfo, isView },
+    ShopManage: { drawerVisible, tableType, queryInfo, isView, loading },
   } = useSelector((ShopManage: RootState) => ShopManage)
 
   const onClose = () => {
@@ -46,8 +46,20 @@ const Detail = (props: {
           Notify.success({ title: data.message })
           onClose()
           props.onSearch()
+          dispatch({
+            type: 'ShopManage/updateState',
+            payload: {
+              loading: false,
+            },
+          })
         } else {
           Notify.error({ title: '提交失败！' })
+          dispatch({
+            type: 'ShopManage/updateState',
+            payload: {
+              loading: false,
+            },
+          })
         }
       },
     }
@@ -72,10 +84,25 @@ const Detail = (props: {
           type: 'primary',
           style: { textAlign: 'right' },
           show: !isView,
+          loading: loading,
           onClick: async () => {
+            dispatch({
+              type: 'ShopManage/updateState',
+              payload: {
+                loading: true,
+              },
+            })
             await baseRef?.submitvalidate?.()
             const errors = baseRef.getError()
-            if (errors && Object.keys(errors).length > 0) return
+            if (errors && Object.keys(errors).length > 0) {
+              dispatch({
+                type: 'ShopManage/updateState',
+                payload: {
+                  loading: false,
+                },
+              })
+              return
+            }
             mutate()
           },
         },
