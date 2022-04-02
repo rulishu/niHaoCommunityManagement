@@ -12,6 +12,7 @@ interface State {
   delectVisible: boolean
   menuList: TreeData[]
   selectMenu: TreeData['key'][]
+  loading: boolean
 }
 
 const Role = createModel()({
@@ -25,6 +26,7 @@ const Role = createModel()({
     delectVisible: false,
     menuList: [], //菜单列表
     selectMenu: [], //已选中菜单列表
+    loading: false,
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({

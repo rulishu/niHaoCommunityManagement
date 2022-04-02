@@ -15,6 +15,7 @@ interface State {
   delectVisible: boolean
   roleList: any[]
   keys: string
+  loading: boolean
 }
 
 const User = createModel<RootModel>()({
@@ -28,6 +29,7 @@ const User = createModel<RootModel>()({
     delectVisible: false,
     roleList: [],
     keys: 'outside',
+    loading: false,
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({

@@ -14,6 +14,7 @@ interface State {
   thirdMenu: any[]
   thirdVisible: boolean
   tableLevel: string
+  loading: boolean
 }
 
 const Application = createModel<RootModel>()({
@@ -30,6 +31,7 @@ const Application = createModel<RootModel>()({
     thirdVisible: false, //三级嵌套表格
     thirdMenu: [], //三级菜单数据
     tableLevel: '0', //表格嵌套层级
+    loading: false,
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({

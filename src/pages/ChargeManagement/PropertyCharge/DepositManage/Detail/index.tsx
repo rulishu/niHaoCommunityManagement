@@ -22,7 +22,7 @@ const Drawer = (props: {
   const baseRef = useForm()
   const dispatch = useDispatch<Dispatch>()
   const {
-    DepositManage: { drawerVisible, tableType, queryInfo, isView },
+    DepositManage: { drawerVisible, tableType, queryInfo, isView, loading },
   } = useSelector((state: RootState) => state)
   const [value, getValue] = React.useState(false)
 
@@ -48,8 +48,20 @@ const Drawer = (props: {
           Notify.success({ title: data.message })
           props.onSearch()
           onClose()
+          dispatch({
+            type: 'DepositManage/updateState',
+            payload: {
+              loading: false,
+            },
+          })
         } else {
           Notify.error({ title: '提交失败！' })
+          dispatch({
+            type: 'DepositManage/updateState',
+            payload: {
+              loading: false,
+            },
+          })
         }
       },
     }
@@ -92,10 +104,25 @@ const Drawer = (props: {
           label: '保存',
           type: 'primary',
           show: !isView,
+          loading: loading,
           onClick: async () => {
+            dispatch({
+              type: 'DepositManage/updateState',
+              payload: {
+                loading: true,
+              },
+            })
             await baseRef?.submitvalidate?.()
             const errors = baseRef.getError()
-            if (errors && Object.keys(errors).length > 0) return
+            if (errors && Object.keys(errors).length > 0) {
+              dispatch({
+                type: 'DepositManage/updateState',
+                payload: {
+                  loading: false,
+                },
+              })
+              return
+            }
             mutate()
           },
         },

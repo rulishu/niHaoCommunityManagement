@@ -9,6 +9,7 @@ interface State {
   isView: boolean
   id: string
   delectVisible: boolean
+  loading: boolean
 }
 
 const BusinessManage = createModel<RootModel>()({
@@ -20,6 +21,7 @@ const BusinessManage = createModel<RootModel>()({
     id: '',
     isView: false,
     delectVisible: false,
+    loading: false,
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({
