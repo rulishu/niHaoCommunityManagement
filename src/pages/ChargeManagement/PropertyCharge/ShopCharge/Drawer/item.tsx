@@ -17,6 +17,8 @@ export const drawerTitle = (type: string) => {
       return '临时收费退款'
     case 'returnMoney':
       return '押金退还'
+    case 'see':
+      return '退款详情'
     default:
       return ''
   }
@@ -64,6 +66,7 @@ export const matching = (
       return returnItem(queryInfo, option, searchParms, detailed, payment)
     case 'details':
     case 'returnMoney':
+    case 'see':
       return details(
         queryInfo,
         option,
@@ -493,7 +496,7 @@ const details = (
     required: true,
     disabled: true,
     span: 8,
-    initialValue: [searchParms?.code || ''],
+    initialValue: searchParms?.code,
     widgetProps: {
       placeholder: '请选择商铺',
       mode: 'single',
@@ -506,7 +509,7 @@ const details = (
     required: true,
     disabled: true,
     span: 8,
-    initialValue: detailed?.name || '',
+    initialValue: detailed?.userName || '',
     widgetProps: { placeholder: '请填写用户姓名' },
   },
   {
@@ -521,7 +524,7 @@ const details = (
       placeholder: '请选择收费项目',
       mode: 'single',
     },
-    initialValue: [queryInfo?.payService],
+    initialValue: Number(queryInfo?.payService),
   },
   {
     label: '付款方式',
@@ -532,7 +535,7 @@ const details = (
     required: true,
     span: 8,
     widgetProps: { placeholder: '请选择付款方式', mode: 'single' },
-    initialValue: [queryInfo?.payType],
+    initialValue: Number(queryInfo?.payType),
   },
   {
     label: '收费金额',
@@ -557,7 +560,7 @@ const details = (
     key: 'refundTime',
     widget: 'dateInput',
     required: true,
-    disabled: type !== 'returnMoney',
+    disabled: type === 'see',
     initialValue: queryInfo?.refundTime,
     widgetProps: { format: 'YYYY-MM-DD HH:mm:ss' },
   },
@@ -567,17 +570,17 @@ const details = (
     widget: 'searchSelect',
     option: payment,
     required: true,
-    disabled: type !== 'returnMoney',
+    disabled: type === 'see',
     span: 8,
     widgetProps: {
       placeholder: '请选择付款方式',
       mode: 'single',
     },
-    initialValue: queryInfo?.refundType,
+    initialValue: Number(queryInfo?.refundType),
   },
   {
     label: '备注',
-    disabled: type !== 'returnMoney',
+    disabled: type === 'see',
     key: 'remark',
     widget: 'input',
     required: true,

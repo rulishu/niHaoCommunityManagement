@@ -71,7 +71,6 @@ const Drawer = ({ updateData, option }: DetailProps) => {
       throw err
     }
   }
-
   // 提交
   const onSubmit = (current: any) => {
     verification(current)
@@ -170,6 +169,32 @@ const Drawer = ({ updateData, option }: DetailProps) => {
         }
       })
     }
+
+    // 临时收费退款
+    if (drawerType === 'details') {
+      console.log(current)
+      const payload = {
+        ...current,
+        refundTime: changeTimeFormat(current?.refundTime),
+        id: queryInfo?.id,
+        code: String(current?.code),
+      }
+      ;(
+        dispatch({
+          type: 'shopCharge/getBuTemporaryChargesUpdate',
+          payload,
+        }) as any
+      ).then((data: any) => {
+        if (data?.code === 1) {
+          onClose()
+          table.onSearch()
+          table.selection.unSelectAll()
+          Notify.success({ title: data?.message || '' })
+        } else {
+          Notify.error({ title: data?.message || '' })
+        }
+      })
+    }
   }
   useEffect(() => {
     if (drawerType === 'charge') {
@@ -198,11 +223,13 @@ const Drawer = ({ updateData, option }: DetailProps) => {
       onClose={onClose}
       buttons={[
         {
-          label: drawerType === 'history' ? '关闭' : '保存',
+          label:
+            drawerType === 'history' || drawerType === 'see' ? '关闭' : '保存',
           type: 'primary',
           style: { width: 80 },
           onClick: () => {
-            if (drawerType === 'history') return onClose()
+            if (drawerType === 'history' || drawerType === 'see')
+              return onClose()
             form.submitvalidate()
           },
         },
