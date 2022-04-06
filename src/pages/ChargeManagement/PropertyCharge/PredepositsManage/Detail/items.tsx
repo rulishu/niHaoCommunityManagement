@@ -23,7 +23,6 @@ export const items = (queryInfo: Change, value: boolean, tableType: string) => {
       initialValue: queryInfo?.code,
       placeholder: '请输入编号',
       required: true,
-      span: tableType === 'edit' ? '12' : '8',
       rules: [{ required: true, message: '请输入编号' }],
     },
     {
@@ -33,7 +32,6 @@ export const items = (queryInfo: Change, value: boolean, tableType: string) => {
       initialValue: queryInfo?.name,
       required: true,
       placeholder: '请输入客户姓名',
-      span: tableType === 'edit' ? '12' : '8',
       rules: [{ required: true, message: '请输入客户姓名' }],
     },
     {
@@ -113,7 +111,6 @@ export const items = (queryInfo: Change, value: boolean, tableType: string) => {
       ],
       required: true,
       hide: tableType === 'edit' ? false : true,
-      span: tableType === 'edit' ? '12' : '8',
       rules: [{ required: true, message: '请选择退款方式' }],
     },
     {
@@ -126,7 +123,6 @@ export const items = (queryInfo: Change, value: boolean, tableType: string) => {
       initialValue: queryInfo?.refundTime,
       required: true,
       hide: tableType === 'edit' ? false : true,
-      span: tableType === 'edit' ? '12' : '8',
       rules: [{ required: true, message: '请选择退还时间' }],
       placeholder: '请选择退还时间',
     },

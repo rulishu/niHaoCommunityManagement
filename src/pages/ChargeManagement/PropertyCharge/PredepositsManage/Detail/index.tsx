@@ -2,11 +2,11 @@ import React from 'react'
 import { ProDrawer, ProForm, useForm } from '@uiw-admin/components'
 import { Dispatch, RootState } from '@uiw-admin/models'
 import { useDispatch, useSelector } from 'react-redux'
-import { Notify } from 'uiw'
+import { Notify, Table } from 'uiw'
 import useSWR from 'swr'
 import { insert, update } from '@/servers/ChargeManagement/PredepositsManage'
-import { items } from './items'
-// import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
+import { items, backList } from './items'
+import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import formatter from '@uiw/formatter'
 
 interface State {
@@ -86,9 +86,9 @@ const Drawer = (props: {
       },
     })
   }
-  // const onChangeItem = async (text: React.ChangeEvent<HTMLInputElement>) => {
-  //   // console.log('text.target.value', text.target.value)
-  // }
+  const onChangeItem = async (text: React.ChangeEvent<HTMLInputElement>) => {
+    // console.log('text.target.value', text.target.value)
+  }
   return (
     <ProDrawer
       title="基础信息"
@@ -140,7 +140,7 @@ const Drawer = (props: {
         formDatas={items(queryInfo, value, tableType)}
       />
 
-      {/* {tableType === 'edit' && (
+      {tableType === 'edit' && (
         <Table
           bordered
           columns={backList(onChangeItem) as FormCol[]}
@@ -149,7 +149,7 @@ const Drawer = (props: {
             [{ payService: '1', chargeAmount: '1' }]
           }
         />
-      )} */}
+      )}
     </ProDrawer>
   )
 }
