@@ -66,7 +66,7 @@ function buCharge(params: any) {
 
 // 添加零食收费
 function buTemporaryCharges(params: any) {
-  return request('/api/buTemporaryCharges/add', {
+  return request('/api/buTemporaryCharges/addByCode', {
     method: 'POST',
     body: { ...params },
   })
