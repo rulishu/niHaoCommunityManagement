@@ -49,6 +49,9 @@ const Drawer = ({ updateData, option }: DetailProps) => {
     const arr = Object.keys(current)
     arr.forEach((element: any) => {
       if (drawerType === 'charge') {
+        if (!current?.shouldPaySum) {
+          errorObj.shouldPaySum = '实际应收不能为空'
+        }
         if (!current?.payMode) {
           errorObj.payMode = '付款方式不能为空'
         }
@@ -202,7 +205,8 @@ const Drawer = ({ updateData, option }: DetailProps) => {
         queryInfo?.shouldPaySum &&
         !queryInfo?.type &&
         !queryInfo?.fund &&
-        !queryInfo?.payType
+        !queryInfo?.payType &&
+        !queryInfo?.payMode
       ) {
         if (typeof form.setFields === 'function') {
           form.setFields({
