@@ -225,7 +225,6 @@ const items = (
             return
           }
           if (value.includes(1)) {
-            console.log(fromData?.fund)
             form.setFields({
               ...fromData,
               preBuntPaySum: fromData?.preBunt,

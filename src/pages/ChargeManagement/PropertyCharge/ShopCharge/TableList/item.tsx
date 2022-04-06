@@ -40,12 +40,6 @@ const columnsList = () => {
 // 历史数据
 const columnsHistory = () => [
   {
-    title: '编号',
-    key: 'code',
-    align: 'center',
-    with: 200,
-  },
-  {
     title: '收费项名',
     key: 'saleType',
     align: 'center',
