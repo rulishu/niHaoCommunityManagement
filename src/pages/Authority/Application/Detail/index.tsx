@@ -13,6 +13,7 @@ interface State {
   isView?: boolean
   tableVisible?: boolean
   thirdVisible?: boolean
+  loading?: boolean
 }
 
 const Detail = (props: {
@@ -21,7 +22,14 @@ const Detail = (props: {
 }) => {
   const baseRef = useForm()
   const {
-    Application: { drawerVisible, tableType, queryInfo, isView, tableLevel },
+    Application: {
+      drawerVisible,
+      tableType,
+      queryInfo,
+      isView,
+      tableLevel,
+      loading,
+    },
   } = useSelector((Application: RootState) => Application)
 
   const onClose = () => {
@@ -64,8 +72,14 @@ const Detail = (props: {
             thirdVisible: false,
           })
           props.onSearch()
+          props.updateData({
+            loading: false,
+          })
         } else {
           Notify.error({ title: '提交失败！' })
+          props.updateData({
+            loading: false,
+          })
         }
       },
     }
@@ -88,12 +102,21 @@ const Detail = (props: {
         {
           label: '保存',
           type: 'primary',
+          loading: loading,
           style: { textAlign: 'right' },
           show: !isView,
           onClick: async () => {
+            props.updateData({
+              loading: true,
+            })
             await baseRef?.submitvalidate?.()
             const errors = baseRef.getError()
-            if (errors && Object.keys(errors).length > 0) return
+            if (errors && Object.keys(errors).length > 0) {
+              props.updateData({
+                loading: false,
+              })
+              return
+            }
             mutate()
           },
         },

@@ -20,7 +20,7 @@ const Drawers = (props: {
   const baseRef = useForm()
   const dispatch = useDispatch<Dispatch>()
   const {
-    usermanagement: { drawerVisible, tableType, queryInfo, isView },
+    usermanagement: { drawerVisible, tableType, queryInfo, isView, loading },
   } = useSelector((usermanagement: RootState) => usermanagement)
 
   // const onClose = () => dispatch({ type: 'usermanagement/clean' });
@@ -44,8 +44,20 @@ const Drawers = (props: {
           Notify.success({ title: data.message })
           onClose()
           props.onSearch()
+          dispatch({
+            type: 'usermanagement/updateState',
+            payload: {
+              loading: false,
+            },
+          })
         } else {
           Notify.error({ title: '提交失败！' })
+          dispatch({
+            type: 'usermanagement/updateState',
+            payload: {
+              loading: false,
+            },
+          })
         }
       },
     }
@@ -69,10 +81,25 @@ const Drawers = (props: {
           type: 'primary',
           style: { width: 80 },
           show: !isView,
+          loading: loading,
           onClick: async () => {
+            dispatch({
+              type: 'usermanagement/updateState',
+              payload: {
+                loading: true,
+              },
+            })
             await baseRef?.submitvalidate?.()
             const errors = baseRef.getError()
-            if (errors && Object.keys(errors).length > 0) return
+            if (errors && Object.keys(errors).length > 0) {
+              dispatch({
+                type: 'usermanagement/updateState',
+                payload: {
+                  loading: false,
+                },
+              })
+              return
+            }
             mutate()
           },
         },
