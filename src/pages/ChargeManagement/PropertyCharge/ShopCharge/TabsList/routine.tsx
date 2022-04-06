@@ -24,7 +24,7 @@ export default function Demo(props: {
       return {
         page: pageIndex,
         pageSize,
-        code: String(searchValues.code || ''),
+        code: String(searchValues?.code || ''),
       }
     },
     formatData: (data) => {

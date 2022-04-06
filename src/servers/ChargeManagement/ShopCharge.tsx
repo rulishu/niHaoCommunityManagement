@@ -114,6 +114,14 @@ function buShopChargeDatapay(params: any) {
     body: { ...params },
   })
 }
+
+// 临时收费-修改
+function buTemporaryChargesUpdate(params: any) {
+  return request('/api/buTemporaryCharges/update', {
+    method: 'POST',
+    body: { ...params },
+  })
+}
 export {
   selectById,
   selectPage,
@@ -130,4 +138,5 @@ export {
   buAdvanceDeposit,
   buShopChargeData,
   buShopChargeDatapay,
+  buTemporaryChargesUpdate,
 }

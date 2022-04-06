@@ -13,6 +13,7 @@ import {
   buAdvanceDeposit,
   buShopChargeData,
   buShopChargeDatapay,
+  buTemporaryChargesUpdate,
 } from '@/servers/ChargeManagement/ShopCharge'
 
 interface State {
@@ -158,6 +159,11 @@ const shopCharge = createModel()({
     // 预存款-添加
     async getBuShopChargeDatapay(payload: any) {
       return await buShopChargeDatapay({ ...payload })
+    },
+
+    // 临时收费-修改
+    async getBuTemporaryChargesUpdate(payload: any) {
+      return await buTemporaryChargesUpdate({ ...payload })
     },
   }),
 })

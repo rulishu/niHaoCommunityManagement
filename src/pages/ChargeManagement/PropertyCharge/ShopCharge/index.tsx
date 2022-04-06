@@ -69,7 +69,7 @@ export default function Demo() {
       type: 'shopCharge/buShop',
       payload: {
         // @ts-ignorets-ignore
-        code: table?.form?.current?.getFieldValues()?.code || '',
+        code: String(table?.form?.current?.getFieldValues()?.code || ''),
       },
     })
   }
