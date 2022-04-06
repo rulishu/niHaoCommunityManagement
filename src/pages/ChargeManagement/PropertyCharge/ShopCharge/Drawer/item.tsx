@@ -95,6 +95,7 @@ const items = (
       span: 6,
       widget: 'input',
       disabled: true,
+      required: true,
       initialValue: queryInfo?.shouldPaySum,
     },
     {
