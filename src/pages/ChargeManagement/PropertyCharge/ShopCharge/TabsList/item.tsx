@@ -167,9 +167,7 @@ export const columnsTem = (
             alignItems: 'center',
           }}
         >
-          <Button onClick={() => handleEditTable('details', data)}>
-            退款详情
-          </Button>
+          <Button onClick={() => handleEditTable('details', data)}>退款</Button>
         </div>
       ),
     },
