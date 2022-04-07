@@ -69,10 +69,17 @@ const Search = () => {
         // 操作栏按钮
         operateButtons={[
           {
-            label: '新增',
+            label: '预存',
             type: 'primary',
             onClick: () => {
               handleEditTable('add', {})
+            },
+          },
+          {
+            label: '退还',
+            type: 'primary',
+            onClick: () => {
+              handleEditTable('edit', {})
             },
           },
         ]}
