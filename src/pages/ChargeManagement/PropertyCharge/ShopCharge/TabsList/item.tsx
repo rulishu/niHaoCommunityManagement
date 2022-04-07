@@ -239,17 +239,29 @@ export const columnsDeposit = (
     ellipsis: true,
   },
   {
+    align: 'center',
+    title: '退款方式',
+    key: 'refundMethodName',
+    ellipsis: true,
+  },
+  {
     title: '收费金额',
     align: 'center',
     key: 'price',
     ellipsis: true,
   },
-  {
-    title: '收款人',
-    align: 'center',
-    key: 'collectionName',
-    ellipsis: true,
-  },
+  // {
+  //   title: '收款人',
+  //   align: 'center',
+  //   key: 'collectionName',
+  //   ellipsis: true,
+  // },
+  // {
+  //   title: '退款人',
+  //   align: 'center',
+  //   key: 'refundName',
+  //   ellipsis: true,
+  // },
   {
     align: 'center',
     title: '收款时间',
@@ -257,12 +269,7 @@ export const columnsDeposit = (
     ellipsis: true,
     width: 200,
   },
-  {
-    title: '退款人',
-    align: 'center',
-    key: 'refundName',
-    ellipsis: true,
-  },
+
   {
     align: 'center',
     title: '退款时间',
@@ -315,6 +322,9 @@ export const columnsDeposit = (
                 payService: data?.project,
                 payType: data?.paymentMethod,
                 chargingTime: data?.collectionTime,
+                refundTime: '',
+                refundType: '',
+                remark: '',
               })
             }
           >
