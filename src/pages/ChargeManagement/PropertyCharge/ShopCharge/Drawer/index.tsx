@@ -106,8 +106,12 @@ const Drawer = ({ updateData, option }: DetailProps) => {
         dispatch({
           type: 'shopCharge/getBuDeposit',
           payload: {
-            ...current,
+            code: current?.code[0],
+            name: current?.name,
             collectionTime: changeTimeFormat(current?.collectionTime),
+            project: current?.payService[0]?.value,
+            paymentMethod: current?.payType[0]?.value,
+            price: current?.price,
           },
         }) as any
       ).then((data: any) => {

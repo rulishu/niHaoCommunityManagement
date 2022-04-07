@@ -32,7 +32,7 @@ export default function Demo(props: {
   })
   // 操作
   const handleEditTable = (type: string, data?: any) => {
-    if (!String(searchParms?.code))
+    if (!searchParms?.code || !String(searchParms?.code))
       return Notify.warning({ description: '请先输入商铺进行搜索 !' })
     updateData({
       drawerType: type,
