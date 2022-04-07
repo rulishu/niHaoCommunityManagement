@@ -229,13 +229,13 @@ export const columnsDeposit = (
   {
     align: 'center',
     title: '收费项目',
-    key: 'project',
+    key: 'projectName',
     ellipsis: true,
   },
   {
     align: 'center',
     title: '付款方式',
-    key: 'paymentMethod',
+    key: 'paymentMethodName',
     ellipsis: true,
   },
   {
@@ -275,6 +275,17 @@ export const columnsDeposit = (
     align: 'center',
     key: 'status',
     ellipsis: true,
+    render: (text: any) => (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        {text === '1' ? '已付款' : '已退款'}
+      </div>
+    ),
   },
   {
     title: '备注',
@@ -288,7 +299,7 @@ export const columnsDeposit = (
     align: 'center',
     ellipsis: true,
     width: 150,
-    render: (text: any, type: string, data: object) => (
+    render: (text: any, type: string, data: any) => (
       <div
         style={{
           display: 'flex',
@@ -296,9 +307,11 @@ export const columnsDeposit = (
           alignItems: 'center',
         }}
       >
-        <Button onClick={() => handleEditTable('returnMoney', data)}>
-          退还
-        </Button>
+        {data?.status === '1' && (
+          <Button onClick={() => handleEditTable('returnMoney', data)}>
+            退还
+          </Button>
+        )}
       </div>
     ),
   },

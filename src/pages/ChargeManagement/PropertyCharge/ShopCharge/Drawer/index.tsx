@@ -106,17 +106,14 @@ const Drawer = ({ updateData, option }: DetailProps) => {
         dispatch({
           type: 'shopCharge/getBuDeposit',
           payload: {
-            name: current?.name || '',
-            code: current?.code[0]?.value,
-            project: current?.payService[0]?.value,
-            paymentMethod: current?.payType[0]?.value,
-            price: current?.price || '',
+            ...current,
             collectionTime: changeTimeFormat(current?.collectionTime),
           },
         }) as any
       ).then((data: any) => {
         if (data?.code === 1) {
           onClose()
+          table.onSearch()
           Notify.success({ title: data?.message || '' })
         } else {
           Notify.error({ title: data?.message || '' })

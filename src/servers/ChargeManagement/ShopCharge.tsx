@@ -74,7 +74,7 @@ function buTemporaryCharges(params: any) {
 
 // 添加押金
 function buDeposit(params: any) {
-  return request('/api/buDeposit/add', {
+  return request('/api/buDeposit/addByCode', {
     method: 'POST',
     body: { ...params },
   })
