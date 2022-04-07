@@ -308,7 +308,16 @@ export const columnsDeposit = (
         }}
       >
         {data?.status === '1' && (
-          <Button onClick={() => handleEditTable('returnMoney', data)}>
+          <Button
+            onClick={() =>
+              handleEditTable('returnMoney', {
+                ...data,
+                payService: data?.project,
+                payType: data?.paymentMethod,
+                chargingTime: data?.collectionTime,
+              })
+            }
+          >
             退还
           </Button>
         )}

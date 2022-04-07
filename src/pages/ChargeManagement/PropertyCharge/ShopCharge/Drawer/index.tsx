@@ -172,7 +172,6 @@ const Drawer = ({ updateData, option }: DetailProps) => {
 
     // 临时收费退款
     if (drawerType === 'details') {
-      console.log(current)
       const payload = {
         ...current,
         refundTime: changeTimeFormat(current?.refundTime),
@@ -182,6 +181,29 @@ const Drawer = ({ updateData, option }: DetailProps) => {
       ;(
         dispatch({
           type: 'shopCharge/getBuTemporaryChargesUpdate',
+          payload,
+        }) as any
+      ).then((data: any) => {
+        if (data?.code === 1) {
+          onClose()
+          table.onSearch()
+          table.selection.unSelectAll()
+          Notify.success({ title: data?.message || '' })
+        } else {
+          Notify.error({ title: data?.message || '' })
+        }
+      })
+    }
+    if (drawerType === 'returnMoney') {
+      const payload = {
+        ...queryInfo,
+        ...current,
+        refundMethod: current?.refundType,
+        refundTime: changeTimeFormat(current?.refundTime),
+      }
+      ;(
+        dispatch({
+          type: 'shopCharge/getBuDepositUpdate',
           payload,
         }) as any
       ).then((data: any) => {
