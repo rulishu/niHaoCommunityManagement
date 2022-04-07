@@ -32,4 +32,14 @@ const insert = '/api/buAdvanceDeposit/add'
 
 const deleteData = '/api/buAdvanceDeposit/delete'
 
-export { selectById, selectPage, update, insert, deleteData }
+const selectAdvanceDepositeByCode =
+  '/api/buAdvanceDeposit/selectAdvanceDepositeByCode'
+
+export {
+  selectById,
+  selectPage,
+  update,
+  insert,
+  deleteData,
+  selectAdvanceDepositeByCode,
+}
