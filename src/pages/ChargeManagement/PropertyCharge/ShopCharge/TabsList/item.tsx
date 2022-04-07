@@ -103,13 +103,13 @@ export const columnsTem = (
     {
       align: 'center',
       title: '收费项目',
-      key: 'payService',
+      key: 'payServiceName',
       ellipsis: true,
     },
     {
       align: 'center',
       title: '付款方式',
-      key: 'payType',
+      key: 'payTypeName',
       ellipsis: true,
     },
     {
@@ -144,7 +144,7 @@ export const columnsTem = (
             alignItems: 'center',
           }}
         >
-          {text === '1' ? '已付款' : '未付款'}
+          {text === '1' ? '已付款' : '已退款'}
         </div>
       ),
     },
@@ -159,7 +159,7 @@ export const columnsTem = (
       key: 'edit',
       align: 'center',
       width: 150,
-      render: (text: any, type: string, data: object) => (
+      render: (text: any, type: string, data: any) => (
         <div
           style={{
             display: 'flex',
@@ -167,9 +167,31 @@ export const columnsTem = (
             alignItems: 'center',
           }}
         >
-          <Button onClick={() => handleEditTable('details', data)}>
-            退款详情
-          </Button>
+          {data?.status === '1' ? (
+            <Button
+              onClick={() =>
+                handleEditTable('details', {
+                  ...data,
+                  refundTime: '',
+                  chargingTime: data?.collectionTime,
+                  refundType: '',
+                })
+              }
+            >
+              退款
+            </Button>
+          ) : (
+            <Button
+              onClick={() =>
+                handleEditTable('see', {
+                  ...data,
+                  chargingTime: data?.collectionTime,
+                })
+              }
+            >
+              退款详情
+            </Button>
+          )}
         </div>
       ),
     },

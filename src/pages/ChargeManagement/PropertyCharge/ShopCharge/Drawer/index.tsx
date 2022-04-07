@@ -49,6 +49,9 @@ const Drawer = ({ updateData, option }: DetailProps) => {
     const arr = Object.keys(current)
     arr.forEach((element: any) => {
       if (drawerType === 'charge') {
+        if (!current?.shouldPaySum) {
+          errorObj.shouldPaySum = '实际应收不能为空'
+        }
         if (!current?.payMode) {
           errorObj.payMode = '付款方式不能为空'
         }
@@ -71,7 +74,6 @@ const Drawer = ({ updateData, option }: DetailProps) => {
       throw err
     }
   }
-
   // 提交
   const onSubmit = (current: any) => {
     verification(current)
@@ -91,6 +93,7 @@ const Drawer = ({ updateData, option }: DetailProps) => {
       ).then((data: any) => {
         if (data?.code === 1) {
           onClose()
+          table.onSearch()
           Notify.success({ title: data?.message || '' })
         } else {
           Notify.error({ title: data?.message || '' })
@@ -169,6 +172,32 @@ const Drawer = ({ updateData, option }: DetailProps) => {
         }
       })
     }
+
+    // 临时收费退款
+    if (drawerType === 'details') {
+      console.log(current)
+      const payload = {
+        ...current,
+        refundTime: changeTimeFormat(current?.refundTime),
+        id: queryInfo?.id,
+        code: String(current?.code),
+      }
+      ;(
+        dispatch({
+          type: 'shopCharge/getBuTemporaryChargesUpdate',
+          payload,
+        }) as any
+      ).then((data: any) => {
+        if (data?.code === 1) {
+          onClose()
+          table.onSearch()
+          table.selection.unSelectAll()
+          Notify.success({ title: data?.message || '' })
+        } else {
+          Notify.error({ title: data?.message || '' })
+        }
+      })
+    }
   }
   useEffect(() => {
     if (drawerType === 'charge') {
@@ -176,7 +205,8 @@ const Drawer = ({ updateData, option }: DetailProps) => {
         queryInfo?.shouldPaySum &&
         !queryInfo?.type &&
         !queryInfo?.fund &&
-        !queryInfo?.payType
+        !queryInfo?.payType &&
+        !queryInfo?.payMode
       ) {
         if (typeof form.setFields === 'function') {
           form.setFields({
@@ -197,11 +227,13 @@ const Drawer = ({ updateData, option }: DetailProps) => {
       onClose={onClose}
       buttons={[
         {
-          label: drawerType === 'history' ? '关闭' : '保存',
+          label:
+            drawerType === 'history' || drawerType === 'see' ? '关闭' : '保存',
           type: 'primary',
           style: { width: 80 },
           onClick: () => {
-            if (drawerType === 'history') return onClose()
+            if (drawerType === 'history' || drawerType === 'see')
+              return onClose()
             form.submitvalidate()
           },
         },
