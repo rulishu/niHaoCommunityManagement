@@ -3,6 +3,7 @@ import { createModel, RematchDispatch } from '@rematch/core'
 import {
   selectById,
   Change,
+  selectAdvanceDepositeByCode,
 } from '../../servers/ChargeManagement/PredepositsManage'
 
 interface State {
@@ -39,6 +40,16 @@ const PredepositsManage = createModel<RootModel>()({
       if (data.code === 1) {
         dph.users.updateState({
           drawerVisible: true,
+          queryInfo: data.data || {},
+        })
+      }
+    },
+
+    async selectAdvanceDepositeByCode(payload: Change) {
+      const dph = dispatch as Dispatch
+      const data = await selectAdvanceDepositeByCode(payload)
+      if (data.code === 1) {
+        dph.users.updateState({
           queryInfo: data.data || {},
         })
       }
