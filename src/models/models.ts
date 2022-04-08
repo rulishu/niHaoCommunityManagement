@@ -43,7 +43,7 @@ const models = createModel<RootModel>()({
             data.data &&
             data.data.map((itm: any) => ({
               label: itm.dictName,
-              value: itm.dictCode,
+              value: itm.dictCode.toString(),
             })),
         })
       }
