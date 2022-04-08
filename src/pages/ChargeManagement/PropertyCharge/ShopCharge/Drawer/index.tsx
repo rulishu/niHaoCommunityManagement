@@ -42,31 +42,23 @@ const Drawer = ({ updateData, option }: DetailProps) => {
 
   // 验证
   const verification = (current: any) => {
-    if (current?.chargeltem === '2') {
+    if (current?.chargeltem === '2' && drawerType === 'storage')
       delete current.payService
-    }
     const errorObj: any = {}
     const arr = Object.keys(current)
     arr.forEach((element: any) => {
       if (drawerType === 'charge') {
-        if (!current?.shouldPaySum) {
-          errorObj.shouldPaySum = '实际应收不能为空'
-        }
-        if (!current?.payMode) {
-          errorObj.payMode = '付款方式不能为空'
-        }
-        if (Number(current?.sumByZero < 0)) {
+        if (!current?.shouldPaySum) errorObj.shouldPaySum = '实际应收不能为空'
+        if (!current?.payMode) errorObj.payMode = '付款方式不能为空'
+        if (Number(current?.sumByZero < 0))
           errorObj.sumByZero = '找零金额不能小于0'
-        }
-        if (Number(current?.balanceByZero < 0)) {
+        if (Number(current?.balanceByZero < 0))
           errorObj.balanceByZero = '找零结转金额不能小于0'
-        }
       } else if (
         !current[element] ||
         (Array.isArray(current[element]) && current[element].length === 0)
-      ) {
+      )
         errorObj[element] = '此项不能为空'
-      }
     })
     if (Object.keys(errorObj).length > 0) {
       const err: any = new Error()
@@ -74,80 +66,64 @@ const Drawer = ({ updateData, option }: DetailProps) => {
       throw err
     }
   }
+
+  const sendOut = (type: string, payload: any) =>
+    (
+      dispatch({
+        type,
+        payload,
+      }) as any
+    ).then((data: any) => {
+      if (data?.code === 1) {
+        onClose()
+        table.onSearch()
+        table.selection.unSelectAll()
+        Notify.success({ title: data?.message || '' })
+      } else {
+        Notify.error({ title: data?.message || '' })
+      }
+    })
+
   // 提交
   const onSubmit = (current: any) => {
     verification(current)
     // 添加零时收费
-    if (drawerType === 'temAdd')
-      (
-        dispatch({
-          type: 'shopCharge/buTemporaryCharges',
-          payload: {
-            ...current,
-            code: current?.code[0],
-            payService: current?.payService[0]?.value,
-            payType: current?.payType[0]?.value,
-            collectionTime: changeTimeFormat(current?.collectionTime),
-          },
-        }) as any
-      ).then((data: any) => {
-        if (data?.code === 1) {
-          onClose()
-          table.onSearch()
-          Notify.success({ title: data?.message || '' })
-        } else {
-          Notify.error({ title: data?.message || '' })
-        }
-      })
+    if (drawerType === 'temAdd') {
+      console.log(current, 'current')
+      const payload = {
+        ...current,
+        code: current?.code[0],
+        payService: current?.payService[0]?.value,
+        payType: current?.payType[0]?.value,
+        collectionTime: changeTimeFormat(current?.collectionTime),
+      }
+      sendOut('shopCharge/buTemporaryCharges', payload)
+    }
 
     // 添加押金
-    if (drawerType === 'depositAdd')
-      (
-        dispatch({
-          type: 'shopCharge/getBuDeposit',
-          payload: {
-            code: current?.code[0],
-            name: current?.name,
-            collectionTime: changeTimeFormat(current?.collectionTime),
-            project: current?.payService[0]?.value,
-            paymentMethod: current?.payType[0]?.value,
-            price: current?.price,
-          },
-        }) as any
-      ).then((data: any) => {
-        if (data?.code === 1) {
-          onClose()
-          table.onSearch()
-          Notify.success({ title: data?.message || '' })
-        } else {
-          Notify.error({ title: data?.message || '' })
-        }
-      })
+    if (drawerType === 'depositAdd') {
+      const payload = {
+        code: current?.code[0],
+        name: current?.name,
+        collectionTime: changeTimeFormat(current?.collectionTime),
+        project: current?.payService[0]?.value,
+        paymentMethod: current?.payType[0]?.value,
+        price: current?.price,
+      }
+      sendOut('shopCharge/getBuDeposit', payload)
+    }
 
     // 预存
     if (drawerType === 'storage') {
       const payload = {
         ...current,
-        code: current?.code[0],
         chargeltem: Number(current?.chargeltem),
         chargingTime: changeTimeFormat(current?.chargingTime),
       }
       if (payload.chargeltem === 2) {
         delete payload.payService
       }
-      ;(
-        dispatch({
-          type: 'shopCharge/getBuAdvanceDeposit',
-          payload,
-        }) as any
-      ).then((data: any) => {
-        if (data?.code === 1) {
-          onClose()
-          Notify.success({ title: data?.message || '' })
-        } else {
-          Notify.error({ title: data?.message || '' })
-        }
-      })
+      sendOut('shopCharge/getBuAdvanceDeposit', payload)
     }
 
     if (drawerType === 'charge') {
@@ -157,21 +133,7 @@ const Drawer = ({ updateData, option }: DetailProps) => {
         type: tyoeList,
         ...current,
       }
-      ;(
-        dispatch({
-          type: 'shopCharge/getBuShopChargeDatapay',
-          payload,
-        }) as any
-      ).then((data: any) => {
-        if (data?.code === 1) {
-          onClose()
-          table.onSearch()
-          table.selection.unSelectAll()
-          Notify.success({ title: data?.message || '' })
-        } else {
-          Notify.error({ title: data?.message || '' })
-        }
-      })
+      sendOut('shopCharge/getBuShopChargeDatapay', payload)
     }
 
     // 临时收费退款
@@ -182,22 +144,9 @@ const Drawer = ({ updateData, option }: DetailProps) => {
         id: queryInfo?.id,
         code: String(current?.code),
       }
-      ;(
-        dispatch({
-          type: 'shopCharge/getBuTemporaryChargesUpdate',
-          payload,
-        }) as any
-      ).then((data: any) => {
-        if (data?.code === 1) {
-          onClose()
-          table.onSearch()
-          table.selection.unSelectAll()
-          Notify.success({ title: data?.message || '' })
-        } else {
-          Notify.error({ title: data?.message || '' })
-        }
-      })
+      sendOut('shopCharge/getBuTemporaryChargesUpdate', payload)
     }
+
     if (drawerType === 'returnMoney') {
       const payload = {
         ...queryInfo,
@@ -205,23 +154,10 @@ const Drawer = ({ updateData, option }: DetailProps) => {
         refundMethod: current?.refundType,
         refundTime: changeTimeFormat(current?.refundTime),
       }
-      ;(
-        dispatch({
-          type: 'shopCharge/getBuDepositUpdate',
-          payload,
-        }) as any
-      ).then((data: any) => {
-        if (data?.code === 1) {
-          onClose()
-          table.onSearch()
-          table.selection.unSelectAll()
-          Notify.success({ title: data?.message || '' })
-        } else {
-          Notify.error({ title: data?.message || '' })
-        }
-      })
+      sendOut('shopCharge/getBuDepositUpdate', payload)
     }
   }
+
   useEffect(() => {
     if (drawerType === 'charge') {
       if (

@@ -69,10 +69,6 @@ export default function Demo(props: {
           },
         ]}
         table={table}
-        rowSelection={{
-          type: 'checkbox',
-          selectKey: 'id',
-        }}
         columns={
           columnsTem(
             option,
