@@ -103,13 +103,13 @@ export const columnsTem = (
     {
       align: 'center',
       title: '收费项目',
-      key: 'payService',
+      key: 'payServiceName',
       ellipsis: true,
     },
     {
       align: 'center',
       title: '付款方式',
-      key: 'payType',
+      key: 'payTypeName',
       ellipsis: true,
     },
     {
@@ -144,7 +144,7 @@ export const columnsTem = (
             alignItems: 'center',
           }}
         >
-          {text === '1' ? '已付款' : '未付款'}
+          {text === '1' ? '已付款' : '已退款'}
         </div>
       ),
     },
@@ -159,7 +159,7 @@ export const columnsTem = (
       key: 'edit',
       align: 'center',
       width: 150,
-      render: (text: any, type: string, data: object) => (
+      render: (text: any, type: string, data: any) => (
         <div
           style={{
             display: 'flex',
@@ -167,9 +167,31 @@ export const columnsTem = (
             alignItems: 'center',
           }}
         >
-          <Button onClick={() => handleEditTable('details', data)}>
-            退款详情
-          </Button>
+          {data?.status === '1' ? (
+            <Button
+              onClick={() =>
+                handleEditTable('details', {
+                  ...data,
+                  refundTime: '',
+                  chargingTime: data?.collectionTime,
+                  refundType: '',
+                })
+              }
+            >
+              退款
+            </Button>
+          ) : (
+            <Button
+              onClick={() =>
+                handleEditTable('see', {
+                  ...data,
+                  chargingTime: data?.collectionTime,
+                })
+              }
+            >
+              退款详情
+            </Button>
+          )}
         </div>
       ),
     },
@@ -207,13 +229,19 @@ export const columnsDeposit = (
   {
     align: 'center',
     title: '收费项目',
-    key: 'project',
+    key: 'projectName',
     ellipsis: true,
   },
   {
     align: 'center',
     title: '付款方式',
-    key: 'paymentMethod',
+    key: 'paymentMethodName',
+    ellipsis: true,
+  },
+  {
+    align: 'center',
+    title: '退款方式',
+    key: 'refundMethodName',
     ellipsis: true,
   },
   {
@@ -222,12 +250,18 @@ export const columnsDeposit = (
     key: 'price',
     ellipsis: true,
   },
-  {
-    title: '收款人',
-    align: 'center',
-    key: 'collectionName',
-    ellipsis: true,
-  },
+  // {
+  //   title: '收款人',
+  //   align: 'center',
+  //   key: 'collectionName',
+  //   ellipsis: true,
+  // },
+  // {
+  //   title: '退款人',
+  //   align: 'center',
+  //   key: 'refundName',
+  //   ellipsis: true,
+  // },
   {
     align: 'center',
     title: '收款时间',
@@ -235,12 +269,7 @@ export const columnsDeposit = (
     ellipsis: true,
     width: 200,
   },
-  {
-    title: '退款人',
-    align: 'center',
-    key: 'refundName',
-    ellipsis: true,
-  },
+
   {
     align: 'center',
     title: '退款时间',
@@ -253,6 +282,17 @@ export const columnsDeposit = (
     align: 'center',
     key: 'status',
     ellipsis: true,
+    render: (text: any) => (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        {text === '1' ? '已付款' : '已退款'}
+      </div>
+    ),
   },
   {
     title: '备注',
@@ -266,7 +306,7 @@ export const columnsDeposit = (
     align: 'center',
     ellipsis: true,
     width: 150,
-    render: (text: any, type: string, data: object) => (
+    render: (text: any, type: string, data: any) => (
       <div
         style={{
           display: 'flex',
@@ -274,9 +314,23 @@ export const columnsDeposit = (
           alignItems: 'center',
         }}
       >
-        <Button onClick={() => handleEditTable('returnMoney', data)}>
-          退还
-        </Button>
+        {data?.status === '1' && (
+          <Button
+            onClick={() =>
+              handleEditTable('returnMoney', {
+                ...data,
+                payService: data?.project,
+                payType: data?.paymentMethod,
+                chargingTime: data?.collectionTime,
+                refundTime: '',
+                refundType: '',
+                remark: '',
+              })
+            }
+          >
+            退还
+          </Button>
+        )}
       </div>
     ),
   },

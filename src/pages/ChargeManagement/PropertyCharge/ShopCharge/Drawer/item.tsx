@@ -17,6 +17,8 @@ export const drawerTitle = (type: string) => {
       return '临时收费退款'
     case 'returnMoney':
       return '押金退还'
+    case 'see':
+      return '退款详情'
     default:
       return ''
   }
@@ -64,6 +66,7 @@ export const matching = (
       return returnItem(queryInfo, option, searchParms, detailed, payment)
     case 'details':
     case 'returnMoney':
+    case 'see':
       return details(
         queryInfo,
         option,
@@ -92,6 +95,7 @@ const items = (
       span: 6,
       widget: 'input',
       disabled: true,
+      required: true,
       initialValue: queryInfo?.shouldPaySum,
     },
     {
@@ -225,7 +229,6 @@ const items = (
             return
           }
           if (value.includes(1)) {
-            console.log(fromData?.fund)
             form.setFields({
               ...fromData,
               preBuntPaySum: fromData?.preBunt,
@@ -488,13 +491,13 @@ const details = (
 ) => [
   {
     label: '商铺',
-    key: 'name',
+    key: 'code',
     widget: 'searchSelect',
     option,
     required: true,
     disabled: true,
     span: 8,
-    initialValue: [searchParms?.code || ''],
+    initialValue: searchParms?.code,
     widgetProps: {
       placeholder: '请选择商铺',
       mode: 'single',
@@ -502,7 +505,7 @@ const details = (
   },
   {
     label: '客户姓名',
-    key: 'name1',
+    key: 'name',
     widget: 'input',
     required: true,
     disabled: true,
@@ -522,7 +525,7 @@ const details = (
       placeholder: '请选择收费项目',
       mode: 'single',
     },
-    initialValue: queryInfo?.name,
+    initialValue: Number(queryInfo?.payService),
   },
   {
     label: '付款方式',
@@ -533,16 +536,16 @@ const details = (
     required: true,
     span: 8,
     widgetProps: { placeholder: '请选择付款方式', mode: 'single' },
-    initialValue: queryInfo?.name,
+    initialValue: Number(queryInfo?.payType),
   },
   {
     label: '收费金额',
-    key: 'chargeAmount',
+    key: 'price',
     widget: 'input',
     disabled: true,
     required: true,
     span: 8,
-    initialValue: queryInfo?.name,
+    initialValue: queryInfo?.price,
   },
   {
     label: '收费时间',
@@ -550,37 +553,39 @@ const details = (
     widget: 'dateInput',
     required: true,
     disabled: true,
+    initialValue: queryInfo?.chargingTime,
     widgetProps: { format: 'YYYY-MM-DD HH:mm:ss' },
   },
   {
     label: '退款时间',
-    key: 'chargingTime1',
+    key: 'refundTime',
     widget: 'dateInput',
     required: true,
-    disabled: type !== 'returnMoney',
+    disabled: type === 'see',
+    initialValue: queryInfo?.refundTime,
     widgetProps: { format: 'YYYY-MM-DD HH:mm:ss' },
   },
   {
     label: '退款方式',
-    key: 'payType1',
+    key: 'refundType',
     widget: 'searchSelect',
     option: payment,
     required: true,
-    disabled: type !== 'returnMoney',
+    disabled: type === 'see',
     span: 8,
     widgetProps: {
       placeholder: '请选择付款方式',
       mode: 'single',
     },
-    initialValue: queryInfo?.name,
+    initialValue: Number(queryInfo?.refundType),
   },
   {
     label: '备注',
-    disabled: type !== 'returnMoney',
-    key: 'chargeAmount1',
+    disabled: type === 'see',
+    key: 'remark',
     widget: 'input',
     required: true,
     span: 8,
-    initialValue: queryInfo?.name,
+    initialValue: queryInfo?.remark,
   },
 ]

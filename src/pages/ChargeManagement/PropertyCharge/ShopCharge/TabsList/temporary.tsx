@@ -15,12 +15,12 @@ export default function Demo(props: {
 }) {
   const { option, setValue, updateData, onSearch, searchParms } = props
 
-  const table = useTable('/api/buTemporaryCharges/selectPage', {
+  const table = useTable('/api/buTemporaryCharges/selectTemListByCode', {
     query: (pageIndex, pageSize, searchValues) => {
       return {
         page: pageIndex,
         pageSize,
-        id: String(searchValues.code || ''),
+        code: String(searchValues.code || ''),
       }
     },
     formatData: (data) => {
@@ -31,12 +31,13 @@ export default function Demo(props: {
     },
   })
   // 操作
-  const handleEditTable = (type: string, data: object = {}) => {
-    if (!table?.searchValues?.code)
+  const handleEditTable = (type: string, data?: any) => {
+    if (!searchParms?.code || !String(searchParms?.code))
       return Notify.warning({ description: '请先输入商铺进行搜索 !' })
     updateData({
       drawerType: type,
       drawerVisible: true,
+      table,
       queryInfo: { ...data },
     })
   }

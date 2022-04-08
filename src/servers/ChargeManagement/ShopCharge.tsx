@@ -66,7 +66,7 @@ function buCharge(params: any) {
 
 // 添加零食收费
 function buTemporaryCharges(params: any) {
-  return request('/api/buTemporaryCharges/add', {
+  return request('/api/buTemporaryCharges/addByCode', {
     method: 'POST',
     body: { ...params },
   })
@@ -74,7 +74,7 @@ function buTemporaryCharges(params: any) {
 
 // 添加押金
 function buDeposit(params: any) {
-  return request('/api/buDeposit/add', {
+  return request('/api/buDeposit/addByCode', {
     method: 'POST',
     body: { ...params },
   })
@@ -114,6 +114,22 @@ function buShopChargeDatapay(params: any) {
     body: { ...params },
   })
 }
+
+// 临时收费-修改
+function buTemporaryChargesUpdate(params: any) {
+  return request('/api/buTemporaryCharges/update', {
+    method: 'POST',
+    body: { ...params },
+  })
+}
+
+// 临时收费-修改
+function buDepositUpdate(params: any) {
+  return request('/api/buDeposit/update', {
+    method: 'POST',
+    body: { ...params },
+  })
+}
 export {
   selectById,
   selectPage,
@@ -130,4 +146,6 @@ export {
   buAdvanceDeposit,
   buShopChargeData,
   buShopChargeDatapay,
+  buTemporaryChargesUpdate,
+  buDepositUpdate,
 }

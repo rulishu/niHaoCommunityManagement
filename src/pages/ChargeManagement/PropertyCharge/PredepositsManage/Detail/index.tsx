@@ -2,18 +2,19 @@ import React from 'react'
 import { ProDrawer, ProForm, useForm } from '@uiw-admin/components'
 import { Dispatch, RootState } from '@uiw-admin/models'
 import { useDispatch, useSelector } from 'react-redux'
-import { Notify } from 'uiw'
+import { Notify, Table } from 'uiw'
 import useSWR from 'swr'
 import { insert, update } from '@/servers/ChargeManagement/PredepositsManage'
-import { items } from './items'
-// import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
+import { items, backList } from './items'
+import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import formatter from '@uiw/formatter'
 
-interface State {
+export interface State {
   drawerVisible?: boolean
   tableType?: string
   queryInfo?: object
   isView?: boolean
+  code?: string
 }
 
 const Drawer = (props: {
@@ -23,9 +24,18 @@ const Drawer = (props: {
   const baseRef = useForm()
   const dispatch = useDispatch<Dispatch>()
   const {
-    PredepositsManage: { drawerVisible, tableType, queryInfo, isView, loading },
+    PredepositsManage: {
+      drawerVisible,
+      tableType,
+      queryInfo,
+      isView,
+      loading,
+      preDepositeData,
+      itemList,
+    },
   } = useSelector((state: RootState) => state)
-  const [value, setValue] = React.useState(false)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, setValue] = React.useState(false)
 
   const onClose = () => {
     dispatch({
@@ -69,8 +79,6 @@ const Drawer = (props: {
     }
   )
   const onChange = (initial: any, current: any) => {
-    console.log('current', current?.chargeItem)
-
     if (current?.chargeItem === '1') {
       setValue(true)
     }
@@ -82,13 +90,17 @@ const Drawer = (props: {
         ...queryInfo,
         ...current,
         chargingTime: formatter('YYYY-MM-DD HH:mm:ss', current?.chargingTime),
-        payService: current?.chargeItem === '1' ? current?.payService : null,
+        refundTime:
+          tableType === 'edit'
+            ? formatter('YYYY-MM-DD HH:mm:ss', current?.refundTime)
+            : null,
+        // payService: current?.chargeItem === '1' ? current?.payService : null,
       },
     })
   }
-  // const onChangeItem = async (text: React.ChangeEvent<HTMLInputElement>) => {
-  //   // console.log('text.target.value', text.target.value)
-  // }
+  const onChangeItem = async (text: React.ChangeEvent<HTMLInputElement>) => {
+    // console.log('text.target.value', text.target.value)
+  }
   return (
     <ProDrawer
       title="基础信息"
@@ -137,19 +149,23 @@ const Drawer = (props: {
         buttonsContainer={{ justifyContent: 'flex-start' }}
         // 更新表单的值
         onChange={(initial, current) => onChange(initial, current)}
-        formDatas={items(queryInfo, value, tableType)}
+        formDatas={items(
+          queryInfo,
+          tableType,
+          dispatch,
+          preDepositeData,
+          baseRef,
+          itemList
+        )}
       />
 
-      {/* {tableType === 'edit' && (
+      {tableType === 'edit' && (
         <Table
           bordered
           columns={backList(onChangeItem) as FormCol[]}
-          data={
-            // chargeDataList
-            [{ payService: '1', chargeAmount: '1' }]
-          }
+          data={[preDepositeData]}
         />
-      )} */}
+      )}
     </ProDrawer>
   )
 }

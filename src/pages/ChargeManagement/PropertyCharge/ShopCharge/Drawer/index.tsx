@@ -49,6 +49,9 @@ const Drawer = ({ updateData, option }: DetailProps) => {
     const arr = Object.keys(current)
     arr.forEach((element: any) => {
       if (drawerType === 'charge') {
+        if (!current?.shouldPaySum) {
+          errorObj.shouldPaySum = '实际应收不能为空'
+        }
         if (!current?.payMode) {
           errorObj.payMode = '付款方式不能为空'
         }
@@ -71,7 +74,6 @@ const Drawer = ({ updateData, option }: DetailProps) => {
       throw err
     }
   }
-
   // 提交
   const onSubmit = (current: any) => {
     verification(current)
@@ -91,6 +93,7 @@ const Drawer = ({ updateData, option }: DetailProps) => {
       ).then((data: any) => {
         if (data?.code === 1) {
           onClose()
+          table.onSearch()
           Notify.success({ title: data?.message || '' })
         } else {
           Notify.error({ title: data?.message || '' })
@@ -103,17 +106,18 @@ const Drawer = ({ updateData, option }: DetailProps) => {
         dispatch({
           type: 'shopCharge/getBuDeposit',
           payload: {
-            name: current?.name || '',
-            code: current?.code[0]?.value,
+            code: current?.code[0],
+            name: current?.name,
+            collectionTime: changeTimeFormat(current?.collectionTime),
             project: current?.payService[0]?.value,
             paymentMethod: current?.payType[0]?.value,
-            price: current?.price || '',
-            collectionTime: changeTimeFormat(current?.collectionTime),
+            price: current?.price,
           },
         }) as any
       ).then((data: any) => {
         if (data?.code === 1) {
           onClose()
+          table.onSearch()
           Notify.success({ title: data?.message || '' })
         } else {
           Notify.error({ title: data?.message || '' })
@@ -169,6 +173,54 @@ const Drawer = ({ updateData, option }: DetailProps) => {
         }
       })
     }
+
+    // 临时收费退款
+    if (drawerType === 'details') {
+      const payload = {
+        ...current,
+        refundTime: changeTimeFormat(current?.refundTime),
+        id: queryInfo?.id,
+        code: String(current?.code),
+      }
+      ;(
+        dispatch({
+          type: 'shopCharge/getBuTemporaryChargesUpdate',
+          payload,
+        }) as any
+      ).then((data: any) => {
+        if (data?.code === 1) {
+          onClose()
+          table.onSearch()
+          table.selection.unSelectAll()
+          Notify.success({ title: data?.message || '' })
+        } else {
+          Notify.error({ title: data?.message || '' })
+        }
+      })
+    }
+    if (drawerType === 'returnMoney') {
+      const payload = {
+        ...queryInfo,
+        ...current,
+        refundMethod: current?.refundType,
+        refundTime: changeTimeFormat(current?.refundTime),
+      }
+      ;(
+        dispatch({
+          type: 'shopCharge/getBuDepositUpdate',
+          payload,
+        }) as any
+      ).then((data: any) => {
+        if (data?.code === 1) {
+          onClose()
+          table.onSearch()
+          table.selection.unSelectAll()
+          Notify.success({ title: data?.message || '' })
+        } else {
+          Notify.error({ title: data?.message || '' })
+        }
+      })
+    }
   }
   useEffect(() => {
     if (drawerType === 'charge') {
@@ -176,7 +228,8 @@ const Drawer = ({ updateData, option }: DetailProps) => {
         queryInfo?.shouldPaySum &&
         !queryInfo?.type &&
         !queryInfo?.fund &&
-        !queryInfo?.payType
+        !queryInfo?.payType &&
+        !queryInfo?.payMode
       ) {
         if (typeof form.setFields === 'function') {
           form.setFields({
@@ -197,11 +250,13 @@ const Drawer = ({ updateData, option }: DetailProps) => {
       onClose={onClose}
       buttons={[
         {
-          label: drawerType === 'history' ? '关闭' : '保存',
+          label:
+            drawerType === 'history' || drawerType === 'see' ? '关闭' : '保存',
           type: 'primary',
           style: { width: 80 },
           onClick: () => {
-            if (drawerType === 'history') return onClose()
+            if (drawerType === 'history' || drawerType === 'see')
+              return onClose()
             form.submitvalidate()
           },
         },

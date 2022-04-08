@@ -8,11 +8,11 @@ export default function Details() {
   }: any = useSelector((shopCharge: RootState) => shopCharge)
   return (
     <Fragment>
-      <Descriptions title="商品信息" bordered>
+      <Descriptions title="商铺信息" bordered>
         <Descriptions.Item label="编号">
           {detailed?.shopNo || ''}
         </Descriptions.Item>
-        <Descriptions.Item label="商品状态">
+        <Descriptions.Item label="商铺状态">
           {detailed?.status === 1
             ? '空置'
             : detailed?.status === 2
