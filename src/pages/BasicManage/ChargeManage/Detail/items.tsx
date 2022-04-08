@@ -46,7 +46,7 @@ export const items = (queryInfo: Change, tableType: string) => {
       ],
     },
     {
-      label: '数量',
+      label: '收费标准',
       key: 'chargeNumType',
       widget: 'select',
       initialValue: queryInfo?.chargeNumType,
@@ -62,7 +62,7 @@ export const items = (queryInfo: Change, tableType: string) => {
         { label: '按租金收费', value: '7' },
       ],
       span: '8',
-      rules: [{ required: true, message: '请输入数量类型' }],
+      rules: [{ required: true, message: '请输入收费标准' }],
     },
     {
       label: '计算公式',
@@ -96,20 +96,20 @@ export const items = (queryInfo: Change, tableType: string) => {
       span: '8',
       rules: [{ required: true, message: '请输入计算周期' }],
     },
-    {
-      label: '滞纳金',
-      key: 'chargeLateType',
-      widget: 'radio',
-      initialValue: queryInfo?.chargeLateType,
-      required: true,
-      hide: queryInfo?.chargeType === '1' ? false : true,
-      option: [
-        { label: '不适用', value: 1 },
-        { label: '适用', value: 2 },
-      ],
-      span: '8',
-      rules: [{ required: true, message: '请输入滞纳金' }],
-    },
+    // {
+    //   label: '滞纳金',
+    //   key: 'chargeLateType',
+    //   widget: 'radio',
+    //   initialValue: queryInfo?.chargeLateType,
+    //   required: true,
+    //   hide: queryInfo?.chargeType === '1' ? false : true,
+    //   option: [
+    //     { label: '不适用', value: 1 },
+    //     { label: '适用', value: 2 },
+    //   ],
+    //   span: '8',
+    //   rules: [{ required: true, message: '请输入滞纳金' }],
+    // },
     // {
     //   label: '滞纳金比例',
     //   key: 'chargeLateProportion',
