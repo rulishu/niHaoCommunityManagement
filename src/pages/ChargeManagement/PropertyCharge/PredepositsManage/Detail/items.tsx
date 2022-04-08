@@ -1,7 +1,24 @@
 import { Change } from '@/servers/ChargeManagement/PredepositsManage'
 import { Input } from 'uiw'
+import { Dispatch } from '@uiw-admin/models'
+import { UseFormProps } from '@uiw-admin/components/src/ProForm/type'
 
-export const items = (queryInfo: Change, value: boolean, tableType: string) => {
+// const option = [
+//   { label: 'a1', value: 1 },
+//   { label: 'a2', value: 2 },
+//   { label: 'a3', value: 3 },
+// ]
+export const items = (
+  queryInfo: Change,
+  tableType: string,
+  dispatch: Dispatch,
+  preDepositeData: Change,
+  baseRef: UseFormProps,
+  itemList: []
+) => {
+  console.log('itemList', itemList)
+  console.log('preDepositeData', preDepositeData)
+
   return [
     {
       label: '可用收费项',
@@ -19,11 +36,26 @@ export const items = (queryInfo: Change, value: boolean, tableType: string) => {
     {
       label: '编号',
       key: 'code',
-      widget: 'input',
+      widget: 'searchSelect',
       initialValue: queryInfo?.code,
       placeholder: '请输入编号',
       required: true,
       rules: [{ required: true, message: '请输入编号' }],
+      option: itemList,
+      widgetProps: {
+        mode: 'single',
+        showSearch: true,
+        maxTagCount: 6,
+        placeholder: '请输入选择',
+        onSearch: (value: string) => {
+          dispatch({
+            type: 'PredepositsManage/selectAdvanceDepositeByCode',
+            payload: {
+              code: value,
+            },
+          })
+        },
+      },
     },
     {
       label: '客户姓名',
@@ -32,6 +64,7 @@ export const items = (queryInfo: Change, value: boolean, tableType: string) => {
       initialValue: queryInfo?.name,
       required: true,
       placeholder: '请输入客户姓名',
+      disabled: tableType === 'edit' ? true : false,
       rules: [{ required: true, message: '请输入客户姓名' }],
     },
     {

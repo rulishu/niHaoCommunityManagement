@@ -9,11 +9,12 @@ import { items, backList } from './items'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import formatter from '@uiw/formatter'
 
-interface State {
+export interface State {
   drawerVisible?: boolean
   tableType?: string
   queryInfo?: object
   isView?: boolean
+  code?: string
 }
 
 const Drawer = (props: {
@@ -23,9 +24,18 @@ const Drawer = (props: {
   const baseRef = useForm()
   const dispatch = useDispatch<Dispatch>()
   const {
-    PredepositsManage: { drawerVisible, tableType, queryInfo, isView, loading },
+    PredepositsManage: {
+      drawerVisible,
+      tableType,
+      queryInfo,
+      isView,
+      loading,
+      preDepositeData,
+      itemList,
+    },
   } = useSelector((state: RootState) => state)
-  const [value, setValue] = React.useState(false)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, setValue] = React.useState(false)
 
   const onClose = () => {
     dispatch({
@@ -69,8 +79,6 @@ const Drawer = (props: {
     }
   )
   const onChange = (initial: any, current: any) => {
-    console.log('current', current?.chargeItem)
-
     if (current?.chargeItem === '1') {
       setValue(true)
     }
@@ -82,7 +90,11 @@ const Drawer = (props: {
         ...queryInfo,
         ...current,
         chargingTime: formatter('YYYY-MM-DD HH:mm:ss', current?.chargingTime),
-        payService: current?.chargeItem === '1' ? current?.payService : null,
+        refundTime:
+          tableType === 'edit'
+            ? formatter('YYYY-MM-DD HH:mm:ss', current?.refundTime)
+            : null,
+        // payService: current?.chargeItem === '1' ? current?.payService : null,
       },
     })
   }
@@ -137,17 +149,21 @@ const Drawer = (props: {
         buttonsContainer={{ justifyContent: 'flex-start' }}
         // 更新表单的值
         onChange={(initial, current) => onChange(initial, current)}
-        formDatas={items(queryInfo, value, tableType)}
+        formDatas={items(
+          queryInfo,
+          tableType,
+          dispatch,
+          preDepositeData,
+          baseRef,
+          itemList
+        )}
       />
 
       {tableType === 'edit' && (
         <Table
           bordered
           columns={backList(onChangeItem) as FormCol[]}
-          data={
-            // chargeDataList
-            [{ payService: '1', chargeAmount: '1' }]
-          }
+          data={[preDepositeData]}
         />
       )}
     </ProDrawer>
