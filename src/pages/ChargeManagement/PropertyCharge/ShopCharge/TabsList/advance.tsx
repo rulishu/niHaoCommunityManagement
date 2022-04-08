@@ -70,10 +70,6 @@ export default function Demo(props: {
           },
         ]}
         table={table}
-        rowSelection={{
-          type: 'checkbox',
-          selectKey: 'id',
-        }}
         columns={columnsAdvance(option, setValue, searchParms) as FormCol[]}
       />
     </React.Fragment>

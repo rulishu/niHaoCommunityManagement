@@ -50,7 +50,7 @@ export const columnsSearch = (
       ellipsis: true,
     },
     {
-      title: '数量',
+      title: '收费标准',
       key: 'chargeNumType',
       align: 'center',
       ellipsis: true,
@@ -76,23 +76,23 @@ export const columnsSearch = (
         </div>
       ),
     },
-    {
-      title: '计算公式',
-      key: 'chargeFormula',
-      align: 'center',
-      ellipsis: true,
-      render: (chargeFormula: string) => (
-        <div style={{ textAlign: 'center' }}>
-          <span>
-            {chargeFormula === '1'
-              ? '单价*数量'
-              : chargeFormula === '2'
-              ? '自定义'
-              : ''}
-          </span>
-        </div>
-      ),
-    },
+    // {
+    //   title: '计算公式',
+    //   key: 'chargeFormula',
+    //   align: 'center',
+    //   ellipsis: true,
+    //   render: (chargeFormula: string) => (
+    //     <div style={{ textAlign: 'center' }}>
+    //       <span>
+    //         {chargeFormula === '1'
+    //           ? '单价*数量'
+    //           : chargeFormula === '2'
+    //           ? '自定义'
+    //           : ''}
+    //       </span>
+    //     </div>
+    //   ),
+    // },
     {
       title: '计算周期',
       key: 'chargeMonth',
@@ -118,35 +118,35 @@ export const columnsSearch = (
         </div>
       ),
     },
-    {
-      title: '滞纳金',
-      key: 'chargeLateType',
-      align: 'center',
-      ellipsis: true,
-      render: (chargeLateType: number) => (
-        <div style={{ textAlign: 'center' }}>
-          <span>
-            {chargeLateType === 1
-              ? '不适用'
-              : chargeLateType === 2
-              ? '适用'
-              : ''}
-          </span>
-        </div>
-      ),
-    },
-    {
-      title: '滞纳金比例',
-      key: 'chargeLateProportion',
-      align: 'center',
-      ellipsis: true,
-    },
-    {
-      title: '滞纳金天数',
-      key: 'chargeDay',
-      align: 'center',
-      ellipsis: true,
-    },
+    // {
+    //   title: '滞纳金',
+    //   key: 'chargeLateType',
+    //   align: 'center',
+    //   ellipsis: true,
+    //   render: (chargeLateType: number) => (
+    //     <div style={{ textAlign: 'center' }}>
+    //       <span>
+    //         {chargeLateType === 1
+    //           ? '不适用'
+    //           : chargeLateType === 2
+    //           ? '适用'
+    //           : ''}
+    //       </span>
+    //     </div>
+    //   ),
+    // },
+    // {
+    //   title: '滞纳金比例',
+    //   key: 'chargeLateProportion',
+    //   align: 'center',
+    //   ellipsis: true,
+    // },
+    // {
+    //   title: '滞纳金天数',
+    //   key: 'chargeDay',
+    //   align: 'center',
+    //   ellipsis: true,
+    // },
     {
       title: '操作',
       key: 'edit',

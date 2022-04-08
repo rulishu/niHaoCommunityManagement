@@ -355,7 +355,7 @@ const storageItem = (
     option,
     required: true,
     span: 8,
-    initialValue: [searchParms?.code || ''],
+    initialValue: searchParms?.code || '',
     widgetProps: {
       placeholder: '请选择商铺',
       mode: 'single',
@@ -382,7 +382,7 @@ const storageItem = (
       placeholder: '请选择付款方式',
       mode: 'single',
     },
-    initialValue: queryInfo?.name,
+    initialValue: queryInfo?.paymentMethod,
   },
   {
     label: '收费金额',
@@ -390,7 +390,7 @@ const storageItem = (
     widget: 'input',
     required: true,
     span: 8,
-    initialValue: queryInfo?.name,
+    initialValue: queryInfo?.chargeAmount,
   },
   {
     label: '收费时间',
@@ -406,6 +406,7 @@ const storageItem = (
       { label: '指定收费项', value: '1' },
       { label: '所有收费项', value: '2' },
     ],
+    initialValue: '1',
     widgetProps: {
       onChange: (value: any) => {
         if (value?.target?.value !== '1') {
@@ -428,7 +429,7 @@ const storageItem = (
       placeholder: '请选择收费项目',
       mode: 'single',
     },
-    initialValue: queryInfo?.name,
+    initialValue: queryInfo?.payService,
   },
 ]
 
@@ -583,9 +584,9 @@ const details = (
     label: '备注',
     disabled: type === 'see',
     key: 'remark',
-    widget: 'input',
+    widget: 'textarea',
     required: true,
-    span: 8,
+    span: 24,
     initialValue: queryInfo?.remark,
   },
 ]
