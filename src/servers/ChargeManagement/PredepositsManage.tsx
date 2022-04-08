@@ -32,8 +32,15 @@ const insert = '/api/buAdvanceDeposit/add'
 
 const deleteData = '/api/buAdvanceDeposit/delete'
 
-const selectAdvanceDepositeByCode =
-  '/api/buAdvanceDeposit/selectAdvanceDepositeByCode'
+// const selectAdvanceDepositeByCode =
+//   '/api/buAdvanceDeposit/selectAdvanceDepositeByCode'
+
+function selectAdvanceDepositeByCode(params: Change) {
+  return request('/api/buAdvanceDeposit/selectAdvanceDepositeByCode', {
+    method: 'POST',
+    body: { ...params },
+  })
+}
 
 export {
   selectById,
