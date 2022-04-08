@@ -1,7 +1,7 @@
-import { Fragment } from 'react'
+import { Fragment, useEffect } from 'react'
 import { ProTable, useTable } from '@uiw-admin/components'
-import { Dispatch } from '@uiw-admin/models'
-import { useDispatch } from 'react-redux'
+import { Dispatch, RootState } from '@uiw-admin/models'
+import { useDispatch, useSelector } from 'react-redux'
 import { selectPage, Change } from '@/servers/ChargeManagement/temporaryCharges'
 import Drawer from '../Detail/index'
 import Modals from '../Modals/index'
@@ -18,6 +18,23 @@ interface State {
 
 const Search = () => {
   const dispatch = useDispatch<Dispatch>()
+
+  useEffect(() => {
+    dispatch({
+      type: 'models/buChargesList',
+    })
+    dispatch({
+      type: 'models/paysList',
+      payload: {
+        dictType: '付款方式',
+      },
+    })
+  }, [dispatch])
+
+  const {
+    models: { buChargesList, paysList },
+  } = useSelector((state: RootState) => state)
+
   const updateData = (payload: State) => {
     dispatch({
       type: 'temporaryCharges/updateState',
@@ -89,7 +106,9 @@ const Search = () => {
           },
         ]}
         table={search}
-        columns={columnsSearch(handleEditTable) as FormCol[]}
+        columns={
+          columnsSearch(handleEditTable, buChargesList, paysList) as FormCol[]
+        }
       />
       <Drawer updateData={updateData} onSearch={search.onSearch} />
       <Modals onSearch={search.onSearch} />

@@ -28,7 +28,7 @@ const models = createModel<RootModel>()({
         dph.models.updateState({
           buChargesList: data.data.map((itm: any) => ({
             label: itm.chargeName,
-            value: itm.chargeName,
+            value: itm.id,
           })),
         })
       }
@@ -36,15 +36,14 @@ const models = createModel<RootModel>()({
     async paysList(payload: any) {
       const dph = dispatch
       const data = await paysList(payload)
-      console.log('data', data.data)
 
       if (data.code === 1) {
         dph.models.updateState({
           paysList:
             data.data &&
             data.data.map((itm: any) => ({
-              label: itm.chargeName,
-              value: itm.chargeName,
+              label: itm.dictName,
+              value: itm.dictCode,
             })),
         })
       }
