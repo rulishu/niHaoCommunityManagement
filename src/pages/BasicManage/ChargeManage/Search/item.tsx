@@ -76,23 +76,23 @@ export const columnsSearch = (
         </div>
       ),
     },
-    {
-      title: '计算公式',
-      key: 'chargeFormula',
-      align: 'center',
-      ellipsis: true,
-      render: (chargeFormula: string) => (
-        <div style={{ textAlign: 'center' }}>
-          <span>
-            {chargeFormula === '1'
-              ? '单价*数量'
-              : chargeFormula === '2'
-              ? '自定义'
-              : ''}
-          </span>
-        </div>
-      ),
-    },
+    // {
+    //   title: '计算公式',
+    //   key: 'chargeFormula',
+    //   align: 'center',
+    //   ellipsis: true,
+    //   render: (chargeFormula: string) => (
+    //     <div style={{ textAlign: 'center' }}>
+    //       <span>
+    //         {chargeFormula === '1'
+    //           ? '单价*数量'
+    //           : chargeFormula === '2'
+    //           ? '自定义'
+    //           : ''}
+    //       </span>
+    //     </div>
+    //   ),
+    // },
     {
       title: '计算周期',
       key: 'chargeMonth',
