@@ -118,12 +118,12 @@ export const columnsTem = (
       key: 'price',
       ellipsis: true,
     },
-    {
-      align: 'center',
-      title: '收款人',
-      key: 'collectionName',
-      ellipsis: true,
-    },
+    // {
+    //   align: 'center',
+    //   title: '收款人',
+    //   key: 'collectionName',
+    //   ellipsis: true,
+    // },
     {
       align: 'center',
       title: '收款时间',
