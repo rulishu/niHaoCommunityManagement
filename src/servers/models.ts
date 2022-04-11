@@ -24,4 +24,12 @@ function statusList(params: { id: string }) {
   })
 }
 
-export { paysList, buChargesList, statusList }
+// 收费标准字典
+function standardList(params: { id: string }) {
+  return request('/api/dictionary/selectDictList', {
+    method: 'POST',
+    body: { ...params },
+  })
+}
+
+export { paysList, buChargesList, statusList, standardList }

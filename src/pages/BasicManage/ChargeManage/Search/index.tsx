@@ -30,6 +30,12 @@ export default function Demo() {
         dictType: '收费项类型',
       },
     })
+    dispatch({
+      type: 'models/standardList',
+      payload: {
+        dictType: '收费标准',
+      },
+    })
   }, [dispatch])
 
   const {

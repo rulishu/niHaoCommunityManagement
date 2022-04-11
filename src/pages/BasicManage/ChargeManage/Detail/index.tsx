@@ -23,6 +23,10 @@ const Detail = (props: {
     ChargeManage: { drawerVisible, tableType, queryInfo, isView, loading },
   } = useSelector((ChargeManage: RootState) => ChargeManage)
 
+  const {
+    models: { buChargesList, statusList, standardList },
+  } = useSelector((state: RootState) => state)
+
   const onClose = () => {
     dispatch({
       type: 'ChargeManage/updateState',
@@ -118,7 +122,13 @@ const Detail = (props: {
         onChange={(initial, current) =>
           props.updateData({ queryInfo: { ...queryInfo, ...current } })
         }
-        formDatas={items(queryInfo, tableType)}
+        formDatas={items(
+          queryInfo,
+          tableType,
+          buChargesList,
+          statusList,
+          standardList
+        )}
       />
     </ProDrawer>
   )
