@@ -6,7 +6,9 @@ export interface Change {
   code?: string
   name?: string
   payService?: string
+  payServiceName?: string
   paymentMethod?: string
+  paymentMethodName?: string
   chargeAmount?: string
   chargingTime?: string
   refundWay?: string
