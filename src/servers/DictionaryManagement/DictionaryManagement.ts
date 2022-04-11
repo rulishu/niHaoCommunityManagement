@@ -14,7 +14,7 @@ function selectById(params: Change) {
   })
 }
 
-const selectPage = '/api/buZone/selectPage'
+const selectPage = '/api/dictionary/selectPage'
 
 const update = '/api/buZone/update'
 
