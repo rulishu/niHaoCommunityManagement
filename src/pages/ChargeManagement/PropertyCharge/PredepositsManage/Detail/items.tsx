@@ -14,7 +14,9 @@ export const items = (
   dispatch: Dispatch,
   preDepositeData: Change,
   baseRef: UseFormProps,
-  itemList: []
+  itemList: [],
+  buChargesList: any,
+  paysList: any
 ) => {
   console.log('itemList', itemList)
   console.log('preDepositeData', preDepositeData)
@@ -36,7 +38,7 @@ export const items = (
     {
       label: '编号',
       key: 'code',
-      widget: 'searchSelect',
+      widget: tableType === 'edit' ? 'searchSelect' : 'input',
       initialValue: queryInfo?.code,
       placeholder: '请输入编号',
       required: true,
@@ -73,12 +75,7 @@ export const items = (
       initialValue: queryInfo?.payService,
       widget: 'select',
       required: true,
-      option: [
-        { label: '电费', value: '1' },
-        { label: '天然气费', value: '2' },
-        { label: '卫生费', value: '3' },
-        { label: '单位租金', value: '4' },
-      ],
+      option: buChargesList,
       hide: queryInfo?.chargeItem === '2' ? true : false,
       rules: [{ message: '请输入收费项目' }],
     },
@@ -88,15 +85,19 @@ export const items = (
       initialValue: queryInfo?.paymentMethod,
       widget: 'select',
       required: true,
-      option: [
-        { label: '现金', value: '1' },
-        { label: '微信支付', value: '2' },
-        { label: '支付宝支付', value: '3' },
-        { label: '刷卡', value: '4' },
-        { label: '转账', value: '5' },
-      ],
+      option: paysList,
       hide: tableType === 'edit' ? true : false,
       rules: [{ required: true, message: '请输入付款方式' }],
+    },
+    {
+      label: '收款人',
+      key: 'chargeName',
+      widget: 'input',
+      initialValue: queryInfo?.chargeName,
+      required: true,
+      placeholder: '请输入收款人',
+      hide: tableType === 'edit' ? true : false,
+      rules: [{ required: true, message: '请输入收款人' }],
     },
     {
       label: '金额',
@@ -135,13 +136,7 @@ export const items = (
       key: 'refundWay',
       initialValue: queryInfo?.refundWay,
       widget: 'select',
-      option: [
-        { label: '现金', value: '1' },
-        { label: '微信支付', value: '2' },
-        { label: '支付宝支付', value: '3' },
-        { label: '刷卡', value: '4' },
-        { label: '转账', value: '5' },
-      ],
+      option: paysList,
       required: true,
       hide: tableType === 'edit' ? false : true,
       rules: [{ required: true, message: '请选择退款方式' }],
