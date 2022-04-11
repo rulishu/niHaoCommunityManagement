@@ -11,6 +11,7 @@ export interface Change {
   chargingTime?: string
   refundWay?: string
   refundTime?: string
+  chargeName?: string
 }
 
 /**
