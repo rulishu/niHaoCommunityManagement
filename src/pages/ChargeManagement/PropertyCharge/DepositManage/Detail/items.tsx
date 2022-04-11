@@ -1,6 +1,12 @@
 import { Change } from '@/servers/ChargeManagement/DepositManage'
 
-export const items = (queryInfo: Change, value: boolean, tableType: string) => {
+export const items = (
+  queryInfo: Change,
+  value: boolean,
+  tableType: string,
+  buChargesList: any,
+  paysList: any
+) => {
   return [
     {
       label: '客户类型',
@@ -44,12 +50,7 @@ export const items = (queryInfo: Change, value: boolean, tableType: string) => {
       initialValue: queryInfo?.project,
       widget: 'select',
       required: true,
-      option: [
-        { label: '押金2押1付', value: '1' },
-        { label: '测试装修押金', value: '2' },
-        { label: '装修保证金', value: '3' },
-        { label: '履约保证金', value: '4' },
-      ],
+      option: buChargesList,
       disabled: tableType === 'paied' ? true : false,
       rules: [{ required: true, message: '请输入收费项目' }],
     },
@@ -59,15 +60,19 @@ export const items = (queryInfo: Change, value: boolean, tableType: string) => {
       initialValue: queryInfo?.paymentMethod,
       widget: 'select',
       required: true,
-      option: [
-        { label: '现金', value: '1' },
-        { label: '微信支付', value: '2' },
-        { label: '支付宝支付', value: '3' },
-        { label: '刷卡', value: '4' },
-        { label: '转账', value: '5' },
-      ],
+      option: paysList,
       disabled: tableType === 'paied' ? true : false,
       rules: [{ required: true, message: '请输入付款方式' }],
+    },
+    {
+      label: '收款人',
+      key: 'collectionName',
+      widget: 'input',
+      initialValue: queryInfo?.collectionName,
+      required: true,
+      placeholder: '请输入收款人',
+      disabled: tableType === 'paied' ? true : false,
+      rules: [{ required: true, message: '请输入收款人' }],
     },
     {
       label: '收款金额',
@@ -119,13 +124,7 @@ export const items = (queryInfo: Change, value: boolean, tableType: string) => {
       key: 'refundMethod',
       initialValue: queryInfo?.refundMethod,
       widget: 'select',
-      option: [
-        { label: '现金', value: '1' },
-        { label: '微信支付', value: '2' },
-        { label: '支付宝支付', value: '3' },
-        { label: '刷卡', value: '4' },
-        { label: '转账', value: '5' },
-      ],
+      option: paysList,
       required: true,
       hide: tableType === 'paied' || tableType === 'refunded' ? false : true,
       rules: [{ required: true, message: '请选择退款方式' }],
