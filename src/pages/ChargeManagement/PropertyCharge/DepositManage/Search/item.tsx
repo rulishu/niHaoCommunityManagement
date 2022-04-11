@@ -7,7 +7,9 @@ import { Change } from '@/servers/ChargeManagement/DepositManage'
 // ]
 
 export const columnsSearch = (
-  handleEditTable: (tableType: string, obj: Change) => void
+  handleEditTable: (tableType: string, obj: Change) => void,
+  buChargesList: any,
+  paysList: any
 ) => [
   {
     title: '编号',
@@ -19,7 +21,6 @@ export const columnsSearch = (
       },
     },
     align: 'center',
-    //ellipsis: true,
   },
   {
     title: '客户姓名',
@@ -31,32 +32,25 @@ export const columnsSearch = (
       },
     },
     align: 'center',
-    //ellipsis: true,
   },
   {
     title: '收费项目',
     key: 'project',
     props: {
       widget: 'select',
-      option: [
-        { label: '押金2押1付', value: '1' },
-        { label: '测试装修押金', value: '2' },
-        { label: '装修保证金', value: '3' },
-        { label: '履约保证金', value: '4' },
-      ],
+      option: buChargesList,
     },
     align: 'center',
-    //ellipsis: true,
     render: (project: string) => (
       <div style={{ textAlign: 'center' }}>
         <span>
-          {project === '1'
-            ? '押金2押1付'
-            : project === '2'
-            ? '测试装修押金'
-            : project === '3'
-            ? '装修保证金'
-            : '履约保证金'}
+          {project === '6'
+            ? '电费'
+            : project === '9'
+            ? '3344'
+            : project === '10'
+            ? '111'
+            : ''}
         </span>
       </div>
     ),
@@ -66,28 +60,19 @@ export const columnsSearch = (
     key: 'paymentMethod',
     props: {
       widget: 'select',
-      option: [
-        { label: '现金', value: '1' },
-        { label: '微信支付', value: '2' },
-        { label: '支付宝支付', value: '3' },
-        { label: '刷卡', value: '4' },
-        { label: '转账', value: '5' },
-      ],
+      option: paysList,
     },
     align: 'center',
-    //ellipsis: true,
-    render: (paymentMethod: string) => (
+    render: (payType: string) => (
       <div style={{ textAlign: 'center' }}>
         <span>
-          {paymentMethod === '1'
-            ? '现金'
-            : paymentMethod === '2'
+          {payType === '3'
+            ? '支付宝'
+            : payType === '2'
             ? '微信支付'
-            : paymentMethod === '3'
-            ? '支付宝支付'
-            : paymentMethod === '4'
-            ? '刷卡'
-            : '转账'}
+            : payType === '1'
+            ? '现金'
+            : ''}
         </span>
       </div>
     ),
@@ -96,19 +81,16 @@ export const columnsSearch = (
     title: '收款金额',
     key: 'price',
     align: 'center',
-    //ellipsis: true,
   },
   {
     title: '收款人',
     key: 'collectionName',
     align: 'center',
-    //ellipsis: true,
   },
   {
     title: '收款时间',
     key: 'collectionTime',
     align: 'center',
-    //ellipsis: true,
   },
   {
     title: '状态',
@@ -121,7 +103,6 @@ export const columnsSearch = (
       ],
     },
     align: 'center',
-    //ellipsis: true,
     render: (status: string) => (
       <div style={{ textAlign: 'center' }}>
         <span>
@@ -134,14 +115,12 @@ export const columnsSearch = (
     title: '备注',
     key: 'remark',
     align: 'center',
-    //ellipsis: true,
   },
   {
     title: '操作',
     key: 'edit',
     width: 200,
     align: 'center',
-    //ellipsis: true,
     render: (text: any, key: any, rowData: any) => (
       <div>
         {rowData.status === '1' ? (
