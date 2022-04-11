@@ -2,7 +2,9 @@ import { Button } from 'uiw'
 import { Change } from '@/servers/ChargeManagement/PredepositsManage'
 
 export const columnsSearch = (
-  handleEditTable: (tableType: string, obj: Change) => void
+  handleEditTable: (tableType: string, obj: Change) => void,
+  buChargesList: any,
+  paysList: any
 ) => [
   {
     title: '编号',
@@ -31,26 +33,19 @@ export const columnsSearch = (
     key: 'payService',
     props: {
       widget: 'select',
-      option: [
-        { label: '电费', value: '1' },
-        { label: '天然气费', value: '2' },
-        { label: '卫生费', value: '3' },
-        { label: '单元租金', value: '4' },
-      ],
+      option: buChargesList,
     },
     align: 'center',
     render: (payService: string) => (
       <div style={{ textAlign: 'center' }}>
         <span>
-          {payService === '1'
+          {payService === '6'
             ? '电费'
-            : payService === '2'
-            ? '天然气费'
-            : payService === '3'
-            ? '卫生费'
-            : payService === '4'
-            ? '单元租金'
-            : '不指定收费项'}
+            : payService === '9'
+            ? '3344'
+            : payService === '10'
+            ? '111'
+            : ''}
         </span>
       </div>
     ),
@@ -60,27 +55,19 @@ export const columnsSearch = (
     key: 'paymentMethod',
     props: {
       widget: 'select',
-      option: [
-        { label: '现金', value: '1' },
-        { label: '微信支付', value: '2' },
-        { label: '支付宝支付', value: '3' },
-        { label: '刷卡', value: '4' },
-        { label: '转账', value: '5' },
-      ],
+      option: paysList,
     },
     align: 'center',
-    render: (paymentMethod: string) => (
+    render: (payType: string) => (
       <div style={{ textAlign: 'center' }}>
         <span>
-          {paymentMethod === '1'
-            ? '现金'
-            : paymentMethod === '2'
+          {payType === '3'
+            ? '支付宝'
+            : payType === '2'
             ? '微信支付'
-            : paymentMethod === '3'
-            ? '支付宝支付'
-            : paymentMethod === '4'
-            ? '刷卡'
-            : '转账'}
+            : payType === '1'
+            ? '现金'
+            : ''}
         </span>
       </div>
     ),
