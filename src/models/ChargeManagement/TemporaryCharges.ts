@@ -37,7 +37,7 @@ const temporaryCharges = createModel<RootModel>()({
       const dph = dispatch as Dispatch
       const data = await selectById(payload)
       if (data.code === 1) {
-        dph.users.updateState({
+        dph.temporaryCharges.updateState({
           drawerVisible: true,
           queryInfo: data.data || {},
         })
@@ -46,7 +46,7 @@ const temporaryCharges = createModel<RootModel>()({
 
     clean() {
       const dph = dispatch as Dispatch
-      dph.users.updateState({
+      dph.temporaryCharges.updateState({
         drawerVisible: false,
         tableType: '',
         queryInfo: {},
