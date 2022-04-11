@@ -1,10 +1,11 @@
 import { RootModel } from '@uiw-admin/models'
 import { createModel } from '@rematch/core'
-import { buChargesList, paysList } from '../servers/models'
+import { buChargesList, paysList, statusList } from '../servers/models'
 
 export interface State {
   buChargesList: any
   paysList: any
+  statusList: any
 }
 
 const models = createModel<RootModel>()({
@@ -12,6 +13,7 @@ const models = createModel<RootModel>()({
   state: {
     buChargesList: [],
     paysList: [],
+    statusList: [],
   },
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({
@@ -40,6 +42,21 @@ const models = createModel<RootModel>()({
       if (data.code === 1) {
         dph.models.updateState({
           paysList:
+            data.data &&
+            data.data.map((itm: any) => ({
+              label: itm.dictName,
+              value: itm.dictCode.toString(),
+            })),
+        })
+      }
+    },
+    async statusList(payload: any) {
+      const dph = dispatch
+      const data = await statusList(payload)
+
+      if (data.code === 1) {
+        dph.models.updateState({
+          statusList:
             data.data &&
             data.data.map((itm: any) => ({
               label: itm.dictName,

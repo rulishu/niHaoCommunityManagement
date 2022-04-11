@@ -2,7 +2,9 @@ import { Button } from 'uiw'
 import { Change } from '@/servers/BasicManage/ChargeManage'
 
 export const columnsSearch = (
-  handleEditTable: (tableType: string, obj: Change) => void
+  handleEditTable: (tableType: string, obj: Change) => void,
+  statusList: any,
+  buChargesList: any
 ) => {
   return [
     {
@@ -13,11 +15,7 @@ export const columnsSearch = (
       props: {
         label: '类型',
         widget: 'select',
-        option: [
-          { label: '常规收费项(商铺)', value: '1' },
-          { label: '临时收费项', value: '2' },
-          { label: '押金类收费项', value: '3' },
-        ],
+        option: statusList,
       },
       render: (chargeType: string) => (
         <div style={{ textAlign: 'center' }}>
@@ -26,7 +24,9 @@ export const columnsSearch = (
               ? '常规收费项(商铺)'
               : chargeType === '2'
               ? '临时收费项'
-              : '押金类收费项'}
+              : chargeType === '3'
+              ? '押金类收费项'
+              : ''}
           </span>
         </div>
       ),
@@ -34,14 +34,24 @@ export const columnsSearch = (
     {
       title: '收费项目名',
       key: 'chargeName',
-      align: 'center',
-      ellipsis: true,
       props: {
-        widget: 'input',
-        widgetProps: {
-          placeholder: '请输入收费项目名',
-        },
+        widget: 'select',
+        option: buChargesList,
       },
+      align: 'center',
+      render: (chargeName: string) => (
+        <div style={{ textAlign: 'center' }}>
+          <span>
+            {chargeName === '6'
+              ? '电费'
+              : chargeName === '9'
+              ? '3344'
+              : chargeName === '10'
+              ? '111'
+              : ''}
+          </span>
+        </div>
+      ),
     },
     {
       title: '单价',
@@ -54,22 +64,12 @@ export const columnsSearch = (
       key: 'chargeNumType',
       align: 'center',
       ellipsis: true,
-      render: (chargeNumType: string) => (
+      render: (chargeNumType: number) => (
         <div style={{ textAlign: 'center' }}>
           <span>
-            {chargeNumType === '1'
-              ? '按户数收费'
-              : chargeNumType === '2'
-              ? '按人口数收费'
-              : chargeNumType === '3'
-              ? '按楼层收费'
-              : chargeNumType === '4'
-              ? '按占地面积收费'
-              : chargeNumType === '5'
-              ? '按使用面积收费'
-              : chargeNumType === '6'
-              ? '按走表数量'
-              : chargeNumType === '7'
+            {chargeNumType === 1
+              ? '按走表收费'
+              : chargeNumType === 2
               ? '按租金收费'
               : ''}
           </span>
