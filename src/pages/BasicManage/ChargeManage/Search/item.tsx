@@ -17,17 +17,9 @@ export const columnsSearch = (
         widget: 'select',
         option: statusList,
       },
-      render: (chargeType: string) => (
+      render: (text: any, key: any, rowData: Change) => (
         <div style={{ textAlign: 'center' }}>
-          <span>
-            {chargeType === '1'
-              ? '常规收费项(商铺)'
-              : chargeType === '2'
-              ? '临时收费项'
-              : chargeType === '3'
-              ? '押金类收费项'
-              : ''}
-          </span>
+          <span>{rowData?.chargeTypeName}</span>
         </div>
       ),
     },
@@ -39,17 +31,9 @@ export const columnsSearch = (
         option: buChargesList,
       },
       align: 'center',
-      render: (chargeName: string) => (
+      render: (text: any, key: any, rowData: Change) => (
         <div style={{ textAlign: 'center' }}>
-          <span>
-            {chargeName === '6'
-              ? '电费'
-              : chargeName === '9'
-              ? '3344'
-              : chargeName === '10'
-              ? '111'
-              : ''}
-          </span>
+          <span>{rowData?.chargeName}</span>
         </div>
       ),
     },
@@ -64,15 +48,9 @@ export const columnsSearch = (
       key: 'chargeNumType',
       align: 'center',
       ellipsis: true,
-      render: (chargeNumType: number) => (
+      render: (text: any, key: any, rowData: Change) => (
         <div style={{ textAlign: 'center' }}>
-          <span>
-            {chargeNumType === 1
-              ? '按走表收费'
-              : chargeNumType === 2
-              ? '按租金收费'
-              : ''}
-          </span>
+          <span>{rowData?.chargeNumTypeName}</span>
         </div>
       ),
     },
