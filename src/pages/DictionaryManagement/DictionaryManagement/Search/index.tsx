@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { Fragment, useEffect } from 'react'
 import { ProTable, useTable } from '@uiw-admin/components'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import { columnsSearch } from './item'
@@ -18,10 +18,17 @@ interface State {
   isView?: boolean
   delectVisible?: boolean
   id?: string
+  level?: string
 }
 
 export default function Demo() {
   const dispatch = useDispatch<Dispatch>()
+
+  useEffect(() => {
+    dispatch({
+      type: 'DictionaryManagement/selectDictTypeList',
+    })
+  }, [dispatch])
 
   const updateData = (payload: State) => {
     dispatch({
@@ -54,14 +61,14 @@ export default function Demo() {
       isView: type === 'view',
       tableType: type,
     })
-    if (type === 'add') {
+    if (type === 'addType' || type === 'addValue') {
       updateData({ drawerVisible: true, queryInfo: {} })
     }
-    if (type === 'edit' || type === 'view') {
+    if (type === 'editType' || type === 'editValue' || type === 'view') {
       updateData({ drawerVisible: true, queryInfo: obj })
     }
     if (type === 'del') {
-      updateData({ delectVisible: true, id: obj?.id })
+      updateData({ delectVisible: true, id: obj?.id, level: obj?.level })
     }
   }
   return (
@@ -70,11 +77,14 @@ export default function Demo() {
         bordered
         operateButtons={[
           {
-            label: '新增',
+            label: '新增字典类型',
             type: 'primary',
-            onClick: () => {
-              handleEditTable('add', {})
-            },
+            onClick: () => handleEditTable('addType', {}),
+          },
+          {
+            label: '新增字典项',
+            type: 'primary',
+            onClick: () => handleEditTable('addValue', {}),
           },
         ]}
         searchBtns={[

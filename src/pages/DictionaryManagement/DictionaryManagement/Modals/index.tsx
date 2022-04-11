@@ -8,12 +8,12 @@ import useSWR from 'swr'
 const Modals = (props: { onSearch: () => void }) => {
   const dispatch = useDispatch<Dispatch>()
   const {
-    BusinessManage: { delectVisible, id },
+    DictionaryManagement: { delectVisible, id, level },
   } = useSelector((state: RootState) => state)
 
   const onClose = () => {
     dispatch({
-      type: 'BusinessManage/updateState',
+      type: 'DictionaryManagement/updateState',
       payload: {
         delectVisible: false,
       },
@@ -21,7 +21,7 @@ const Modals = (props: { onSearch: () => void }) => {
   }
 
   const { mutate } = useSWR(
-    [deleteData, { method: 'POST', body: { id: id } }],
+    [deleteData, { method: 'POST', body: { id: id, level: level } }],
     {
       revalidateOnMount: false,
       revalidateOnFocus: false,
