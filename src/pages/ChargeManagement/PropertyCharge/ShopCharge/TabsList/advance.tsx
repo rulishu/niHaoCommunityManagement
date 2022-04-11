@@ -15,12 +15,12 @@ export default function Demo(props: {
 }) {
   const { option, setValue, updateData, onSearch, searchParms } = props
 
-  const table = useTable('api/buAdvanceDeposit/selectPage', {
+  const table = useTable('api/buAdvanceDeposit/selectAdvanceDepositeByCode', {
     query: (pageIndex, pageSize, searchValues) => {
       return {
         page: pageIndex,
         pageSize,
-        id: String(searchValues.code || ''),
+        code: String(searchValues.code || ''),
       }
     },
     formatData: (data) => {

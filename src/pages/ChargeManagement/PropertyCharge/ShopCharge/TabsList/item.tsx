@@ -369,17 +369,29 @@ export const columnsAdvance = (
     align: 'center',
     key: 'status',
     ellipsis: true,
+    render: (text: any) => (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        {text === '1' ? '预存' : text === '2' ? '退还' : ''}
+      </div>
+    ),
   },
   {
     title: '收费项目',
     align: 'center',
-    key: 'payService',
+    key: 'payServiceName',
     ellipsis: true,
+    width: 220,
   },
   {
     title: '付款方式',
     align: 'center',
-    key: 'paymentMethod',
+    key: 'paymentMethodName',
     ellipsis: true,
   },
   {
@@ -389,37 +401,17 @@ export const columnsAdvance = (
     ellipsis: true,
   },
   {
-    title: '收款人',
-    align: 'center',
-    key: 'chargeName',
-    ellipsis: true,
-  },
-  {
     title: '收款时间',
     align: 'center',
     key: 'chargingTime',
     ellipsis: true,
+    width: 200,
   },
   {
     title: '单号',
     align: 'center',
     key: 'oddNumbers',
     ellipsis: true,
-  },
-  {
-    title: '操作',
-    key: 'edit',
-    align: 'center',
-    ellipsis: true,
-    width: 150,
-    render: () => (
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      ></div>
-    ),
+    width: 300,
   },
 ]
