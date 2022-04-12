@@ -2,9 +2,12 @@ import { Fragment, useEffect } from 'react'
 import { ProTable, useTable } from '@uiw-admin/components'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import { columnsSearch } from './item'
-import { useDispatch, useSelector } from 'react-redux'
-import { Dispatch, RootState } from '@uiw-admin/models'
-import { selectPage, Change } from '@/servers/BasicManage/ChargeManage'
+import { useDispatch } from 'react-redux'
+import { Dispatch } from '@uiw-admin/models'
+import {
+  selectPage,
+  Change,
+} from '@/servers/DictionaryManagement/DictionaryManagement'
 import Drawer from '../Detail'
 import Modals from '../Modals'
 
@@ -15,6 +18,7 @@ interface State {
   isView?: boolean
   delectVisible?: boolean
   id?: string
+  level?: string
 }
 
 export default function Demo() {
@@ -22,29 +26,13 @@ export default function Demo() {
 
   useEffect(() => {
     dispatch({
-      type: 'models/buChargesList',
-    })
-    dispatch({
-      type: 'models/statusList',
-      payload: {
-        dictType: '收费项类型',
-      },
-    })
-    dispatch({
-      type: 'models/standardList',
-      payload: {
-        dictType: '收费标准',
-      },
+      type: 'DictionaryManagement/selectDictTypeList',
     })
   }, [dispatch])
 
-  const {
-    models: { buChargesList, statusList },
-  } = useSelector((state: RootState) => state)
-
   const updateData = (payload: State) => {
     dispatch({
-      type: 'ChargeManage/updateState',
+      type: 'DictionaryManagement/updateState',
       payload,
     })
   }
@@ -73,14 +61,14 @@ export default function Demo() {
       isView: type === 'view',
       tableType: type,
     })
-    if (type === 'add') {
+    if (type === 'addType' || type === 'addValue') {
       updateData({ drawerVisible: true, queryInfo: {} })
     }
-    if (type === 'edit' || type === 'view') {
+    if (type === 'editType' || type === 'editValue' || type === 'view') {
       updateData({ drawerVisible: true, queryInfo: obj })
     }
     if (type === 'del') {
-      updateData({ delectVisible: true, id: obj?.id })
+      updateData({ delectVisible: true, id: obj?.id, level: obj?.level })
     }
   }
   return (
@@ -89,11 +77,14 @@ export default function Demo() {
         bordered
         operateButtons={[
           {
-            label: '新增',
+            label: '新增字典类型',
             type: 'primary',
-            onClick: () => {
-              handleEditTable('add', {})
-            },
+            onClick: () => handleEditTable('addType', {}),
+          },
+          {
+            label: '新增字典项',
+            type: 'primary',
+            onClick: () => handleEditTable('addValue', {}),
           },
         ]}
         searchBtns={[
@@ -111,9 +102,7 @@ export default function Demo() {
           },
         ]}
         table={table}
-        columns={
-          columnsSearch(handleEditTable, statusList, buChargesList) as FormCol[]
-        }
+        columns={columnsSearch(handleEditTable) as FormCol[]}
       />
       <Drawer updateData={updateData} onSearch={table.onSearch} />
       <Modals onSearch={table.onSearch} />

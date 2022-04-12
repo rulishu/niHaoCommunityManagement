@@ -36,17 +36,9 @@ export const columnsSearch = (
       option: buChargesList,
     },
     align: 'center',
-    render: (payService: string) => (
+    render: (text: any, key: any, rowData: Change) => (
       <div style={{ textAlign: 'center' }}>
-        <span>
-          {payService === '6'
-            ? '电费'
-            : payService === '9'
-            ? '3344'
-            : payService === '10'
-            ? '111'
-            : ''}
-        </span>
+        <span>{rowData?.payServiceName}</span>
       </div>
     ),
   },
@@ -58,17 +50,9 @@ export const columnsSearch = (
       option: paysList,
     },
     align: 'center',
-    render: (payType: string) => (
+    render: (text: any, key: any, rowData: Change) => (
       <div style={{ textAlign: 'center' }}>
-        <span>
-          {payType === '3'
-            ? '支付宝'
-            : payType === '2'
-            ? '微信支付'
-            : payType === '1'
-            ? '现金'
-            : ''}
-        </span>
+        <span>{rowData?.paymentMethodName}</span>
       </div>
     ),
   },

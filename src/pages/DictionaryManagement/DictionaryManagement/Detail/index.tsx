@@ -2,8 +2,13 @@ import { ProDrawer, ProForm, useForm } from '@uiw-admin/components'
 import { Notify } from 'uiw'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
-import { insert, update } from '@/servers/BasicManage/ChargeManage'
-import { items } from './items'
+import {
+  addType,
+  addDictValue,
+  editType,
+  editDict,
+} from '@/servers/DictionaryManagement/DictionaryManagement'
+import { items, items2 } from './items'
 import useSWR from 'swr'
 
 interface State {
@@ -20,16 +25,19 @@ const Detail = (props: {
   const baseRef = useForm()
   const dispatch = useDispatch<Dispatch>()
   const {
-    ChargeManage: { drawerVisible, tableType, queryInfo, isView, loading },
-  } = useSelector((ChargeManage: RootState) => ChargeManage)
-
-  const {
-    models: { buChargesList, statusList, standardList },
-  } = useSelector((state: RootState) => state)
+    DictionaryManagement: {
+      drawerVisible,
+      tableType,
+      queryInfo,
+      isView,
+      loading,
+      addTypeList,
+    },
+  } = useSelector((DictionaryManagement: RootState) => DictionaryManagement)
 
   const onClose = () => {
     dispatch({
-      type: 'ChargeManage/updateState',
+      type: 'DictionaryManagement/updateState',
       payload: {
         drawerVisible: false,
         isView: false,
@@ -39,7 +47,10 @@ const Detail = (props: {
 
   const { mutate } = useSWR(
     [
-      (tableType === 'add' && insert) || (tableType === 'edit' && update),
+      (tableType === 'addType' && addType) ||
+        (tableType === 'addValue' && addDictValue) ||
+        (tableType === 'editType' && editType) ||
+        (tableType === 'editValue' && editDict),
       { method: 'POST', body: queryInfo },
     ],
     {
@@ -51,7 +62,7 @@ const Detail = (props: {
           onClose()
           props.onSearch()
           dispatch({
-            type: 'ChargeManage/updateState',
+            type: 'DictionaryManagement/updateState',
             payload: {
               loading: false,
             },
@@ -59,7 +70,7 @@ const Detail = (props: {
         } else {
           Notify.error({ title: '提交失败！' })
           dispatch({
-            type: 'ChargeManage/updateState',
+            type: 'DictionaryManagement/updateState',
             payload: {
               loading: false,
             },
@@ -73,7 +84,13 @@ const Detail = (props: {
     <ProDrawer
       width={800}
       title={
-        tableType === 'add' ? '新增' : tableType === 'edit' ? '编辑' : '查看'
+        tableType === 'addType'
+          ? '新增字典类型'
+          : tableType === 'addValue'
+          ? '新增字典项'
+          : tableType === 'editType'
+          ? '编辑字典类型'
+          : '查看'
       }
       visible={drawerVisible}
       onClose={onClose}
@@ -91,7 +108,7 @@ const Detail = (props: {
           loading: loading,
           onClick: async () => {
             dispatch({
-              type: 'ChargeManage/updateState',
+              type: 'DictionaryManagement/updateState',
               payload: {
                 loading: true,
               },
@@ -100,9 +117,9 @@ const Detail = (props: {
             const errors = baseRef.getError()
             if (errors && Object.keys(errors).length > 0) {
               dispatch({
-                type: 'ChargeManage/updateState',
+                type: 'DictionaryManagement/updateState',
                 payload: {
-                  loading: false,
+                  loading: true,
                 },
               })
               return
@@ -122,13 +139,13 @@ const Detail = (props: {
         onChange={(initial, current) =>
           props.updateData({ queryInfo: { ...queryInfo, ...current } })
         }
-        formDatas={items(
-          queryInfo,
-          tableType,
-          buChargesList,
-          statusList,
-          standardList
-        )}
+        formDatas={
+          tableType === 'addType'
+            ? items(queryInfo, tableType)
+            : tableType === 'editType'
+            ? items(queryInfo, tableType)
+            : items2(queryInfo, addTypeList, tableType)
+        }
       />
     </ProDrawer>
   )

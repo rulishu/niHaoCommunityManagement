@@ -4,8 +4,10 @@ export interface Change {
   id?: string
   chargeType?: string
   chargeName?: string
+  chargeTypeName?: string
   chargePrice?: number
   chargeNumType?: string
+  chargeNumTypeName?: string
   chargeFormula?: string
   chargeMonth?: number
   chargeDay?: number

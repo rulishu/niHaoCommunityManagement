@@ -145,6 +145,19 @@
         ]
       },
       {
+        "path": "/DictionaryManagement",
+        "name": "字典管理",
+        "icon": "table",
+        "routes": [
+          {
+            "path": "/DictionaryManagement/DictionaryManagement",
+            "name": "字典管理",
+            "icon": "edit",
+            "component": "../pages/DictionaryManagement/DictionaryManagement"
+          }
+        ]
+      },
+      {
         "path": "/403",
         "name": "403",
         "hideInMenu": true,

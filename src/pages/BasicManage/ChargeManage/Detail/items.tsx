@@ -1,16 +1,18 @@
 import { Change } from '@/servers/BasicManage/ChargeManage'
 
-export const items = (queryInfo: Change, tableType: string) => {
+export const items = (
+  queryInfo: Change,
+  tableType: string,
+  buChargesList: any,
+  statusList: any,
+  standardList: any
+) => {
   return [
     {
       label: '类型',
       key: 'chargeType',
       widget: 'select',
-      option: [
-        { label: '常规收费项(商铺)', value: '1' },
-        { label: '临时收费项', value: '2' },
-        { label: '押金类收费项', value: '3' },
-      ],
+      option: statusList,
       initialValue: queryInfo?.chargeType,
       widgetProps: {},
       required: true,
@@ -18,12 +20,22 @@ export const items = (queryInfo: Change, tableType: string) => {
       span: queryInfo && queryInfo.chargeType !== '1' ? '12' : '8',
       rules: [{ required: true, message: '请选择类型' }],
     },
+    // {
+    //   label: '收费项目名',
+    //   key: 'chargeName',
+    //   widget: 'input',
+    //   initialValue: queryInfo?.chargeName,
+    //   required: true,
+    //   span: queryInfo && queryInfo.chargeType !== '1' ? '12' : '8',
+    //   rules: [{ required: true, message: '请输入收费项目名' }],
+    // },
     {
       label: '收费项目名',
       key: 'chargeName',
-      widget: 'input',
       initialValue: queryInfo?.chargeName,
+      widget: 'select',
       required: true,
+      option: buChargesList,
       span: queryInfo && queryInfo.chargeType !== '1' ? '12' : '8',
       rules: [{ required: true, message: '请输入收费项目名' }],
     },
@@ -52,15 +64,7 @@ export const items = (queryInfo: Change, tableType: string) => {
       initialValue: queryInfo?.chargeNumType,
       required: true,
       hide: queryInfo?.chargeType === '1' ? false : true,
-      option: [
-        { label: '按户数收费', value: '1' },
-        { label: '按人口数收费', value: '2' },
-        { label: '按楼层收费', value: '3' },
-        { label: '按占地面积收费', value: '4' },
-        { label: '按使用面积收费', value: '5' },
-        { label: '按走表数量', value: '6' },
-        { label: '按租金收费', value: '7' },
-      ],
+      option: standardList,
       span: '8',
       rules: [{ required: true, message: '请输入收费标准' }],
     },
