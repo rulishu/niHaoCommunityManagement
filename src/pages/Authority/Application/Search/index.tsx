@@ -1,14 +1,12 @@
 import { Fragment } from 'react'
 import { ProTable, useTable } from '@uiw-admin/components'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
-import { columnsSearch, columnsEnd } from './item'
-import { useDispatch, useSelector } from 'react-redux'
-import { Dispatch, RootState } from '@uiw-admin/models'
+import { columnsSearch } from './item'
+import { useDispatch } from 'react-redux'
+import { Dispatch } from '@uiw-admin/models'
 import { selectPage, Change } from '@/servers/Authority/Application'
 import Detail from '../Detail'
 import Modals from '../Modals'
-import TreeTable from '@/components/TreeTable/index'
-
 interface State {
   drawerVisible?: boolean
   tableType?: string
@@ -23,18 +21,6 @@ interface State {
 
 export default function Demo() {
   const dispatch = useDispatch<Dispatch>()
-  const {
-    Application: {
-      drawerVisible,
-      delectVisible,
-      tableVisible,
-      secondMenu,
-      thirdVisible,
-      thirdMenu,
-      tableLevel,
-    },
-  } = useSelector((state: RootState) => state)
-
   const updateData = (payload: State) => {
     dispatch({
       type: 'Application/updateState',
@@ -60,21 +46,6 @@ export default function Demo() {
     },
   })
 
-  const seconClose = () => {
-    if (drawerVisible === true || delectVisible === true) {
-      updateData({ tableVisible: false })
-    } else {
-      updateData({ tableVisible: false, tableLevel: '0' })
-    }
-  }
-  const thirClose = () => {
-    if (drawerVisible === true || delectVisible === true) {
-      updateData({ thirdVisible: false })
-    } else {
-      updateData({ thirdVisible: false, tableVisible: true, tableLevel: '0' })
-    }
-  }
-
   //增删改查操作
   const getTrim = (type: string, obj: Change) => {
     updateData({
@@ -96,19 +67,15 @@ export default function Demo() {
     if (type === 'del') {
       updateData({ delectVisible: true, id: obj?.id })
     }
-    // 嵌套表格关闭判断
-    if (tableLevel === '1') {
-      updateData({ tableVisible: false })
-    }
-    if (tableLevel === '2') {
-      updateData({ tableVisible: false, thirdVisible: false })
-    }
   }
 
   return (
     <Fragment>
       <ProTable
         bordered
+        expandable={{
+          indentSize: 8,
+        }}
         operateButtons={[
           {
             label: '添加根菜单',
@@ -133,29 +100,10 @@ export default function Demo() {
           },
         ]}
         table={table}
-        columns={columnsSearch(getTrim, updateData) as FormCol[]}
+        columns={columnsSearch(getTrim) as FormCol[]}
       />
       <Detail updateData={updateData} onSearch={table.onSearch} />
       <Modals onSearch={table.onSearch} />
-
-      {/* 二级菜单弹框*/}
-      <TreeTable
-        formDates={columnsEnd(getTrim, tableLevel, updateData) as FormCol[]}
-        dataSource={secondMenu}
-        isOpen={tableVisible}
-        maxWidth={1100}
-        title={'二级菜单'}
-        onClose={seconClose}
-      />
-      {/* 三级菜单弹框*/}
-      <TreeTable
-        formDates={columnsEnd(getTrim, tableLevel, updateData) as FormCol[]}
-        dataSource={thirdMenu}
-        isOpen={thirdVisible}
-        maxWidth={1100}
-        title={'三级菜单'}
-        onClose={thirClose}
-      />
     </Fragment>
   )
 }

@@ -9,11 +9,6 @@ interface State {
   isView: boolean
   id: string
   delectVisible: boolean
-  tableVisible: boolean
-  secondMenu: any[]
-  thirdMenu: any[]
-  thirdVisible: boolean
-  tableLevel: string
   loading: boolean
 }
 
@@ -26,11 +21,6 @@ const Application = createModel<RootModel>()({
     id: '',
     isView: false,
     delectVisible: false,
-    tableVisible: false, //二级嵌套表格
-    secondMenu: [], //二级菜单数据
-    thirdVisible: false, //三级嵌套表格
-    thirdMenu: [], //三级菜单数据
-    tableLevel: '0', //表格嵌套层级
     loading: false,
   } as State,
   reducers: {

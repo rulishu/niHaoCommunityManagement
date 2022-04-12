@@ -11,8 +11,6 @@ interface State {
   tableType?: string
   queryInfo?: object
   isView?: boolean
-  tableVisible?: boolean
-  thirdVisible?: boolean
   loading?: boolean
 }
 
@@ -22,35 +20,14 @@ const Detail = (props: {
 }) => {
   const baseRef = useForm()
   const {
-    Application: {
-      drawerVisible,
-      tableType,
-      queryInfo,
-      isView,
-      tableLevel,
-      loading,
-    },
+    Application: { drawerVisible, tableType, queryInfo, isView, loading },
   } = useSelector((Application: RootState) => Application)
 
   const onClose = () => {
-    if (tableLevel === '1') {
-      props.updateData({
-        isView: false,
-        drawerVisible: false,
-        tableVisible: true,
-      })
-    } else if (tableLevel === '2') {
-      props.updateData({
-        isView: false,
-        drawerVisible: false,
-        thirdVisible: true,
-      })
-    } else {
-      props.updateData({
-        isView: false,
-        drawerVisible: false,
-      })
-    }
+    props.updateData({
+      isView: false,
+      drawerVisible: false,
+    })
   }
 
   const { mutate } = useSWR(
@@ -68,8 +45,6 @@ const Detail = (props: {
           props.updateData({
             drawerVisible: false,
             isView: false,
-            tableVisible: false,
-            thirdVisible: false,
           })
           props.onSearch()
           props.updateData({
