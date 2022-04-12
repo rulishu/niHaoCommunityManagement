@@ -1,10 +1,10 @@
 import {
-  selectById,
   Change,
-  buChargesList,
-} from '../../servers/BasicManage/ChargeManage'
+  selectDictTypeList,
+} from '../../servers/DictionaryManagement/DictionaryManagement'
 import { Dispatch, RootModel } from '@uiw-admin/models'
 import { createModel, RematchDispatch } from '@rematch/core'
+import { Notify } from 'uiw'
 
 interface State {
   drawerVisible: boolean
@@ -12,22 +12,24 @@ interface State {
   queryInfo: object
   isView: boolean
   id: string
+  level: string
   delectVisible: boolean
   loading: boolean
-  buChargesList: any
+  addTypeList: any
 }
 
-const ChargeManage = createModel<RootModel>()({
-  name: 'ChargeManage',
+const DictionaryManagement = createModel<RootModel>()({
+  name: 'DictionaryManagement',
   state: {
     drawerVisible: false,
     tableType: '',
     queryInfo: {},
     id: '',
+    level: '',
     isView: false,
     delectVisible: false,
     loading: false,
-    buChargesList: [],
+    addTypeList: [],
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({
@@ -36,35 +38,25 @@ const ChargeManage = createModel<RootModel>()({
     }),
   },
   effects: (dispatch: RematchDispatch<RootModel>) => ({
-    async selectById(payload: Change) {
+    async selectDictTypeList(payload: Change) {
       const dph = dispatch as Dispatch
-      const data = await selectById(payload)
-      if (data.code === 1) {
-        dph.ChargeManage.updateState({
-          drawerVisible: true,
-          queryInfo: data.data || {},
-        })
-      }
-    },
-
-    async buChargesList(payload: any) {
-      const dph = dispatch
-      const data = await buChargesList(payload)
-      console.log('data', data)
+      const data = await selectDictTypeList(payload)
 
       if (data.code === 1) {
-        dph.ChargeManage.updateState({
-          buChargesList: data.data.map((itm: any) => ({
-            label: itm.chargeName,
-            value: itm.chargeName,
+        dph.DictionaryManagement.updateState({
+          addTypeList: data.data.map((itm: any) => ({
+            label: itm.dictType,
+            value: itm.dictType,
           })),
         })
+      } else {
+        Notify.error({ title: data.message })
       }
     },
 
     clean() {
       const dph = dispatch as Dispatch
-      dph.users.updateState({
+      dph.DictionaryManagement.updateState({
         drawerVisible: false,
         tableType: '',
         queryInfo: {},
@@ -74,4 +66,4 @@ const ChargeManage = createModel<RootModel>()({
   }),
 })
 
-export default ChargeManage
+export default DictionaryManagement

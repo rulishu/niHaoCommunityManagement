@@ -34,6 +34,11 @@ const Drawer = (props: {
       itemList,
     },
   } = useSelector((state: RootState) => state)
+
+  const {
+    models: { buChargesList, paysList },
+  } = useSelector((state: RootState) => state)
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setValue] = React.useState(false)
 
@@ -155,7 +160,9 @@ const Drawer = (props: {
           dispatch,
           preDepositeData,
           baseRef,
-          itemList
+          itemList,
+          buChargesList,
+          paysList
         )}
       />
 

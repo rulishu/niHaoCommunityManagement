@@ -24,6 +24,11 @@ const Drawer = (props: {
   const {
     DepositManage: { drawerVisible, tableType, queryInfo, isView, loading },
   } = useSelector((state: RootState) => state)
+
+  const {
+    models: { buChargesList, paysList },
+  } = useSelector((state: RootState) => state)
+
   const [value, getValue] = React.useState(false)
 
   const onClose = () => {
@@ -136,7 +141,7 @@ const Drawer = (props: {
         buttonsContainer={{ justifyContent: 'flex-start' }}
         // 更新表单的值
         onChange={(initial, current) => onChange(initial, current)}
-        formDatas={items(queryInfo, value, tableType)}
+        formDatas={items(queryInfo, value, tableType, buChargesList, paysList)}
       />
     </ProDrawer>
   )

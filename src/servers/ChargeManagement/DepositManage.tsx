@@ -5,7 +5,9 @@ export interface Change {
   code?: string
   name?: string
   project?: string
+  projectName?: string
   paymentMethod?: string
+  paymentMethodName?: string
   price?: number
   collectionName?: string
   collectionTime?: string

@@ -83,25 +83,6 @@
         ]
       },
       {
-        "path": "/Coordination",
-        "name": "协同办公",
-        "icon": "appstore-o",
-        "routes": [
-          {
-            "path": "/Coordination/RepairOrder",
-            "name": "报修工单",
-            "icon": "filter",
-            "component": "../pages/Coordination/RepairOrder"
-          },
-          {
-            "path": "/Coordination/Complaint",
-            "name": "投诉工单",
-            "icon": "user-delete",
-            "component": "../pages/Coordination/Complaint"
-          }
-        ]
-      },
-      {
         "path": "/BasicManage",
         "name": "基础数据管理",
         "icon": "link",
@@ -160,6 +141,19 @@
             "name": "添加后台用户",
             "icon": "unlock",
             "component": "../pages/Authority/Add"
+          }
+        ]
+      },
+      {
+        "path": "/DictionaryManagement",
+        "name": "字典管理",
+        "icon": "table",
+        "routes": [
+          {
+            "path": "/DictionaryManagement/DictionaryManagement",
+            "name": "字典管理",
+            "icon": "edit",
+            "component": "../pages/DictionaryManagement/DictionaryManagement"
           }
         ]
       },
