@@ -213,6 +213,7 @@ const items = (
               balanceByZero: 0,
               sumByZero:
                 -fromData?.shouldPaySum + (Number(fromData?.fund) || 0),
+              type: [],
             })
             return
           }
@@ -225,6 +226,7 @@ const items = (
                 fromData?.preBunt +
                 (Number(fromData?.fund) || 0),
               sumByZero: 0,
+              type: [1, 2],
             })
             return
           }
@@ -237,6 +239,7 @@ const items = (
                 fromData?.preBunt +
                 Number(fromData?.fund || 0),
               balanceByZero: 0,
+              type: [1],
             })
             return
           }
@@ -247,12 +250,13 @@ const items = (
                 -fromData?.shouldPaySum + (Number(fromData?.fund) || 0),
               sumByZero: 0,
               preBuntPaySum: 0,
+              type: [2],
             })
             return
           }
         },
         allowClear: true,
-        style: { width: '100%' },
+        // style: { width: '100%' },
       },
     },
   ]
