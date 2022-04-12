@@ -130,6 +130,14 @@ function buDepositUpdate(params: any) {
     body: { ...params },
   })
 }
+
+// 商铺租售-根据编号查商铺租售收费信息
+function selectShopChargeByCode(params: any) {
+  return request('/api/SaleShops/selectShopChargeByCode', {
+    method: 'POST',
+    body: { ...params },
+  })
+}
 export {
   selectById,
   selectPage,
@@ -148,4 +156,5 @@ export {
   buShopChargeDatapay,
   buTemporaryChargesUpdate,
   buDepositUpdate,
+  selectShopChargeByCode,
 }

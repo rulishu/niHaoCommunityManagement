@@ -17,7 +17,6 @@ const Drawer = ({ updateData, option }: DetailProps) => {
 
   const form: any = useForm()
 
-  const [show, setShow] = useState(false)
   const [tyoeList, setTyoeList] = useState([])
 
   const {
@@ -31,19 +30,17 @@ const Drawer = ({ updateData, option }: DetailProps) => {
       detailed,
       selectedList,
       table,
+      shopChargeList,
     },
   }: any = useSelector((state: RootState) => state)
 
   const onClose = () => {
     dispatch({ type: 'shopCharge/clean' })
-    setShow(false)
     setTyoeList([])
   }
 
   // 验证
   const verification = (current: any) => {
-    if (current?.chargeltem === '2' && drawerType === 'storage')
-      delete current.payService
     const errorObj: any = {}
     const arr = Object.keys(current)
     arr.forEach((element: any) => {
@@ -118,11 +115,7 @@ const Drawer = ({ updateData, option }: DetailProps) => {
     if (drawerType === 'storage') {
       const payload = {
         ...current,
-        chargeltem: Number(current?.chargeltem),
         chargingTime: changeTimeFormat(current?.chargingTime),
-      }
-      if (payload.chargeltem === 2) {
-        delete payload.payService
       }
       sendOut('shopCharge/getBuAdvanceDeposit', payload)
     }
@@ -226,11 +219,10 @@ const Drawer = ({ updateData, option }: DetailProps) => {
               payService,
               searchParms,
               detailed,
-              show,
-              setShow,
               form,
               tyoeList,
-              setTyoeList
+              setTyoeList,
+              shopChargeList
             ) as any
           }
         />

@@ -32,11 +32,10 @@ export const matching = (
   payService: any,
   searchParms: any,
   detailed: any,
-  show: boolean,
-  setShow: any,
   form: any,
   tyoeList: any,
-  setTyoeList: any
+  setTyoeList: any,
+  shopChargeList: any
 ) => {
   switch (type) {
     case 'charge':
@@ -57,10 +56,9 @@ export const matching = (
         option,
         searchParms,
         detailed,
-        show,
-        setShow,
         payment,
-        payService
+        payService,
+        shopChargeList
       )
     case 'return':
       return returnItem(queryInfo, option, searchParms, detailed, payment)
@@ -347,10 +345,9 @@ const storageItem = (
   option: any,
   searchParms: any,
   detailed: any,
-  show: boolean,
-  setShow: any,
   payment: any,
-  payService: any
+  payService: any,
+  shopChargeList: any
 ) => [
   {
     label: '商铺',
@@ -403,31 +400,11 @@ const storageItem = (
     widgetProps: { format: 'YYYY-MM-DD HH:mm:ss' },
   },
   {
-    label: '可用收费项',
-    widget: 'radio',
-    key: 'chargeltem',
-    option: [
-      { label: '指定收费项', value: '1' },
-      { label: '所有收费项', value: '2' },
-    ],
-    initialValue: '1',
-    widgetProps: {
-      onChange: (value: any) => {
-        if (value?.target?.value !== '1') {
-          setShow(true)
-        } else {
-          setShow(false)
-        }
-      },
-    },
-  },
-  {
     label: '收费项目',
     key: 'payService',
     widget: 'searchSelect',
-    option: payService,
+    option: shopChargeList,
     required: true,
-    hide: show,
     span: 8,
     widgetProps: {
       placeholder: '请选择收费项目',
