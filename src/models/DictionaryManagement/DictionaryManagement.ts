@@ -1,9 +1,10 @@
 import {
-  selectById,
   Change,
+  selectDictTypeList,
 } from '../../servers/DictionaryManagement/DictionaryManagement'
 import { Dispatch, RootModel } from '@uiw-admin/models'
 import { createModel, RematchDispatch } from '@rematch/core'
+import { Notify } from 'uiw'
 
 interface State {
   drawerVisible: boolean
@@ -11,8 +12,10 @@ interface State {
   queryInfo: object
   isView: boolean
   id: string
+  level: string
   delectVisible: boolean
   loading: boolean
+  addTypeList: any
 }
 
 const DictionaryManagement = createModel<RootModel>()({
@@ -22,9 +25,11 @@ const DictionaryManagement = createModel<RootModel>()({
     tableType: '',
     queryInfo: {},
     id: '',
+    level: '',
     isView: false,
     delectVisible: false,
     loading: false,
+    addTypeList: [],
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({
@@ -33,14 +38,19 @@ const DictionaryManagement = createModel<RootModel>()({
     }),
   },
   effects: (dispatch: RematchDispatch<RootModel>) => ({
-    async selectById(payload: Change) {
+    async selectDictTypeList(payload: Change) {
       const dph = dispatch as Dispatch
-      const data = await selectById(payload)
+      const data = await selectDictTypeList(payload)
+
       if (data.code === 1) {
         dph.DictionaryManagement.updateState({
-          drawerVisible: true,
-          queryInfo: data.data || {},
+          addTypeList: data.data.map((itm: any) => ({
+            label: itm.dictType,
+            value: itm.dictType,
+          })),
         })
+      } else {
+        Notify.error({ title: data.message })
       }
     },
 
