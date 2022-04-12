@@ -16,6 +16,7 @@ import {
   buTemporaryChargesUpdate,
   buDepositUpdate,
   selectShopChargeByCode,
+  buAdvanceDepositRefund,
 } from '@/servers/ChargeManagement/ShopCharge'
 
 interface State {
@@ -43,7 +44,7 @@ const shopCharge = createModel()({
     searchParms: {},
     selectedList: [], // 勾选项
     table: {},
-    drawerTable: {},
+    drawerTable: [],
 
     shopNoList: [], //商铺查询
     shopChargeList: [], //商铺单号查询
@@ -65,7 +66,7 @@ const shopCharge = createModel()({
         queryInfo: {},
         selectedList: [],
         table: {},
-        drawerTable: {},
+        drawerTable: [],
       })
     },
 
@@ -194,6 +195,11 @@ const shopCharge = createModel()({
     // 押金管理-修改
     async getBuDepositUpdate(payload: any) {
       return await buDepositUpdate({ ...payload })
+    },
+
+    // 预存款-退还
+    async getBuAdvanceDepositRefund(payload: any) {
+      return await buAdvanceDepositRefund({ ...payload })
     },
   }),
 })

@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { ProTable, useTable } from '@uiw-admin/components'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
@@ -50,15 +49,6 @@ export default function Index() {
       },
     }
   )
-
-  useEffect(() => {
-    dispatch({
-      type: 'shopCharge/updateState',
-      payload: { drawerTable: table },
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [drawerType])
-
   return (
     <div className={drawerType === 'return' ? 'proTableBox' : ''}>
       <ProTable
@@ -68,7 +58,7 @@ export default function Index() {
           pageSizeOptions: [10, 20, 30],
           pageSize: 10,
         }}
-        columns={matching(drawerType) as any}
+        columns={matching(drawerType, dispatch, table) as any}
         scroll={{
           x: drawerType === 'return' || drawerType === 'charge' ? '100%' : 1700,
         }}

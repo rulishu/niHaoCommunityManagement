@@ -32,3 +32,10 @@ export function changeTimeFormat(str: any) {
     d.getDate() < 10 ? '0' + d.getDate() + '' : d.getDate() + ''
   return newDateYear + '-' + newDateMonth + '-' + newDateDay + ' ' + clock
 }
+
+// 深拷贝
+export function deepClone(target: any) {
+  const _target = JSON.stringify(target)
+  const objClone = JSON.parse(_target)
+  return objClone
+}

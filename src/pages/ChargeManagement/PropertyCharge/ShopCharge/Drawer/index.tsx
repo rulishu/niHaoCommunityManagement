@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import {} from 'uiw'
 import { ProDrawer, ProForm, useForm } from '@uiw-admin/components'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
@@ -39,9 +38,6 @@ const Drawer = ({ updateData, option }: DetailProps) => {
     dispatch({ type: 'shopCharge/clean' })
     setTyoeList([])
   }
-
-  console.log(drawerTable, 'drawerTable')
-
   // 验证
   const verification = (current: any) => {
     const errorObj: any = {}
@@ -88,13 +84,24 @@ const Drawer = ({ updateData, option }: DetailProps) => {
 
   // 提交
   const onSubmit = (current: any) => {
+    if (drawerType === 'return') {
+      const isOk = drawerTable.every(
+        (item: any) =>
+          Number(item?.refundAmount || 0) > Number(item?.payService || 0)
+      )
+      if (isOk)
+        return Notify.error({
+          title: '错误通知',
+          description: '退还金额不能大于支付金额',
+        })
+    }
     verification(current)
     // 添加零时收费
     if (drawerType === 'temAdd') {
       console.log(current, 'current')
       const payload = {
         ...current,
-        code: current?.code[0],
+        code: String(current?.code),
         payService: current?.payService[0]?.value,
         payType: current?.payType[0]?.value,
         collectionTime: changeTimeFormat(current?.collectionTime),
@@ -105,7 +112,7 @@ const Drawer = ({ updateData, option }: DetailProps) => {
     // 添加押金
     if (drawerType === 'depositAdd') {
       const payload = {
-        code: current?.code[0],
+        code: String(current?.code),
         name: current?.name,
         collectionTime: changeTimeFormat(current?.collectionTime),
         project: current?.payService[0]?.value,
@@ -119,6 +126,7 @@ const Drawer = ({ updateData, option }: DetailProps) => {
     if (drawerType === 'storage') {
       const payload = {
         ...current,
+        code: String(current?.code),
         chargingTime: changeTimeFormat(current?.chargingTime),
       }
       sendOut('shopCharge/getBuAdvanceDeposit', payload)
@@ -153,6 +161,16 @@ const Drawer = ({ updateData, option }: DetailProps) => {
         refundTime: changeTimeFormat(current?.refundTime),
       }
       sendOut('shopCharge/getBuDepositUpdate', payload)
+    }
+
+    if (drawerType === 'return') {
+      const payload = {
+        ...current,
+        code: String(current?.code),
+        refundTime: changeTimeFormat(current?.refundTime),
+        refundAmount: drawerTable,
+      }
+      sendOut('shopCharge/getBuAdvanceDepositRefund', payload)
     }
   }
 

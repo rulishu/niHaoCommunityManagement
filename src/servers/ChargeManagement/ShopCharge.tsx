@@ -141,6 +141,14 @@ function selectShopChargeByCode(params: any) {
 
 const selectAdvanceDepostAmountByCode =
   '/api/buAdvanceDeposit/selectAdvanceDepostAmountByCode'
+
+// 预存款-退还
+function buAdvanceDepositRefund(params: any) {
+  return request('/api/buAdvanceDeposit/refund', {
+    method: 'POST',
+    body: { ...params },
+  })
+}
 export {
   selectById,
   selectPage,
@@ -161,4 +169,5 @@ export {
   buDepositUpdate,
   selectShopChargeByCode,
   selectAdvanceDepostAmountByCode,
+  buAdvanceDepositRefund,
 }

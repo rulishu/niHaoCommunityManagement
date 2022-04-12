@@ -423,7 +423,7 @@ const returnItem = (
 ) => [
   {
     label: '商铺',
-    key: 'name',
+    key: 'code',
     widget: 'searchSelect',
     option,
     required: true,
@@ -437,7 +437,7 @@ const returnItem = (
   },
   {
     label: '客户姓名',
-    key: 'name1',
+    key: 'name',
     widget: 'input',
     required: true,
     disabled: true,
@@ -446,18 +446,17 @@ const returnItem = (
     widgetProps: { placeholder: '请填写用户姓名' },
   },
   {
-    label: '付款方式',
-    key: 'payType',
+    label: '退款方式',
+    key: 'refundWay',
     widget: 'searchSelect',
     option: payment,
     required: true,
     span: 8,
     widgetProps: { placeholder: '请选择付款方式', mode: 'single' },
-    initialValue: queryInfo?.name,
   },
   {
     label: '退还时间',
-    key: 'dateInputsecond',
+    key: 'refundTime',
     widget: 'dateInput',
     widgetProps: { format: 'YYYY-MM-DD HH:mm:ss' },
   },
