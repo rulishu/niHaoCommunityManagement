@@ -6,11 +6,6 @@ export const item = (
 ) => {
   return [
     {
-      title: '账号名称',
-      key: 'createName',
-      align: 'center',
-    },
-    {
       title: '用户姓名',
       key: 'userName',
       align: 'center',

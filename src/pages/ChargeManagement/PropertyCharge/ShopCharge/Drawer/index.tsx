@@ -76,8 +76,9 @@ const Drawer = ({ updateData, option }: DetailProps) => {
     ).then((data: any) => {
       if (data?.code === 1) {
         onClose()
-        table.onSearch()
-        table.selection.unSelectAll()
+        typeof table?.onSearch === 'function' && table.onSearch()
+        typeof table?.selection?.unSelectAll === 'function' &&
+          table.selection.unSelectAll()
         Notify.success({ title: data?.message || '' })
       } else {
         Notify.error({ title: data?.message || '' })

@@ -1,15 +1,16 @@
-import React, { useEffect } from 'react'
+import { Fragment, useEffect } from 'react'
 import { ProTable, useTable } from '@uiw-admin/components'
-import { Dispatch, RootState } from '@uiw-admin/models'
-import { useDispatch, useSelector } from 'react-redux'
+import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
+import { columnsSearch } from './item'
+import { useDispatch } from 'react-redux'
+import { Dispatch } from '@uiw-admin/models'
 import {
   selectPage,
   Change,
-} from '@/servers/ChargeManagement/PredepositsManage'
-import Drawer from '../Detail/index'
-import Modals from '../Modals/index'
-import { columnsSearch } from './item'
-import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
+} from '@/servers/DictionaryManagement/DictionaryManagement'
+import Drawer from '../Detail'
+import Modals from '../Modals'
+
 interface State {
   drawerVisible?: boolean
   tableType?: string
@@ -17,35 +18,26 @@ interface State {
   isView?: boolean
   delectVisible?: boolean
   id?: string
+  level?: string
 }
 
-const Search = () => {
+export default function Demo() {
   const dispatch = useDispatch<Dispatch>()
 
   useEffect(() => {
     dispatch({
-      type: 'models/buChargesList',
-    })
-    dispatch({
-      type: 'models/paysList',
-      payload: {
-        dictType: '付款方式',
-      },
+      type: 'DictionaryManagement/selectDictTypeList',
     })
   }, [dispatch])
 
   const updateData = (payload: State) => {
     dispatch({
-      type: 'PredepositsManage/updateState',
+      type: 'DictionaryManagement/updateState',
       payload,
     })
   }
 
-  const {
-    models: { buChargesList, paysList },
-  } = useSelector((state: RootState) => state)
-
-  const search = useTable(selectPage, {
+  const table = useTable(selectPage, {
     // 格式化接口返回的数据，必须返回{total 总数, data: 列表数据}的格式
     formatData: (data) => {
       return {
@@ -62,68 +54,58 @@ const Search = () => {
       }
     },
   })
+
   // 操作
   function handleEditTable(type: string, obj: Change) {
     updateData({
       isView: type === 'view',
       tableType: type,
     })
-    if (type === 'add') {
+    if (type === 'addType' || type === 'addValue') {
       updateData({ drawerVisible: true, queryInfo: {} })
     }
-    if (type === 'edit' || type === 'view') {
+    if (type === 'editType' || type === 'editValue' || type === 'view') {
       updateData({ drawerVisible: true, queryInfo: obj })
     }
     if (type === 'del') {
-      updateData({ delectVisible: true, id: obj?.id })
+      updateData({ delectVisible: true, id: obj?.id, level: obj?.level })
     }
   }
-
   return (
-    <React.Fragment>
+    <Fragment>
       <ProTable
         bordered
-        // 操作栏按钮
         operateButtons={[
           {
-            label: '预存',
+            label: '新增字典类型',
             type: 'primary',
-            onClick: () => {
-              handleEditTable('add', {})
-            },
+            onClick: () => handleEditTable('addType', {}),
           },
           {
-            label: '退还',
+            label: '新增字典项',
             type: 'primary',
-            onClick: () => {
-              handleEditTable('edit', {})
-            },
+            onClick: () => handleEditTable('addValue', {}),
           },
         ]}
-        // 搜索栏按钮
         searchBtns={[
           {
             label: '查询',
             type: 'primary',
             htmlType: 'submit',
             onClick: () => {
-              search.onSearch()
+              table.onSearch()
             },
           },
           {
             label: '重置',
-            onClick: () => search.onReset(),
+            onClick: () => table.onReset(),
           },
         ]}
-        table={search}
-        columns={
-          columnsSearch(handleEditTable, buChargesList, paysList) as FormCol[]
-        }
+        table={table}
+        columns={columnsSearch(handleEditTable) as FormCol[]}
       />
-      <Drawer updateData={updateData} onSearch={search.onSearch} />
-      <Modals onSearch={search.onSearch} />
-    </React.Fragment>
+      <Drawer updateData={updateData} onSearch={table.onSearch} />
+      <Modals onSearch={table.onSearch} />
+    </Fragment>
   )
 }
-
-export default Search
