@@ -427,8 +427,9 @@ const returnItem = (
     widget: 'searchSelect',
     option,
     required: true,
+    disabled: true,
     span: 8,
-    initialValue: [searchParms?.code || ''],
+    initialValue: searchParms?.code || '',
     widgetProps: {
       placeholder: '请选择商铺',
       mode: 'single',

@@ -100,17 +100,17 @@ const columnsHistory = () => [
 const columnsReturn = () => [
   {
     title: '收费项',
-    key: 'print',
+    key: 'payServiceName',
     align: 'center',
   },
   {
     title: '账户金额',
-    key: 'number',
+    key: 'chargeAmount',
     align: 'center',
   },
   {
     title: '退还金额',
-    key: 'phone',
+    key: 'refundAmount',
     align: 'center',
   },
 ]

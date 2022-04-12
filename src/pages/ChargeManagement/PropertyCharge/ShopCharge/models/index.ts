@@ -30,6 +30,7 @@ interface State {
   payService: Array<searchValue>
   shopChargeList: Array<searchValue>
   table: any
+  drawerTable: any
 }
 
 const shopCharge = createModel()({
@@ -42,6 +43,7 @@ const shopCharge = createModel()({
     searchParms: {},
     selectedList: [], // 勾选项
     table: {},
+    drawerTable: {},
 
     shopNoList: [], //商铺查询
     shopChargeList: [], //商铺单号查询
@@ -63,6 +65,7 @@ const shopCharge = createModel()({
         queryInfo: {},
         selectedList: [],
         table: {},
+        drawerTable: {},
       })
     },
 
@@ -129,7 +132,7 @@ const shopCharge = createModel()({
           shopChargeList: Array.isArray(data?.data)
             ? data?.data?.map((item: any) => {
                 return {
-                  value: item.id,
+                  value: item.chargeId,
                   label: item.chargeName,
                 }
               })

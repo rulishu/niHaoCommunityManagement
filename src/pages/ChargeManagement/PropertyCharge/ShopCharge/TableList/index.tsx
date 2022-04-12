@@ -1,9 +1,16 @@
+import { useEffect } from 'react'
 import { ProTable, useTable } from '@uiw-admin/components'
-import { useSelector } from 'react-redux'
-import { RootState } from '@uiw-admin/models'
-import { selectHistoryPayList } from '@/servers/ChargeManagement/ShopCharge'
+import { useSelector, useDispatch } from 'react-redux'
+import { RootState, Dispatch } from '@uiw-admin/models'
+import {
+  selectHistoryPayList,
+  selectAdvanceDepostAmountByCode,
+} from '@/servers/ChargeManagement/ShopCharge'
 import { matching } from './item'
+import '../style.css'
 export default function Index() {
+  const dispatch = useDispatch<Dispatch>()
+
   const {
     shopCharge: { drawerType, searchParms, selectedList },
   } = useSelector((shopCharge: RootState) => shopCharge) as any
@@ -11,17 +18,21 @@ export default function Index() {
     `${
       drawerType === 'history'
         ? selectHistoryPayList
-        : drawerType === 'charge'
-        ? 111111
-        : '/api'
+        : drawerType === 'return'
+        ? selectAdvanceDepostAmountByCode
+        : '/api/111'
     }`,
     {
       query: (pageIndex, pageSize) => {
-        return {
-          code: searchParms?.code || '',
-          page: pageIndex,
-          pageSize,
-        }
+        const payload =
+          drawerType === 'return'
+            ? { code: String(searchParms?.code || '') }
+            : {
+                code: String(searchParms?.code || ''),
+                page: pageIndex,
+                pageSize,
+              }
+        return payload
       },
       formatData: (data) => {
         return {
@@ -29,24 +40,39 @@ export default function Index() {
             drawerType === 'charge'
               ? selectedList.length
               : data?.data?.total || 0,
-          data: drawerType === 'charge' ? selectedList : data?.data?.rows || [],
+          data:
+            drawerType === 'charge'
+              ? selectedList
+              : drawerType === 'return'
+              ? data?.data || []
+              : data?.data?.rows || [],
         }
       },
     }
   )
 
+  useEffect(() => {
+    dispatch({
+      type: 'shopCharge/updateState',
+      payload: { drawerTable: table },
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [drawerType])
+
   return (
-    <ProTable
-      table={table}
-      bordered
-      paginationProps={{
-        pageSizeOptions: [10, 20, 30],
-        pageSize: 10,
-      }}
-      columns={matching(drawerType) as any}
-      scroll={{
-        x: drawerType === 'return' || drawerType === 'charge' ? '100%' : 1700,
-      }}
-    />
+    <div className={drawerType === 'return' ? 'proTableBox' : ''}>
+      <ProTable
+        table={table}
+        bordered
+        paginationProps={{
+          pageSizeOptions: [10, 20, 30],
+          pageSize: 10,
+        }}
+        columns={matching(drawerType) as any}
+        scroll={{
+          x: drawerType === 'return' || drawerType === 'charge' ? '100%' : 1700,
+        }}
+      />
+    </div>
   )
 }

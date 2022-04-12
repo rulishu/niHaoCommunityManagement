@@ -31,6 +31,7 @@ const Drawer = ({ updateData, option }: DetailProps) => {
       selectedList,
       table,
       shopChargeList,
+      drawerTable,
     },
   }: any = useSelector((state: RootState) => state)
 
@@ -38,6 +39,8 @@ const Drawer = ({ updateData, option }: DetailProps) => {
     dispatch({ type: 'shopCharge/clean' })
     setTyoeList([])
   }
+
+  console.log(drawerTable, 'drawerTable')
 
   // 验证
   const verification = (current: any) => {
@@ -54,8 +57,9 @@ const Drawer = ({ updateData, option }: DetailProps) => {
       } else if (
         !current[element] ||
         (Array.isArray(current[element]) && current[element].length === 0)
-      )
+      ) {
         errorObj[element] = '此项不能为空'
+      }
     })
     if (Object.keys(errorObj).length > 0) {
       const err: any = new Error()

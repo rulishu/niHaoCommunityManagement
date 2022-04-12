@@ -138,6 +138,9 @@ function selectShopChargeByCode(params: any) {
     body: { ...params },
   })
 }
+
+const selectAdvanceDepostAmountByCode =
+  '/api/buAdvanceDeposit/selectAdvanceDepostAmountByCode'
 export {
   selectById,
   selectPage,
@@ -157,4 +160,5 @@ export {
   buTemporaryChargesUpdate,
   buDepositUpdate,
   selectShopChargeByCode,
+  selectAdvanceDepostAmountByCode,
 }
