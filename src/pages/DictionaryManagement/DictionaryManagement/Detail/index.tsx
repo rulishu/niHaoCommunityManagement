@@ -90,6 +90,8 @@ const Detail = (props: {
           ? '新增字典项'
           : tableType === 'editType'
           ? '编辑字典类型'
+          : tableType === 'editValue'
+          ? '编辑字典项'
           : '查看'
       }
       visible={drawerVisible}

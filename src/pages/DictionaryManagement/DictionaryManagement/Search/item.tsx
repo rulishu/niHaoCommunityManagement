@@ -68,7 +68,13 @@ export const columnsSearch = (
       align: 'center',
       width: 350,
       render: (text: any, key: any, rowData: Change) => (
-        <div>
+        <div
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            display: 'flex',
+          }}
+        >
           <Button
             size="small"
             icon="edit"

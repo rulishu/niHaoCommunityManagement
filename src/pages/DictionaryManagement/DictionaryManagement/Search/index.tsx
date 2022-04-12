@@ -40,9 +40,13 @@ export default function Demo() {
   const table = useTable(selectPage, {
     // 格式化接口返回的数据，必须返回{total 总数, data: 列表数据}的格式
     formatData: (data) => {
+      const dataSource = data?.data?.rows
+      const datas = JSON.parse(
+        JSON.stringify(dataSource).replace(/"dictValueList"/g, '"children"')
+      )
       return {
         total: data?.data?.total,
-        data: data?.data?.rows || [],
+        data: datas || [],
       }
     },
     // 格式化查询参数 会接收到pageIndex 当前页  searchValues 表单数据
@@ -102,6 +106,13 @@ export default function Demo() {
           },
         ]}
         table={table}
+        // paginationProps={{
+        //   pageSizeOptions: [10, 20, 30],
+        //   pageSize: 10,
+        //   onShowSizeChange: (current, pageSize) => {
+        //     window.console.log(current, pageSize)
+        //   },
+        // }}
         columns={columnsSearch(handleEditTable) as FormCol[]}
       />
       <Drawer updateData={updateData} onSearch={table.onSearch} />

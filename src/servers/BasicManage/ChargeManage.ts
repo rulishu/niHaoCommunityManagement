@@ -21,6 +21,13 @@ function selectById(params: Change) {
     body: { ...params },
   })
 }
+// 收费项目字典
+function buChargesList(params: { id: string }) {
+  return request('/api/buCharge/selectList', {
+    method: 'POST',
+    body: { ...params },
+  })
+}
 
 const selectPage = '/api/buCharge/selectPage'
 
@@ -30,4 +37,4 @@ const insert = '/api/buCharge/add'
 
 const deleteData = '/api/buCharge/delete'
 
-export { selectById, selectPage, update, insert, deleteData }
+export { selectById, selectPage, update, insert, deleteData, buChargesList }
