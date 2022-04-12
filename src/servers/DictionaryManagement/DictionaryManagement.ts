@@ -2,24 +2,36 @@ import { request } from '@uiw-admin/utils'
 
 export interface Change {
   id?: string
-  zoneNo?: string
-  zoneName?: string
-  zoneRemark?: string
+  dictType?: string
+  remark?: string
+  level?: string
 }
 
-function selectById(params: Change) {
-  return request('/api/buZone/selectById', {
+const selectPage = '/api/dictionary/selectPage'
+const deleteData = '/api/dictionary/delete'
+//新增字典类型
+const addType = '/api/dictionary/addType'
+//新增字典数据项
+const addDictValue = '/api/dictionary/addDictValue'
+//编辑字典类型
+const editType = '/api/dictionary/editType'
+//编辑字典数据项
+const editDict = '/api/dictionary/editDict'
+
+//字典类型列表
+function selectDictTypeList(params: Change) {
+  return request('/api/dictionary/selectDictTypeList', {
     method: 'POST',
     body: { ...params },
   })
 }
 
-const selectPage = '/api/dictionary/selectPage'
-
-const update = '/api/buZone/update'
-
-const insert = '/api/buZone/add'
-
-const deleteData = '/api/buZone/delete'
-
-export { selectById, selectPage, update, insert, deleteData }
+export {
+  selectPage,
+  deleteData,
+  selectDictTypeList,
+  addType,
+  addDictValue,
+  editType,
+  editDict,
+}

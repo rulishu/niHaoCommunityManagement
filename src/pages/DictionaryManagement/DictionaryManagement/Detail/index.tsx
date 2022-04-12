@@ -3,10 +3,12 @@ import { Notify } from 'uiw'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
 import {
-  insert,
-  update,
+  addType,
+  addDictValue,
+  editType,
+  editDict,
 } from '@/servers/DictionaryManagement/DictionaryManagement'
-import { items } from './items'
+import { items, items2 } from './items'
 import useSWR from 'swr'
 
 interface State {
@@ -29,6 +31,7 @@ const Detail = (props: {
       queryInfo,
       isView,
       loading,
+      addTypeList,
     },
   } = useSelector((DictionaryManagement: RootState) => DictionaryManagement)
 
@@ -44,7 +47,10 @@ const Detail = (props: {
 
   const { mutate } = useSWR(
     [
-      (tableType === 'add' && insert) || (tableType === 'edit' && update),
+      (tableType === 'addType' && addType) ||
+        (tableType === 'addValue' && addDictValue) ||
+        (tableType === 'editType' && editType) ||
+        (tableType === 'editValue' && editDict),
       { method: 'POST', body: queryInfo },
     ],
     {
@@ -78,7 +84,13 @@ const Detail = (props: {
     <ProDrawer
       width={800}
       title={
-        tableType === 'add' ? '新增' : tableType === 'edit' ? '编辑' : '查看'
+        tableType === 'addType'
+          ? '新增字典类型'
+          : tableType === 'addValue'
+          ? '新增字典项'
+          : tableType === 'editType'
+          ? '编辑字典类型'
+          : '查看'
       }
       visible={drawerVisible}
       onClose={onClose}
@@ -127,7 +139,13 @@ const Detail = (props: {
         onChange={(initial, current) =>
           props.updateData({ queryInfo: { ...queryInfo, ...current } })
         }
-        formDatas={items(queryInfo)}
+        formDatas={
+          tableType === 'addType'
+            ? items(queryInfo, tableType)
+            : tableType === 'editType'
+            ? items(queryInfo, tableType)
+            : items2(queryInfo, addTypeList, tableType)
+        }
       />
     </ProDrawer>
   )
