@@ -1,4 +1,8 @@
-import { selectById, Change } from '../../servers/BasicManage/ChargeManage'
+import {
+  selectById,
+  Change,
+  buChargesList,
+} from '../../servers/BasicManage/ChargeManage'
 import { Dispatch, RootModel } from '@uiw-admin/models'
 import { createModel, RematchDispatch } from '@rematch/core'
 
@@ -10,6 +14,7 @@ interface State {
   id: string
   delectVisible: boolean
   loading: boolean
+  buChargesList: any
 }
 
 const ChargeManage = createModel<RootModel>()({
@@ -22,6 +27,7 @@ const ChargeManage = createModel<RootModel>()({
     isView: false,
     delectVisible: false,
     loading: false,
+    buChargesList: [],
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({
@@ -34,9 +40,24 @@ const ChargeManage = createModel<RootModel>()({
       const dph = dispatch as Dispatch
       const data = await selectById(payload)
       if (data.code === 1) {
-        dph.users.updateState({
+        dph.ChargeManage.updateState({
           drawerVisible: true,
           queryInfo: data.data || {},
+        })
+      }
+    },
+
+    async buChargesList(payload: any) {
+      const dph = dispatch
+      const data = await buChargesList(payload)
+      console.log('data', data)
+
+      if (data.code === 1) {
+        dph.ChargeManage.updateState({
+          buChargesList: data.data.map((itm: any) => ({
+            label: itm.chargeName,
+            value: itm.chargeName,
+          })),
         })
       }
     },

@@ -22,7 +22,7 @@ export default function Demo() {
 
   useEffect(() => {
     dispatch({
-      type: 'models/buChargesList',
+      type: 'ChargeManage/buChargesList',
     })
     dispatch({
       type: 'models/statusList',
@@ -39,7 +39,10 @@ export default function Demo() {
   }, [dispatch])
 
   const {
-    models: { buChargesList, statusList },
+    ChargeManage: { buChargesList },
+  } = useSelector((state: RootState) => state)
+  const {
+    models: { statusList },
   } = useSelector((state: RootState) => state)
 
   const updateData = (payload: State) => {

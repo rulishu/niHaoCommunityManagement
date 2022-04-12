@@ -20,11 +20,18 @@ const Detail = (props: {
   const baseRef = useForm()
   const dispatch = useDispatch<Dispatch>()
   const {
-    ChargeManage: { drawerVisible, tableType, queryInfo, isView, loading },
+    ChargeManage: {
+      drawerVisible,
+      tableType,
+      queryInfo,
+      isView,
+      loading,
+      buChargesList,
+    },
   } = useSelector((ChargeManage: RootState) => ChargeManage)
 
   const {
-    models: { buChargesList, statusList, standardList },
+    models: { statusList, standardList },
   } = useSelector((state: RootState) => state)
 
   const onClose = () => {
