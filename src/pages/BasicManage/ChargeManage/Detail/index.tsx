@@ -20,14 +20,7 @@ const Detail = (props: {
   const baseRef = useForm()
   const dispatch = useDispatch<Dispatch>()
   const {
-    ChargeManage: {
-      drawerVisible,
-      tableType,
-      queryInfo,
-      isView,
-      loading,
-      buChargesList,
-    },
+    ChargeManage: { drawerVisible, tableType, queryInfo, isView, loading },
   } = useSelector((ChargeManage: RootState) => ChargeManage)
 
   const {
@@ -129,13 +122,7 @@ const Detail = (props: {
         onChange={(initial, current) =>
           props.updateData({ queryInfo: { ...queryInfo, ...current } })
         }
-        formDatas={items(
-          queryInfo,
-          tableType,
-          buChargesList,
-          statusList,
-          standardList
-        )}
+        formDatas={items(queryInfo, tableType, statusList, standardList)}
       />
     </ProDrawer>
   )

@@ -3,7 +3,6 @@ import { Change } from '@/servers/BasicManage/ChargeManage'
 export const items = (
   queryInfo: Change,
   tableType: string,
-  buChargesList: any,
   statusList: any,
   standardList: any
 ) => {
@@ -33,9 +32,8 @@ export const items = (
       label: '收费项目名',
       key: 'chargeName',
       initialValue: queryInfo?.chargeName,
-      widget: 'select',
+      widget: 'input',
       required: true,
-      option: buChargesList,
       span: queryInfo && queryInfo.chargeType !== '1' ? '12' : '8',
       rules: [{ required: true, message: '请输入收费项目名' }],
     },
