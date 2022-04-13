@@ -8,6 +8,7 @@ import { insert, update } from '@/servers/ChargeManagement/PredepositsManage'
 import { items, backList } from './items'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import formatter from '@uiw/formatter'
+import { useEffect } from 'react'
 
 export interface State {
   drawerVisible?: boolean
@@ -23,6 +24,13 @@ const Drawer = (props: {
 }) => {
   const baseRef = useForm()
   const dispatch = useDispatch<Dispatch>()
+
+  useEffect(() => {
+    dispatch({
+      type: 'PredepositsManage/selectShopList',
+    })
+  }, [dispatch])
+
   const {
     PredepositsManage: {
       drawerVisible,
@@ -30,17 +38,15 @@ const Drawer = (props: {
       queryInfo,
       isView,
       loading,
-      preDepositeData,
-      itemList,
+      code,
+      buChargesList,
+      dataList,
     },
   } = useSelector((state: RootState) => state)
 
   const {
-    models: { buChargesList, paysList },
+    models: { paysList },
   } = useSelector((state: RootState) => state)
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setValue] = React.useState(false)
 
   const onClose = () => {
     dispatch({
@@ -84,12 +90,6 @@ const Drawer = (props: {
     }
   )
   const onChange = (initial: any, current: any) => {
-    if (current?.chargeItem === '1') {
-      setValue(true)
-    }
-    if (current?.chargeItem === '2') {
-      setValue(false)
-    }
     props.updateData({
       queryInfo: {
         ...queryInfo,
@@ -99,13 +99,13 @@ const Drawer = (props: {
           tableType === 'edit'
             ? formatter('YYYY-MM-DD HH:mm:ss', current?.refundTime)
             : null,
-        // payService: current?.chargeItem === '1' ? current?.payService : null,
       },
     })
   }
   const onChangeItem = async (text: React.ChangeEvent<HTMLInputElement>) => {
     // console.log('text.target.value', text.target.value)
   }
+
   return (
     <ProDrawer
       title="基础信息"
@@ -148,7 +148,7 @@ const Drawer = (props: {
     >
       <ProForm
         title="基础信息"
-        formType={'pure'}
+        formType={isView ? 'pure' : 'card'}
         form={baseRef}
         readOnly={isView}
         buttonsContainer={{ justifyContent: 'flex-start' }}
@@ -157,12 +157,11 @@ const Drawer = (props: {
         formDatas={items(
           queryInfo,
           tableType,
-          dispatch,
-          preDepositeData,
           baseRef,
-          itemList,
+          code,
           buChargesList,
-          paysList
+          paysList,
+          dataList
         )}
       />
 
@@ -170,7 +169,7 @@ const Drawer = (props: {
         <Table
           bordered
           columns={backList(onChangeItem) as FormCol[]}
-          data={[preDepositeData]}
+          data={dataList && dataList[0]?.chargeList}
         />
       )}
     </ProDrawer>

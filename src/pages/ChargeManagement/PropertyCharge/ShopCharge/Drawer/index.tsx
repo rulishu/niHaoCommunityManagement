@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react'
-import {} from 'uiw'
+import { useState, useEffect, useRef } from 'react'
 import { ProDrawer, ProForm, useForm } from '@uiw-admin/components'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
@@ -17,8 +16,9 @@ const Drawer = ({ updateData, option }: DetailProps) => {
 
   const form: any = useForm()
 
-  const [show, setShow] = useState(false)
   const [tyoeList, setTyoeList] = useState([])
+
+  let dataList: any = useRef([])
 
   const {
     shopCharge: {
@@ -31,19 +31,17 @@ const Drawer = ({ updateData, option }: DetailProps) => {
       detailed,
       selectedList,
       table,
+      shopChargeList,
     },
   }: any = useSelector((state: RootState) => state)
 
   const onClose = () => {
     dispatch({ type: 'shopCharge/clean' })
-    setShow(false)
     setTyoeList([])
+    dataList.current = []
   }
-
   // 验证
   const verification = (current: any) => {
-    if (current?.chargeltem === '2' && drawerType === 'storage')
-      delete current.payService
     const errorObj: any = {}
     const arr = Object.keys(current)
     arr.forEach((element: any) => {
@@ -57,8 +55,9 @@ const Drawer = ({ updateData, option }: DetailProps) => {
       } else if (
         !current[element] ||
         (Array.isArray(current[element]) && current[element].length === 0)
-      )
+      ) {
         errorObj[element] = '此项不能为空'
+      }
     })
     if (Object.keys(errorObj).length > 0) {
       const err: any = new Error()
@@ -93,7 +92,7 @@ const Drawer = ({ updateData, option }: DetailProps) => {
       console.log(current, 'current')
       const payload = {
         ...current,
-        code: current?.code[0],
+        code: String(current?.code),
         payService: current?.payService[0]?.value,
         payType: current?.payType[0]?.value,
         collectionTime: changeTimeFormat(current?.collectionTime),
@@ -104,7 +103,7 @@ const Drawer = ({ updateData, option }: DetailProps) => {
     // 添加押金
     if (drawerType === 'depositAdd') {
       const payload = {
-        code: current?.code[0],
+        code: String(current?.code),
         name: current?.name,
         collectionTime: changeTimeFormat(current?.collectionTime),
         project: current?.payService[0]?.value,
@@ -118,11 +117,8 @@ const Drawer = ({ updateData, option }: DetailProps) => {
     if (drawerType === 'storage') {
       const payload = {
         ...current,
-        chargeltem: Number(current?.chargeltem),
+        code: String(current?.code),
         chargingTime: changeTimeFormat(current?.chargingTime),
-      }
-      if (payload.chargeltem === 2) {
-        delete payload.payService
       }
       sendOut('shopCharge/getBuAdvanceDeposit', payload)
     }
@@ -156,6 +152,41 @@ const Drawer = ({ updateData, option }: DetailProps) => {
         refundTime: changeTimeFormat(current?.refundTime),
       }
       sendOut('shopCharge/getBuDepositUpdate', payload)
+    }
+
+    if (drawerType === 'return') {
+      if (dataList.current.length === 0)
+        return Notify.error({ title: '请填写退还金额' })
+      if (
+        dataList.current.some(
+          (item: any) =>
+            item?.refundAmount === null || item?.refundAmount === ''
+        )
+      ) {
+        return Notify.error({ title: '请填写退还金额' })
+      }
+      if (
+        dataList.current.some(
+          (item: any) => !/^[0-9]{1}\d*?$/g.test(item?.refundAmount)
+        )
+      ) {
+        return Notify.error({ title: '请填正确填写退还金额' })
+      }
+
+      if (
+        dataList.current.some(
+          (item: any) => Number(item?.refundAmount) > Number(item?.chargeAmount)
+        )
+      ) {
+        return Notify.error({ title: '退还金额不可大于账户金额' })
+      }
+      const payload = {
+        ...current,
+        code: String(current?.code),
+        refundTime: changeTimeFormat(current?.refundTime),
+        refundAmount: dataList.current,
+      }
+      sendOut('shopCharge/getBuAdvanceDepositRefund', payload)
     }
   }
 
@@ -203,7 +234,7 @@ const Drawer = ({ updateData, option }: DetailProps) => {
         drawerType === 'history' ||
         drawerType === 'return') && (
         <>
-          <TableList />
+          <TableList obtain={dataList} />
           <div style={{ marginTop: 24 }}></div>
         </>
       )}
@@ -226,11 +257,10 @@ const Drawer = ({ updateData, option }: DetailProps) => {
               payService,
               searchParms,
               detailed,
-              show,
-              setShow,
               form,
               tyoeList,
-              setTyoeList
+              setTyoeList,
+              shopChargeList
             ) as any
           }
         />

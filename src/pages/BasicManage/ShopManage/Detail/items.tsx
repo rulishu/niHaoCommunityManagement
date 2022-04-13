@@ -93,6 +93,7 @@ export const items = (queryInfo: Change, tableType: string) => [
     initialValue: queryInfo?.status,
     widgetProps: {},
     required: true,
+    hide: tableType === 'edit' ? false : true,
     placeholder: '请选择使用状态',
     rules: [{ required: true, message: '请选择使用状态' }],
   },

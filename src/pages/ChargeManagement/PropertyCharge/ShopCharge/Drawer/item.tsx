@@ -32,11 +32,10 @@ export const matching = (
   payService: any,
   searchParms: any,
   detailed: any,
-  show: boolean,
-  setShow: any,
   form: any,
   tyoeList: any,
-  setTyoeList: any
+  setTyoeList: any,
+  shopChargeList: any
 ) => {
   switch (type) {
     case 'charge':
@@ -57,10 +56,9 @@ export const matching = (
         option,
         searchParms,
         detailed,
-        show,
-        setShow,
         payment,
-        payService
+        payService,
+        shopChargeList
       )
     case 'return':
       return returnItem(queryInfo, option, searchParms, detailed, payment)
@@ -347,10 +345,9 @@ const storageItem = (
   option: any,
   searchParms: any,
   detailed: any,
-  show: boolean,
-  setShow: any,
   payment: any,
-  payService: any
+  payService: any,
+  shopChargeList: any
 ) => [
   {
     label: '商铺',
@@ -403,31 +400,11 @@ const storageItem = (
     widgetProps: { format: 'YYYY-MM-DD HH:mm:ss' },
   },
   {
-    label: '可用收费项',
-    widget: 'radio',
-    key: 'chargeltem',
-    option: [
-      { label: '指定收费项', value: '1' },
-      { label: '所有收费项', value: '2' },
-    ],
-    initialValue: '1',
-    widgetProps: {
-      onChange: (value: any) => {
-        if (value?.target?.value !== '1') {
-          setShow(true)
-        } else {
-          setShow(false)
-        }
-      },
-    },
-  },
-  {
     label: '收费项目',
     key: 'payService',
     widget: 'searchSelect',
-    option: payService,
+    option: shopChargeList,
     required: true,
-    hide: show,
     span: 8,
     widgetProps: {
       placeholder: '请选择收费项目',
@@ -446,12 +423,13 @@ const returnItem = (
 ) => [
   {
     label: '商铺',
-    key: 'name',
+    key: 'code',
     widget: 'searchSelect',
     option,
     required: true,
+    disabled: true,
     span: 8,
-    initialValue: [searchParms?.code || ''],
+    initialValue: searchParms?.code || '',
     widgetProps: {
       placeholder: '请选择商铺',
       mode: 'single',
@@ -459,7 +437,7 @@ const returnItem = (
   },
   {
     label: '客户姓名',
-    key: 'name1',
+    key: 'name',
     widget: 'input',
     required: true,
     disabled: true,
@@ -468,18 +446,17 @@ const returnItem = (
     widgetProps: { placeholder: '请填写用户姓名' },
   },
   {
-    label: '付款方式',
-    key: 'payType',
+    label: '退款方式',
+    key: 'refundWay',
     widget: 'searchSelect',
     option: payment,
     required: true,
     span: 8,
     widgetProps: { placeholder: '请选择付款方式', mode: 'single' },
-    initialValue: queryInfo?.name,
   },
   {
     label: '退还时间',
-    key: 'dateInputsecond',
+    key: 'refundTime',
     widget: 'dateInput',
     widgetProps: { format: 'YYYY-MM-DD HH:mm:ss' },
   },

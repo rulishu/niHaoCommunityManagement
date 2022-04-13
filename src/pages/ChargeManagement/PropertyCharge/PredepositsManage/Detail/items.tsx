@@ -1,63 +1,49 @@
 import { Change } from '@/servers/ChargeManagement/PredepositsManage'
 import { Input } from 'uiw'
-import { Dispatch } from '@uiw-admin/models'
 import { UseFormProps } from '@uiw-admin/components/src/ProForm/type'
 
-// const option = [
-//   { label: 'a1', value: 1 },
-//   { label: 'a2', value: 2 },
-//   { label: 'a3', value: 3 },
-// ]
 export const items = (
   queryInfo: Change,
   tableType: string,
-  dispatch: Dispatch,
-  preDepositeData: Change,
   baseRef: UseFormProps,
-  itemList: [],
+  code: [],
   buChargesList: any,
-  paysList: any
+  paysList: any,
+  dataList: any
 ) => {
-  console.log('itemList', itemList)
-  console.log('preDepositeData', preDepositeData)
-
   return [
-    {
-      label: '可用收费项',
-      key: 'chargeItem',
-      widget: 'radio',
-      initialValue: queryInfo?.chargeItem,
-      option: [
-        { label: '指定收费项', value: '1' },
-        { label: '所有收费项', value: '2' },
-      ],
-      span: '24',
-      hide: tableType === 'edit' ? true : false,
-      rules: [{ required: true, message: '请输入可用收费项' }],
-    },
     {
       label: '编号',
       key: 'code',
-      widget: tableType === 'edit' ? 'searchSelect' : 'input',
+      widget: 'select',
       initialValue: queryInfo?.code,
       placeholder: '请输入编号',
       required: true,
-      rules: [{ required: true, message: '请输入编号' }],
-      option: itemList,
+      option: code,
       widgetProps: {
         mode: 'single',
-        showSearch: true,
-        maxTagCount: 6,
         placeholder: '请输入选择',
-        onSearch: (value: string) => {
-          dispatch({
-            type: 'PredepositsManage/selectAdvanceDepositeByCode',
-            payload: {
-              code: value,
-            },
-          })
+        onChange: (value: string) => {
+          // console.log('value', value, code.map((itm: any) => ({ value: itm.value })));
+          // console.log('dataList', dataList);
+          // console.log('baseRef', baseRef);
+
+          let valueCode = code.map((itm: any) => ({ value: itm.value }))
+          // console.log(dataList[0].code, valueCode[0].value);
+
+          if (dataList[0].code === valueCode[0].value) {
+            baseRef.setFields &&
+              baseRef.setFields({
+                name: dataList[0].userName,
+                // buChargesList: dataList[0].chargeList.map((itm: any) => ({
+                //   label: itm.chargeName,
+                //   value: itm.chargeId,
+                // }))
+              })
+          }
         },
       },
+      rules: [{ required: true, message: '请输入编号' }],
     },
     {
       label: '客户姓名',
@@ -66,7 +52,7 @@ export const items = (
       initialValue: queryInfo?.name,
       required: true,
       placeholder: '请输入客户姓名',
-      disabled: tableType === 'edit' ? true : false,
+      disabled: true,
       rules: [{ required: true, message: '请输入客户姓名' }],
     },
     {
@@ -76,7 +62,7 @@ export const items = (
       widget: 'select',
       required: true,
       option: buChargesList,
-      hide: queryInfo?.chargeItem === '2' ? true : false,
+      hide: tableType === 'edit' ? true : false,
       rules: [{ message: '请输入收费项目' }],
     },
     {
@@ -164,7 +150,7 @@ export const backList = (
     {
       title: '收费项',
       align: 'center',
-      key: 'payService',
+      key: 'payServiceName',
     },
     {
       title: '账户金额',
@@ -174,7 +160,7 @@ export const backList = (
     {
       title: '退还金额',
       align: 'center',
-      key: 'tuiMoney',
+      key: 'refundAmount',
       render: () => (
         <Input
           placeholder="请输入内容"
