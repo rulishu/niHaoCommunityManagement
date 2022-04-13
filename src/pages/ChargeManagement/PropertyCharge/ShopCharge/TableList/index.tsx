@@ -1,14 +1,14 @@
 import { ProTable, useTable } from '@uiw-admin/components'
-import { useSelector, useDispatch } from 'react-redux'
-import { RootState, Dispatch } from '@uiw-admin/models'
+import { useSelector } from 'react-redux'
+import { RootState } from '@uiw-admin/models'
 import {
   selectHistoryPayList,
   selectAdvanceDepostAmountByCode,
 } from '@/servers/ChargeManagement/ShopCharge'
 import { matching } from './item'
 import '../style.css'
-export default function Index() {
-  const dispatch = useDispatch<Dispatch>()
+export default function Index(props: any) {
+  const { obtain } = props
 
   const {
     shopCharge: { drawerType, searchParms, selectedList },
@@ -58,7 +58,7 @@ export default function Index() {
           pageSizeOptions: [10, 20, 30],
           pageSize: 10,
         }}
-        columns={matching(drawerType, dispatch, table) as any}
+        columns={matching(drawerType, table, obtain) as any}
         scroll={{
           x: drawerType === 'return' || drawerType === 'charge' ? '100%' : 1700,
         }}
