@@ -3,7 +3,7 @@ import { createModel, RematchDispatch } from '@rematch/core'
 import {
   selectById,
   Change,
-  selectAdvanceDepositeByCode,
+  selectShopList,
 } from '../../servers/ChargeManagement/PredepositsManage'
 
 interface State {
@@ -14,8 +14,9 @@ interface State {
   id: string
   delectVisible: boolean
   loading: boolean
-  preDepositeData: object
-  itemList: []
+  code: []
+  buChargesList: []
+  dataList: []
 }
 
 const PredepositsManage = createModel<RootModel>()({
@@ -28,8 +29,9 @@ const PredepositsManage = createModel<RootModel>()({
     isView: false,
     delectVisible: false,
     loading: false,
-    preDepositeData: {},
-    itemList: [],
+    code: [],
+    buChargesList: [],
+    dataList: [],
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({
@@ -49,17 +51,28 @@ const PredepositsManage = createModel<RootModel>()({
       }
     },
 
-    async selectAdvanceDepositeByCode(payload: Change) {
-      // const { code } = payload
+    async selectShopList(payload: Change) {
       const dph = dispatch as Dispatch
-      const data = await selectAdvanceDepositeByCode(payload)
+      const data = await selectShopList(payload)
+
       if (data.code === 1) {
+        // console.log('data',data.data[0].code);
+        // console.log('data',data.data[0].userName);
+        console.log('data', data.data[0].chargeList)
+
+        let buChargesList = data.data[0].chargeList.map((itm: any) => ({
+          label: itm.chargeName,
+          value: itm.chargeId,
+        }))
+        let code = data.data.map((itm: any) => ({
+          label: itm.code,
+          value: itm.code,
+        }))
+
         dph.PredepositsManage.updateState({
-          preDepositeData: data.data || {},
-          itemList: data.data.rows.map((itm: any) => ({
-            label: itm.code,
-            value: itm.id,
-          })),
+          dataList: data.data || [],
+          code: code,
+          buChargesList: buChargesList,
         })
       }
     },
