@@ -10,7 +10,7 @@ export const columnsRout = (
     {
       title: '收费项名称',
       align: 'center',
-      key: 'saleType',
+      key: 'saleTypeName',
       ellipsis: true,
       props: [
         {

@@ -86,6 +86,7 @@ const Drawer = ({ updateData, option }: DetailProps) => {
 
   // 提交
   const onSubmit = (current: any) => {
+    console.log(dataList)
     verification(current)
     // 添加零时收费
     if (drawerType === 'temAdd') {
@@ -158,11 +159,27 @@ const Drawer = ({ updateData, option }: DetailProps) => {
       if (dataList.current.length === 0)
         return Notify.error({ title: '请填写退还金额' })
       if (
-        dataList.current.every(
+        dataList.current.some(
+          (item: any) =>
+            item?.refundAmount === null || item?.refundAmount === ''
+        )
+      ) {
+        return Notify.error({ title: '请填写退还金额' })
+      }
+      if (
+        dataList.current.some(
           (item: any) => !/^[0-9]{1}\d*?$/g.test(item?.refundAmount)
         )
       ) {
         return Notify.error({ title: '请填正确填写退还金额' })
+      }
+
+      if (
+        dataList.current.some(
+          (item: any) => Number(item?.refundAmount) > Number(item?.chargeAmount)
+        )
+      ) {
+        return Notify.error({ title: '退还金额不可大于账户金额' })
       }
       const payload = {
         ...current,
