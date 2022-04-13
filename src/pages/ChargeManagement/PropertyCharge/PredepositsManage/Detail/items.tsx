@@ -62,6 +62,7 @@ export const items = (
       widget: 'select',
       required: true,
       option: buChargesList,
+      hide: tableType === 'edit' ? true : false,
       rules: [{ message: '请输入收费项目' }],
     },
     {
@@ -149,7 +150,7 @@ export const backList = (
     {
       title: '收费项',
       align: 'center',
-      key: 'payService',
+      key: 'payServiceName',
     },
     {
       title: '账户金额',
@@ -159,7 +160,7 @@ export const backList = (
     {
       title: '退还金额',
       align: 'center',
-      key: 'tuiMoney',
+      key: 'refundAmount',
       render: () => (
         <Input
           placeholder="请输入内容"
