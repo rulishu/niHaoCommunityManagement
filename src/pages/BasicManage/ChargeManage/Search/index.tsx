@@ -22,9 +22,6 @@ export default function Demo() {
 
   useEffect(() => {
     dispatch({
-      type: 'ChargeManage/buChargesList',
-    })
-    dispatch({
       type: 'models/statusList',
       payload: {
         dictType: '收费项类型',
@@ -38,9 +35,6 @@ export default function Demo() {
     })
   }, [dispatch])
 
-  const {
-    ChargeManage: { buChargesList },
-  } = useSelector((state: RootState) => state)
   const {
     models: { statusList },
   } = useSelector((state: RootState) => state)
@@ -114,9 +108,7 @@ export default function Demo() {
           },
         ]}
         table={table}
-        columns={
-          columnsSearch(handleEditTable, statusList, buChargesList) as FormCol[]
-        }
+        columns={columnsSearch(handleEditTable, statusList) as FormCol[]}
       />
       <Drawer updateData={updateData} onSearch={table.onSearch} />
       <Modals onSearch={table.onSearch} />

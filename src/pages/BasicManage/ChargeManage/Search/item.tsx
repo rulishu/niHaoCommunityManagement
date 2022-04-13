@@ -3,8 +3,7 @@ import { Change } from '@/servers/BasicManage/ChargeManage'
 
 export const columnsSearch = (
   handleEditTable: (tableType: string, obj: Change) => void,
-  statusList: any,
-  buChargesList: any
+  statusList: any
 ) => {
   return [
     {
@@ -27,15 +26,12 @@ export const columnsSearch = (
       title: '收费项目名',
       key: 'chargeName',
       props: {
-        widget: 'select',
-        option: buChargesList,
+        widget: 'input',
+        widgetProps: {
+          placeholder: '请输入收费项目名',
+        },
       },
       align: 'center',
-      render: (text: any, key: any, rowData: Change) => (
-        <div style={{ textAlign: 'center' }}>
-          <span>{rowData?.chargeName}</span>
-        </div>
-      ),
     },
     {
       title: '单价',
