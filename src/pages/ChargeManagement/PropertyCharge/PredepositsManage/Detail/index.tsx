@@ -169,7 +169,7 @@ const Drawer = (props: {
         <Table
           bordered
           columns={backList(onChangeItem) as FormCol[]}
-          data={[code]}
+          data={dataList && dataList[0]?.chargeList}
         />
       )}
     </ProDrawer>
