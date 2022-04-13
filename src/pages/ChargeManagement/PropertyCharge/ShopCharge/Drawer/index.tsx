@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { ProDrawer, ProForm, useForm } from '@uiw-admin/components'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
@@ -18,6 +18,8 @@ const Drawer = ({ updateData, option }: DetailProps) => {
 
   const [tyoeList, setTyoeList] = useState([])
 
+  let dataList: any = useRef([])
+
   const {
     shopCharge: {
       drawerVisible,
@@ -30,13 +32,13 @@ const Drawer = ({ updateData, option }: DetailProps) => {
       selectedList,
       table,
       shopChargeList,
-      drawerTable,
     },
   }: any = useSelector((state: RootState) => state)
 
   const onClose = () => {
     dispatch({ type: 'shopCharge/clean' })
     setTyoeList([])
+    dataList.current = []
   }
   // 验证
   const verification = (current: any) => {
@@ -84,17 +86,6 @@ const Drawer = ({ updateData, option }: DetailProps) => {
 
   // 提交
   const onSubmit = (current: any) => {
-    if (drawerType === 'return') {
-      const isOk = drawerTable.every(
-        (item: any) =>
-          Number(item?.refundAmount || 0) > Number(item?.payService || 0)
-      )
-      if (isOk)
-        return Notify.error({
-          title: '错误通知',
-          description: '退还金额不能大于支付金额',
-        })
-    }
     verification(current)
     // 添加零时收费
     if (drawerType === 'temAdd') {
@@ -164,11 +155,20 @@ const Drawer = ({ updateData, option }: DetailProps) => {
     }
 
     if (drawerType === 'return') {
+      if (dataList.current.length === 0)
+        return Notify.error({ title: '请填写退还金额' })
+      if (
+        dataList.current.every(
+          (item: any) => !/^[0-9]{1}\d*?$/g.test(item?.refundAmount)
+        )
+      ) {
+        return Notify.error({ title: '请填正确填写退还金额' })
+      }
       const payload = {
         ...current,
         code: String(current?.code),
         refundTime: changeTimeFormat(current?.refundTime),
-        refundAmount: drawerTable,
+        refundAmount: dataList.current,
       }
       sendOut('shopCharge/getBuAdvanceDepositRefund', payload)
     }
@@ -218,7 +218,7 @@ const Drawer = ({ updateData, option }: DetailProps) => {
         drawerType === 'history' ||
         drawerType === 'return') && (
         <>
-          <TableList />
+          <TableList obtain={dataList} />
           <div style={{ marginTop: 24 }}></div>
         </>
       )}

@@ -1,12 +1,12 @@
 import { Tag, Input } from 'uiw'
-export const matching = (type: string, dispatch: any, table: any) => {
+export const matching = (type: string, table: any, obtain: any) => {
   switch (type) {
     case 'charge':
       return columnsList()
     case 'history':
       return columnsHistory()
     case 'return':
-      return columnsReturn(dispatch, table)
+      return columnsReturn(table, obtain)
     default:
       return []
   }
@@ -97,7 +97,7 @@ const columnsHistory = () => [
 ]
 
 // 退还
-const columnsReturn = (dispatch: any, table: any) => [
+const columnsReturn = (table: any, obtain: any) => [
   {
     title: '收费项',
     key: 'payServiceName',
@@ -126,10 +126,7 @@ const columnsReturn = (dispatch: any, table: any) => [
           onBlur={async (e) => {
             const value = e?.target?.value || ''
             table.data[index].refundAmount = value
-            await dispatch({
-              type: 'shopCharge/updateState',
-              payload: { drawerTable: table?.data || [] },
-            })
+            obtain.current = table?.data || []
           }}
         />
       </div>
