@@ -72,6 +72,14 @@ export default function Demo() {
         code: String(table?.form?.current?.getFieldValues()?.code || ''),
       },
     })
+
+    dispatch({
+      type: 'shopCharge/selectShopChargeByCode',
+      payload: {
+        // @ts-ignorets-ignore
+        code: String(table?.form?.current?.getFieldValues()?.code || ''),
+      },
+    })
   }
 
   const payload = {

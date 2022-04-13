@@ -23,7 +23,7 @@ http://192.168.188.222:33701/doc.html#/home
 
 ## git提交规范
 
-- upd：更新某功能（不是 feat, 不是 fix）
+
 - feat：新功能（feature）
 - fix：修补bug
 - docs：文档（documentation）

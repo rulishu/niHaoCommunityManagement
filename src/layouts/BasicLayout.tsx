@@ -1,27 +1,28 @@
 import BasicLayout, { useLayouts } from '@uiw-admin/basic-layouts'
 import { Outlet } from 'react-router-dom'
 import { RoutersProps } from '@uiw-admin/router-control'
-// import { Badge, Icon } from 'uiw'
-
 import useSWR from 'swr'
-
-// import LayoutTabs from "@uiw-admin/layout-tabs"
-// import Auth from "@uiw-admin/authorized"
-
 interface BasicLayoutProps {
   routes: RoutersProps[]
 }
 
 function BasicLayoutScreen(props: BasicLayoutProps = { routes: [] }) {
   const layouts = useLayouts()
-
-  const { mutate } = useSWR(['/api/reloadAuth', { method: 'POST' }], {
+  const { mutate } = useSWR(['/api/account/refreshAuth', { method: 'POST' }], {
     revalidateOnMount: false,
     revalidateOnFocus: false,
     onSuccess: (data) => {
-      if (data && data.code === 200) {
-        sessionStorage.setItem('token', data.token)
-        sessionStorage.setItem('auth', JSON.stringify(data.authList || []))
+      if (data && data.code === 1) {
+        // localStorage.setItem('auth', JSON.stringify(data?.data?.menuList || []))
+        // localStorage.setItem('userInfo', JSON.stringify(data?.data?.user || {}))
+        sessionStorage.setItem(
+          'auth',
+          JSON.stringify(data?.data?.menuList || [])
+        )
+        sessionStorage.setItem(
+          'userInfo',
+          JSON.stringify(data?.data?.user || {})
+        )
         window.location.reload()
       }
     },
@@ -42,35 +43,12 @@ function BasicLayoutScreen(props: BasicLayoutProps = { routes: [] }) {
         onClick: () => layouts.closeMenu(),
       },
     ],
-    // profile: {
-    //   avatar: require('../assets/head.png'),
-    //   menuLeft: (
-    //     <div style={{ marginRight: 15 }}>
-    //       <Badge count={66}>
-    //         <Icon type="bell" color="#343a40" style={{ fontSize: 20 }} />
-    //       </Badge>
-    //     </div>
-    //   ),
-    // },
     layouts,
     ...props,
   }
-
-  // 验证是否登录的方式
-  // 1. 使用 Auth 组件
-  // 2. 路由中进行处理  path==="/" 的 element 外层包裹组件进行重定向
-  // return (
-  //   <Auth >
-  //   <BasicLayout {...basicLayoutProps} {...props} >
-  //     <Outlet />
-  //     {/* <LayoutTabs routes={routes || []} /> */}
-  //   </BasicLayout>
-  //   </Auth>
-  // )
   return (
     <BasicLayout {...basicLayoutProps} projectName="共享社区管理平台">
       <Outlet />
-      {/* <LayoutTabs routes={routes || []} /> */}
     </BasicLayout>
   )
 }

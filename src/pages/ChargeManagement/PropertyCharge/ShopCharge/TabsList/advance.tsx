@@ -35,7 +35,7 @@ export default function Demo(props: {
   const handleEditTable = (type: string, data?: any) => {
     if (!searchParms?.code || !String(searchParms?.code))
       return Notify.warning({ description: '请先输入商铺进行搜索 !' })
-    updateData({ drawerType: type, drawerVisible: true })
+    updateData({ drawerType: type, drawerVisible: true, table })
   }
   return (
     <React.Fragment>

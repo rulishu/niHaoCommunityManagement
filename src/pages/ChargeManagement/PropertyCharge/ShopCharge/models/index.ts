@@ -15,6 +15,8 @@ import {
   buShopChargeDatapay,
   buTemporaryChargesUpdate,
   buDepositUpdate,
+  selectShopChargeByCode,
+  buAdvanceDepositRefund,
 } from '@/servers/ChargeManagement/ShopCharge'
 
 interface State {
@@ -27,6 +29,7 @@ interface State {
   shopNoList: Array<searchValue>
   payment: Array<searchValue>
   payService: Array<searchValue>
+  shopChargeList: Array<searchValue>
   table: any
 }
 
@@ -42,6 +45,7 @@ const shopCharge = createModel()({
     table: {},
 
     shopNoList: [], //商铺查询
+    shopChargeList: [], //商铺单号查询
     payment: [], //支付方式
     payService: [], // 收费项目
   } as State,
@@ -117,6 +121,24 @@ const shopCharge = createModel()({
       }
     },
 
+    // 根据编号查商铺租售收费信息
+    async selectShopChargeByCode(payload: any) {
+      const dph = dispatch as Dispatch
+      const data = await selectShopChargeByCode(payload)
+      if (data.code === 1) {
+        dph.shopCharge.updateState({
+          shopChargeList: Array.isArray(data?.data)
+            ? data?.data?.map((item: any) => {
+                return {
+                  value: item.chargeId,
+                  label: item.chargeName,
+                }
+              })
+            : [],
+        })
+      }
+    },
+
     // 添加零时收费
     async buTemporaryCharges(payload: any) {
       return await buTemporaryCharges({ ...payload })
@@ -170,6 +192,11 @@ const shopCharge = createModel()({
     // 押金管理-修改
     async getBuDepositUpdate(payload: any) {
       return await buDepositUpdate({ ...payload })
+    },
+
+    // 预存款-退还
+    async getBuAdvanceDepositRefund(payload: any) {
+      return await buAdvanceDepositRefund({ ...payload })
     },
   }),
 })
