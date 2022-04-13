@@ -86,7 +86,6 @@ const Drawer = ({ updateData, option }: DetailProps) => {
 
   // 提交
   const onSubmit = (current: any) => {
-    console.log(dataList)
     verification(current)
     // 添加零时收费
     if (drawerType === 'temAdd') {
