@@ -16,7 +16,7 @@ interface State {
   loading: boolean
   code: []
   buChargesList: []
-  dataList: []
+  dataList: any
 }
 
 const PredepositsManage = createModel<RootModel>()({
@@ -56,13 +56,13 @@ const PredepositsManage = createModel<RootModel>()({
       const data = await selectShopList(payload)
 
       if (data.code === 1) {
-        // console.log('data',data.data[0].code);
+        // console.log('data',data.data[0]);
         // console.log('data',data.data[0].userName);
-        console.log('data', data.data[0].chargeList)
+        // console.log('data', data.data[0].chargeList)
 
         let buChargesList = data.data[0].chargeList.map((itm: any) => ({
           label: itm.chargeName,
-          value: itm.chargeId,
+          value: itm.chargeId.toString(),
         }))
         let code = data.data.map((itm: any) => ({
           label: itm.code,
