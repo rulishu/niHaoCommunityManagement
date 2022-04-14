@@ -4,7 +4,8 @@ export const items = (
   queryInfo: Change,
   tableType: string,
   statusList: any,
-  standardList: any
+  standardList: any,
+  hide: boolean
 ) => {
   return tableType === 'add'
     ? [
