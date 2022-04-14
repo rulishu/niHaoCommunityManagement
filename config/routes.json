@@ -158,6 +158,12 @@
         ]
       },
       {
+        "path": "/userInfo",
+        "name": "个人中心",
+        "component": "@/pages/PersonalPage",
+        "icon": "user"
+      },
+      {
         "path": "/403",
         "name": "403",
         "hideInMenu": true,

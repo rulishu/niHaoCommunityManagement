@@ -29,7 +29,6 @@ export const matching = (
   queryInfo: any,
   option: any,
   payment: any,
-  payService: any,
   searchParms: any,
   detailed: any,
   form: any,
@@ -46,7 +45,7 @@ export const matching = (
         queryInfo,
         option,
         payment,
-        payService,
+        shopChargeList,
         searchParms,
         detailed
       )
@@ -57,7 +56,6 @@ export const matching = (
         searchParms,
         detailed,
         payment,
-        payService,
         shopChargeList
       )
     case 'return':
@@ -71,8 +69,8 @@ export const matching = (
         searchParms,
         detailed,
         payment,
-        payService,
-        type
+        type,
+        shopChargeList
       )
     default:
       return []
@@ -263,7 +261,7 @@ const temAddItems = (
   queryInfo: any,
   option: any,
   payment: any,
-  payService: any,
+  shopChargeList: any,
   searchParms: any,
   detailed: any
 ) => {
@@ -276,7 +274,7 @@ const temAddItems = (
       required: true,
       span: 8,
       disabled: true,
-      initialValue: [searchParms?.code || ''],
+      initialValue: searchParms?.code || '',
       widgetProps: {
         placeholder: '请选择商铺',
         mode: 'single',
@@ -297,16 +295,14 @@ const temAddItems = (
       label: '收费项目',
       key: 'payService',
       widget: 'searchSelect',
-      option: payService,
+      option: shopChargeList,
       required: true,
       span: 8,
       widgetProps: {
         placeholder: '请选择收费项目',
-        labelInValue: true,
         mode: 'single',
         allowClear: true,
       },
-      initialValue: queryInfo?.name,
     },
     {
       label: '付款方式',
@@ -317,11 +313,9 @@ const temAddItems = (
       span: 8,
       widgetProps: {
         placeholder: '请选择付款方式',
-        labelInValue: true,
         mode: 'single',
         allowClear: true,
       },
-      initialValue: queryInfo?.name,
     },
     {
       label: '收费金额',
@@ -329,7 +323,6 @@ const temAddItems = (
       widget: 'input',
       required: true,
       span: 8,
-      initialValue: queryInfo?.name,
     },
     {
       label: '收费时间',
@@ -346,7 +339,6 @@ const storageItem = (
   searchParms: any,
   detailed: any,
   payment: any,
-  payService: any,
   shopChargeList: any
 ) => [
   {
@@ -468,8 +460,8 @@ const details = (
   searchParms: any,
   detailed: any,
   payment: any,
-  payService: any,
-  type: string
+  type: string,
+  shopChargeList: any
 ) => [
   {
     label: '商铺',
@@ -499,7 +491,7 @@ const details = (
     label: '收费项目',
     key: 'payService',
     widget: 'searchSelect',
-    option: payService,
+    option: shopChargeList,
     required: true,
     disabled: true,
     span: 8,

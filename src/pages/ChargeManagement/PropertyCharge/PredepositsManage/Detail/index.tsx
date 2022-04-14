@@ -1,3 +1,4 @@
+import React from 'react'
 import { ProDrawer, ProForm, useForm } from '@uiw-admin/components'
 import { Dispatch, RootState } from '@uiw-admin/models'
 import { useDispatch, useSelector } from 'react-redux'
@@ -15,7 +16,6 @@ export interface State {
   queryInfo?: object
   isView?: boolean
   code?: string
-  refundAmountList?: any
 }
 
 const Drawer = (props: {
@@ -41,7 +41,6 @@ const Drawer = (props: {
       code,
       buChargesList,
       dataList,
-      refundAmountList,
     },
   } = useSelector((state: RootState) => state)
 
@@ -49,14 +48,6 @@ const Drawer = (props: {
     models: { paysList },
   } = useSelector((state: RootState) => state)
 
-  const setValue = (value: string) => {
-    dispatch({
-      type: 'PredepositsManage/selectAdvanceDepostAmountByCode',
-      payload: {
-        code: value,
-      },
-    })
-  }
   const onClose = () => {
     dispatch({
       type: 'PredepositsManage/updateState',
@@ -70,13 +61,7 @@ const Drawer = (props: {
   const { mutate } = useSWR(
     [
       (tableType === 'add' && insert) || (tableType === 'edit' && update),
-      {
-        method: 'POST',
-        body:
-          tableType === 'add'
-            ? queryInfo
-            : { ...queryInfo, refundAmount: refundAmountList },
-      },
+      { method: 'POST', body: queryInfo },
     ],
     {
       revalidateOnMount: false,
@@ -109,10 +94,7 @@ const Drawer = (props: {
       queryInfo: {
         ...queryInfo,
         ...current,
-        chargingTime:
-          tableType === 'add'
-            ? formatter('YYYY-MM-DD HH:mm:ss', current?.chargingTime)
-            : null,
+        chargingTime: formatter('YYYY-MM-DD HH:mm:ss', current?.chargingTime),
         refundTime:
           tableType === 'edit'
             ? formatter('YYYY-MM-DD HH:mm:ss', current?.refundTime)
@@ -120,15 +102,9 @@ const Drawer = (props: {
       },
     })
   }
-  // const onChangeItem =  (data:RefundAmount) => {
-  // console.log('data',data);
-
-  // props.updateData({
-  //   refundAmountList:[
-  //      ...data
-  //   ]
-  // })
-  // }
+  const onChangeItem = async (text: React.ChangeEvent<HTMLInputElement>) => {
+    // console.log('text.target.value', text.target.value)
+  }
 
   return (
     <ProDrawer
@@ -185,16 +161,15 @@ const Drawer = (props: {
           code,
           buChargesList,
           paysList,
-          dataList,
-          setValue
+          dataList
         )}
       />
 
       {tableType === 'edit' && (
         <Table
           bordered
-          columns={backList() as FormCol[]}
-          data={refundAmountList}
+          columns={backList(onChangeItem) as FormCol[]}
+          data={dataList && dataList[0]?.chargeList}
         />
       )}
     </ProDrawer>
