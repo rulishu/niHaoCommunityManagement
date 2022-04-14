@@ -25,7 +25,8 @@ export const items = (queryInfo: Change, keys: string) => [
     label: '用户性别',
     key: 'gender',
     widget: 'input',
-    initialValue: queryInfo?.gender,
+    initialValue:
+      queryInfo?.gender === 0 ? '男' : queryInfo?.gender === 1 ? '女' : '',
     hide: keys === 'outside' ? false : true,
   },
   {

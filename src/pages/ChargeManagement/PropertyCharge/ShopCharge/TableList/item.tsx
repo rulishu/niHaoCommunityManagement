@@ -41,7 +41,7 @@ const columnsList = () => {
 const columnsHistory = () => [
   {
     title: '收费项名',
-    key: 'saleType',
+    key: 'saleTypeName',
     align: 'center',
   },
   {
