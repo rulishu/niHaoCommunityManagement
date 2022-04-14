@@ -27,7 +27,13 @@ function PersonalPage() {
   const renderChildren = () => {
     switch (index) {
       case '1':
-        return <PDFrom userInfo={userInfoData} />
+        return (
+          <PDFrom
+            userInfo={userInfoData?.user || {}}
+            dispatch={dispatch}
+            userInfoData={userInfoData}
+          />
+        )
       case '2':
         return <CPFrom />
       default:
