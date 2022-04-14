@@ -56,14 +56,6 @@ function dictionary(params: any) {
   })
 }
 
-//收费项目
-function buCharge(params: any) {
-  return request('/api/buCharge/selectList', {
-    method: 'POST',
-    body: { ...params },
-  })
-}
-
 // 添加零食收费
 function buTemporaryCharges(params: any) {
   return request('/api/buTemporaryCharges/addByCode', {
@@ -156,7 +148,6 @@ export {
   insert,
   deleteData,
   shopSelectPage,
-  buCharge,
   dictionary,
   buTemporaryCharges,
   buDeposit,

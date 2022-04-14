@@ -26,7 +26,6 @@ const Drawer = ({ updateData, option }: DetailProps) => {
       queryInfo,
       drawerType,
       payment,
-      payService,
       searchParms,
       detailed,
       selectedList,
@@ -40,6 +39,7 @@ const Drawer = ({ updateData, option }: DetailProps) => {
     setTyoeList([])
     dataList.current = []
   }
+
   // 验证
   const verification = (current: any) => {
     const errorObj: any = {}
@@ -89,12 +89,9 @@ const Drawer = ({ updateData, option }: DetailProps) => {
     verification(current)
     // 添加零时收费
     if (drawerType === 'temAdd') {
-      console.log(current, 'current')
       const payload = {
         ...current,
         code: String(current?.code),
-        payService: current?.payService[0]?.value,
-        payType: current?.payType[0]?.value,
         collectionTime: changeTimeFormat(current?.collectionTime),
       }
       sendOut('shopCharge/buTemporaryCharges', payload)
@@ -106,8 +103,8 @@ const Drawer = ({ updateData, option }: DetailProps) => {
         code: String(current?.code),
         name: current?.name,
         collectionTime: changeTimeFormat(current?.collectionTime),
-        project: current?.payService[0]?.value,
-        paymentMethod: current?.payType[0]?.value,
+        project: current?.payService,
+        paymentMethod: current?.payType,
         price: current?.price,
       }
       sendOut('shopCharge/getBuDeposit', payload)
@@ -254,7 +251,6 @@ const Drawer = ({ updateData, option }: DetailProps) => {
               queryInfo,
               option,
               payment,
-              payService,
               searchParms,
               detailed,
               form,

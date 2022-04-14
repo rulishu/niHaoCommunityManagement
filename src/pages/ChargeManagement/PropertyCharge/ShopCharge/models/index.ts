@@ -6,7 +6,6 @@ import {
   Change,
   searchValue,
   dictionary,
-  buCharge,
   buTemporaryCharges,
   buDeposit,
   buShop,
@@ -28,7 +27,6 @@ interface State {
   selectedList: Array<any>
   shopNoList: Array<searchValue>
   payment: Array<searchValue>
-  payService: Array<searchValue>
   shopChargeList: Array<searchValue>
   table: any
 }
@@ -47,7 +45,6 @@ const shopCharge = createModel()({
     shopNoList: [], //商铺查询
     shopChargeList: [], //商铺单号查询
     payment: [], //支付方式
-    payService: [], // 收费项目
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({
@@ -96,24 +93,6 @@ const shopCharge = createModel()({
                 return {
                   value: item.dictCode,
                   label: item.dictName,
-                }
-              })
-            : [],
-        })
-      }
-    },
-
-    // 收费项目
-    async service(payload: any) {
-      const dph = dispatch as Dispatch
-      const data = await buCharge(payload)
-      if (data.code === 1) {
-        dph.shopCharge.updateState({
-          payService: Array.isArray(data?.data)
-            ? data?.data?.map((item: any) => {
-                return {
-                  value: item.id,
-                  label: item.chargeName,
                 }
               })
             : [],

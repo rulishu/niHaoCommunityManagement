@@ -87,7 +87,6 @@ const Detail = (props: {
     let roleIdList = roleId
     props.updateData({ queryInfo: { ...queryInfo, roleIdList } })
   }
-
   return (
     <ProDrawer
       width={tableType === 'edit' ? 500 : 800}
