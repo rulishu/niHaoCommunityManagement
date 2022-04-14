@@ -5,6 +5,7 @@ import { RootState, Dispatch } from '@uiw-admin/models'
 import { insert, update } from '@/servers/BasicManage/ChargeManage'
 import { items } from './items'
 import useSWR from 'swr'
+import { useState } from 'react'
 
 interface State {
   drawerVisible?: boolean
@@ -27,6 +28,7 @@ const Detail = (props: {
     models: { statusList, standardList },
   } = useSelector((state: RootState) => state)
 
+  const [hide, setHide] = useState(false)
   const onClose = () => {
     dispatch({
       type: 'ChargeManage/updateState',
@@ -68,6 +70,33 @@ const Detail = (props: {
       },
     }
   )
+  const Change = (initial: any, current: any) => {
+    // console.log('current',current.chargeType);
+
+    if (current?.chargeType === '2' || current?.chargeType === '3') {
+      setHide(true)
+      baseRef?.setFields &&
+        baseRef?.setFields({
+          chargeName: '',
+          chargePrice: '',
+          chargeNumType: '',
+          chargeNumTypeName: '',
+          chargeMonth: '',
+        })
+    }
+    if (current?.chargeType === '1') {
+      baseRef?.setFields &&
+        baseRef?.setFields({
+          chargeName: '',
+          chargePrice: '',
+          chargeNumType: '',
+          chargeNumTypeName: '',
+          chargeMonth: '',
+        })
+      setHide(false)
+    }
+    props.updateData({ queryInfo: { ...queryInfo, ...current } })
+  }
 
   return (
     <ProDrawer
@@ -119,10 +148,10 @@ const Detail = (props: {
         readOnly={isView}
         buttonsContainer={{ justifyContent: 'flex-start' }}
         // 更新表单的值
-        onChange={(initial, current) =>
-          props.updateData({ queryInfo: { ...queryInfo, ...current } })
-        }
-        formDatas={items(queryInfo, tableType, statusList, standardList)}
+        onChange={(initial, current) => {
+          Change(initial, current)
+        }}
+        formDatas={items(queryInfo, tableType, statusList, standardList, hide)}
       />
     </ProDrawer>
   )
