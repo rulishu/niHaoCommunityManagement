@@ -15,14 +15,6 @@ export interface Change {
   refundTime?: string
   chargeName?: string
 }
-export interface RefundAmount {
-  chargeAmount?: number
-  code?: string
-  id?: number
-  payService?: string
-  payServiceName?: string
-  refundAmount?: string
-}
 
 /**
  * 停车场管理-停车场管理-查询
@@ -43,27 +35,11 @@ const insert = '/api/buAdvanceDeposit/add'
 
 const deleteData = '/api/buAdvanceDeposit/delete'
 
-// 商铺管理列表
 function selectShopList(params: Change) {
   return request('/api/buShop/selectShopList', {
     method: 'POST',
     body: { ...params },
   })
 }
-// 商铺编号查收费项余额
-function selectAdvanceDepostAmountByCode(params: Change) {
-  return request('/api/buAdvanceDeposit/selectAdvanceDepostAmountByCode', {
-    method: 'POST',
-    body: { ...params },
-  })
-}
 
-export {
-  selectById,
-  selectPage,
-  update,
-  insert,
-  deleteData,
-  selectShopList,
-  selectAdvanceDepostAmountByCode,
-}
+export { selectById, selectPage, update, insert, deleteData, selectShopList }

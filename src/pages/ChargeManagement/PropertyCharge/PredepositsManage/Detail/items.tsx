@@ -1,7 +1,4 @@
-import {
-  Change,
-  RefundAmount,
-} from '@/servers/ChargeManagement/PredepositsManage'
+import { Change } from '@/servers/ChargeManagement/PredepositsManage'
 import { Input } from 'uiw'
 import { UseFormProps } from '@uiw-admin/components/src/ProForm/type'
 
@@ -12,14 +9,13 @@ export const items = (
   code: [],
   buChargesList: any,
   paysList: any,
-  dataList: any,
-  setValue: (value: string) => void
+  dataList: any
 ) => {
   return [
     {
       label: '编号',
       key: 'code',
-      widget: 'searchSelect',
+      widget: 'select',
       initialValue: queryInfo?.code,
       placeholder: '请输入编号',
       required: true,
@@ -28,31 +24,24 @@ export const items = (
         mode: 'single',
         placeholder: '请输入选择',
         onChange: (value: string) => {
-          setValue(value)
+          // console.log('value', value, code.map((itm: any) => ({ value: itm.value })));
+          // console.log('dataList', dataList);
+          // console.log('baseRef', baseRef);
 
-          if (dataList[0].code === value) {
+          let valueCode = code.map((itm: any) => ({ value: itm.value }))
+          // console.log(dataList[0].code, valueCode[0].value);
+
+          if (dataList[0].code === valueCode[0].value) {
             baseRef.setFields &&
               baseRef.setFields({
                 name: dataList[0].userName,
+                // buChargesList: dataList[0].chargeList.map((itm: any) => ({
+                //   label: itm.chargeName,
+                //   value: itm.chargeId,
+                // }))
               })
           }
         },
-        // onSelect: (value: string) => {
-        //   if (dataList[0].code === value) {
-        //     baseRef.setFields &&
-        //       baseRef.setFields({
-        //         name: dataList[0].userName,
-        //       })
-        //   }
-        // },
-        // onSearch: (value: string) => {
-        // if (dataList[0].code === value) {
-        //   baseRef.setFields &&
-        //     baseRef.setFields({
-        //       name: dataList[0].userName,
-        //     })
-        // }
-        // }
       },
       rules: [{ required: true, message: '请输入编号' }],
     },
@@ -74,7 +63,7 @@ export const items = (
       required: true,
       option: buChargesList,
       hide: tableType === 'edit' ? true : false,
-      rules: [{ required: true, message: '请输入收费项目' }],
+      rules: [{ message: '请输入收费项目' }],
     },
     {
       label: '付款方式',
@@ -154,43 +143,31 @@ export const items = (
   ]
 }
 
-export const backList = () =>
-  // onChangeItem: (rowData:RefundAmount) => void,
-  // data: React.ChangeEvent<HTMLInputElement>
-  {
-    return [
-      {
-        title: '收费项',
-        align: 'center',
-        key: 'payServiceName',
-      },
-      {
-        title: '账户金额',
-        align: 'center',
-        key: 'chargeAmount',
-      },
-      {
-        title: '退还金额',
-        align: 'center',
-        key: 'refundAmount',
-        render: (text: string, key: string, rowData: RefundAmount) => {
-          return (
-            <Input
-              placeholder="请输入内容"
-              style={{ maxWidth: 150 }}
-              // value={value}
-              // onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChangeItem(e )}
-              onBlur={async (e) => {
-                const value = e?.target?.value || ''
-                // console.log('value', value)
-                // console.log('rowData',rowData);
-                rowData.refundAmount = value
-                // console.log('rowData',rowData);
-                // onChangeItem(rowData)
-              }}
-            />
-          )
-        },
-      },
-    ]
-  }
+export const backList = (
+  onChangeItem: (text: React.ChangeEvent<HTMLInputElement>) => void
+) => {
+  return [
+    {
+      title: '收费项',
+      align: 'center',
+      key: 'payServiceName',
+    },
+    {
+      title: '账户金额',
+      align: 'center',
+      key: 'chargeAmount',
+    },
+    {
+      title: '退还金额',
+      align: 'center',
+      key: 'refundAmount',
+      render: () => (
+        <Input
+          placeholder="请输入内容"
+          style={{ maxWidth: 150 }}
+          onChange={onChangeItem}
+        />
+      ),
+    },
+  ]
+}
