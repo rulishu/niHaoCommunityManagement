@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Menu } from 'uiw'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
@@ -14,10 +14,8 @@ function PersonalPage() {
   const dispatch = useDispatch<Dispatch>()
 
   const {
-    userInfo: { title, index },
+    userInfo: { title, index, userInfoData },
   }: any = useSelector((state: RootState) => state)
-
-  const [userInfo]: any = useState({})
 
   const onButName = (data: any) => {
     dispatch({
@@ -29,7 +27,7 @@ function PersonalPage() {
   const renderChildren = () => {
     switch (index) {
       case '1':
-        return <PDFrom userInfo={userInfo} />
+        return <PDFrom userInfo={userInfoData} />
       case '2':
         return <CPFrom />
       default:
@@ -43,6 +41,12 @@ function PersonalPage() {
         type: 'userInfo/clean',
       })
     }
+  }, [dispatch])
+
+  useEffect(() => {
+    dispatch({
+      type: 'userInfo/getProfileFun',
+    })
   }, [dispatch])
 
   return (
@@ -73,6 +77,7 @@ function PersonalPage() {
           style={{
             background: '#fff',
             paddingLeft: 15,
+            paddingRight: 15,
             paddingTop: 10,
             height: '100%',
           }}

@@ -22,14 +22,9 @@ function BasicLayoutScreen(props: BasicLayoutProps = { routes: [] }) {
     onSuccess: (data) => {
       if (data && data.code === 1) {
         // localStorage.setItem('auth', JSON.stringify(data?.data?.menuList || []))
-        // localStorage.setItem('userInfo', JSON.stringify(data?.data?.user || {}))
         sessionStorage.setItem(
           'auth',
           JSON.stringify(data?.data?.menuList || [])
-        )
-        sessionStorage.setItem(
-          'userInfo',
-          JSON.stringify(data?.data?.user || {})
         )
         window.location.reload()
       }
