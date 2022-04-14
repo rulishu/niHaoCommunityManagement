@@ -72,6 +72,7 @@ const Detail = (props: {
   )
   const Change = (initial: any, current: any) => {
     // console.log('current', current.chargeType);
+    // console.log('initial', initial.chargeType);
 
     if (current?.chargeType === '2' || current?.chargeType === '3') {
       setHide(true)
@@ -87,15 +88,15 @@ const Detail = (props: {
     }
     if (current?.chargeType === '1') {
       setHide(false)
-      tableType === 'edit' &&
-        baseRef?.setFields &&
-        baseRef?.setFields({
-          chargeName: '',
-          chargePrice: '',
-          chargeNumType: '',
-          chargeNumTypeName: '',
-          chargeMonth: '',
-        })
+      // tableType === 'edit' &&
+      //   baseRef?.setFields &&
+      //   baseRef?.setFields({
+      //     chargeName: '',
+      //     chargePrice: '',
+      //     chargeNumType: '',
+      //     chargeNumTypeName: '',
+      //     chargeMonth: '',
+      //   })
     }
     props.updateData({ queryInfo: { ...queryInfo, ...current } })
   }
