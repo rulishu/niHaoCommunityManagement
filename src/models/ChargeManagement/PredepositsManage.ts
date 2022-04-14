@@ -4,6 +4,7 @@ import {
   selectById,
   Change,
   selectShopList,
+  selectAdvanceDepostAmountByCode,
 } from '../../servers/ChargeManagement/PredepositsManage'
 
 interface State {
@@ -17,6 +18,7 @@ interface State {
   code: []
   buChargesList: []
   dataList: any
+  refundAmountList: any
 }
 
 const PredepositsManage = createModel<RootModel>()({
@@ -32,6 +34,7 @@ const PredepositsManage = createModel<RootModel>()({
     code: [],
     buChargesList: [],
     dataList: [],
+    refundAmountList: [],
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({
@@ -59,7 +62,6 @@ const PredepositsManage = createModel<RootModel>()({
         // console.log('data',data.data[0]);
         // console.log('data',data.data[0].userName);
         // console.log('data', data.data[0].chargeList)
-
         let buChargesList = data.data[0].chargeList.map((itm: any) => ({
           label: itm.chargeName,
           value: itm.chargeId.toString(),
@@ -68,11 +70,21 @@ const PredepositsManage = createModel<RootModel>()({
           label: itm.code,
           value: itm.code,
         }))
-
         dph.PredepositsManage.updateState({
           dataList: data.data || [],
           code: code,
           buChargesList: buChargesList,
+        })
+      }
+    },
+
+    async selectAdvanceDepostAmountByCode(payload: Change) {
+      const dph = dispatch as Dispatch
+      const data = await selectAdvanceDepostAmountByCode(payload)
+
+      if (data.code === 1) {
+        dph.PredepositsManage.updateState({
+          refundAmountList: data.data,
         })
       }
     },
