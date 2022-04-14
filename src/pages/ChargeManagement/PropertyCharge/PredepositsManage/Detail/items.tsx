@@ -74,7 +74,7 @@ export const items = (
       required: true,
       option: buChargesList,
       hide: tableType === 'edit' ? true : false,
-      rules: [{ message: '请输入收费项目' }],
+      rules: [{ required: true, message: '请输入收费项目' }],
     },
     {
       label: '付款方式',
