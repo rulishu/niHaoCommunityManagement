@@ -39,26 +39,7 @@ const Detail = (props: {
       type: 'BusinessManage/selectByParentCode',
       payload: {},
     })
-
-    // if (cityCodeList && areaCodeList) {
-    //   console.log('queryInfo', queryInfo);
-
-    //   dispatch({
-    //     type: 'BusinessManage/selectByCityCodeList',
-    //     payload: {
-    //       // areaCode: queryInfo.provinceCode && queryInfo.provinceCode
-    //     }
-    //   })
-    //   dispatch({
-    //     type: 'BusinessManage/selectByAreaCodeList',
-    //     payload: {
-    //       // areaCode: queryInfo.provinceCode && queryInfo.cityCode
-    //     }
-    //   })
-    // }
   }, [dispatch])
-
-  console.log('queryInfo', queryInfo)
 
   const onClose = () => {
     dispatch({

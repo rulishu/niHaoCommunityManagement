@@ -15,8 +15,8 @@ interface State {
   delectVisible: boolean
   loading: boolean
   parentDivCodeList: any
-  cityCodeList: any
-  areaCodeList: any
+  cityCodeList: []
+  areaCodeList: []
 }
 
 const BusinessManage = createModel<RootModel>()({
