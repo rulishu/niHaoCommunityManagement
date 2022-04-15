@@ -18,19 +18,39 @@ export const columnsSearch = (
       },
     },
     {
-      title: '社区名',
+      title: '社区名称',
       key: 'zoneName',
       align: 'center',
       props: {
         widget: 'input',
         widgetProps: {
-          placeholder: '请输入社区名',
+          placeholder: '请输入社区名称',
         },
       },
     },
     {
+      title: '省',
+      key: 'provinceName',
+      align: 'center',
+    },
+    {
+      title: '市',
+      key: 'cityName',
+      align: 'center',
+    },
+    {
+      title: '区',
+      key: 'areaName',
+      align: 'center',
+    },
+    {
       title: '社区地址',
-      key: 'zoneAdress',
+      key: 'address',
+      align: 'center',
+    },
+    {
+      title: '备注',
+      key: 'zoneRemark',
       align: 'center',
     },
     {

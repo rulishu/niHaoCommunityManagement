@@ -5,6 +5,8 @@ import { RootState, Dispatch } from '@uiw-admin/models'
 import { insert, update } from '@/servers/BasicManage/BusinessManage'
 import { items } from './items'
 import useSWR from 'swr'
+import { useEffect } from 'react'
+import formatter from '@uiw/formatter'
 
 interface State {
   drawerVisible?: boolean
@@ -20,8 +22,43 @@ const Detail = (props: {
   const baseRef = useForm()
   const dispatch = useDispatch<Dispatch>()
   const {
-    BusinessManage: { drawerVisible, tableType, queryInfo, isView, loading },
+    BusinessManage: {
+      drawerVisible,
+      tableType,
+      queryInfo,
+      isView,
+      loading,
+      parentDivCodeList,
+      cityCodeList,
+      areaCodeList,
+    },
   } = useSelector((BusinessManage: RootState) => BusinessManage)
+
+  useEffect(() => {
+    dispatch({
+      type: 'BusinessManage/selectByParentCode',
+      payload: {},
+    })
+
+    // if (cityCodeList && areaCodeList) {
+    //   console.log('queryInfo', queryInfo);
+
+    //   dispatch({
+    //     type: 'BusinessManage/selectByCityCodeList',
+    //     payload: {
+    //       // areaCode: queryInfo.provinceCode && queryInfo.provinceCode
+    //     }
+    //   })
+    //   dispatch({
+    //     type: 'BusinessManage/selectByAreaCodeList',
+    //     payload: {
+    //       // areaCode: queryInfo.provinceCode && queryInfo.cityCode
+    //     }
+    //   })
+    // }
+  }, [dispatch])
+
+  console.log('queryInfo', queryInfo)
 
   const onClose = () => {
     dispatch({
@@ -64,6 +101,37 @@ const Detail = (props: {
       },
     }
   )
+  const onChange = (initial: any, current: any) => {
+    props.updateData({
+      queryInfo: {
+        ...queryInfo,
+        ...current,
+        createTime:
+          current?.createTime &&
+          formatter('YYYY-MM-DD HH:mm:ss', current?.createTime),
+        updateTime:
+          current?.createTime &&
+          formatter('YYYY-MM-DD HH:mm:ss', current?.updateTime),
+      },
+    })
+  }
+
+  const setProvinceCodeValue = (value: string) => {
+    dispatch({
+      type: 'BusinessManage/selectByCityCodeList',
+      payload: {
+        areaCode: value,
+      },
+    })
+  }
+  const setCityCodeValue = (value: string) => {
+    dispatch({
+      type: 'BusinessManage/selectByAreaCodeList',
+      payload: {
+        areaCode: value,
+      },
+    })
+  }
 
   return (
     <ProDrawer
@@ -115,10 +183,16 @@ const Detail = (props: {
         readOnly={isView}
         buttonsContainer={{ justifyContent: 'flex-start' }}
         // 更新表单的值
-        onChange={(initial, current) =>
-          props.updateData({ queryInfo: { ...queryInfo, ...current } })
-        }
-        formDatas={items(queryInfo)}
+        onChange={(initial, current) => onChange(initial, current)}
+        formDatas={items(
+          queryInfo,
+          parentDivCodeList,
+          cityCodeList,
+          areaCodeList,
+          setProvinceCodeValue,
+          setCityCodeValue,
+          dispatch
+        )}
       />
     </ProDrawer>
   )
