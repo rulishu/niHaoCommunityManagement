@@ -6,27 +6,32 @@ export const columnsSearch = (
 ) => {
   return [
     {
-      title: '商业区编号',
+      title: '社区编号',
       align: 'center',
       key: 'zoneNo',
       ellipsis: true,
       props: {
         widget: 'input',
         widgetProps: {
-          placeholder: '请输入商业区编号',
+          placeholder: '请输入社区编号',
         },
       },
     },
     {
-      title: '商业区名',
+      title: '社区名',
       key: 'zoneName',
       align: 'center',
       props: {
         widget: 'input',
         widgetProps: {
-          placeholder: '请输入商业区名',
+          placeholder: '请输入社区名',
         },
       },
+    },
+    {
+      title: '社区地址',
+      key: 'zoneAdress',
+      align: 'center',
     },
     {
       title: '操作',
