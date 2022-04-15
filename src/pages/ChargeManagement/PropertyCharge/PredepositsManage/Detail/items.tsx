@@ -19,7 +19,7 @@ export const items = (
     {
       label: '编号',
       key: 'code',
-      widget: 'searchSelect',
+      widget: 'select',
       initialValue: queryInfo?.code,
       placeholder: '请输入编号',
       required: true,
@@ -27,32 +27,18 @@ export const items = (
       widgetProps: {
         mode: 'single',
         placeholder: '请输入选择',
-        onChange: (value: string) => {
-          setValue(value)
+        onChange: (e: any) => {
+          setValue(e.target.value)
 
-          if (dataList[0].code === value) {
+          if (dataList[0].code === e.target.value) {
             baseRef.setFields &&
               baseRef.setFields({
                 name: dataList[0].userName,
               })
           }
         },
-        // onSelect: (value: string) => {
-        //   if (dataList[0].code === value) {
-        //     baseRef.setFields &&
-        //       baseRef.setFields({
-        //         name: dataList[0].userName,
-        //       })
-        //   }
-        // },
-        // onSearch: (value: string) => {
-        // if (dataList[0].code === value) {
-        //   baseRef.setFields &&
-        //     baseRef.setFields({
-        //       name: dataList[0].userName,
-        //     })
-        // }
-        // }
+        // onSelect: (value: string) => {},
+        // onSearch: (value: string) => {}
       },
       rules: [{ required: true, message: '请输入编号' }],
     },
@@ -154,43 +140,36 @@ export const items = (
   ]
 }
 
-export const backList = () =>
-  // onChangeItem: (rowData:RefundAmount) => void,
-  // data: React.ChangeEvent<HTMLInputElement>
-  {
-    return [
-      {
-        title: '收费项',
-        align: 'center',
-        key: 'payServiceName',
+export const backList = () => {
+  return [
+    {
+      title: '收费项',
+      align: 'center',
+      key: 'payServiceName',
+    },
+    {
+      title: '账户金额',
+      align: 'center',
+      key: 'chargeAmount',
+    },
+    {
+      title: '退还金额',
+      align: 'center',
+      key: 'refundAmount',
+      required: true,
+      render: (text: string, key: string, rowData: RefundAmount) => {
+        return (
+          <Input
+            placeholder="请输入内容"
+            style={{ maxWidth: 150 }}
+            // value={value}
+            onBlur={async (e) => {
+              const value = e?.target?.value || ''
+              rowData.refundAmount = value
+            }}
+          />
+        )
       },
-      {
-        title: '账户金额',
-        align: 'center',
-        key: 'chargeAmount',
-      },
-      {
-        title: '退还金额',
-        align: 'center',
-        key: 'refundAmount',
-        render: (text: string, key: string, rowData: RefundAmount) => {
-          return (
-            <Input
-              placeholder="请输入内容"
-              style={{ maxWidth: 150 }}
-              // value={value}
-              // onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChangeItem(e )}
-              onBlur={async (e) => {
-                const value = e?.target?.value || ''
-                // console.log('value', value)
-                // console.log('rowData',rowData);
-                rowData.refundAmount = value
-                // console.log('rowData',rowData);
-                // onChangeItem(rowData)
-              }}
-            />
-          )
-        },
-      },
-    ]
-  }
+    },
+  ]
+}
