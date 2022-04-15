@@ -1,5 +1,5 @@
 import { ProForm, useForm } from '@uiw-admin/components'
-import { Button } from 'uiw'
+import { Button, Notify } from 'uiw'
 interface DetailProps {
   userInfo?: any
   dispatch?: any
@@ -9,9 +9,10 @@ function PDFrom({ userInfo, dispatch, userInfoData }: DetailProps) {
   const form = useForm() as any
   const submit = async () => {
     await form?.submitvalidate()
-    const errors = form.getError()
-    if (errors && Object.keys(errors).length > 0) return
     const value = { ...form.getFieldValues?.() }
+    if (!(value.userName && value.gender && value.phoneNumber)) return
+    if (!/^1[34578]\d{9}$/g.test(value?.phoneNumber))
+      return Notify.warning({ title: '请输入正确手机号' })
     delete value?.image
     dispatch({
       type: 'userInfo/getdifyProfile',
@@ -83,13 +84,7 @@ function PDFrom({ userInfo, dispatch, userInfoData }: DetailProps) {
                 span: '12',
                 initialValue: userInfo?.phoneNumber || '',
                 required: true,
-                rules: [
-                  { required: true, message: '请输入手机号码' },
-                  {
-                    pattern: new RegExp(/^1[34578]\d{9}$/g),
-                    message: '请输入正确手机号',
-                  },
-                ],
+                rules: [{ required: true, message: '请输入手机号码' }],
               },
               {
                 label: '邮箱',
