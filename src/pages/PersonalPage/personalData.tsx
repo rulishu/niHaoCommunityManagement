@@ -1,22 +1,79 @@
+import { useState } from 'react'
 import { ProForm, useForm } from '@uiw-admin/components'
-import { Button } from 'uiw'
+import { Button, Notify } from 'uiw'
 interface DetailProps {
   userInfo?: any
   dispatch?: any
   userInfoData: any
 }
 function PDFrom({ userInfo, dispatch, userInfoData }: DetailProps) {
+  const [loading, setLoading] = useState(false)
+
   const form = useForm() as any
+
+  const updateState = (payload: any) => {
+    dispatch({
+      type: 'userInfo/updateState',
+      payload,
+    })
+  }
+
+  // 提交表单
   const submit = async () => {
     await form?.submitvalidate()
-    const errors = form.getError()
-    if (errors && Object.keys(errors).length > 0) return
     const value = { ...form.getFieldValues?.() }
+    if (!(value.userName && value.gender && value.phoneNumber)) return
+    if (!/^1[34578]\d{9}$/g.test(value?.phoneNumber))
+      return Notify.warning({ title: '请输入正确手机号' })
     delete value?.image
+    setLoading(true)
     dispatch({
       type: 'userInfo/getdifyProfile',
-      payload: { accountId: userInfoData?.accountId, user: value },
+      payload: {
+        accountId: userInfoData?.accountId,
+        user: value,
+        avatar: userInfoData?.avatar || '',
+      },
+    }).then(async (data: any) => {
+      if (data?.code === 1) {
+        Notify.success({ title: data?.message || '' })
+        await dispatch({
+          type: 'userInfo/getProfileFun',
+        })
+        setLoading(false)
+      } else {
+        setLoading(false)
+        Notify.error({ title: data?.message || '' })
+      }
     })
+  }
+
+  // 上穿文件
+  const upload = (value: any) => {
+    if (value.length > 0) {
+      dispatch({
+        type: 'userInfo/getFileUpload',
+        payload: { file: value[0].file },
+      }).then(async (data: any) => {
+        if (data.code === 1) {
+          updateState({
+            userInfoData: {
+              ...userInfoData,
+              avatar: data?.message || '',
+            },
+          })
+        } else {
+          Notify.error({ title: data?.message || '' })
+        }
+      })
+    } else {
+      updateState({
+        userInfoData: {
+          ...userInfoData,
+          avatar: '',
+        },
+      })
+    }
   }
   return (
     <>
@@ -32,6 +89,13 @@ function PDFrom({ userInfo, dispatch, userInfoData }: DetailProps) {
                 widget: 'upload',
                 span: '24',
                 readSpan: 3,
+                initialValue: userInfoData?.avatar
+                  ? [
+                      {
+                        dataURL: userInfoData?.avata,
+                      },
+                    ]
+                  : [],
                 widgetProps: {
                   uploadType: 'card',
                   multiple: true,
@@ -40,6 +104,7 @@ function PDFrom({ userInfo, dispatch, userInfoData }: DetailProps) {
                     showPreviewIcon: true,
                     showRemoveIcon: true,
                   },
+                  onChange: (value: any) => upload(value),
                 },
               },
               {
@@ -83,13 +148,7 @@ function PDFrom({ userInfo, dispatch, userInfoData }: DetailProps) {
                 span: '12',
                 initialValue: userInfo?.phoneNumber || '',
                 required: true,
-                rules: [
-                  { required: true, message: '请输入手机号码' },
-                  {
-                    pattern: new RegExp(/^1[34578]\d{9}$/g),
-                    message: '请输入正确手机号',
-                  },
-                ],
+                rules: [{ required: true, message: '请输入手机号码' }],
               },
               {
                 label: '邮箱',
@@ -125,14 +184,26 @@ function PDFrom({ userInfo, dispatch, userInfoData }: DetailProps) {
             style={{ marginTop: -14, width: 80, marginLeft: 4 }}
             type="primary"
             onClick={submit}
+            loading={loading}
           >
             保存
           </Button>
           <Button
             style={{ marginTop: -14, width: 80, marginLeft: 4 }}
             type="primary"
-            onClick={() => {
-              form && form.resetForm()
+            loading={loading}
+            onClick={async () => {
+              form &&
+                (await form.setFields({
+                  ...userInfo,
+                  image: userInfoData?.avatar
+                    ? [
+                        {
+                          dataURL: userInfoData?.avata,
+                        },
+                      ]
+                    : [],
+                }))
             }}
           >
             重置

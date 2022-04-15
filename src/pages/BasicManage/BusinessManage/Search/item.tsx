@@ -6,27 +6,53 @@ export const columnsSearch = (
 ) => {
   return [
     {
-      title: '商业区编号',
+      title: '社区编号',
       align: 'center',
       key: 'zoneNo',
       ellipsis: true,
       props: {
         widget: 'input',
         widgetProps: {
-          placeholder: '请输入商业区编号',
+          placeholder: '请输入社区编号',
         },
       },
     },
     {
-      title: '商业区名',
+      title: '社区名称',
       key: 'zoneName',
       align: 'center',
       props: {
         widget: 'input',
         widgetProps: {
-          placeholder: '请输入商业区名',
+          placeholder: '请输入社区名称',
         },
       },
+    },
+    {
+      title: '省',
+      key: 'provinceName',
+      align: 'center',
+    },
+    {
+      title: '市',
+      key: 'cityName',
+      align: 'center',
+    },
+    {
+      title: '区',
+      key: 'areaName',
+      align: 'center',
+    },
+    {
+      title: '社区地址',
+      key: 'address',
+      align: 'center',
+      width: 230,
+    },
+    {
+      title: '备注',
+      key: 'zoneRemark',
+      align: 'center',
     },
     {
       title: '操作',
