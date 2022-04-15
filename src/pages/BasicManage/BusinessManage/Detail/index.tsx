@@ -147,7 +147,7 @@ const Detail = (props: {
               dispatch({
                 type: 'BusinessManage/updateState',
                 payload: {
-                  loading: true,
+                  loading: false,
                 },
               })
               return

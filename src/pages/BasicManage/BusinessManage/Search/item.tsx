@@ -47,6 +47,7 @@ export const columnsSearch = (
       title: '社区地址',
       key: 'address',
       align: 'center',
+      width: 230,
     },
     {
       title: '备注',
