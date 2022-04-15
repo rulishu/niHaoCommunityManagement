@@ -14,4 +14,13 @@ function modifyProfile(params: any) {
     body: { ...params },
   })
 }
-export { getProfile, modifyProfile }
+
+//文件上传
+function fileUpload(params: any) {
+  return request('/api/file/upload', {
+    method: 'POST',
+    requestType: 'form',
+    body: params,
+  })
+}
+export { getProfile, modifyProfile, fileUpload }

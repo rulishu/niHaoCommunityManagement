@@ -1,7 +1,7 @@
 import { Dispatch } from '@uiw-admin/models'
 import { createModel, RematchDispatch } from '@rematch/core'
 import { Notify } from 'uiw'
-import { getProfile, modifyProfile } from '@/servers/PersonalPage'
+import { getProfile, modifyProfile, fileUpload } from '@/servers/PersonalPage'
 interface State {
   title: string
   index: string
@@ -38,18 +38,25 @@ const userInfo = createModel()({
           userInfoData: data?.data || {},
         })
       } else {
-        Notify.warning({ title: data?.message || '' })
+        Notify.error({ title: data?.message || '' })
       }
     },
 
     //个人信息修改
     async getdifyProfile(payload) {
-      const data = await modifyProfile({ ...payload })
-      if (data.code === 1) {
-        Notify.success({ title: data?.message || '' })
-      } else {
-        Notify.warning({ title: data?.message || '' })
-      }
+      return await modifyProfile({ ...payload })
+
+      // const data = await modifyProfile({ ...payload })
+      // if (data.code === 1) {
+      //   Notify.success({ title: data?.message || '' })
+      // } else {
+      //   Notify.error({ title: data?.message || '' })
+      // }
+    },
+
+    //文件上传
+    async getFileUpload(payload) {
+      return await fileUpload({ ...payload })
     },
   }),
 })
