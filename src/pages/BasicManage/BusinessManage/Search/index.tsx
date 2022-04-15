@@ -55,6 +55,18 @@ export default function Demo() {
       updateData({ drawerVisible: true, queryInfo: {} })
     }
     if (type === 'edit' || type === 'view') {
+      dispatch({
+        type: 'BusinessManage/selectByCityCodeList',
+        payload: {
+          areaCode: obj?.provinceCode,
+        },
+      })
+      dispatch({
+        type: 'BusinessManage/selectByAreaCodeList',
+        payload: {
+          areaCode: obj?.cityCode,
+        },
+      })
       updateData({ drawerVisible: true, queryInfo: obj })
     }
     if (type === 'del') {
