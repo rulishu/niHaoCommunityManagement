@@ -1,24 +1,31 @@
 import { useState } from 'react'
 import { ProForm } from '@uiw-admin/components'
 import { Notify, Button } from 'uiw'
-
-function CPFrom() {
+import { useNavigate } from 'react-router-dom'
+interface DetailProps {
+  dispatch?: any
+  userInfoData: any
+}
+function CPFrom({ dispatch, userInfoData }: DetailProps) {
   const [btnIcon, setBtnIcon] = useState('lock' as any)
   const [newPwd, setNewPwd] = useState('lock' as any)
   const [newPwd2, setNewPwd2] = useState('lock' as any)
   const matters = [
     '1. 密码必须由字母(区分大小写)、数字组成',
-    '2. 密码长度为6-12位',
+    '2. 密码长度为6-16位',
     '3. 密码必须包含数字',
     '4. 密码必须包含字母',
-    '5. 新密码不能与旧密码相同',
+    '5. 密码必须包含已下特殊字符, 例如: ?=.*[._~!@#$^&*',
+    '6. 新密码不能与旧密码相同',
   ]
+
+  const navigate = useNavigate()
 
   //提交按钮
   const onAddSubmit = async (current: any) => {
     if (
-      !/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,12}$/g.test(
-        current?.newPassword || current?.newPasswordtow || current?.oldPassword
+      !/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[._~!@#$^&*])[A-Za-z0-9._~!@#$^&*]{6,16}$/g.test(
+        current?.newPassword || current?.newPasswordtow
       )
     ) {
       return Notify.error({ description: '请确认格式是否正确！' })
@@ -32,6 +39,22 @@ function CPFrom() {
     ) {
       return Notify.error({ description: '新密码不能与旧密码相同！' })
     }
+    dispatch({
+      type: 'userInfo/getModifyPassword',
+      payload: {
+        originalpwd: current?.oldPassword,
+        newpwd: current?.newPassword,
+        confirmpwd: current?.newPasswordtow,
+      },
+    }).then((data: any) => {
+      if (data?.code === 1) {
+        localStorage.clear()
+        sessionStorage.clear()
+        navigate('/login', { replace: true })
+      } else {
+        Notify.error({ title: data?.message || '' })
+      }
+    })
   }
 
   const onClick = () => {

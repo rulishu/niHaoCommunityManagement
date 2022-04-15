@@ -35,7 +35,7 @@ function PersonalPage() {
           />
         )
       case '2':
-        return <CPFrom />
+        return <CPFrom dispatch={dispatch} userInfoData={userInfoData} />
       default:
         return null
     }
