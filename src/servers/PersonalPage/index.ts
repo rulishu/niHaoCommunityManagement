@@ -23,4 +23,13 @@ function fileUpload(params: any) {
     body: params,
   })
 }
-export { getProfile, modifyProfile, fileUpload }
+
+//修改密码
+function modifyPassword(params: any) {
+  return request('/api/account/modifyPassword', {
+    method: 'POST',
+    body: { ...params },
+  })
+}
+
+export { getProfile, modifyProfile, fileUpload, modifyPassword }

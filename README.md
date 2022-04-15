@@ -19,7 +19,7 @@ npm run build
 http://192.168.188.222:33701/doc.html#/home
 
 账号 ：nihao  
-密码：123456
+密码：123456@a
 
 ## git提交规范
 
