@@ -50,12 +50,13 @@ const Drawer = (props: {
   } = useSelector((state: RootState) => state)
 
   const setValue = (value: string) => {
-    dispatch({
-      type: 'PredepositsManage/selectAdvanceDepostAmountByCode',
-      payload: {
-        code: value,
-      },
-    })
+    tableType === 'edit' &&
+      dispatch({
+        type: 'PredepositsManage/selectAdvanceDepostAmountByCode',
+        payload: {
+          code: value,
+        },
+      })
   }
   const onClose = () => {
     dispatch({
@@ -120,15 +121,6 @@ const Drawer = (props: {
       },
     })
   }
-  // const onChangeItem =  (data:RefundAmount) => {
-  // console.log('data',data);
-
-  // props.updateData({
-  //   refundAmountList:[
-  //      ...data
-  //   ]
-  // })
-  // }
 
   return (
     <ProDrawer

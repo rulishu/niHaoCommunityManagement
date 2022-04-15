@@ -65,11 +65,13 @@ export const columnsSearch = (
     title: '收款人',
     key: 'chargeName',
     align: 'center',
+    width: 90,
   },
   {
     title: '收款时间',
     key: 'chargingTime',
     align: 'center',
+    width: 180,
   },
   {
     title: '状态',
@@ -81,6 +83,7 @@ export const columnsSearch = (
         { label: '退还', value: '2' },
       ],
     },
+    width: 50,
     align: 'center',
     render: (status: string) => (
       <div style={{ textAlign: 'center' }}>
@@ -92,6 +95,7 @@ export const columnsSearch = (
     title: '单号',
     key: 'oddNumbers',
     align: 'center',
+    // width: 300,
   },
   {
     title: '操作',
