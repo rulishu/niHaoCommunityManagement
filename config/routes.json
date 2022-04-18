@@ -32,6 +32,19 @@
         ]
       },
       {
+        "path": "/ownerManagement",
+        "name": "业主管理",
+        "icon": "user",
+        "routes": [
+          {
+            "path": "/ownerManagement/ownerInformation",
+            "name": "业主管理",
+            "icon": "user",
+            "component": "@/pages/OwnerManagement/OwnerInformation"
+          }
+        ]
+      },
+      {
         "path": "/chargeManagement",
         "name": "收费管理",
         "icon": "pay-circle-o",
