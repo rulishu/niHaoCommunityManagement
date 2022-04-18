@@ -11,6 +11,7 @@ interface State {
   title: string
   index: string
   userInfoData: any
+  roleList: []
 }
 const userInfo = createModel()({
   name: 'userInfo',
@@ -18,6 +19,7 @@ const userInfo = createModel()({
     title: '基本信息',
     index: '1',
     userInfoData: {},
+    roleList: [],
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({
@@ -39,8 +41,18 @@ const userInfo = createModel()({
       const dph = dispatch as Dispatch
       const data = await getProfile(null)
       if (data.code === 1) {
+        let roleList = []
+        if (Array.isArray(data?.data?.roleList)) {
+          roleList = data?.data?.roleList.map((item: any) => {
+            return {
+              value: item.roleId,
+              label: item.roleName,
+            }
+          })
+        }
         dph.userInfo.updateState({
           userInfoData: data?.data || {},
+          roleList,
         })
       } else {
         Notify.error({ title: data?.message || '' })

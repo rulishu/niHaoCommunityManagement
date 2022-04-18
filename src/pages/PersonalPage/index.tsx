@@ -14,7 +14,7 @@ function PersonalPage() {
   const dispatch = useDispatch<Dispatch>()
 
   const {
-    userInfo: { title, index, userInfoData },
+    userInfo: { title, index, userInfoData, roleList },
   }: any = useSelector((state: RootState) => state)
 
   const onButName = (data: any) => {
@@ -32,10 +32,11 @@ function PersonalPage() {
             userInfo={userInfoData?.user || {}}
             dispatch={dispatch}
             userInfoData={userInfoData}
+            roleList={roleList}
           />
         )
       case '2':
-        return <CPFrom dispatch={dispatch} userInfoData={userInfoData} />
+        return <CPFrom dispatch={dispatch} />
       default:
         return null
     }

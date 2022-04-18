@@ -4,9 +4,8 @@ import { Notify, Button } from 'uiw'
 import { useNavigate } from 'react-router-dom'
 interface DetailProps {
   dispatch?: any
-  userInfoData: any
 }
-function CPFrom({ dispatch, userInfoData }: DetailProps) {
+function CPFrom({ dispatch }: DetailProps) {
   const [btnIcon, setBtnIcon] = useState('lock' as any)
   const [newPwd, setNewPwd] = useState('lock' as any)
   const [newPwd2, setNewPwd2] = useState('lock' as any)

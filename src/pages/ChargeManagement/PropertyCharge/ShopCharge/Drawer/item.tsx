@@ -252,7 +252,6 @@ const items = (
           }
         },
         allowClear: true,
-        // style: { width: '100%' },
       },
     },
   ]
