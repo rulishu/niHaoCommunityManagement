@@ -1,10 +1,24 @@
 import { Button } from 'uiw'
-import { Change } from '@/servers/BasicManage/ChargeManage'
+import { Change } from '@/servers/BasicManage/ShopManage'
 
 export const columnsSearch = (
-  handleEditTable: (tableType: string, obj: Change) => void
+  handleEditTable: (tableType: string, obj: Change) => void,
+  selectZoneList: any
 ) => {
   return [
+    {
+      title: '社区名称',
+      align: 'center',
+      key: 'zoneName',
+      ellipsis: true,
+      props: {
+        widget: 'select',
+        option: selectZoneList,
+        widgetProps: {
+          placeholder: '请输入社区名称',
+        },
+      },
+    },
     {
       title: '商铺编号',
       align: 'center',
@@ -14,6 +28,18 @@ export const columnsSearch = (
         widget: 'input',
         widgetProps: {
           placeholder: '请输入商铺编号',
+        },
+      },
+    },
+    {
+      title: '商铺名称',
+      align: 'center',
+      key: 'shopName',
+      ellipsis: true,
+      props: {
+        widget: 'input',
+        widgetProps: {
+          placeholder: '请输入商铺名称',
         },
       },
     },

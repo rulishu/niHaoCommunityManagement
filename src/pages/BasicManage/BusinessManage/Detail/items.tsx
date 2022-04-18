@@ -3,6 +3,7 @@ import { Dispatch } from '@uiw-admin/models'
 
 export const items = (
   queryInfo: Change,
+  tableType: string,
   parentDivCodeList: [],
   cityCodeList: [],
   areaCodeList: [],
@@ -20,6 +21,8 @@ export const items = (
       widgetProps: {
         placeholder: '请输入社区编号',
       },
+      hide: tableType === 'add' ? true : false,
+      disabled: tableType === 'edit' ? true : false,
       rules: [{ required: true, message: '请输入社区编号' }],
     },
     {

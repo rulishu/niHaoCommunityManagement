@@ -2,6 +2,8 @@ import { request } from '@uiw-admin/utils'
 
 export interface Change {
   id?: string
+  zoneId?: string
+  zoneName?: string
   shopName?: string
   shopNo?: string
   shopFloor?: string
@@ -18,6 +20,12 @@ function selectById(params: Change) {
     body: { ...params },
   })
 }
+function selectZoneList(params: Change) {
+  return request('/api/buZone/selectZoneList', {
+    method: 'POST',
+    body: { ...params },
+  })
+}
 
 const selectPage = '/api/buShop/selectPage'
 
@@ -27,4 +35,4 @@ const insert = '/api/buShop/add'
 
 const deleteData = '/api/buShop/delete'
 
-export { selectById, selectPage, update, insert, deleteData }
+export { selectById, selectPage, update, insert, deleteData, selectZoneList }

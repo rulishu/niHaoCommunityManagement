@@ -1,9 +1,9 @@
-import { Fragment } from 'react'
+import { Fragment, useEffect } from 'react'
 import { ProTable, useTable } from '@uiw-admin/components'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import { columnsSearch } from './item'
-import { useDispatch } from 'react-redux'
-import { Dispatch } from '@uiw-admin/models'
+import { useDispatch, useSelector } from 'react-redux'
+import { Dispatch, RootState } from '@uiw-admin/models'
 import { selectPage, Change } from '@/servers/BasicManage/ShopManage'
 import Drawer from '../Detail'
 import Modals from '../Modals'
@@ -19,6 +19,16 @@ interface State {
 
 export default function Demo() {
   const dispatch = useDispatch<Dispatch>()
+
+  useEffect(() => {
+    dispatch({
+      type: 'ShopManage/selectZoneList',
+    })
+  }, [dispatch])
+
+  const {
+    ShopManage: { selectZoneList },
+  } = useSelector((ShopManage: RootState) => ShopManage)
 
   const updateData = (payload: State) => {
     dispatch({
@@ -52,7 +62,7 @@ export default function Demo() {
       tableType: type,
     })
     if (type === 'add') {
-      updateData({ drawerVisible: true, queryInfo: { status: '1' } })
+      updateData({ drawerVisible: true, queryInfo: {} })
     }
     if (type === 'edit' || type === 'view') {
       updateData({ drawerVisible: true, queryInfo: obj })
@@ -89,7 +99,7 @@ export default function Demo() {
           },
         ]}
         table={table}
-        columns={columnsSearch(handleEditTable) as FormCol[]}
+        columns={columnsSearch(handleEditTable, selectZoneList) as FormCol[]}
       />
       <Drawer updateData={updateData} onSearch={table.onSearch} />
       <Modals onSearch={table.onSearch} />

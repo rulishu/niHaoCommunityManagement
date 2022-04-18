@@ -5,8 +5,9 @@ interface DetailProps {
   userInfo?: any
   dispatch?: any
   userInfoData: any
+  roleList: any
 }
-function PDFrom({ userInfo, dispatch, userInfoData }: DetailProps) {
+function PDFrom({ userInfo, dispatch, userInfoData, roleList }: DetailProps) {
   const [loading, setLoading] = useState(false)
 
   const form = useForm() as any
@@ -26,6 +27,7 @@ function PDFrom({ userInfo, dispatch, userInfoData }: DetailProps) {
     if (!/^1[34578]\d{9}$/g.test(value?.phoneNumber))
       return Notify.warning({ title: '请输入正确手机号' })
     delete value?.image
+    delete value?.roleList
     setLoading(true)
     dispatch({
       type: 'userInfo/getdifyProfile',
@@ -117,18 +119,6 @@ function PDFrom({ userInfo, dispatch, userInfoData }: DetailProps) {
                 rules: [{ required: true, message: '请输入姓名' }],
               },
               {
-                label: '用户状态',
-                key: 'status',
-                widget: 'select',
-                span: '12',
-                disabled: true,
-                initialValue: userInfo?.status,
-                option: [
-                  { value: 1, label: '正常' },
-                  { value: 2, label: '停用' },
-                ],
-              },
-              {
                 label: '性别',
                 key: 'gender',
                 widget: 'select',
@@ -141,6 +131,31 @@ function PDFrom({ userInfo, dispatch, userInfoData }: DetailProps) {
                 required: true,
                 rules: [{ required: true, message: '请选择性别' }],
               },
+              {
+                label: '用户类型',
+                key: 'roleList',
+                widget: 'searchSelect',
+                span: '12',
+                disabled: true,
+                initialValue: roleList.map((item: any) => item?.value),
+                option: roleList,
+                widgetProps: {
+                  mode: 'multiple',
+                },
+              },
+              {
+                label: '用户状态',
+                key: 'status',
+                widget: 'select',
+                span: '12',
+                disabled: true,
+                initialValue: userInfo?.status,
+                option: [
+                  { value: 1, label: '正常' },
+                  { value: 2, label: '停用' },
+                ],
+              },
+
               {
                 label: '手机号码',
                 key: 'phoneNumber',
@@ -203,6 +218,7 @@ function PDFrom({ userInfo, dispatch, userInfoData }: DetailProps) {
                         },
                       ]
                     : [],
+                  roleList: roleList.map((item: any) => item?.value),
                 }))
             }}
           >

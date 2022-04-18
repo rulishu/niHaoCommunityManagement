@@ -1,4 +1,8 @@
-import { selectById, Change } from '../../servers/BasicManage/ShopManage'
+import {
+  selectById,
+  Change,
+  selectZoneList,
+} from '../../servers/BasicManage/ShopManage'
 import { Dispatch, RootModel } from '@uiw-admin/models'
 import { createModel, RematchDispatch } from '@rematch/core'
 
@@ -10,6 +14,7 @@ interface State {
   id: string
   delectVisible: boolean
   loading: boolean
+  selectZoneList: any
 }
 
 const ShopManage = createModel<RootModel>()({
@@ -22,6 +27,7 @@ const ShopManage = createModel<RootModel>()({
     isView: false,
     delectVisible: false,
     loading: false,
+    selectZoneList: [],
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({
@@ -34,16 +40,31 @@ const ShopManage = createModel<RootModel>()({
       const dph = dispatch as Dispatch
       const data = await selectById(payload)
       if (data.code === 1) {
-        dph.users.updateState({
+        dph.ShopManage.updateState({
           drawerVisible: true,
           queryInfo: data.data || {},
+        })
+      }
+    },
+    async selectZoneList(payload: Change) {
+      const dph = dispatch as Dispatch
+      const data = await selectZoneList(payload)
+
+      if (data.code === 1) {
+        let selectZoneList = data.data.map((itm: any) => ({
+          label: itm.zoneName,
+          value: itm.zoneName,
+        }))
+
+        dph.ShopManage.updateState({
+          selectZoneList: selectZoneList,
         })
       }
     },
 
     clean() {
       const dph = dispatch as Dispatch
-      dph.users.updateState({
+      dph.ShopManage.updateState({
         drawerVisible: false,
         tableType: '',
         queryInfo: {},

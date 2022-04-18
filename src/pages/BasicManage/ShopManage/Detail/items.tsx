@@ -1,20 +1,21 @@
 import { Change } from '@/servers/BasicManage/ShopManage'
 
-export const items = (queryInfo: Change, tableType: string) => [
+export const items = (
+  queryInfo: Change,
+  tableType: string,
+  selectZoneList: any
+) => [
   {
     label: '社区',
-    key: 'shopName',
+    key: 'zoneName',
     widget: 'select',
-    option: [
-      { label: '中心区商业街', value: '中心区商业街' },
-      { label: '瀚海大道商业街', value: '瀚海大道商业街' },
-      { label: '经济开发区', value: '经济开发区' },
-      { label: 'xxx', value: 'xxx' },
-    ],
-    initialValue: queryInfo?.shopName,
-    widgetProps: {},
+    option: selectZoneList,
+    initialValue: queryInfo?.zoneName,
+    widgetProps: {
+      placeholder: '请选择社区',
+    },
     required: true,
-    placeholder: '请选择社区',
+    disabled: tableType === 'edit' ? true : false,
     rules: [{ required: true, message: '请选择社区' }],
   },
   {
@@ -23,15 +24,51 @@ export const items = (queryInfo: Change, tableType: string) => [
     widget: 'input',
     initialValue: queryInfo?.shopNo,
     required: true,
-    rules: [{ required: true, message: '请输入商铺编号' }],
+    widgetProps: {
+      placeholder: '建议使用社区号-楼层号',
+    },
+    hide: tableType === 'add' ? true : false,
+    disabled: tableType === 'edit' ? true : false,
+    rules: [
+      {
+        required: true,
+        message: '请选择商铺编号',
+      },
+    ],
+  },
+  {
+    label: '商铺名称',
+    key: 'shopName',
+    widget: 'input',
+    initialValue: queryInfo?.shopName,
+    required: true,
+    widgetProps: {
+      placeholder: '请选择商铺名称',
+    },
+    // disabled: tableType==='edit'? true:false,
+    rules: [
+      {
+        required: true,
+        message: '请选择商铺名称',
+      },
+    ],
   },
   {
     label: '楼层',
     key: 'shopFloor',
     widget: 'input',
     initialValue: queryInfo?.shopFloor,
+    widgetProps: {
+      placeholder: '请输入楼层',
+    },
+    disabled: tableType === 'edit' ? true : false,
     required: true,
-    rules: [{ required: true, message: '请输入楼层' }],
+    rules: [
+      {
+        pattern: new RegExp(/(^[0-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/),
+        message: '请正确输入楼层',
+      },
+    ],
   },
   {
     label: '占地面积',
@@ -41,11 +78,13 @@ export const items = (queryInfo: Change, tableType: string) => [
     required: true,
     widgetProps: {
       addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>m^2</div>,
+      placeholder: '请输入占地面积',
     },
+    disabled: tableType === 'edit' ? true : false,
     rules: [
       {
         pattern: new RegExp(/(^[1-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/),
-        message: '请正确输入',
+        message: '请正确输入占地面积',
       },
     ],
   },
@@ -57,11 +96,12 @@ export const items = (queryInfo: Change, tableType: string) => [
     required: true,
     widgetProps: {
       addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>m^2</div>,
+      placeholder: '请输入使用面积',
     },
     rules: [
       {
         pattern: new RegExp(/(^[1-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/),
-        message: '请正确输入',
+        message: '请正确输入使用面积',
       },
     ],
   },
@@ -72,11 +112,12 @@ export const items = (queryInfo: Change, tableType: string) => [
     initialValue: queryInfo?.shopRent,
     widgetProps: {
       addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>元</div>,
+      placeholder: '请输入租金',
     },
     rules: [
       {
         pattern: new RegExp(/(^[1-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/),
-        message: '请正确输入',
+        message: '请正确输入租金',
       },
     ],
   },
@@ -91,7 +132,9 @@ export const items = (queryInfo: Change, tableType: string) => [
       { label: '已出租', value: 3 },
     ],
     initialValue: queryInfo?.status,
-    widgetProps: {},
+    widgetProps: {
+      placeholder: '请选择使用状态',
+    },
     required: true,
     hide: tableType === 'edit' ? false : true,
     placeholder: '请选择使用状态',
@@ -101,6 +144,9 @@ export const items = (queryInfo: Change, tableType: string) => [
     label: '备注',
     key: 'remark',
     widget: 'textarea',
+    widgetProps: {
+      placeholder: '请输入备注',
+    },
     initialValue: queryInfo?.remark,
   },
 ]

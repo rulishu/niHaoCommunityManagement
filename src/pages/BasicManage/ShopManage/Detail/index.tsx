@@ -19,8 +19,16 @@ const Detail = (props: {
 }) => {
   const baseRef = useForm()
   const dispatch = useDispatch<Dispatch>()
+
   const {
-    ShopManage: { drawerVisible, tableType, queryInfo, isView, loading },
+    ShopManage: {
+      drawerVisible,
+      tableType,
+      queryInfo,
+      isView,
+      loading,
+      selectZoneList,
+    },
   } = useSelector((ShopManage: RootState) => ShopManage)
 
   const onClose = () => {
@@ -118,7 +126,7 @@ const Detail = (props: {
         onChange={(initial, current) =>
           props.updateData({ queryInfo: { ...queryInfo, ...current } })
         }
-        formDatas={items(queryInfo, tableType)}
+        formDatas={items(queryInfo, tableType, selectZoneList)}
       />
     </ProDrawer>
   )
