@@ -8,7 +8,7 @@ export const columnsSearch = (
     {
       title: '社区',
       align: 'center',
-      key: 'zoneId',
+      key: 'zoneName',
       ellipsis: true,
     },
     {
