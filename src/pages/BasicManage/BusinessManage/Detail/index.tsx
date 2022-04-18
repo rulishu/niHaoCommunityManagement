@@ -167,6 +167,7 @@ const Detail = (props: {
         onChange={(initial, current) => onChange(initial, current)}
         formDatas={items(
           queryInfo,
+          tableType,
           parentDivCodeList,
           cityCodeList,
           areaCodeList,
