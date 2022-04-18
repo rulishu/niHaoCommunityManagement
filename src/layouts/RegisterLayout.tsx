@@ -98,15 +98,15 @@ const RegisterLayout = () => {
             // inline: true,
             label: `用户性别`,
             labelFor: 'gender',
-            initialValue: 0,
+            initialValue: 1,
             children: (
               <Select
                 id="gender"
                 placeholder={`请选择用户性别`}
                 className="form-field"
               >
-                <Select.Option value={0}>男</Select.Option>
-                <Select.Option value={1}>女</Select.Option>
+                <Select.Option value={1}>男</Select.Option>
+                <Select.Option value={2}>女</Select.Option>
               </Select>
             ),
           },
