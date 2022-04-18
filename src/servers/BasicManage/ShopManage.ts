@@ -3,6 +3,7 @@ import { request } from '@uiw-admin/utils'
 export interface Change {
   id?: string
   zoneId?: string
+  zoneName?: string
   shopName?: string
   shopNo?: string
   shopFloor?: string
