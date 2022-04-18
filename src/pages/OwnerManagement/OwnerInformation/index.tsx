@@ -1,7 +1,12 @@
 import { Fragment } from 'react'
+import { useDispatch } from 'react-redux'
+import { Dispatch } from '@uiw-admin/models'
 import { ProTable, useTable } from '@uiw-admin/components'
-import { Icon } from 'uiw'
+import { Icon, Button } from 'uiw'
+import Drawers from './Drawer'
 export default function Index() {
+  const dispatch = useDispatch<Dispatch>()
+
   // 查询
   const table = useTable('/api/buOwnerManage/selectInfo', {
     query: (pageIndex, pageSize, searchValues) => {
@@ -19,6 +24,17 @@ export default function Index() {
       }
     },
   })
+  const handleEditTable = (data: any) => {
+    dispatch({
+      type: 'ownerInformation/getSelectInfo',
+      payload: { id: data?.id || '' },
+    })
+    dispatch({
+      type: 'ownerInformation/updateState',
+      payload: { drawerVisible: true, queryInfo: { ...data } },
+    })
+  }
+
   return (
     <Fragment>
       <div className="proTableBox">
@@ -114,9 +130,28 @@ export default function Index() {
                 </div>
               ),
             },
+            {
+              title: '操作',
+              key: 'edit',
+              align: 'center',
+              ellipsis: true,
+              width: 150,
+              render: (text: any, type: string, data: any) => (
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Button onClick={() => handleEditTable(data)}>详情</Button>
+                </div>
+              ),
+            },
           ]}
         />
       </div>
+      <Drawers />
     </Fragment>
   )
 }
