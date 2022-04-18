@@ -5,7 +5,6 @@ import { RootState, Dispatch } from '@uiw-admin/models'
 import { insert, update } from '@/servers/BasicManage/ShopManage'
 import { items } from './items'
 import useSWR from 'swr'
-import { useEffect } from 'react'
 
 interface State {
   drawerVisible?: boolean
@@ -20,12 +19,6 @@ const Detail = (props: {
 }) => {
   const baseRef = useForm()
   const dispatch = useDispatch<Dispatch>()
-
-  useEffect(() => {
-    dispatch({
-      type: 'ShopManage/selectZoneList',
-    })
-  }, [dispatch])
 
   const {
     ShopManage: {
