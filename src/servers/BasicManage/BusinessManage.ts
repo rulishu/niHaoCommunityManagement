@@ -1,10 +1,14 @@
 import { request } from '@uiw-admin/utils'
 
 export interface Change {
-  id?: string,
+  id?: string
   zoneNo?: string
   zoneName?: string
   zoneRemark?: string
+  provinceCode?: string
+  cityCode?: string
+  areaCode?: string
+  address?: string
 }
 
 function selectById(params: Change) {
@@ -14,6 +18,12 @@ function selectById(params: Change) {
   })
 }
 
+function selectByParentCode(params: Change) {
+  return request('/api/area/selectByParentCode', {
+    method: 'POST',
+    body: { ...params },
+  })
+}
 
 const selectPage = '/api/buZone/selectPage'
 
@@ -23,4 +33,11 @@ const insert = '/api/buZone/add'
 
 const deleteData = '/api/buZone/delete'
 
-export { selectById, selectPage, update, insert, deleteData }
+export {
+  selectById,
+  selectPage,
+  update,
+  insert,
+  deleteData,
+  selectByParentCode,
+}
