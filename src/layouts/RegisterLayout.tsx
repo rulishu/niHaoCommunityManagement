@@ -105,8 +105,8 @@ const RegisterLayout = () => {
                 placeholder={`请选择用户性别`}
                 className="form-field"
               >
-                <Select.Option value={0}>男</Select.Option>
-                <Select.Option value={1}>女</Select.Option>
+                <Select.Option value={1}>男</Select.Option>
+                <Select.Option value={2}>女</Select.Option>
               </Select>
             ),
           },
