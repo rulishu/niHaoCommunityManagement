@@ -77,7 +77,6 @@ function PDFrom({ userInfo, dispatch, userInfoData, roleList }: DetailProps) {
       })
     }
   }
-  console.log(roleList.map((item: any) => item?.value))
   return (
     <>
       {JSON.stringify(userInfo) !== '{}' && (
@@ -219,6 +218,7 @@ function PDFrom({ userInfo, dispatch, userInfoData, roleList }: DetailProps) {
                         },
                       ]
                     : [],
+                  roleList: roleList.map((item: any) => item?.value),
                 }))
             }}
           >
