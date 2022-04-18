@@ -40,8 +40,8 @@ export const items = (queryInfo: Usermanagement, isView: boolean) => [
     initialValue: queryInfo?.gender,
     hide: !isView,
     option: [
-      { value: 0, label: '男' },
-      { value: 1, label: '女' },
+      { value: 1, label: '男' },
+      { value: 2, label: '女' },
     ],
   },
   {

@@ -6,6 +6,12 @@ export const columnsSearch = (
 ) => {
   return [
     {
+      title: '社区',
+      align: 'center',
+      key: 'zoneId',
+      ellipsis: true,
+    },
+    {
       title: '商铺编号',
       align: 'center',
       key: 'shopNo',
@@ -16,6 +22,12 @@ export const columnsSearch = (
           placeholder: '请输入商铺编号',
         },
       },
+    },
+    {
+      title: '商铺名称',
+      align: 'center',
+      key: 'shopName',
+      ellipsis: true,
     },
     {
       title: '楼层',
