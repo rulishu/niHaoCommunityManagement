@@ -52,7 +52,7 @@ export default function Demo() {
       tableType: type,
     })
     if (type === 'add') {
-      updateData({ drawerVisible: true, queryInfo: { status: '1' } })
+      updateData({ drawerVisible: true, queryInfo: {} })
     }
     if (type === 'edit' || type === 'view') {
       updateData({ drawerVisible: true, queryInfo: obj })
