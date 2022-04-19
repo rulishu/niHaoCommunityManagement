@@ -103,7 +103,7 @@ export const items = (queryInfo: Change) => {
       widget: 'input',
       initialValue: queryInfo?.rentalMonth,
       required: true,
-      hide: queryInfo?.useStatus === '2' ? false : true,
+      hide: queryInfo?.useStatus === 2 ? false : true,
       widgetProps: {
         addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>月</div>,
       },
@@ -115,7 +115,7 @@ export const items = (queryInfo: Change) => {
       widget: 'input',
       initialValue: queryInfo?.sale,
       required: true,
-      hide: queryInfo?.useStatus === '2' ? false : true,
+      hide: queryInfo?.useStatus === 2 ? false : true,
       widgetProps: {
         addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>元</div>,
       },

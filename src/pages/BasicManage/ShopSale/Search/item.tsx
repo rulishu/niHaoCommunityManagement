@@ -24,19 +24,19 @@ export const columnsSearch = (
         label: '使用状态',
         widget: 'select',
         option: [
-          { label: '空置', value: '1' },
-          { label: '已出租', value: '2' },
-          { label: '已出售', value: '3' },
+          { label: '空置', value: 1 },
+          { label: '已出租', value: 2 },
+          { label: '已出售', value: 3 },
         ],
       },
-      render: (useStatus: string) => (
+      render: (useStatus: number) => (
         <div style={{ textAlign: 'center' }}>
           <span>
-            {useStatus === '1'
+            {useStatus === 1
               ? '空置'
-              : useStatus === '2'
+              : useStatus === 2
               ? '已出租'
-              : useStatus === '3'
+              : useStatus === 3
               ? '已出售'
               : ''}
           </span>
@@ -69,6 +69,14 @@ export const columnsSearch = (
       title: '行业',
       align: 'center',
       key: 'industry',
+      render: (text: string, key: string, rowData: Change) => {
+        console.log('rowData', rowData)
+        return (
+          <div style={{ textAlign: 'center' }}>
+            <span>{rowData?.industryName}</span>
+          </div>
+        )
+      },
     },
     {
       title: '开始时间',
@@ -86,7 +94,7 @@ export const columnsSearch = (
       align: 'center',
       render: (text: any, key: any, rowData: Change) => (
         <div>
-          {rowData.useStatus === '1' && (
+          {rowData.useStatus === 1 && (
             <Button
               size="small"
               icon="eye"
@@ -95,7 +103,7 @@ export const columnsSearch = (
               绑定客户
             </Button>
           )}
-          {rowData.useStatus !== '1' && (
+          {rowData.useStatus !== 1 && (
             <Button
               size="small"
               icon="edit"
@@ -111,7 +119,7 @@ export const columnsSearch = (
           >
             查看
           </Button> */}
-          {rowData.useStatus !== '1' && (
+          {rowData.useStatus !== 1 && (
             <Button
               size="small"
               icon="delete"

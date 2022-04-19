@@ -23,7 +23,7 @@ export interface Change {
   shopsId?: string
   zoneName?: string
   code?: string
-  useStatus?: string
+  useStatus?: number
   userName?: string
   card?: string
   gender?: string
@@ -34,6 +34,7 @@ export interface Change {
   industry?: string
   remark?: string
   chargeList: listProps[]
+  industryName?: string
 }
 
 export interface listProps {
