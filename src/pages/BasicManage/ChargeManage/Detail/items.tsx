@@ -52,9 +52,9 @@ export const items = (
           rules: [
             {
               required: !hide,
-              pattern: new RegExp(
-                /(^[1-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/
-              ),
+              // pattern: new RegExp(
+              //   /(^[1-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/
+              // ),
               message: '请正确输入单价',
             },
           ],
@@ -139,9 +139,9 @@ export const items = (
           rules: [
             {
               required: !hide,
-              pattern: new RegExp(
-                /(^[1-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/
-              ),
+              // pattern: new RegExp(
+              //   /(^[1-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/
+              // ),
               message: '请正确输入',
             },
           ],
