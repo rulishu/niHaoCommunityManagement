@@ -53,7 +53,7 @@ const ShopManage = createModel<RootModel>()({
       if (data.code === 1) {
         let selectZoneList = data.data.map((itm: any) => ({
           label: itm.zoneName,
-          value: itm.zoneName,
+          value: itm.id,
         }))
 
         dph.ShopManage.updateState({
