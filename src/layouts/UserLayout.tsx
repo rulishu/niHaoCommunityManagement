@@ -34,14 +34,14 @@ const UserLayout = () => {
           sessionStorage.setItem('token', data.token)
           sessionStorage.setItem(
             'auth',
-            JSON.stringify(data.data.menuList || [])
+            JSON.stringify(data?.data?.menuList || ['/home'])
           )
-
           navigate('/home', { replace: true })
+          console.log('执行')
         } else {
           Notify.error({
             title: '错误通知',
-            description: data.error || '请求失败',
+            description: data.message || '请求失败',
           })
         }
       }}
