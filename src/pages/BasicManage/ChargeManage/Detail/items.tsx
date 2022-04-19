@@ -15,7 +15,9 @@ export const items = (
           widget: 'select',
           option: statusList,
           initialValue: queryInfo?.chargeType,
-          widgetProps: {},
+          widgetProps: {
+            placeholder: '请选择类型',
+          },
           required: true,
           placeholder: '请选择类型',
           span: '8',
@@ -26,6 +28,9 @@ export const items = (
           key: 'chargeName',
           initialValue: queryInfo?.chargeName,
           widget: 'input',
+          widgetProps: {
+            placeholder: '请输入收费项目名',
+          },
           required: true,
           span: '8',
           rules: [{ required: true, message: '请输入收费项目名' }],
@@ -37,18 +42,20 @@ export const items = (
           initialValue: queryInfo?.chargePrice,
           required: !hide,
           hide: hide,
-          // hide: queryInfo?.chargeType !== '1' ? true : false,
           span: '8',
           widgetProps: {
             addonAfter: (
               <div style={{ color: '#A6A6A6', marginRight: 5 }}>元</div>
             ),
+            placeholder: '请输入单价',
           },
           rules: [
             {
               required: !hide,
-              // pattern: new RegExp(/(^[1-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/),
-              message: '请正确输入',
+              // pattern: new RegExp(
+              //   /(^[1-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/
+              // ),
+              message: '请正确输入单价',
             },
           ],
         },
@@ -59,8 +66,10 @@ export const items = (
           initialValue: queryInfo?.chargeNumType,
           required: !hide,
           hide: hide,
-          // hide: queryInfo?.chargeType !== '1' ? true : false,
           option: standardList,
+          widgetProps: {
+            placeholder: '请输入收费标准',
+          },
           span: '8',
           rules: [{ required: !hide, message: '请输入收费标准' }],
         },
@@ -71,7 +80,9 @@ export const items = (
           initialValue: queryInfo?.chargeMonth,
           required: !hide,
           hide: hide,
-          // hide: queryInfo?.chargeType !== '1' ? true : false,
+          widgetProps: {
+            placeholder: '请输入计算周期',
+          },
           option: [
             { label: '1个月', value: 1 },
             { label: '2个月', value: 2 },
@@ -91,7 +102,9 @@ export const items = (
           widget: 'select',
           option: statusList,
           initialValue: queryInfo?.chargeType,
-          widgetProps: {},
+          widgetProps: {
+            placeholder: '请输入请选择类型',
+          },
           required: true,
           placeholder: '请选择类型',
           span: '8',
@@ -102,6 +115,9 @@ export const items = (
           key: 'chargeName',
           initialValue: queryInfo?.chargeName,
           widget: 'input',
+          widgetProps: {
+            placeholder: '请输入收费项目名',
+          },
           required: true,
           span: '8',
           rules: [{ required: true, message: '请输入收费项目名' }],
@@ -112,18 +128,20 @@ export const items = (
           widget: 'input',
           initialValue: queryInfo?.chargePrice,
           required: !hide,
-          // hide: hide,
           hide: queryInfo?.chargeType !== '1' ? true : false,
           span: '8',
           widgetProps: {
             addonAfter: (
               <div style={{ color: '#A6A6A6', marginRight: 5 }}>元</div>
             ),
+            placeholder: '请输入单价',
           },
           rules: [
             {
               required: !hide,
-              // pattern: new RegExp(/(^[1-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/),
+              // pattern: new RegExp(
+              //   /(^[1-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/
+              // ),
               message: '请正确输入',
             },
           ],
@@ -134,7 +152,9 @@ export const items = (
           widget: 'select',
           initialValue: queryInfo?.chargeNumType,
           required: !hide,
-          // hide: hide,
+          widgetProps: {
+            placeholder: '请输入收费标准',
+          },
           hide: queryInfo?.chargeType !== '1' ? true : false,
           option: standardList,
           span: '8',
@@ -146,7 +166,9 @@ export const items = (
           widget: 'select',
           initialValue: queryInfo?.chargeMonth,
           required: !hide,
-          // hide: hide,
+          widgetProps: {
+            placeholder: '请输入计算周期',
+          },
           hide: queryInfo?.chargeType !== '1' ? true : false,
           option: [
             { label: '1个月', value: 1 },

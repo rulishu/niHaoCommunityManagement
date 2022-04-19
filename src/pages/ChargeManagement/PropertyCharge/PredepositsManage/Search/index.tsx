@@ -83,6 +83,7 @@ const Search = () => {
     <React.Fragment>
       <ProTable
         bordered
+        scroll={{ x: 1500 }}
         // 操作栏按钮
         operateButtons={[
           {
