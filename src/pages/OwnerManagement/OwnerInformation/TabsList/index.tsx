@@ -12,16 +12,16 @@ export default function Index() {
     <Fragment>
       <Tabs type="card" activeKey="rout">
         <Tabs.Pane label="商铺信息" key="rout">
-          <Table columns={columns} data={dataList?.data || []} />
-        </Tabs.Pane>
-        <Tabs.Pane label="历史商铺信息" key="tem">
-          <Table columns={columns} data={[]} />
+          <Table columns={columns as any} data={[dataList?.buSaleShop || {}]} />
         </Tabs.Pane>
         <Tabs.Pane label="待缴费信息" key="dep">
-          <Table columns={columnsTwo} data={[]} />
+          <Table columns={columnsTwo as any} data={dataList?.waitDate || []} />
         </Tabs.Pane>
         <Tabs.Pane label="历史缴费信息" key="adv">
-          <Table columns={columnsThree} data={[]} />
+          <Table
+            columns={columnsThree as any}
+            data={dataList?.histroyData || []}
+          />
         </Tabs.Pane>
       </Tabs>
     </Fragment>
