@@ -7,10 +7,10 @@ export const items = (
 ) => [
   {
     label: '社区',
-    key: 'zoneName',
+    key: 'zoneId',
     widget: 'select',
     option: selectZoneList,
-    initialValue: queryInfo?.zoneName,
+    initialValue: queryInfo?.zoneId,
     widgetProps: {
       placeholder: '请选择社区',
     },

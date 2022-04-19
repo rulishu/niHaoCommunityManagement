@@ -9,7 +9,7 @@ export const columnsSearch = (
     {
       title: '社区名称',
       align: 'center',
-      key: 'zoneName',
+      key: 'zoneId',
       ellipsis: true,
       props: {
         widget: 'select',
@@ -18,6 +18,11 @@ export const columnsSearch = (
           placeholder: '请输入社区名称',
         },
       },
+      render: (text: any, key: any, rowData: Change) => (
+        <div style={{ textAlign: 'center' }}>
+          <span>{rowData?.zoneName}</span>
+        </div>
+      ),
     },
     {
       title: '商铺编号',
