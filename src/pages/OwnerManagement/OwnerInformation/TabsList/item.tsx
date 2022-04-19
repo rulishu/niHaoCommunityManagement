@@ -11,12 +11,12 @@ export const columns = [
   },
   {
     title: '开始时间',
-    key: 'info',
+    key: 'startTime',
     ellipsis: true,
   },
   {
     title: '结束时间',
-    key: 'info1',
+    key: 'endTime',
     ellipsis: true,
   },
 ]
