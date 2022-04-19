@@ -19,10 +19,10 @@ export function verifyPhone(phone: string) {
 }
 
 // 时间转化
-export function changeTimeFormat(str: any) {
+export function changeTimeFormat(str: string | number | Date) {
   const clock = (str + '').split(' ')[4]
   if ((str + '').indexOf('-') !== -1) {
-    str = str.replace(new RegExp(/-/gm), '/')
+    str = (str as string).replace(new RegExp(/-/gm), '/')
   }
   const d = new Date(str)
   const newDateYear = d.getFullYear()
@@ -34,7 +34,7 @@ export function changeTimeFormat(str: any) {
 }
 
 // 深拷贝
-export function deepClone(target: any) {
+export function deepClone(target: Object) {
   const _target = JSON.stringify(target)
   const objClone = JSON.parse(_target)
   return objClone
