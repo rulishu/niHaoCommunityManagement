@@ -31,7 +31,7 @@ export default function Details() {
           {detailed?.areaUsable || ''}
         </Descriptions.Item>
         <Descriptions.Item label="行业">
-          {detailed?.industry || ''}
+          {detailed?.industryName || ''}
         </Descriptions.Item>
         <Descriptions.Item label="客户姓名">
           {detailed?.userName || ''}

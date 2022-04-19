@@ -31,7 +31,7 @@ const login = createModel<RootModel>()({
         Notify.success({ title: data.message })
         navigate('/login', { replace: true })
       } else {
-        Notify.error({ title: '注册失败！' })
+        Notify.error({ title: data?.message || '' })
       }
       history.push('')
     },

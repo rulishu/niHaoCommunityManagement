@@ -28,6 +28,7 @@ const ownerInformation = createModel()({
       dph.ownerInformation.updateState({
         drawerVisible: false,
         queryInfo: {},
+        dataList: {},
       })
     },
     // 详情
