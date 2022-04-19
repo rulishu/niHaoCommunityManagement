@@ -15,6 +15,7 @@ import { items, itemsList } from './items'
 import DetailAdd from './detailAdd/Index'
 import DeatailModals from '../Modals/detailModals/index'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
+import { useEffect } from 'react'
 
 interface State {
   drawerDetailVisible?: boolean
@@ -32,8 +33,24 @@ const Detail = (props: {
 }) => {
   const baseRef = useForm()
   const dispatch = useDispatch<Dispatch>()
+
+  useEffect(() => {
+    dispatch({
+      type: 'ShopSale/selectDictList',
+      payload: {
+        dictType: '从事行业',
+      },
+    })
+  }, [dispatch])
+
   const {
-    ShopSale: { drawerVisible, tableType, queryInfo, queryInfoList },
+    ShopSale: {
+      drawerVisible,
+      tableType,
+      queryInfo,
+      queryInfoList,
+      industryList,
+    },
   } = useSelector((ShopSale: RootState) => ShopSale)
 
   const { mutate } = useSWR(
@@ -138,7 +155,7 @@ const Detail = (props: {
           onChange={(initial, current) =>
             props.updateData({ queryInfo: { ...queryInfo, ...current } })
           }
-          formDatas={items(queryInfo)}
+          formDatas={items(queryInfo, industryList)}
         />
       )}
 

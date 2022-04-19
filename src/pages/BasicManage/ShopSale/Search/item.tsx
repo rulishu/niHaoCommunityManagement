@@ -70,7 +70,6 @@ export const columnsSearch = (
       align: 'center',
       key: 'industry',
       render: (text: string, key: string, rowData: Change) => {
-        console.log('rowData', rowData)
         return (
           <div style={{ textAlign: 'center' }}>
             <span>{rowData?.industryName}</span>

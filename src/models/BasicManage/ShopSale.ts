@@ -3,6 +3,7 @@ import {
   Change,
   detailData,
   listProps,
+  selectDictList,
 } from '../../servers/BasicManage/ShopSale'
 import { Dispatch, RootModel } from '@uiw-admin/models'
 import { createModel, RematchDispatch } from '@rematch/core'
@@ -23,6 +24,7 @@ export interface State {
   delectDetailVisible: boolean
   arrData: listProps[]
   queryInfoList: listProps[]
+  industryList: any
 }
 
 const ShopSale = createModel<RootModel>()({
@@ -43,6 +45,7 @@ const ShopSale = createModel<RootModel>()({
     delectDetailVisible: false,
     arrData: [],
     queryInfoList: [],
+    industryList: [],
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({
@@ -69,6 +72,20 @@ const ShopSale = createModel<RootModel>()({
         dph.ShopSale.updateState({
           drawerDetailVisible: true,
           dataSource: data.data.rows,
+        })
+      }
+    },
+    async selectDictList(payload: Change) {
+      const dph = dispatch as Dispatch
+      const data = await selectDictList(payload)
+
+      if (data.code === 1) {
+        let industryList = data.data.map((itm: any) => ({
+          label: itm.dictName,
+          value: itm.dictCode.toString(),
+        }))
+        dph.ShopSale.updateState({
+          industryList: industryList,
         })
       }
     },

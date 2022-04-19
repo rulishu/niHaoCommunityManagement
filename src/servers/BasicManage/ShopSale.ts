@@ -63,6 +63,13 @@ function detailData(params: Change) {
     body: { ...params },
   })
 }
+// 从事行业字典
+function selectDictList(params: Change) {
+  return request('/api/dictionary/selectDictList', {
+    method: 'POST',
+    body: { ...params },
+  })
+}
 
 // 商铺租售接口
 const selectPage = '/api/SaleShops/selectPage'
@@ -106,4 +113,5 @@ export {
   seraSelectPage,
   seraAdd,
   buChargeAdd,
+  selectDictList,
 }

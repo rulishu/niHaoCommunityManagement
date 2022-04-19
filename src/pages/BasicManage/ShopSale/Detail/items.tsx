@@ -1,7 +1,7 @@
 import { Change } from '@/servers/BasicManage/ShopSale'
 import { Button } from 'uiw'
 
-export const items = (queryInfo: Change) => {
+export const items = (queryInfo: Change, industryList: []) => {
   return [
     // {
     //   label: '商铺',
@@ -133,19 +133,7 @@ export const items = (queryInfo: Change) => {
       widget: 'select',
       initialValue: queryInfo?.industry,
       required: true,
-      option: [
-        { label: '房产/装修/租售', value: '房产/装修/租售' },
-        { label: '手机数码/通讯服务', value: '手机数码/通讯服务' },
-        { label: '教育/出国', value: '教育/出国' },
-        { label: '计算机/互联网', value: '计算机/互联网' },
-        { label: '美食餐饮', value: '美食餐饮' },
-        { label: '旅游/出行', value: '旅游/出行' },
-        { label: '金融/保险', value: '金融/保险' },
-        { label: '工业/工业品', value: '工业/工业品' },
-        { label: '商业服务', value: '商业服务' },
-        { label: '收破烂', value: '收破烂' },
-        { label: '收废品', value: '收废品' },
-      ],
+      option: industryList,
       rules: [{ required: true, message: '请输入从事的行业' }],
     },
     {
