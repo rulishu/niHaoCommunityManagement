@@ -120,7 +120,7 @@ const Detail = (props: {
       detailtableType: detailType,
     })
     if (detailType === 'deAdd') {
-      updateData({ drawerDetailVisible: true, queryInfo: obj })
+      updateData({ drawerDetailVisible: true })
     }
     if (detailType === 'deDel') {
       updateData({ delectDetailVisible: true, id: obj?.id })
