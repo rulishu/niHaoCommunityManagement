@@ -211,9 +211,9 @@ const Modals = (props: {
       }}
       onClosed={onClose}
     >
-      <div style={{ whiteSpace: 'break-spaces' }}>
+      {/* <div style={{ whiteSpace: 'break-spaces' }}>
         选中的值{JSON.stringify(table && table.selection.selected)}
-      </div>
+      </div> */}
       <ProTable
         table={table}
         bordered
