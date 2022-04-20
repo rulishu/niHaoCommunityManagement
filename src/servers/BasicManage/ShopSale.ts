@@ -7,8 +7,6 @@ export interface State {
   detailType: string
   detailtableType: string
   queryInfo: Change
-  dataSource: Array<[]>
-  detailDataSource: any
   isView: boolean
   id: string
   shopsId: string
@@ -23,7 +21,7 @@ export interface Change {
   shopsId?: string
   zoneName?: string
   code?: string
-  useStatus?: string
+  useStatus?: number
   userName?: string
   card?: string
   gender?: string
@@ -34,6 +32,7 @@ export interface Change {
   industry?: string
   remark?: string
   chargeList: listProps[]
+  industryName?: string
 }
 
 export interface listProps {
@@ -56,8 +55,9 @@ function selectById(params: Change) {
     body: { ...params },
   })
 }
-function detailData(params: Change) {
-  return request('/api/buCharge/selectPage', {
+// 从事行业字典
+function selectDictList(params: Change) {
+  return request('/api/dictionary/selectDictList', {
     method: 'POST',
     body: { ...params },
   })
@@ -93,7 +93,6 @@ const contactDelete = '/api/buShopsCharge/delete'
 
 export {
   selectById,
-  detailData,
   selectPage,
   update,
   insert,
@@ -105,4 +104,5 @@ export {
   seraSelectPage,
   seraAdd,
   buChargeAdd,
+  selectDictList,
 }

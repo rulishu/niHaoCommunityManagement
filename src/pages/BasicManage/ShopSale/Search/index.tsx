@@ -52,10 +52,10 @@ export default function Demo() {
       isView: type === 'view',
       tableType: type,
     })
-    if (type === 'rent' || type === 'sale' || type === 'add') {
+    if (type === 'add') {
       updateData({ drawerVisible: true, queryInfo: {} })
     }
-    if (type === 'edit') {
+    if (type === 'rent' || type === 'sale' || type === 'edit') {
       updateData({
         drawerVisible: true,
         queryInfo: obj,

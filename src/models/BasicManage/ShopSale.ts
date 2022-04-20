@@ -1,8 +1,8 @@
 import {
   selectById,
   Change,
-  detailData,
   listProps,
+  selectDictList,
 } from '../../servers/BasicManage/ShopSale'
 import { Dispatch, RootModel } from '@uiw-admin/models'
 import { createModel, RematchDispatch } from '@rematch/core'
@@ -14,8 +14,6 @@ export interface State {
   detailType: string
   detailtableType: string
   queryInfo: Change
-  dataSource: Array<[]>
-  detailDataSource: any
   isView: boolean
   id?: number
   shopsId: string
@@ -23,6 +21,7 @@ export interface State {
   delectDetailVisible: boolean
   arrData: listProps[]
   queryInfoList: listProps[]
+  industryList: any
 }
 
 const ShopSale = createModel<RootModel>()({
@@ -34,8 +33,6 @@ const ShopSale = createModel<RootModel>()({
     detailType: '',
     detailtableType: '',
     queryInfo: { chargeList: [] },
-    dataSource: [],
-    detailDataSource: {},
     id: undefined,
     shopsId: '',
     isView: false,
@@ -43,6 +40,7 @@ const ShopSale = createModel<RootModel>()({
     delectDetailVisible: false,
     arrData: [],
     queryInfoList: [],
+    industryList: [],
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({
@@ -62,13 +60,17 @@ const ShopSale = createModel<RootModel>()({
         })
       }
     },
-    async detailData(payload: Change) {
+    async selectDictList(payload: Change) {
       const dph = dispatch as Dispatch
-      const data = await detailData(payload)
+      const data = await selectDictList(payload)
+
       if (data.code === 1) {
+        let industryList = data.data.map((itm: any) => ({
+          label: itm.dictName,
+          value: itm.dictCode.toString(),
+        }))
         dph.ShopSale.updateState({
-          drawerDetailVisible: true,
-          dataSource: data.data.rows,
+          industryList: industryList,
         })
       }
     },
@@ -81,7 +83,6 @@ const ShopSale = createModel<RootModel>()({
         tableType: '',
         detailType: '',
         queryInfo: { chargeList: [] },
-        dataSource: [],
         isView: false,
       })
     },

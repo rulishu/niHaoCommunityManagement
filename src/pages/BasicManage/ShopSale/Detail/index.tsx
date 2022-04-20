@@ -8,13 +8,14 @@ import {
 import { Notify, Table, Button } from 'uiw'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
-import { update } from '@/servers/BasicManage/ShopSale'
+import { update, seraAdd } from '@/servers/BasicManage/ShopSale'
 import useSWR from 'swr'
 import { seraSelectPage, Change } from '@/servers/BasicManage/ShopSale'
 import { items, itemsList } from './items'
 import DetailAdd from './detailAdd/Index'
 import DeatailModals from '../Modals/detailModals/index'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
+import { useEffect } from 'react'
 
 interface State {
   drawerDetailVisible?: boolean
@@ -32,12 +33,38 @@ const Detail = (props: {
 }) => {
   const baseRef = useForm()
   const dispatch = useDispatch<Dispatch>()
+
+  useEffect(() => {
+    dispatch({
+      type: 'ShopSale/selectDictList',
+      payload: {
+        dictType: '从事行业',
+      },
+    })
+  }, [dispatch])
+
   const {
-    ShopSale: { drawerVisible, tableType, queryInfo, queryInfoList },
+    ShopSale: {
+      drawerVisible,
+      tableType,
+      queryInfo,
+      queryInfoList,
+      industryList,
+    },
   } = useSelector((ShopSale: RootState) => ShopSale)
 
   const { mutate } = useSWR(
-    [tableType === 'edit' && update, { method: 'POST', body: queryInfo }],
+    [
+      (tableType === 'rent' || tableType === 'sale') && seraAdd,
+      tableType === 'edit' && update,
+      {
+        method: 'POST',
+        body:
+          tableType === 'rent' || tableType === 'sale'
+            ? { chargeList: queryInfoList, type: tableType === 'rent' ? 2 : 1 }
+            : queryInfo,
+      },
+    ],
     {
       revalidateOnMount: false,
       revalidateOnFocus: false,
@@ -45,7 +72,6 @@ const Detail = (props: {
         if (data && data.code === 1) {
           Notify.success({ title: data.message })
           onClose()
-          props.onSearch()
         } else {
           Notify.error({ title: '提交失败！' })
         }
@@ -63,9 +89,6 @@ const Detail = (props: {
     // 格式化查询参数 会接收到pageIndex 当前页  searchValues 表单数据
     query: (pageIndex, pageSize, searchValues) => {
       return {
-        // page: pageIndex,
-        // pageSize: 10,
-        // ...searchValues,
         type: tableType === 'rent' ? 2 : 1,
       }
     },
@@ -87,10 +110,10 @@ const Detail = (props: {
       detailtableType: detailType,
     })
     if (detailType === 'deAdd') {
-      dispatch({
-        type: 'ShopSale/detailData',
-        payload: { page: 1, pageSize: 200 },
-      })
+      // dispatch({
+      //   type: 'ShopSale/detailData',
+      //   payload: { page: 1, pageSize: 200 },
+      // })
       updateData({ drawerDetailVisible: true, queryInfo: {} })
     }
     if (detailType === 'deDel') {
@@ -138,7 +161,7 @@ const Detail = (props: {
           onChange={(initial, current) =>
             props.updateData({ queryInfo: { ...queryInfo, ...current } })
           }
-          formDatas={items(queryInfo)}
+          formDatas={items(queryInfo, industryList)}
         />
       )}
 
