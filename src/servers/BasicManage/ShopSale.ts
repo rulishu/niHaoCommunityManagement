@@ -27,6 +27,7 @@ export interface Change {
   gender?: string
   phone?: string
   startTime?: string
+  endTime?: string
   rentalMonth?: number
   sale?: string
   industry?: string
@@ -95,6 +96,13 @@ function seraDelete(params: Change) {
     body: { ...params },
   })
 }
+// 用户管理-查业主用户信息
+function selectUserByRole(params: Change) {
+  return request('/api/user/selectUserByRole', {
+    method: 'POST',
+    body: { ...params },
+  })
+}
 
 export {
   selectById,
@@ -108,4 +116,5 @@ export {
   seraAdd,
   selectDictList,
   seraDelete,
+  selectUserByRole,
 }

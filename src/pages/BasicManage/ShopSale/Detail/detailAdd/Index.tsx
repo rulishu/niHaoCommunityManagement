@@ -58,28 +58,6 @@ const Modals = (props: {
     },
   })
 
-  // const { mutate } = useSWR(
-  //   [
-  //     seraAdd,
-  //     {
-  //       method: 'POST',
-  //       body: { chargeList: arrData, type: tableType === 'rent' ? 2 : 1 },
-  //     },
-  //   ],
-  //   {
-  //     revalidateOnMount: false,
-  //     revalidateOnFocus: false,
-  //     onSuccess: (data) => {
-  //       if (data && data.code === 1) {
-  //         onClose()
-  //         props.onSearch()
-  //       } else {
-  //         Notify.error({ title: '提交失败！' })
-  //       }
-  //     },
-  //   }
-  // )
-
   const columns = [
     {
       title: '收费项目名',
@@ -171,7 +149,6 @@ const Modals = (props: {
             queryInfoList: (queryInfoList || []).concat(newArr),
           })
         }
-        // mutate()
       }}
       onCancel={() => {
         onClose()

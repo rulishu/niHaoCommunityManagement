@@ -61,7 +61,7 @@ export default function Demo() {
         payload: {
           page: 1,
           pageSize: 20,
-          type: type === 'rent' ? 2 : 1,
+          type: type === 'rent' ? 2 : type === 'sale' ? 1 : 0,
         },
       })
       updateData({

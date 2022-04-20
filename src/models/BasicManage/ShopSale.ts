@@ -5,6 +5,7 @@ import {
   selectDictList,
   seraSelectPageList,
   seraDelete,
+  selectUserByRole,
 } from '../../servers/BasicManage/ShopSale'
 import { Dispatch, RootModel } from '@uiw-admin/models'
 import { createModel, RematchDispatch } from '@rematch/core'
@@ -25,6 +26,8 @@ export interface State {
   queryInfoList: listProps[]
   tableList: listProps[]
   industryList: any
+  userNameList: any
+  dataList: any
 }
 
 const ShopSale = createModel<RootModel>()({
@@ -45,6 +48,8 @@ const ShopSale = createModel<RootModel>()({
     queryInfoList: [],
     industryList: [],
     tableList: [],
+    userNameList: [],
+    dataList: [],
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({
@@ -56,6 +61,7 @@ const ShopSale = createModel<RootModel>()({
     async selectById(payload: Change) {
       const dph = dispatch as Dispatch
       const data = await selectById(payload)
+
       if (data.code === 1) {
         dph.ShopSale.updateState({
           drawerVisible: true,
@@ -98,6 +104,23 @@ const ShopSale = createModel<RootModel>()({
       if (data.code === 1) {
         dph.ShopSale.updateState({
           drawerDetailVisible: false,
+        })
+      }
+    },
+
+    // 用户管理-查业主用户信息
+    async selectUserByRole(payload: Change) {
+      const dph = dispatch as Dispatch
+      const data = await selectUserByRole(payload)
+      // console.log('data',data.data);
+
+      if (data.code === 1) {
+        dph.ShopSale.updateState({
+          userNameList: data.data.map((itm: any) => ({
+            label: itm.userName,
+            value: itm.userName,
+          })),
+          dataList: data.data,
         })
       }
     },

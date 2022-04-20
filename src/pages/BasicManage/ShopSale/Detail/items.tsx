@@ -1,22 +1,24 @@
 import { Change } from '@/servers/BasicManage/ShopSale'
 import { Button } from 'uiw'
+import { UseFormProps } from '@uiw-admin/components/src/ProForm/type'
 
-export const items = (queryInfo: Change, industryList: []) => {
+export const items = (
+  queryInfo: Change,
+  industryList: [],
+  userNameList: [],
+  dataList: [],
+  baseRef: UseFormProps
+) => {
   return [
-    // {
-    //   label: '商铺',
-    //   key: 'zoneName',
-    //   widget: 'input',
-    //   initialValue: queryInfo?.zoneName,
-    //   disabled: true,
-    //   rules: [{ required: true, message: '请输入商铺' }],
-    // },
     {
       label: '商铺编码',
       key: 'code',
       widget: 'input',
       initialValue: queryInfo?.code,
       disabled: true,
+      widgetProps: {
+        placeholder: '输入商铺编码',
+      },
       rules: [{ required: true, message: '请输入商铺编码' }],
     },
     {
@@ -31,14 +33,39 @@ export const items = (queryInfo: Change, industryList: []) => {
         { label: '已出租', value: '2' },
         { label: '已出售', value: '3' },
       ],
+      widgetProps: {
+        placeholder: '请输入类别',
+      },
       rules: [{ required: true, message: '请输入类别' }],
     },
     {
       label: '客户姓名',
       key: 'userName',
-      widget: 'input',
+      widget: 'select',
       initialValue: queryInfo?.userName,
       required: true,
+      option: userNameList,
+      widgetProps: {
+        mode: 'single',
+        placeholder: '请输入选择',
+        onChange: (e: any) => {
+          dataList.forEach((itm: any) => {
+            if (itm.userName === e.target.value) {
+              // console.log('itm',itm);
+
+              baseRef.setFields &&
+                baseRef.setFields({
+                  card: itm.cardId,
+                  gender:
+                    itm.gender === 1 ? '男' : itm.gender === 2 ? '女' : '保密',
+                  phone: itm.phoneNumber,
+                  startTime: queryInfo?.startTime,
+                  endTime: queryInfo?.endTime,
+                })
+            }
+          })
+        },
+      },
       rules: [{ required: true, message: '请输入客户姓名' }],
     },
     {
@@ -47,6 +74,10 @@ export const items = (queryInfo: Change, industryList: []) => {
       widget: 'input',
       initialValue: queryInfo?.card,
       required: true,
+      disabled: true,
+      widgetProps: {
+        placeholder: '请输入身份证',
+      },
       rules: [
         {
           required: true,
@@ -60,14 +91,13 @@ export const items = (queryInfo: Change, industryList: []) => {
     {
       label: '性别',
       key: 'gender',
-      widget: 'select',
+      widget: 'input',
       initialValue: queryInfo?.gender,
       required: true,
-      option: [
-        { label: '保密', value: '保密' },
-        { label: '男', value: '男' },
-        { label: '女', value: '女' },
-      ],
+      disabled: true,
+      widgetProps: {
+        placeholder: '请输入性别',
+      },
       rules: [{ required: true, message: '请输入性别' }],
     },
     {
@@ -76,6 +106,10 @@ export const items = (queryInfo: Change, industryList: []) => {
       widget: 'input',
       initialValue: queryInfo?.phone,
       required: true,
+      disabled: true,
+      widgetProps: {
+        placeholder: '请输入联系方式',
+      },
       rules: [
         {
           required: true,
@@ -92,8 +126,21 @@ export const items = (queryInfo: Change, industryList: []) => {
       widget: 'dateInput',
       widgetProps: {
         format: 'YYYY-MM-DD HH:mm:ss',
+        placeholder: '请输入开始时间',
       },
       initialValue: queryInfo?.startTime,
+      required: true,
+      rules: [{ required: true, message: '请输入开始时间' }],
+    },
+    {
+      label: '结束时间',
+      key: 'endTime',
+      widget: 'dateInput',
+      widgetProps: {
+        format: 'YYYY-MM-DD HH:mm:ss',
+        placeholder: '请输入开始时间',
+      },
+      initialValue: queryInfo?.endTime,
       required: true,
       rules: [{ required: true, message: '请输入开始时间' }],
     },
@@ -106,6 +153,7 @@ export const items = (queryInfo: Change, industryList: []) => {
       hide: queryInfo?.useStatus === 2 ? false : true,
       widgetProps: {
         addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>月</div>,
+        placeholder: '请输入出租时间',
       },
       rules: [{ required: true, message: '请输入出租时间' }],
     },
@@ -118,6 +166,7 @@ export const items = (queryInfo: Change, industryList: []) => {
       hide: queryInfo?.useStatus === 2 ? false : true,
       widgetProps: {
         addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>元</div>,
+        placeholder: '请输入租金',
       },
       rules: [
         {
@@ -134,6 +183,9 @@ export const items = (queryInfo: Change, industryList: []) => {
       initialValue: queryInfo?.industry,
       required: true,
       option: industryList,
+      widgetProps: {
+        placeholder: '请输入从事的行业',
+      },
       rules: [{ required: true, message: '请输入从事的行业' }],
     },
     {
@@ -141,7 +193,10 @@ export const items = (queryInfo: Change, industryList: []) => {
       key: 'remark',
       widget: 'textarea',
       initialValue: queryInfo?.remark,
-      rules: [{ required: true, message: '备注' }],
+      widgetProps: {
+        placeholder: '请输入备注',
+      },
+      rules: [{ message: '请输入备注' }],
     },
   ]
 }

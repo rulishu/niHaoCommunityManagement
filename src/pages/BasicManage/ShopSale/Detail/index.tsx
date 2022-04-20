@@ -8,7 +8,7 @@ import {
 import { Notify, Table, Button } from 'uiw'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
-import { seraAdd } from '@/servers/BasicManage/ShopSale'
+import { update, seraAdd } from '@/servers/BasicManage/ShopSale'
 import useSWR from 'swr'
 import { seraSelectPage, Change } from '@/servers/BasicManage/ShopSale'
 import { items, itemsList } from './items'
@@ -41,6 +41,9 @@ const Detail = (props: {
         dictType: '从事行业',
       },
     })
+    dispatch({
+      type: 'ShopSale/selectUserByRole',
+    })
   }, [dispatch])
 
   const {
@@ -51,6 +54,8 @@ const Detail = (props: {
       queryInfoList,
       industryList,
       tableList,
+      userNameList,
+      dataList,
     },
   } = useSelector((ShopSale: RootState) => ShopSale)
 
@@ -58,14 +63,16 @@ const Detail = (props: {
 
   const { mutate } = useSWR(
     [
-      (tableType === 'rent' || tableType === 'sale') && seraAdd,
-      // tableType === 'edit' && update,
+      ((tableType === 'rent' || tableType === 'sale') && seraAdd) ||
+        (tableType === 'edit' && update),
       {
         method: 'POST',
         body:
           tableType === 'rent' || tableType === 'sale'
             ? { chargeList: queryInfoList, type: tableType === 'rent' ? 2 : 1 }
-            : queryInfo,
+            : tableType === 'edit'
+            ? queryInfo
+            : '',
       },
     ],
     {
@@ -113,13 +120,19 @@ const Detail = (props: {
       detailtableType: detailType,
     })
     if (detailType === 'deAdd') {
-      updateData({ drawerDetailVisible: true, queryInfo: {} })
+      updateData({ drawerDetailVisible: true, queryInfo: obj })
     }
     if (detailType === 'deDel') {
       updateData({ delectDetailVisible: true, id: obj?.id })
     }
   }
+  const Change = (initial: any, current: any) => {
+    console.log('current', current)
 
+    props.updateData({
+      queryInfo: { ...queryInfo, ...current },
+    })
+  }
   return (
     <ProDrawer
       width={800}
@@ -157,10 +170,14 @@ const Detail = (props: {
           form={baseRef}
           buttonsContainer={{ justifyContent: 'flex-start' }}
           // 更新表单的值
-          onChange={(initial, current) =>
-            props.updateData({ queryInfo: { ...queryInfo, ...current } })
-          }
-          formDatas={items(queryInfo, industryList)}
+          onChange={(initial, current) => Change(initial, current)}
+          formDatas={items(
+            queryInfo,
+            industryList,
+            userNameList,
+            dataList,
+            baseRef
+          )}
         />
       )}
 
