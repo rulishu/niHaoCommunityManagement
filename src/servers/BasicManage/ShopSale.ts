@@ -7,8 +7,6 @@ export interface State {
   detailType: string
   detailtableType: string
   queryInfo: Change
-  dataSource: Array<[]>
-  detailDataSource: any
   isView: boolean
   id: string
   shopsId: string
@@ -57,12 +55,6 @@ function selectById(params: Change) {
     body: { ...params },
   })
 }
-function detailData(params: Change) {
-  return request('/api/buCharge/selectPage', {
-    method: 'POST',
-    body: { ...params },
-  })
-}
 // 从事行业字典
 function selectDictList(params: Change) {
   return request('/api/dictionary/selectDictList', {
@@ -101,7 +93,6 @@ const contactDelete = '/api/buShopsCharge/delete'
 
 export {
   selectById,
-  detailData,
   selectPage,
   update,
   insert,

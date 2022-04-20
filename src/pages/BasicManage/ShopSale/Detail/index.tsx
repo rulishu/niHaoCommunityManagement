@@ -8,7 +8,7 @@ import {
 import { Notify, Table, Button } from 'uiw'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
-import { update } from '@/servers/BasicManage/ShopSale'
+import { update, seraAdd } from '@/servers/BasicManage/ShopSale'
 import useSWR from 'swr'
 import { seraSelectPage, Change } from '@/servers/BasicManage/ShopSale'
 import { items, itemsList } from './items'
@@ -54,7 +54,17 @@ const Detail = (props: {
   } = useSelector((ShopSale: RootState) => ShopSale)
 
   const { mutate } = useSWR(
-    [tableType === 'edit' && update, { method: 'POST', body: queryInfo }],
+    [
+      (tableType === 'rent' || tableType === 'sale') && seraAdd,
+      tableType === 'edit' && update,
+      {
+        method: 'POST',
+        body:
+          tableType === 'rent' || tableType === 'sale'
+            ? { chargeList: queryInfoList, type: tableType === 'rent' ? 2 : 1 }
+            : queryInfo,
+      },
+    ],
     {
       revalidateOnMount: false,
       revalidateOnFocus: false,
@@ -62,7 +72,6 @@ const Detail = (props: {
         if (data && data.code === 1) {
           Notify.success({ title: data.message })
           onClose()
-          props.onSearch()
         } else {
           Notify.error({ title: '提交失败！' })
         }
@@ -80,9 +89,6 @@ const Detail = (props: {
     // 格式化查询参数 会接收到pageIndex 当前页  searchValues 表单数据
     query: (pageIndex, pageSize, searchValues) => {
       return {
-        // page: pageIndex,
-        // pageSize: 10,
-        // ...searchValues,
         type: tableType === 'rent' ? 2 : 1,
       }
     },
@@ -104,10 +110,10 @@ const Detail = (props: {
       detailtableType: detailType,
     })
     if (detailType === 'deAdd') {
-      dispatch({
-        type: 'ShopSale/detailData',
-        payload: { page: 1, pageSize: 200 },
-      })
+      // dispatch({
+      //   type: 'ShopSale/detailData',
+      //   payload: { page: 1, pageSize: 200 },
+      // })
       updateData({ drawerDetailVisible: true, queryInfo: {} })
     }
     if (detailType === 'deDel') {

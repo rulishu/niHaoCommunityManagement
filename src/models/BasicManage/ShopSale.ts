@@ -1,7 +1,6 @@
 import {
   selectById,
   Change,
-  detailData,
   listProps,
   selectDictList,
 } from '../../servers/BasicManage/ShopSale'
@@ -15,8 +14,6 @@ export interface State {
   detailType: string
   detailtableType: string
   queryInfo: Change
-  dataSource: Array<[]>
-  detailDataSource: any
   isView: boolean
   id?: number
   shopsId: string
@@ -36,8 +33,6 @@ const ShopSale = createModel<RootModel>()({
     detailType: '',
     detailtableType: '',
     queryInfo: { chargeList: [] },
-    dataSource: [],
-    detailDataSource: {},
     id: undefined,
     shopsId: '',
     isView: false,
@@ -65,16 +60,6 @@ const ShopSale = createModel<RootModel>()({
         })
       }
     },
-    async detailData(payload: Change) {
-      const dph = dispatch as Dispatch
-      const data = await detailData(payload)
-      if (data.code === 1) {
-        dph.ShopSale.updateState({
-          drawerDetailVisible: true,
-          dataSource: data.data.rows,
-        })
-      }
-    },
     async selectDictList(payload: Change) {
       const dph = dispatch as Dispatch
       const data = await selectDictList(payload)
@@ -98,7 +83,6 @@ const ShopSale = createModel<RootModel>()({
         tableType: '',
         detailType: '',
         queryInfo: { chargeList: [] },
-        dataSource: [],
         isView: false,
       })
     },
