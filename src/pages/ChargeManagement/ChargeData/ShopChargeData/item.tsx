@@ -1,6 +1,6 @@
 import { Button, Divider } from 'uiw'
 
-export const columns = () => {
+export const columns = (shopNoList: Array<any>) => {
   return [
     {
       title: '商铺',
@@ -11,9 +11,11 @@ export const columns = () => {
         {
           label: '商铺',
           key: 'code',
+          initialValue: '',
           widget: 'searchSelect',
-          option: [],
+          option: shopNoList,
           widgetProps: {
+            allowClear: true,
             mode: 'single',
             showSearch: true,
             placeholder: '请选择商铺',
@@ -41,6 +43,7 @@ export const columns = () => {
         {
           label: '收费项目',
           key: 'code1',
+          initialValue: [],
           widget: 'searchSelect',
           option: [],
           widgetProps: {
@@ -57,10 +60,11 @@ export const columns = () => {
       ellipsis: true,
       align: 'center',
       props: {
+        initialValue: [],
         label: '截止时间',
         key: 'dateInputsecond',
         widget: 'dateInputRange',
-        allowClear: true,
+        allowclear: 'true',
         widgetProps: {
           format: 'YYYY-MM-DD',
         },
@@ -72,10 +76,11 @@ export const columns = () => {
       ellipsis: true,
       align: 'center',
       props: {
+        initialValue: [],
         label: '缴费时间',
         key: 'dateInputsecond1',
         widget: 'dateInputRange',
-        allowClear: true,
+        allowclear: 'true',
         widgetProps: {
           format: 'YYYY-MM-DD',
         },
