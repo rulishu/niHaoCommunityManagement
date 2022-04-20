@@ -1,6 +1,6 @@
 import { Button, Divider } from 'uiw'
 
-export const columns = (shopNoList: Array<any>) => {
+export const columns = (shopNoList: Array<any>, projectListt: Array<any>) => {
   return [
     {
       title: '商铺',
@@ -43,9 +43,9 @@ export const columns = (shopNoList: Array<any>) => {
         {
           label: '收费项目',
           key: 'code1',
-          initialValue: [],
+          initialValue: '',
           widget: 'searchSelect',
-          option: [],
+          option: projectListt,
           widgetProps: {
             mode: 'single',
             showSearch: true,

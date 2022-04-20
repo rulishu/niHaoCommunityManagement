@@ -1,12 +1,16 @@
 import { Dispatch, RootModel } from '@uiw-admin/models'
 import { createModel, RematchDispatch } from '@rematch/core'
-import { shopSelectPage } from '@/servers/ChargeManagement/shopCharges'
+import {
+  shopSelectPage,
+  selectProject,
+} from '@/servers/ChargeManagement/shopCharges'
 
 interface State {
   drawerVisible: boolean
   drawerType: string
   queryInfo: any
   shopNoList: Array<any>
+  projectList: Array<any>
 }
 
 const shopCharges = createModel<RootModel>()({
@@ -19,6 +23,8 @@ const shopCharges = createModel<RootModel>()({
     queryInfo: {},
     // 商铺
     shopNoList: [],
+    // 常规收费项类
+    projectList: [],
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({
@@ -45,8 +51,27 @@ const shopCharges = createModel<RootModel>()({
           shopNoList: Array.isArray(data?.data)
             ? data?.data.map((item: any) => {
                 return {
-                  value: item.shopNo,
-                  label: item.shopName,
+                  value: item?.shopNo,
+                  label: item?.shopName,
+                }
+              })
+            : [],
+        })
+      }
+    },
+
+    // 获取常规收费项类
+    async selectProject(payload: any) {
+      const dph = dispatch as Dispatch
+      const data = await selectProject(payload)
+      if (data.code === 1) {
+        dph.shopCharges.updateState({
+          projectList: Array.isArray(data?.data)
+            ? data?.data.map((item: any) => {
+                return {
+                  value: item?.id,
+                  label: item?.chargeName,
+                  chargePrice: item?.chargePrice,
                 }
               })
             : [],
