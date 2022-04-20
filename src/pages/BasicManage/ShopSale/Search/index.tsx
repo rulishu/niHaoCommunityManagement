@@ -56,6 +56,14 @@ export default function Demo() {
       updateData({ drawerVisible: true, queryInfo: {} })
     }
     if (type === 'rent' || type === 'sale' || type === 'edit') {
+      dispatch({
+        type: 'ShopSale/seraSelectPageList',
+        payload: {
+          page: 1,
+          pageSize: 20,
+          type: type === 'rent' ? 2 : type === 'sale' ? 1 : 0,
+        },
+      })
       updateData({
         drawerVisible: true,
         queryInfo: obj,

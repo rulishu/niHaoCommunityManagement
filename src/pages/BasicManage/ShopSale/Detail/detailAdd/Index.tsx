@@ -58,28 +58,6 @@ const Modals = (props: {
     },
   })
 
-  // const { mutate } = useSWR(
-  //   [
-  //     seraAdd,
-  //     {
-  //       method: 'POST',
-  //       body: { chargeList: arrData, type: tableType === 'rent' ? 2 : 1 },
-  //     },
-  //   ],
-  //   {
-  //     revalidateOnMount: false,
-  //     revalidateOnFocus: false,
-  //     onSuccess: (data) => {
-  //       if (data && data.code === 1) {
-  //         onClose()
-  //         props.onSearch()
-  //       } else {
-  //         Notify.error({ title: '提交失败！' })
-  //       }
-  //     },
-  //   }
-  // )
-
   const columns = [
     {
       title: '收费项目名',
@@ -106,46 +84,13 @@ const Modals = (props: {
       ),
     },
     {
-      title: '数量',
+      title: '收费标准',
       key: 'chargeNumType',
       align: 'center',
       ellipsis: true,
-      render: (chargeNumType: string) => (
+      render: (text: any, key: any, rowData: listProps) => (
         <div style={{ textAlign: 'center' }}>
-          <span>
-            {chargeNumType === '1'
-              ? '按户数收费'
-              : chargeNumType === '2'
-              ? '按人口数收费'
-              : chargeNumType === '3'
-              ? '按楼层收费'
-              : chargeNumType === '4'
-              ? '按占地面积收费'
-              : chargeNumType === '5'
-              ? '按使用面积收费'
-              : chargeNumType === '6'
-              ? '按走表数量'
-              : chargeNumType === '7'
-              ? '按租金收费'
-              : ''}
-          </span>
-        </div>
-      ),
-    },
-    {
-      title: '计算公式',
-      key: 'chargeFormula',
-      align: 'center',
-      ellipsis: true,
-      render: (chargeFormula: string) => (
-        <div style={{ textAlign: 'center' }}>
-          <span>
-            {chargeFormula === '1'
-              ? '单价*数量'
-              : chargeFormula === '2'
-              ? '自定义'
-              : ''}
-          </span>
+          <span>{rowData?.chargeNumTypeName}</span>
         </div>
       ),
     },
@@ -204,7 +149,6 @@ const Modals = (props: {
             queryInfoList: (queryInfoList || []).concat(newArr),
           })
         }
-        // mutate()
       }}
       onCancel={() => {
         onClose()
