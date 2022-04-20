@@ -9,8 +9,7 @@ export const columnsSearch = (
     {
       title: '社区名称',
       align: 'center',
-      key: 'zoneName',
-      ellipsis: true,
+      key: 'zoneId',
       props: {
         widget: 'select',
         option: selectZoneList,
@@ -18,12 +17,16 @@ export const columnsSearch = (
           placeholder: '请输入社区名称',
         },
       },
+      render: (text: any, key: any, rowData: Change) => (
+        <div style={{ textAlign: 'center' }}>
+          <span>{rowData?.zoneName}</span>
+        </div>
+      ),
     },
     {
       title: '商铺编号',
       align: 'center',
       key: 'shopNo',
-      ellipsis: true,
       props: {
         widget: 'input',
         widgetProps: {
@@ -35,7 +38,7 @@ export const columnsSearch = (
       title: '商铺名称',
       align: 'center',
       key: 'shopName',
-      ellipsis: true,
+      width: 180,
       props: {
         widget: 'input',
         widgetProps: {
@@ -47,31 +50,26 @@ export const columnsSearch = (
       title: '楼层',
       align: 'center',
       key: 'shopFloor',
-      ellipsis: true,
     },
     {
       title: '占地面积',
       align: 'center',
       key: 'areaCovered',
-      ellipsis: true,
     },
     {
       title: '使用面积',
       align: 'center',
       key: 'areaUsable',
-      ellipsis: true,
     },
     {
       title: '租金',
       align: 'center',
       key: 'shopRent',
-      ellipsis: true,
     },
     {
       title: '使用状态',
       align: 'center',
       key: 'status',
-      ellipsis: true,
       props: {
         label: '使用状态',
         widget: 'select',
@@ -110,13 +108,15 @@ export const columnsSearch = (
           >
             查看
           </Button>
-          <Button
-            size="small"
-            icon="delete"
-            onClick={() => handleEditTable('del', rowData)}
-          >
-            删除
-          </Button>
+          {rowData.status === 1 && (
+            <Button
+              size="small"
+              icon="delete"
+              onClick={() => handleEditTable('del', rowData)}
+            >
+              删除
+            </Button>
+          )}
         </div>
       ),
     },
