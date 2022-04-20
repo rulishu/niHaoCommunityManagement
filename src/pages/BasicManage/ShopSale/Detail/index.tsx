@@ -41,6 +41,9 @@ const Detail = (props: {
         dictType: '从事行业',
       },
     })
+    dispatch({
+      type: 'ShopSale/selectUserByRole',
+    })
   }, [dispatch])
 
   const {
@@ -50,19 +53,26 @@ const Detail = (props: {
       queryInfo,
       queryInfoList,
       industryList,
+      tableList,
+      userNameList,
+      dataList,
     },
   } = useSelector((ShopSale: RootState) => ShopSale)
 
+  let totalList = tableList.concat(queryInfoList)
+
   const { mutate } = useSWR(
     [
-      (tableType === 'rent' || tableType === 'sale') && seraAdd,
-      tableType === 'edit' && update,
+      ((tableType === 'rent' || tableType === 'sale') && seraAdd) ||
+        (tableType === 'edit' && update),
       {
         method: 'POST',
         body:
           tableType === 'rent' || tableType === 'sale'
             ? { chargeList: queryInfoList, type: tableType === 'rent' ? 2 : 1 }
-            : queryInfo,
+            : tableType === 'edit'
+            ? queryInfo
+            : '',
       },
     ],
     {
@@ -110,17 +120,19 @@ const Detail = (props: {
       detailtableType: detailType,
     })
     if (detailType === 'deAdd') {
-      // dispatch({
-      //   type: 'ShopSale/detailData',
-      //   payload: { page: 1, pageSize: 200 },
-      // })
-      updateData({ drawerDetailVisible: true, queryInfo: {} })
+      updateData({ drawerDetailVisible: true })
     }
     if (detailType === 'deDel') {
       updateData({ delectDetailVisible: true, id: obj?.id })
     }
   }
+  const Change = (initial: any, current: any) => {
+    console.log('current', current)
 
+    props.updateData({
+      queryInfo: { ...queryInfo, ...current },
+    })
+  }
   return (
     <ProDrawer
       width={800}
@@ -158,10 +170,14 @@ const Detail = (props: {
           form={baseRef}
           buttonsContainer={{ justifyContent: 'flex-start' }}
           // 更新表单的值
-          onChange={(initial, current) =>
-            props.updateData({ queryInfo: { ...queryInfo, ...current } })
-          }
-          formDatas={items(queryInfo, industryList)}
+          onChange={(initial, current) => Change(initial, current)}
+          formDatas={items(
+            queryInfo,
+            industryList,
+            userNameList,
+            dataList,
+            baseRef
+          )}
         />
       )}
 
@@ -175,64 +191,8 @@ const Detail = (props: {
           </Button>
         }
         columns={itemsList(handleEditTable) as FormCol[]}
-        data={queryInfoList}
+        data={totalList}
       />
-
-      {/* <ProTable
-        operateButtons={[
-          {
-            label: '新增收费项',
-            type: 'primary',
-            onClick: () => {
-              handleEditTable('deAdd', {})
-            },
-          },
-        ]}
-        paginationProps={{
-          pageSizeOptions: [10, 20, 30],
-          pageSize: 10,
-        }}
-        table={deatailTable}
-        columns={
-          [
-          // {
-          //   title: '序号',
-          //   align: 'center',
-          //   key: 'id',
-          //   ellipsis: true,
-          // },
-          {
-            title: '收费项目名',
-            align: 'center',
-            key: 'chargeName',
-            ellipsis: true,
-          },
-          {
-            title: '单价',
-            align: 'center',
-            key: 'chargePrice',
-            ellipsis: true,
-          },
-          {
-            title: '操作',
-            key: 'edit',
-            align: 'center',
-            width: 80,
-            render: (text: any, key: any, rowData: Change) => (
-              <div>
-                <Button
-                  size="small"
-                  icon="delete"
-                  onClick={() => handleEditTable('deDel', rowData)}
-                >
-                  删除
-                </Button>
-              </div>
-            ),
-          },
-        ]
-      }
-      /> */}
 
       <DetailAdd onSearch={deatailTable.onSearch} updateData={updateData} />
       <DeatailModals onSearch={deatailTable.onSearch} updateData={updateData} />

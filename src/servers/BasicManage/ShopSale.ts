@@ -27,6 +27,7 @@ export interface Change {
   gender?: string
   phone?: string
   startTime?: string
+  endTime?: string
   rentalMonth?: number
   sale?: string
   industry?: string
@@ -47,6 +48,7 @@ export interface listProps {
   chargeType?: string
   id?: number
   chargeId?: string
+  chargeNumTypeName?: string
 }
 
 function selectById(params: Change) {
@@ -74,22 +76,33 @@ const deleteData = '/api/SaleShops/delete'
 
 // 收费项管理-收费项-翻页查询
 const detailSelectPage = '/api/buCharge/selectPage'
-// 商铺租售与收费项关联-添加
-const detailAdd = '/api/buShopsCharge/add'
-
-// 商铺租售与收费项关联-添加
-const buChargeAdd = '/api/buCharge/add'
 
 // 添加默认收费项
 const seraAdd = '/api/sera/add'
-
-// 租售和收费相关接口
-const contactSelectPage = '/api/buShopsCharge/selectPage'
-
 // 默认收费项-查询列表
 const seraSelectPage = '/api/sera/selectPage'
-
-const contactDelete = '/api/buShopsCharge/delete'
+// 默认收费项-查询列表
+function seraSelectPageList(params: Change) {
+  return request('/api/sera/selectPage', {
+    method: 'POST',
+    body: { ...params },
+  })
+}
+// 默认收费项删除
+// const seraDelete = '/api/sera/delete'
+function seraDelete(params: Change) {
+  return request('/api/sera/delete', {
+    method: 'POST',
+    body: { ...params },
+  })
+}
+// 用户管理-查业主用户信息
+function selectUserByRole(params: Change) {
+  return request('/api/user/selectUserByRole', {
+    method: 'POST',
+    body: { ...params },
+  })
+}
 
 export {
   selectById,
@@ -98,11 +111,10 @@ export {
   insert,
   deleteData,
   detailSelectPage,
-  detailAdd,
-  contactSelectPage,
-  contactDelete,
   seraSelectPage,
+  seraSelectPageList,
   seraAdd,
-  buChargeAdd,
   selectDictList,
+  seraDelete,
+  selectUserByRole,
 }
