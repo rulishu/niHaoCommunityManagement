@@ -3,6 +3,8 @@ import {
   Change,
   listProps,
   selectDictList,
+  seraSelectPageList,
+  seraDelete,
 } from '../../servers/BasicManage/ShopSale'
 import { Dispatch, RootModel } from '@uiw-admin/models'
 import { createModel, RematchDispatch } from '@rematch/core'
@@ -21,6 +23,7 @@ export interface State {
   delectDetailVisible: boolean
   arrData: listProps[]
   queryInfoList: listProps[]
+  tableList: listProps[]
   industryList: any
 }
 
@@ -41,6 +44,7 @@ const ShopSale = createModel<RootModel>()({
     arrData: [],
     queryInfoList: [],
     industryList: [],
+    tableList: [],
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({
@@ -60,10 +64,11 @@ const ShopSale = createModel<RootModel>()({
         })
       }
     },
+
+    // 从事行业字典接口
     async selectDictList(payload: Change) {
       const dph = dispatch as Dispatch
       const data = await selectDictList(payload)
-
       if (data.code === 1) {
         let industryList = data.data.map((itm: any) => ({
           label: itm.dictName,
@@ -71,6 +76,28 @@ const ShopSale = createModel<RootModel>()({
         }))
         dph.ShopSale.updateState({
           industryList: industryList,
+        })
+      }
+    },
+
+    // 默认收费项-查询列表
+    async seraSelectPageList(payload: Change) {
+      const dph = dispatch as Dispatch
+      const data = await seraSelectPageList(payload)
+      if (data.code === 1) {
+        dph.ShopSale.updateState({
+          tableList: data.data.rows,
+        })
+      }
+    },
+
+    // 默认收费项删除
+    async seraDelete(payload: Change) {
+      const dph = dispatch as Dispatch
+      const data = await seraDelete(payload)
+      if (data.code === 1) {
+        dph.ShopSale.updateState({
+          drawerDetailVisible: false,
         })
       }
     },

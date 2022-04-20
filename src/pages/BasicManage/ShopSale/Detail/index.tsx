@@ -8,7 +8,7 @@ import {
 import { Notify, Table, Button } from 'uiw'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
-import { update, seraAdd } from '@/servers/BasicManage/ShopSale'
+import { seraAdd } from '@/servers/BasicManage/ShopSale'
 import useSWR from 'swr'
 import { seraSelectPage, Change } from '@/servers/BasicManage/ShopSale'
 import { items, itemsList } from './items'
@@ -50,13 +50,16 @@ const Detail = (props: {
       queryInfo,
       queryInfoList,
       industryList,
+      tableList,
     },
   } = useSelector((ShopSale: RootState) => ShopSale)
+
+  let totalList = tableList.concat(queryInfoList)
 
   const { mutate } = useSWR(
     [
       (tableType === 'rent' || tableType === 'sale') && seraAdd,
-      tableType === 'edit' && update,
+      // tableType === 'edit' && update,
       {
         method: 'POST',
         body:
@@ -110,10 +113,6 @@ const Detail = (props: {
       detailtableType: detailType,
     })
     if (detailType === 'deAdd') {
-      // dispatch({
-      //   type: 'ShopSale/detailData',
-      //   payload: { page: 1, pageSize: 200 },
-      // })
       updateData({ drawerDetailVisible: true, queryInfo: {} })
     }
     if (detailType === 'deDel') {
@@ -175,64 +174,8 @@ const Detail = (props: {
           </Button>
         }
         columns={itemsList(handleEditTable) as FormCol[]}
-        data={queryInfoList}
+        data={totalList}
       />
-
-      {/* <ProTable
-        operateButtons={[
-          {
-            label: '新增收费项',
-            type: 'primary',
-            onClick: () => {
-              handleEditTable('deAdd', {})
-            },
-          },
-        ]}
-        paginationProps={{
-          pageSizeOptions: [10, 20, 30],
-          pageSize: 10,
-        }}
-        table={deatailTable}
-        columns={
-          [
-          // {
-          //   title: '序号',
-          //   align: 'center',
-          //   key: 'id',
-          //   ellipsis: true,
-          // },
-          {
-            title: '收费项目名',
-            align: 'center',
-            key: 'chargeName',
-            ellipsis: true,
-          },
-          {
-            title: '单价',
-            align: 'center',
-            key: 'chargePrice',
-            ellipsis: true,
-          },
-          {
-            title: '操作',
-            key: 'edit',
-            align: 'center',
-            width: 80,
-            render: (text: any, key: any, rowData: Change) => (
-              <div>
-                <Button
-                  size="small"
-                  icon="delete"
-                  onClick={() => handleEditTable('deDel', rowData)}
-                >
-                  删除
-                </Button>
-              </div>
-            ),
-          },
-        ]
-      }
-      /> */}
 
       <DetailAdd onSearch={deatailTable.onSearch} updateData={updateData} />
       <DeatailModals onSearch={deatailTable.onSearch} updateData={updateData} />

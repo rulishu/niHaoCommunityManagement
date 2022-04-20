@@ -2,6 +2,9 @@ import { Modal } from 'uiw'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
 import { listProps } from '@/servers/BasicManage/ShopSale'
+// import { Notify } from 'uiw'
+// import useSWR from 'swr'
+// import { seraDelete } from '@/servers/BasicManage/ShopSale'
 
 interface State {
   delectDetailVisible?: boolean
@@ -36,16 +39,34 @@ const Modals = (props: {
       icon="information"
       type="primary"
       onConfirm={() => {
-        let dataList: any = queryInfoList
-        if (queryInfoList.findIndex((item) => item.id === id) > -1) {
-          dataList.splice(
-            queryInfoList.findIndex((item) => item.id === id),
-            1
-          )
-          updateData({
-            queryInfoList: dataList,
-          })
+        if (queryInfoList) {
+          let dataList: any = queryInfoList
+          if (queryInfoList.findIndex((item) => item.id === id) > -1) {
+            dataList.splice(
+              queryInfoList.findIndex((item) => item.id === id),
+              1
+            )
+            updateData({
+              queryInfoList: dataList,
+            })
+          }
         }
+        // if (id) {
+        //   dispatch({
+        //     type: 'ShopSale/seraDelete',
+        //     payload: {
+        //       id: id
+        //     }
+        //   })
+        //   dispatch({
+        //     type: 'ShopSale/seraSelectPageList',
+        //     payload: {
+        //       page: 1,
+        //       pageSize: 20,
+        //       type: tableType === 'rent' ? 2 : 1,
+        //     }
+        //   })
+        // }
       }}
       onCancel={() => onClose()}
       onClosed={onClose}
