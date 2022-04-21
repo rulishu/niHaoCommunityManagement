@@ -70,7 +70,7 @@ const selectPage = '/api/SaleShops/selectPage'
 
 const update = '/api/SaleShops/update'
 
-const insert = '/api/test/select'
+const insert = '/api/SaleShops/add'
 
 const deleteData = '/api/SaleShops/delete'
 

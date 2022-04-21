@@ -16,7 +16,7 @@ const Modals = (props: {
 }) => {
   const dispatch = useDispatch<Dispatch>()
   const {
-    ShopSale: { delectDetailVisible, id, queryInfoList },
+    ShopSale: { delectDetailVisible, deteilId, queryInfoList },
   } = useSelector((state: RootState) => state)
 
   const updateData = (payload: State) => {
@@ -41,9 +41,9 @@ const Modals = (props: {
       onConfirm={() => {
         if (queryInfoList) {
           let dataList: any = queryInfoList
-          if (queryInfoList.findIndex((item) => item.id === id) > -1) {
+          if (queryInfoList.findIndex((item) => item.id === deteilId) > -1) {
             dataList.splice(
-              queryInfoList.findIndex((item) => item.id === id),
+              queryInfoList.findIndex((item) => item.id === deteilId),
               1
             )
             updateData({
