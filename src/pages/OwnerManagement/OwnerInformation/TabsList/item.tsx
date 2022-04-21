@@ -10,7 +10,7 @@ export const columns = [
     key: 'useStatus',
     ellipsis: true,
     align: 'center',
-    rerender: (text: any) => (
+    render: (text: any) => (
       <div>
         {Number(text) === 2 ? '已出售' : Number(text) === 3 ? '已出租' : ''}
       </div>

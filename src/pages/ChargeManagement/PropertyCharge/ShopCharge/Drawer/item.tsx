@@ -41,14 +41,7 @@ export const matching = (
       return items(queryInfo, payment, form, tyoeList, setTyoeList)
     case 'temAdd':
     case 'depositAdd':
-      return temAddItems(
-        queryInfo,
-        option,
-        payment,
-        shopChargeList,
-        searchParms,
-        detailed
-      )
+      return temAddItems(option, payment, shopChargeList, searchParms, detailed)
     case 'storage':
       return storageItem(
         queryInfo,
@@ -59,7 +52,7 @@ export const matching = (
         shopChargeList
       )
     case 'return':
-      return returnItem(queryInfo, option, searchParms, detailed, payment)
+      return returnItem(option, searchParms, detailed, payment)
     case 'details':
     case 'returnMoney':
     case 'see':
@@ -92,7 +85,6 @@ const items = (
       widget: 'input',
       disabled: true,
       required: true,
-      initialValue: queryInfo?.shouldPaySum,
     },
     {
       label: '找零金额',
@@ -100,7 +92,7 @@ const items = (
       widget: 'input',
       span: 6,
       disabled: true,
-      initialValue: queryInfo?.sumByZero,
+      required: true,
     },
     {
       label: '可用预存款',
@@ -108,7 +100,6 @@ const items = (
       widget: 'input',
       disabled: true,
       span: 6,
-      initialValue: queryInfo?.preBunt,
     },
     {
       label: '预存款付款',
@@ -116,7 +107,6 @@ const items = (
       widget: 'input',
       disabled: true,
       span: 6,
-      initialValue: queryInfo?.preBuntPaySum,
     },
     {
       label: '找零结存',
@@ -124,17 +114,23 @@ const items = (
       widget: 'input',
       disabled: true,
       span: 6,
-      initialValue: queryInfo?.balanceByZero,
     },
     {
       label: '收款金额',
       key: 'fund',
       widget: 'input',
       span: 6,
-      initialValue: queryInfo?.name,
       widgetProps: {
         onBlur: (e: any) => {
           const fromData = form.getFieldValues()
+          if (
+            e?.target?.value &&
+            !/(^[0-9]{1,100}$)|(^[0-9]{1,100}[\\.]{1}[0-9]{1,2}$)/.test(
+              e?.target?.value
+            )
+          ) {
+            return
+          }
           if (tyoeList.length === 0) {
             form.setFields({
               ...fromData,
@@ -185,7 +181,6 @@ const items = (
         placeholder: '请选择付款方式',
         mode: 'single',
       },
-      initialValue: queryInfo?.name,
     },
 
     {
@@ -197,6 +192,7 @@ const items = (
         { label: '使用预付款', value: 1 },
         { label: '找零结存', value: 2 },
       ],
+      initialValue: [],
       widgetProps: {
         mode: 'multiple',
         onChange: (value: any) => {
@@ -208,8 +204,8 @@ const items = (
               preBuntPaySum: 0,
               balanceByZero: 0,
               sumByZero:
-                -fromData?.shouldPaySum + (Number(fromData?.fund) || 0),
-              type: [],
+                Number(-fromData?.shouldPaySum) + (Number(fromData?.fund) || 0),
+              type: value,
             })
             return
           }
@@ -218,11 +214,11 @@ const items = (
               ...fromData,
               preBuntPaySum: fromData?.preBunt,
               balanceByZero:
-                -fromData?.shouldPaySum +
-                fromData?.preBunt +
+                Number(-fromData?.shouldPaySum) +
+                Number(fromData?.preBunt) +
                 (Number(fromData?.fund) || 0),
               sumByZero: 0,
-              type: [1, 2],
+              type: value,
             })
             return
           }
@@ -231,11 +227,11 @@ const items = (
               ...fromData,
               preBuntPaySum: fromData?.preBunt,
               sumByZero:
-                -fromData?.shouldPaySum +
-                fromData?.preBunt +
+                Number(-fromData?.shouldPaySum) +
+                Number(fromData?.preBunt) +
                 Number(fromData?.fund || 0),
               balanceByZero: 0,
-              type: [1],
+              type: value,
             })
             return
           }
@@ -243,10 +239,10 @@ const items = (
             form.setFields({
               ...fromData,
               balanceByZero:
-                -fromData?.shouldPaySum + (Number(fromData?.fund) || 0),
+                Number(-fromData?.shouldPaySum) + (Number(fromData?.fund) || 0),
               sumByZero: 0,
               preBuntPaySum: 0,
-              type: [2],
+              type: value,
             })
             return
           }
@@ -257,7 +253,6 @@ const items = (
   ]
 }
 const temAddItems = (
-  queryInfo: any,
   option: any,
   payment: any,
   shopChargeList: any,
@@ -327,6 +322,7 @@ const temAddItems = (
       label: '收费时间',
       key: 'collectionTime',
       widget: 'dateInput',
+      required: true,
       widgetProps: { allowClear: false, format: 'YYYY-MM-DD HH:mm:ss' },
     },
   ]
@@ -388,6 +384,7 @@ const storageItem = (
     label: '收费时间',
     key: 'chargingTime',
     widget: 'dateInput',
+    required: true,
     widgetProps: { format: 'YYYY-MM-DD HH:mm:ss' },
   },
   {
@@ -406,7 +403,6 @@ const storageItem = (
 ]
 
 const returnItem = (
-  queryInfo: any,
   option: any,
   searchParms: any,
   detailed: any,
@@ -449,6 +445,7 @@ const returnItem = (
     label: '退还时间',
     key: 'refundTime',
     widget: 'dateInput',
+    required: true,
     widgetProps: { format: 'YYYY-MM-DD HH:mm:ss' },
   },
 ]

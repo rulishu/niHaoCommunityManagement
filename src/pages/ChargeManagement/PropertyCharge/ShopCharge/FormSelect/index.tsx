@@ -39,7 +39,7 @@ export default function Details() {
         <Descriptions.Item label="联系方式">
           {detailed?.phone}
         </Descriptions.Item>
-        <Descriptions.Item label="入住时间">
+        <Descriptions.Item label="入驻时间">
           {detailed?.startTime || ''}
         </Descriptions.Item>
       </Descriptions>
