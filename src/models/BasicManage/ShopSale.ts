@@ -20,7 +20,6 @@ export interface State {
   isView: boolean
   id?: number
   deteilId?: number
-  shopsId: string
   delectVisible: boolean
   delectDetailVisible: boolean
   queryInfoList: listProps[]
@@ -41,7 +40,6 @@ const ShopSale = createModel<RootModel>()({
     queryInfo: { chargeList: [] },
     id: undefined,
     deteilId: undefined,
-    shopsId: '',
     isView: false,
     delectVisible: false,
     delectDetailVisible: false,

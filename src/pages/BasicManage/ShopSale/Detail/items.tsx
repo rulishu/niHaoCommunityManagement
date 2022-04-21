@@ -7,10 +7,12 @@ export const items = (
   industryList: [],
   userNameList: [],
   userList: [],
-  baseRef: UseFormProps
+  baseRef: UseFormProps,
+  tableType: string
 ) => {
   // console.log('userList', userList);
   // console.log('queryInfo', queryInfo);
+  // console.log('tableType', tableType);
 
   return [
     {
@@ -54,15 +56,13 @@ export const items = (
         onChange: (e: any) => {
           userList.forEach((itm: any) => {
             if (itm.userName === e.target.value) {
-              // console.log('itm',itm);
-
               baseRef.setFields &&
                 baseRef.setFields({
                   card: itm.cardId,
                   gender: itm.gender.toString(),
                   phone: itm.phoneNumber,
-                  startTime: queryInfo?.startTime,
-                  endTime: queryInfo?.endTime,
+                  // startTime: queryInfo?.startTime,
+                  // endTime: queryInfo?.endTime,
                 })
             }
           })
@@ -76,7 +76,7 @@ export const items = (
       widget: 'input',
       initialValue: queryInfo?.card,
       required: true,
-      disabled: true,
+      disabled: tableType === 'edit' ? true : false,
       widgetProps: {
         placeholder: '请输入身份证',
       },
@@ -94,9 +94,9 @@ export const items = (
       label: '性别',
       key: 'gender',
       widget: 'input',
-      initialValue: queryInfo?.gender === '1' ? '男' : '女',
+      initialValue: queryInfo?.gender,
       required: true,
-      disabled: true,
+      disabled: tableType === 'edit' ? true : false,
       widgetProps: {
         placeholder: '请输入性别',
       },
@@ -108,7 +108,7 @@ export const items = (
       widget: 'input',
       initialValue: queryInfo?.phone,
       required: true,
-      disabled: true,
+      disabled: tableType === 'edit' ? true : false,
       widgetProps: {
         placeholder: '请输入联系方式',
       },

@@ -8,7 +8,7 @@ import {
 import { Notify, Table, Button } from 'uiw'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
-import { update, seraAdd } from '@/servers/BasicManage/ShopSale'
+import { update, seraAdd, insert } from '@/servers/BasicManage/ShopSale'
 import useSWR from 'swr'
 import { seraSelectPage, Change } from '@/servers/BasicManage/ShopSale'
 import { items, itemsList } from './items'
@@ -16,6 +16,7 @@ import DetailAdd from './detailAdd/Index'
 import DeatailModals from '../Modals/detailModals/index'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import { useEffect } from 'react'
+import formatter from '@uiw/formatter'
 
 interface State {
   drawerDetailVisible?: boolean
@@ -64,7 +65,8 @@ const Detail = (props: {
   const { mutate } = useSWR(
     [
       ((tableType === 'rent' || tableType === 'sale') && seraAdd) ||
-        (tableType === 'edit' && update),
+        (tableType === 'edit' && update) ||
+        (tableType === 'add' && insert),
       {
         method: 'POST',
         body:
@@ -72,7 +74,10 @@ const Detail = (props: {
             ? { chargeList: queryInfoList, type: tableType === 'rent' ? 2 : 1 }
             : tableType === 'edit'
             ? { ...queryInfo, chargeList: queryInfoList }
-            : '',
+            : tableType === 'add' && {
+                ...queryInfo,
+                chargeList: queryInfoList,
+              },
       },
     ],
     {
@@ -128,10 +133,17 @@ const Detail = (props: {
     }
   }
   const Change = (initial: any, current: any) => {
-    // console.log('current', current)
-
     props.updateData({
-      queryInfo: { ...queryInfo, ...current },
+      queryInfo: {
+        ...queryInfo,
+        ...current,
+        startTime:
+          current?.startTime &&
+          formatter('YYYY-MM-DD HH:mm:ss', current?.startTime),
+        endTime:
+          current?.endTime &&
+          formatter('YYYY-MM-DD HH:mm:ss', current?.endTime),
+      },
     })
   }
   return (
@@ -177,7 +189,8 @@ const Detail = (props: {
             industryList,
             userNameList,
             userList,
-            baseRef
+            baseRef,
+            tableType
           )}
         />
       )}
