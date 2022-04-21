@@ -8,7 +8,7 @@ import {
 import { Notify, Table, Button } from 'uiw'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
-import { update, seraAdd } from '@/servers/BasicManage/ShopSale'
+import { update, seraAdd, insert } from '@/servers/BasicManage/ShopSale'
 import useSWR from 'swr'
 import { seraSelectPage, Change } from '@/servers/BasicManage/ShopSale'
 import { items, itemsList } from './items'
@@ -16,6 +16,7 @@ import DetailAdd from './detailAdd/Index'
 import DeatailModals from '../Modals/detailModals/index'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import { useEffect } from 'react'
+import formatter from '@uiw/formatter'
 
 interface State {
   drawerDetailVisible?: boolean
@@ -23,7 +24,7 @@ interface State {
   detailtableType?: string
   delectDetailVisible?: boolean
   queryInfo?: object
-  id?: string
+  deteilId?: string
   drawerVisible?: boolean
 }
 
@@ -55,7 +56,7 @@ const Detail = (props: {
       industryList,
       tableList,
       userNameList,
-      dataList,
+      userList,
     },
   } = useSelector((ShopSale: RootState) => ShopSale)
 
@@ -64,15 +65,19 @@ const Detail = (props: {
   const { mutate } = useSWR(
     [
       ((tableType === 'rent' || tableType === 'sale') && seraAdd) ||
-        (tableType === 'edit' && update),
+        (tableType === 'edit' && update) ||
+        (tableType === 'add' && insert),
       {
         method: 'POST',
         body:
           tableType === 'rent' || tableType === 'sale'
             ? { chargeList: queryInfoList, type: tableType === 'rent' ? 2 : 1 }
             : tableType === 'edit'
-            ? queryInfo
-            : '',
+            ? { ...queryInfo, chargeList: queryInfoList }
+            : tableType === 'add' && {
+                ...queryInfo,
+                chargeList: queryInfoList,
+              },
       },
     ],
     {
@@ -82,6 +87,7 @@ const Detail = (props: {
         if (data && data.code === 1) {
           Notify.success({ title: data.message })
           onClose()
+          props.onSearch()
         } else {
           Notify.error({ title: '提交失败！' })
         }
@@ -123,14 +129,25 @@ const Detail = (props: {
       updateData({ drawerDetailVisible: true })
     }
     if (detailType === 'deDel') {
-      updateData({ delectDetailVisible: true, id: obj?.id })
+      updateData({ delectDetailVisible: true, deteilId: obj?.id })
     }
   }
-  const Change = (initial: any, current: any) => {
-    console.log('current', current)
+  const onChange = (initial: any, current: any) => {
+    // console.log('current', current);
+    // console.log('initial', initial);
+    // console.log('queryInfo', queryInfo);
 
     props.updateData({
-      queryInfo: { ...queryInfo, ...current },
+      queryInfo: {
+        ...queryInfo,
+        ...current,
+        startTime:
+          current?.startTime &&
+          formatter('YYYY-MM-DD HH:mm:ss', current?.startTime),
+        endTime:
+          current?.endTime &&
+          formatter('YYYY-MM-DD HH:mm:ss', current?.endTime),
+      },
     })
   }
   return (
@@ -170,13 +187,14 @@ const Detail = (props: {
           form={baseRef}
           buttonsContainer={{ justifyContent: 'flex-start' }}
           // 更新表单的值
-          onChange={(initial, current) => Change(initial, current)}
+          onChange={(initial, current) => onChange(initial, current)}
           formDatas={items(
             queryInfo,
             industryList,
             userNameList,
-            dataList,
-            baseRef
+            userList,
+            baseRef,
+            tableType
           )}
         />
       )}

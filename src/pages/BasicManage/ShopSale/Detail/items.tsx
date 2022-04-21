@@ -6,9 +6,14 @@ export const items = (
   queryInfo: Change,
   industryList: [],
   userNameList: [],
-  dataList: [],
-  baseRef: UseFormProps
+  userList: [],
+  baseRef: UseFormProps,
+  tableType: string
 ) => {
+  // console.log('userList', userList);
+  // console.log('queryInfo', queryInfo);
+  // console.log('tableType', tableType);
+
   return [
     {
       label: '商铺编码',
@@ -27,12 +32,17 @@ export const items = (
       widget: 'select',
       initialValue: queryInfo?.useStatus,
       required: true,
-      disabled: true,
-      option: [
-        { label: '空置', value: '1' },
-        { label: '已出租', value: '2' },
-        { label: '已出售', value: '3' },
-      ],
+      option:
+        tableType === 'add'
+          ? [
+              { label: '空置', value: 1 },
+              { label: '已出租', value: 2 },
+              { label: '已出售', value: 3 },
+            ]
+          : [
+              { label: '已出租', value: 2 },
+              { label: '已出售', value: 3 },
+            ],
       widgetProps: {
         placeholder: '请输入类别',
       },
@@ -49,15 +59,13 @@ export const items = (
         mode: 'single',
         placeholder: '请输入选择',
         onChange: (e: any) => {
-          dataList.forEach((itm: any) => {
+          userList.forEach((itm: any) => {
             if (itm.userName === e.target.value) {
-              // console.log('itm',itm);
-
               baseRef.setFields &&
                 baseRef.setFields({
+                  userName: itm.userName,
                   card: itm.cardId,
-                  gender:
-                    itm.gender === 1 ? '男' : itm.gender === 2 ? '女' : '保密',
+                  gender: itm.gender.toString(),
                   phone: itm.phoneNumber,
                   startTime: queryInfo?.startTime,
                   endTime: queryInfo?.endTime,
@@ -74,7 +82,7 @@ export const items = (
       widget: 'input',
       initialValue: queryInfo?.card,
       required: true,
-      disabled: true,
+      disabled: tableType === 'edit' ? true : false,
       widgetProps: {
         placeholder: '请输入身份证',
       },
@@ -94,7 +102,7 @@ export const items = (
       widget: 'input',
       initialValue: queryInfo?.gender,
       required: true,
-      disabled: true,
+      disabled: tableType === 'edit' ? true : false,
       widgetProps: {
         placeholder: '请输入性别',
       },
@@ -106,7 +114,7 @@ export const items = (
       widget: 'input',
       initialValue: queryInfo?.phone,
       required: true,
-      disabled: true,
+      disabled: tableType === 'edit' ? true : false,
       widgetProps: {
         placeholder: '请输入联系方式',
       },
@@ -144,19 +152,19 @@ export const items = (
       required: true,
       rules: [{ required: true, message: '请输入开始时间' }],
     },
-    {
-      label: '出租时间',
-      key: 'rentalMonth',
-      widget: 'input',
-      initialValue: queryInfo?.rentalMonth,
-      required: true,
-      hide: queryInfo?.useStatus === 2 ? false : true,
-      widgetProps: {
-        addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>月</div>,
-        placeholder: '请输入出租时间',
-      },
-      rules: [{ required: true, message: '请输入出租时间' }],
-    },
+    // {
+    //   label: '出租时间',
+    //   key: 'rentalMonth',
+    //   widget: 'input',
+    //   initialValue: queryInfo?.rentalMonth,
+    //   required: true,
+    //   hide: queryInfo?.useStatus === 2 ? false : true,
+    //   widgetProps: {
+    //     addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>月</div>,
+    //     placeholder: '请输入出租时间',
+    //   },
+    //   rules: [{ required: true, message: '请输入出租时间' }],
+    // },
     {
       label: '租金',
       key: 'sale',

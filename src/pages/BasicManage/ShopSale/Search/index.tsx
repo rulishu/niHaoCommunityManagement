@@ -14,7 +14,6 @@ interface State {
   isView?: boolean
   delectVisible?: boolean
   id?: string
-  shopsId?: string
   queryInfoList?: listProps[]
 }
 
@@ -52,10 +51,15 @@ export default function Demo() {
       isView: type === 'view',
       tableType: type,
     })
-    if (type === 'add') {
-      updateData({ drawerVisible: true, queryInfo: {} })
-    }
-    if (type === 'rent' || type === 'sale' || type === 'edit') {
+    // if (type === 'add') {
+    //   updateData({ drawerVisible: true, queryInfo: {} })
+    // }
+    if (
+      type === 'rent' ||
+      type === 'sale' ||
+      type === 'edit' ||
+      type === 'add'
+    ) {
       dispatch({
         type: 'ShopSale/seraSelectPageList',
         payload: {

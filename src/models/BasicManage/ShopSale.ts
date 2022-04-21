@@ -19,15 +19,14 @@ export interface State {
   queryInfo: Change
   isView: boolean
   id?: number
-  shopsId: string
+  deteilId?: number
   delectVisible: boolean
   delectDetailVisible: boolean
-  arrData: listProps[]
   queryInfoList: listProps[]
   tableList: listProps[]
   industryList: any
   userNameList: any
-  dataList: any
+  userList: any
 }
 
 const ShopSale = createModel<RootModel>()({
@@ -40,16 +39,15 @@ const ShopSale = createModel<RootModel>()({
     detailtableType: '',
     queryInfo: { chargeList: [] },
     id: undefined,
-    shopsId: '',
+    deteilId: undefined,
     isView: false,
     delectVisible: false,
     delectDetailVisible: false,
-    arrData: [],
     queryInfoList: [],
     industryList: [],
     tableList: [],
     userNameList: [],
-    dataList: [],
+    userList: [],
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({
@@ -120,7 +118,7 @@ const ShopSale = createModel<RootModel>()({
             label: itm.userName,
             value: itm.userName,
           })),
-          dataList: data.data,
+          userList: data.data,
         })
       }
     },
