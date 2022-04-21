@@ -50,6 +50,12 @@
         "icon": "pay-circle-o",
         "routes": [
           {
+            "path": "/chargeManagement/shopChargeData",
+            "name": "商铺收费数据",
+            "icon": "edit",
+            "component": "../pages/ChargeManagement/ChargeData/ShopChargeData"
+          },
+          {
             "path": "/chargeManagement/propertyCharge",
             "name": "物业收费",
             "icon": "laptop",
@@ -77,19 +83,6 @@
                 "name": "预存款管理",
                 "icon": "folder-open",
                 "component": "../pages/ChargeManagement/PropertyCharge/PredepositsManage"
-              }
-            ]
-          },
-          {
-            "path": "/chargeManagement/chargeData",
-            "name": "收费数据管理",
-            "icon": "table",
-            "routes": [
-              {
-                "path": "/chargeManagement/chargeData/shopChargeData",
-                "name": "商铺收费数据",
-                "icon": "edit",
-                "component": "../pages/ChargeManagement/ChargeData/ShopChargeData"
               }
             ]
           }

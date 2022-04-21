@@ -24,7 +24,7 @@ function selectById(params: Change) {
  */
 
 function shopSelectPage(params: Change) {
-  return request('/api/buShop/selectPage', {
+  return request('/api/buShop/selectShopList', {
     method: 'POST',
     body: { ...params },
   })

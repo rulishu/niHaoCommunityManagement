@@ -70,10 +70,10 @@ const shopCharge = createModel()({
       const data = await shopSelectPage(payload)
       if (data.code === 1) {
         dph.shopCharge.updateState({
-          shopNoList: Array.isArray(data?.data?.rows)
-            ? data?.data?.rows.map((item: any) => {
+          shopNoList: Array.isArray(data?.data)
+            ? data?.data?.map((item: any) => {
                 return {
-                  value: item.shopNo,
+                  value: item.code,
                   label: item.shopName,
                 }
               })
