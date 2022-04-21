@@ -2,13 +2,6 @@ import { Usermanagement } from '@/servers/usermanagement'
 
 export const items = (queryInfo: Usermanagement, isView: boolean) => [
   {
-    label: '账号名称',
-    key: 'createName',
-    widget: 'input',
-    initialValue: queryInfo?.createName,
-    hide: !isView,
-  },
-  {
     label: '用户姓名',
     key: 'userName',
     widget: 'input',
