@@ -17,12 +17,11 @@ export const columnsRout = (
           label: '商铺',
           key: 'code',
           widget: 'searchSelect',
-          initialValue: [searchParms?.code],
+          initialValue: searchParms?.code,
           option,
           widgetProps: {
             mode: 'single',
             showSearch: true,
-            maxTagCount: 6,
             placeholder: '请输入选择',
             onSearch: (value: String) => setValue(value),
           },
@@ -88,7 +87,7 @@ export const columnsTem = (
           label: '商铺',
           key: 'code',
           widget: 'searchSelect',
-          initialValue: [searchParms?.code],
+          initialValue: searchParms?.code,
           option,
           widgetProps: {
             mode: 'single',
@@ -214,7 +213,7 @@ export const columnsDeposit = (
         label: '商铺',
         key: 'code',
         widget: 'searchSelect',
-        initialValue: [searchParms?.code],
+        initialValue: searchParms?.code,
         option,
         widgetProps: {
           mode: 'single',
@@ -352,7 +351,7 @@ export const columnsAdvance = (
         label: '商铺',
         key: 'code',
         widget: 'searchSelect',
-        initialValue: [searchParms?.code],
+        initialValue: searchParms?.code,
         option,
         widgetProps: {
           mode: 'single',

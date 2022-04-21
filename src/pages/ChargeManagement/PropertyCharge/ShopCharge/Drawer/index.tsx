@@ -40,25 +40,49 @@ const Drawer = ({ updateData, option }: DetailProps) => {
     dataList.current = []
   }
 
-  // 验证
-  const verification = (current: any) => {
-    const errorObj: any = {}
+  const rule = /(^[0-9]{1,100}$)|(^[0-9]{1,100}[\\.]{1}[0-9]{1,2}$)/
+
+  const errorInfo = (errorObj: any, current: any) => {
     const arr = Object.keys(current)
     arr.forEach((element: any) => {
-      if (drawerType === 'charge') {
-        if (!current?.shouldPaySum) errorObj.shouldPaySum = '实际应收不能为空'
-        if (!current?.payMode) errorObj.payMode = '付款方式不能为空'
-        if (Number(current?.sumByZero < 0))
-          errorObj.sumByZero = '找零金额不能小于0'
-        if (Number(current?.balanceByZero < 0))
-          errorObj.balanceByZero = '找零结转金额不能小于0'
-      } else if (
+      if (
         !current[element] ||
         (Array.isArray(current[element]) && current[element].length === 0)
       ) {
         errorObj[element] = '此项不能为空'
       }
     })
+  }
+  // 验证
+  const verification = (current: any) => {
+    const errorObj: any = {}
+    if (drawerType === 'charge') {
+      if (!current?.shouldPaySum) errorObj.shouldPaySum = '实际应收不能为空'
+
+      if (!current?.payMode) errorObj.payMode = '付款方式不能为空'
+
+      if (!current?.sumByZero || Number(current?.sumByZero) < 0)
+        errorObj.sumByZero = '找零金额不能小于0'
+
+      if (Number(current?.balanceByZero) < 0)
+        errorObj.balanceByZero = '找零结转金额不能小于0'
+
+      if (current?.fund && !rule.test(current?.fund)) {
+        errorObj.fund = '金额只能整数或保留2位小数'
+      }
+    } else if (drawerType === 'temAdd' || drawerType === 'depositAdd') {
+      errorInfo(errorObj, current)
+      if (current?.price && !rule.test(current?.price)) {
+        errorObj.price = '金额只能整数或保留2位小数'
+      }
+    } else if (drawerType === 'storage') {
+      errorInfo(errorObj, current)
+      if (current?.chargeAmount && !rule.test(current?.chargeAmount)) {
+        errorObj.chargeAmount = '金额只能整数或保留2位小数'
+      }
+    } else {
+      errorInfo(errorObj, current)
+    }
     if (Object.keys(errorObj).length > 0) {
       const err: any = new Error()
       err.filed = errorObj
@@ -163,11 +187,9 @@ const Drawer = ({ updateData, option }: DetailProps) => {
         return Notify.error({ title: '请填写退还金额' })
       }
       if (
-        dataList.current.some(
-          (item: any) => !/^[0-9]{1}\d*?$/g.test(item?.refundAmount)
-        )
+        dataList.current.some((item: any) => !rule.test(item?.refundAmount))
       ) {
-        return Notify.error({ title: '请填正确填写退还金额' })
+        return Notify.error({ title: '金额只能整数或保留2位小数' })
       }
 
       if (
@@ -241,7 +263,7 @@ const Drawer = ({ updateData, option }: DetailProps) => {
           formType="card"
           onSubmit={(_, current: Record<string, any>) => onSubmit(current)}
           // 更新表单的值
-          onChange={async (_, current: Record<string, any>) => {
+          onChange={(_, current: Record<string, any>) => {
             updateData({ queryInfo: { ...queryInfo, ...current } })
           }}
           buttonsContainer={{ justifyContent: 'flex-start' }}
