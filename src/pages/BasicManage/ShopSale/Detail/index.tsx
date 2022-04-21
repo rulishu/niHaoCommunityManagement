@@ -132,7 +132,11 @@ const Detail = (props: {
       updateData({ delectDetailVisible: true, deteilId: obj?.id })
     }
   }
-  const Change = (initial: any, current: any) => {
+  const onChange = (initial: any, current: any) => {
+    // console.log('current', current);
+    // console.log('initial', initial);
+    // console.log('queryInfo', queryInfo);
+
     props.updateData({
       queryInfo: {
         ...queryInfo,
@@ -183,7 +187,7 @@ const Detail = (props: {
           form={baseRef}
           buttonsContainer={{ justifyContent: 'flex-start' }}
           // 更新表单的值
-          onChange={(initial, current) => Change(initial, current)}
+          onChange={(initial, current) => onChange(initial, current)}
           formDatas={items(
             queryInfo,
             industryList,
