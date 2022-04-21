@@ -6,9 +6,12 @@ export const items = (
   queryInfo: Change,
   industryList: [],
   userNameList: [],
-  dataList: [],
+  userList: [],
   baseRef: UseFormProps
 ) => {
+  // console.log('userList', userList);
+  // console.log('queryInfo', queryInfo);
+
   return [
     {
       label: '商铺编码',
@@ -49,15 +52,14 @@ export const items = (
         mode: 'single',
         placeholder: '请输入选择',
         onChange: (e: any) => {
-          dataList.forEach((itm: any) => {
+          userList.forEach((itm: any) => {
             if (itm.userName === e.target.value) {
               // console.log('itm',itm);
 
               baseRef.setFields &&
                 baseRef.setFields({
                   card: itm.cardId,
-                  gender:
-                    itm.gender === 1 ? '男' : itm.gender === 2 ? '女' : '保密',
+                  gender: itm.gender.toString(),
                   phone: itm.phoneNumber,
                   startTime: queryInfo?.startTime,
                   endTime: queryInfo?.endTime,
@@ -92,7 +94,7 @@ export const items = (
       label: '性别',
       key: 'gender',
       widget: 'input',
-      initialValue: queryInfo?.gender,
+      initialValue: queryInfo?.gender === '1' ? '男' : '女',
       required: true,
       disabled: true,
       widgetProps: {
@@ -144,19 +146,19 @@ export const items = (
       required: true,
       rules: [{ required: true, message: '请输入开始时间' }],
     },
-    {
-      label: '出租时间',
-      key: 'rentalMonth',
-      widget: 'input',
-      initialValue: queryInfo?.rentalMonth,
-      required: true,
-      hide: queryInfo?.useStatus === 2 ? false : true,
-      widgetProps: {
-        addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>月</div>,
-        placeholder: '请输入出租时间',
-      },
-      rules: [{ required: true, message: '请输入出租时间' }],
-    },
+    // {
+    //   label: '出租时间',
+    //   key: 'rentalMonth',
+    //   widget: 'input',
+    //   initialValue: queryInfo?.rentalMonth,
+    //   required: true,
+    //   hide: queryInfo?.useStatus === 2 ? false : true,
+    //   widgetProps: {
+    //     addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>月</div>,
+    //     placeholder: '请输入出租时间',
+    //   },
+    //   rules: [{ required: true, message: '请输入出租时间' }],
+    // },
     {
       label: '租金',
       key: 'sale',

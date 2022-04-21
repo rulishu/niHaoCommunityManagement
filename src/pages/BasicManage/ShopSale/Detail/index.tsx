@@ -23,7 +23,7 @@ interface State {
   detailtableType?: string
   delectDetailVisible?: boolean
   queryInfo?: object
-  id?: string
+  deteilId?: string
   drawerVisible?: boolean
 }
 
@@ -55,7 +55,7 @@ const Detail = (props: {
       industryList,
       tableList,
       userNameList,
-      dataList,
+      userList,
     },
   } = useSelector((ShopSale: RootState) => ShopSale)
 
@@ -71,7 +71,7 @@ const Detail = (props: {
           tableType === 'rent' || tableType === 'sale'
             ? { chargeList: queryInfoList, type: tableType === 'rent' ? 2 : 1 }
             : tableType === 'edit'
-            ? queryInfo
+            ? { ...queryInfo, chargeList: queryInfoList }
             : '',
       },
     ],
@@ -82,6 +82,7 @@ const Detail = (props: {
         if (data && data.code === 1) {
           Notify.success({ title: data.message })
           onClose()
+          props.onSearch()
         } else {
           Notify.error({ title: '提交失败！' })
         }
@@ -123,11 +124,11 @@ const Detail = (props: {
       updateData({ drawerDetailVisible: true })
     }
     if (detailType === 'deDel') {
-      updateData({ delectDetailVisible: true, id: obj?.id })
+      updateData({ delectDetailVisible: true, deteilId: obj?.id })
     }
   }
   const Change = (initial: any, current: any) => {
-    console.log('current', current)
+    // console.log('current', current)
 
     props.updateData({
       queryInfo: { ...queryInfo, ...current },
@@ -175,7 +176,7 @@ const Detail = (props: {
             queryInfo,
             industryList,
             userNameList,
-            dataList,
+            userList,
             baseRef
           )}
         />
