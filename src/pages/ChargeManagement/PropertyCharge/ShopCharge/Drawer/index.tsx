@@ -61,12 +61,6 @@ const Drawer = ({ updateData, option }: DetailProps) => {
 
       if (!current?.payMode) errorObj.payMode = '付款方式不能为空'
 
-      if (!current?.sumByZero || Number(current?.sumByZero) < 0)
-        errorObj.sumByZero = '找零金额不能小于0'
-
-      if (Number(current?.balanceByZero) < 0)
-        errorObj.balanceByZero = '找零结转金额不能小于0'
-
       if (current?.fund && !rule.test(current?.fund)) {
         errorObj.fund = '金额只能整数或保留2位小数'
       }
@@ -151,7 +145,13 @@ const Drawer = ({ updateData, option }: DetailProps) => {
         type: tyoeList,
         ...current,
       }
-      sendOut('shopCharge/getBuShopChargeDatapay', payload)
+      if (Number(payload?.sumByZero || 0) < 0)
+        return Notify.warning({ title: '找零金额不能小于0' })
+
+      if (Number(payload?.balanceByZero || 0) < 0)
+        return Notify.warning({ title: '找零结转金额不能小于0' })
+      console.log(payload, 'payload')
+      // sendOut('shopCharge/getBuShopChargeDatapay', payload)
     }
 
     // 临时收费退款
@@ -264,7 +264,8 @@ const Drawer = ({ updateData, option }: DetailProps) => {
           onSubmit={(_, current: Record<string, any>) => onSubmit(current)}
           // 更新表单的值
           onChange={(_, current: Record<string, any>) => {
-            updateData({ queryInfo: { ...queryInfo, ...current } })
+            if (drawerType !== 'charge')
+              updateData({ queryInfo: { ...queryInfo, ...current } })
           }}
           buttonsContainer={{ justifyContent: 'flex-start' }}
           formDatas={

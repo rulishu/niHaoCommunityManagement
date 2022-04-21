@@ -85,7 +85,6 @@ const items = (
       widget: 'input',
       disabled: true,
       required: true,
-      initialValue: queryInfo?.shouldPaySum,
     },
     {
       label: '找零金额',
@@ -94,7 +93,6 @@ const items = (
       span: 6,
       disabled: true,
       required: true,
-      initialValue: queryInfo?.sumByZero,
     },
     {
       label: '可用预存款',
@@ -102,7 +100,6 @@ const items = (
       widget: 'input',
       disabled: true,
       span: 6,
-      initialValue: queryInfo?.preBunt,
     },
     {
       label: '预存款付款',
@@ -110,7 +107,6 @@ const items = (
       widget: 'input',
       disabled: true,
       span: 6,
-      initialValue: queryInfo?.preBuntPaySum,
     },
     {
       label: '找零结存',
@@ -118,18 +114,17 @@ const items = (
       widget: 'input',
       disabled: true,
       span: 6,
-      initialValue: queryInfo?.balanceByZero,
     },
     {
       label: '收款金额',
       key: 'fund',
       widget: 'input',
       span: 6,
-      initialValue: queryInfo?.fund,
       widgetProps: {
         onBlur: (e: any) => {
           const fromData = form.getFieldValues()
           if (
+            e?.target?.value &&
             !/(^[0-9]{1,100}$)|(^[0-9]{1,100}[\\.]{1}[0-9]{1,2}$)/.test(
               e?.target?.value
             )
@@ -186,19 +181,18 @@ const items = (
         placeholder: '请选择付款方式',
         mode: 'single',
       },
-      initialValue: queryInfo?.payMode,
     },
 
     {
       label: '额外付款',
       key: 'type',
       widget: 'searchSelect',
-      initialValue: queryInfo?.type,
       span: 6,
       option: [
         { label: '使用预付款', value: 1 },
         { label: '找零结存', value: 2 },
       ],
+      initialValue: [],
       widgetProps: {
         mode: 'multiple',
         onChange: (value: any) => {
@@ -211,7 +205,7 @@ const items = (
               balanceByZero: 0,
               sumByZero:
                 Number(-fromData?.shouldPaySum) + (Number(fromData?.fund) || 0),
-              type: [],
+              type: value,
             })
             return
           }
@@ -224,7 +218,7 @@ const items = (
                 Number(fromData?.preBunt) +
                 (Number(fromData?.fund) || 0),
               sumByZero: 0,
-              type: [1, 2],
+              type: value,
             })
             return
           }
@@ -237,7 +231,7 @@ const items = (
                 Number(fromData?.preBunt) +
                 Number(fromData?.fund || 0),
               balanceByZero: 0,
-              type: [1],
+              type: value,
             })
             return
           }
@@ -248,7 +242,7 @@ const items = (
                 Number(-fromData?.shouldPaySum) + (Number(fromData?.fund) || 0),
               sumByZero: 0,
               preBuntPaySum: 0,
-              type: [2],
+              type: value,
             })
             return
           }
