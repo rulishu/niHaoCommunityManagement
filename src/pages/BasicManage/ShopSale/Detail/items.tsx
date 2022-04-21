@@ -32,12 +32,17 @@ export const items = (
       widget: 'select',
       initialValue: queryInfo?.useStatus,
       required: true,
-      disabled: true,
-      option: [
-        { label: '空置', value: '1' },
-        { label: '已出租', value: '2' },
-        { label: '已出售', value: '3' },
-      ],
+      option:
+        tableType === 'add'
+          ? [
+              { label: '空置', value: 1 },
+              { label: '已出租', value: 2 },
+              { label: '已出售', value: 3 },
+            ]
+          : [
+              { label: '已出租', value: 2 },
+              { label: '已出售', value: 3 },
+            ],
       widgetProps: {
         placeholder: '请输入类别',
       },
@@ -58,11 +63,12 @@ export const items = (
             if (itm.userName === e.target.value) {
               baseRef.setFields &&
                 baseRef.setFields({
+                  userName: itm.userName,
                   card: itm.cardId,
                   gender: itm.gender.toString(),
                   phone: itm.phoneNumber,
-                  // startTime: queryInfo?.startTime,
-                  // endTime: queryInfo?.endTime,
+                  startTime: queryInfo?.startTime,
+                  endTime: queryInfo?.endTime,
                 })
             }
           })
