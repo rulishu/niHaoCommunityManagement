@@ -14,4 +14,12 @@ function selectProject(params: any) {
     body: { ...params },
   })
 }
-export { shopSelectPage, selectProject }
+
+// 商铺收费数据-删除
+function buShopChargeDataDelete(params: any) {
+  return request('/api/buShopChargeData/delete', {
+    method: 'POST',
+    body: { ...params },
+  })
+}
+export { shopSelectPage, selectProject, buShopChargeDataDelete }
