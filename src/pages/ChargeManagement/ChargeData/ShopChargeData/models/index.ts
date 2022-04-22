@@ -14,6 +14,7 @@ interface State {
   projectList: Array<any>
   visible: boolean
   loading: boolean
+  table: any
 }
 
 const shopCharges = createModel<RootModel>()({
@@ -32,6 +33,8 @@ const shopCharges = createModel<RootModel>()({
     visible: false,
     // loading
     loading: false,
+    // table
+    table: {},
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({
@@ -48,6 +51,7 @@ const shopCharges = createModel<RootModel>()({
         queryInfo: {},
         visible: false,
         loading: false,
+        table: {},
       })
     },
 
@@ -62,6 +66,7 @@ const shopCharges = createModel<RootModel>()({
                 return {
                   value: item?.shopNo,
                   label: item?.shopName,
+                  username: item?.username,
                 }
               })
             : [],

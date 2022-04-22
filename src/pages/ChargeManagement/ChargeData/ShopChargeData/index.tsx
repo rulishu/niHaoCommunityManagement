@@ -5,6 +5,7 @@ import { ProTable, useTable } from '@uiw-admin/components'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import { Notify, Alert, Button, Icon, Divider } from 'uiw'
 import formatter from '@uiw/formatter'
+import Drawer from './Drawer'
 import { columns } from './item'
 import './style.css'
 export default function Index() {
@@ -125,6 +126,12 @@ export default function Index() {
           {
             label: '新增',
             type: 'primary',
+            onClick: () => {
+              dispatch({
+                type: 'shopCharges/updateState',
+                payload: { drawerVisible: true, drawerType: 'add', table },
+              })
+            },
           },
           {
             label: '批量新增',
@@ -171,6 +178,7 @@ export default function Index() {
           </Button>
         </div>
       </Alert>
+      <Drawer />
     </div>
   )
 }
