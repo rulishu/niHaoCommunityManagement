@@ -61,7 +61,7 @@ const Detail = (props: {
             },
           })
         } else {
-          Notify.error({ title: '提交失败！' })
+          Notify.error({ title: data.message })
           dispatch({
             type: 'ShopManage/updateState',
             payload: {
