@@ -19,6 +19,7 @@ export default function Index() {
   useEffect(() => {
     dispatch({ type: 'shopCharges/shopSelectPage' })
     dispatch({ type: 'shopCharges/selectProject' })
+    dispatch({ type: 'shopCharges/selectProjectTable' })
   }, [dispatch])
 
   // table 显示查询
@@ -133,10 +134,10 @@ export default function Index() {
               })
             },
           },
-          {
-            label: '批量新增',
-            type: 'primary',
-          },
+          // {
+          //   label: '批量新增',
+          //   type: 'primary',
+          // },
         ]}
         searchBtns={[
           {
@@ -149,7 +150,9 @@ export default function Index() {
             onClick: () => table?.onReset(),
           },
         ]}
-        columns={columns(shopNoList, projectList, dispatch) as FormCol<any>[]}
+        columns={
+          columns(shopNoList, projectList, dispatch, table) as FormCol<any>[]
+        }
       />
       <Alert
         isOpen={visible}

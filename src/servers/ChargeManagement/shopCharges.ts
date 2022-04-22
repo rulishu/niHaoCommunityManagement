@@ -30,9 +30,18 @@ function buShopChargeDataAdd(params: any) {
     body: { ...params },
   })
 }
+
+// 获取所有按表走常规收费项
+function selectProjectTable(params: any) {
+  return request('/api/buShopChargeData/selectProjectTable', {
+    method: 'POST',
+    body: { ...params },
+  })
+}
 export {
   shopSelectPage,
   selectProject,
   buShopChargeDataDelete,
   buShopChargeDataAdd,
+  selectProjectTable,
 }

@@ -5,6 +5,7 @@ import {
   selectProject,
   buShopChargeDataDelete,
   buShopChargeDataAdd,
+  selectProjectTable,
 } from '@/servers/ChargeManagement/shopCharges'
 
 interface State {
@@ -13,6 +14,7 @@ interface State {
   queryInfo: any
   shopNoList: Array<any>
   projectList: Array<any>
+  shopList: Array<any>
   visible: boolean
   loading: boolean
   table: any
@@ -30,6 +32,7 @@ const shopCharges = createModel<RootModel>()({
     shopNoList: [],
     // 常规收费项类
     projectList: [],
+    shopList: [],
     //  Alert 显示
     visible: false,
     // loading
@@ -82,6 +85,25 @@ const shopCharges = createModel<RootModel>()({
       if (data.code === 1) {
         dph.shopCharges.updateState({
           projectList: Array.isArray(data?.data)
+            ? data?.data.map((item: any) => {
+                return {
+                  value: item?.id,
+                  label: item?.chargeName,
+                  chargePrice: item?.chargePrice,
+                }
+              })
+            : [],
+        })
+      }
+    },
+
+    // 获取所有按表走常规收费项
+    async selectProjectTable(payload: any) {
+      const dph = dispatch as Dispatch
+      const data = await selectProjectTable(payload)
+      if (data.code === 1) {
+        dph.shopCharges.updateState({
+          shopList: Array.isArray(data?.data)
             ? data?.data.map((item: any) => {
                 return {
                   value: item?.id,

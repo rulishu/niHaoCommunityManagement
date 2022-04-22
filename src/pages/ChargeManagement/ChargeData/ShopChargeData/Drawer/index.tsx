@@ -15,7 +15,7 @@ export default function Index() {
       queryInfo,
       drawerType,
       shopNoList,
-      projectList,
+      shopList,
       table,
       loading,
     },
@@ -79,7 +79,7 @@ export default function Index() {
       return
     }
   }
-
+  console.log(queryInfo, 'id')
   return (
     <ProDrawer
       width={1000}
@@ -108,7 +108,9 @@ export default function Index() {
           })
         }
         buttonsContainer={{ justifyContent: 'flex-start' }}
-        formDatas={matching(drawerType, shopNoList, form, projectList) as any}
+        formDatas={
+          matching(drawerType, shopNoList, form, shopList, queryInfo) as any
+        }
       />
     </ProDrawer>
   )

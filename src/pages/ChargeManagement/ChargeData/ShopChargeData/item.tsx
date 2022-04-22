@@ -3,7 +3,8 @@ import { Button, Divider } from 'uiw'
 export const columns = (
   shopNoList: Array<any>,
   projectListt: Array<any>,
-  dispatch: any
+  dispatch: any,
+  table: any
 ) => {
   return [
     {
@@ -23,7 +24,6 @@ export const columns = (
           widgetProps: {
             allowClear: true,
             mode: 'single',
-            showSearch: true,
             placeholder: '请选择商铺',
           },
         },
@@ -44,8 +44,8 @@ export const columns = (
           widget: 'searchSelect',
           option: projectListt,
           widgetProps: {
+            allowClear: true,
             mode: 'single',
-            showSearch: true,
             placeholder: '请选择收费项目',
           },
         },
@@ -157,20 +157,6 @@ export const columns = (
       width: 120,
     },
     {
-      title: '上次读数',
-      key: 'lastReading',
-      align: 'center',
-      ellipsis: true,
-      width: 120,
-    },
-    {
-      title: '本次读数',
-      key: 'thisReading',
-      align: 'center',
-      ellipsis: true,
-      width: 120,
-    },
-    {
       title: '操作',
       key: 'edit',
       align: 'center',
@@ -184,7 +170,22 @@ export const columns = (
             alignItems: 'center',
           }}
         >
-          <Button type="warning"> 编辑</Button>
+          <Button
+            type="warning"
+            onClick={() => {
+              dispatch({
+                type: 'shopCharges/updateState',
+                payload: {
+                  queryInfo: { ...data },
+                  drawerVisible: true,
+                  drawerType: 'edit',
+                  table,
+                },
+              })
+            }}
+          >
+            编辑
+          </Button>
           <Divider type="vertical" />
           <Button
             type="danger"

@@ -2,6 +2,8 @@ export const drawerTitle = (type: string) => {
   switch (type) {
     case 'add':
       return '新增'
+    case 'edit':
+      return '编辑'
     default:
       return ''
   }
@@ -11,11 +13,13 @@ export const matching = (
   type: string,
   shopNoList: Array<any>,
   form: any,
-  projectList: Array<any>
+  projectList: Array<any>,
+  queryInfo: any
 ) => {
   switch (type) {
     case 'add':
-      return addItems(shopNoList, form, projectList)
+    case 'edit':
+      return addItems(shopNoList, form, projectList, queryInfo)
     default:
       return []
   }
@@ -24,7 +28,8 @@ export const matching = (
 const addItems = (
   shopNoList: Array<any>,
   form: any,
-  projectList: Array<any>
+  projectList: Array<any>,
+  queryInfo: any
 ) => {
   return [
     {
@@ -34,6 +39,7 @@ const addItems = (
       option: shopNoList,
       required: true,
       span: 8,
+      initialValue: queryInfo?.code,
       widgetProps: {
         placeholder: '请选择商铺',
         mode: 'single',
