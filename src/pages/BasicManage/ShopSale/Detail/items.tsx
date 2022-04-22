@@ -35,7 +35,6 @@ export const items = (
       option:
         tableType === 'add'
           ? [
-              { label: '空置', value: 1 },
               { label: '已出租', value: 2 },
               { label: '已出售', value: 3 },
             ]
@@ -152,19 +151,6 @@ export const items = (
       required: true,
       rules: [{ required: true, message: '请输入开始时间' }],
     },
-    // {
-    //   label: '出租时间',
-    //   key: 'rentalMonth',
-    //   widget: 'input',
-    //   initialValue: queryInfo?.rentalMonth,
-    //   required: true,
-    //   hide: queryInfo?.useStatus === 2 ? false : true,
-    //   widgetProps: {
-    //     addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>月</div>,
-    //     placeholder: '请输入出租时间',
-    //   },
-    //   rules: [{ required: true, message: '请输入出租时间' }],
-    // },
     {
       label: '租金',
       key: 'sale',
@@ -213,12 +199,12 @@ export const itemsList = (
   handleEditTable: (tableType: string, obj: Change) => void
 ) => {
   return [
-    // {
-    //   title: '序号',
-    //   align: 'center',
-    //   key: 'id',
-    //   ellipsis: true,
-    // },
+    {
+      title: '序号',
+      align: 'center',
+      key: 'id',
+      ellipsis: true,
+    },
     {
       title: '收费项目名',
       align: 'center',
