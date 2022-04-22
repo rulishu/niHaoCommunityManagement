@@ -1,6 +1,10 @@
 import { Button, Divider } from 'uiw'
 
-export const columns = (shopNoList: Array<any>, projectListt: Array<any>) => {
+export const columns = (
+  shopNoList: Array<any>,
+  projectListt: Array<any>,
+  dispatch: any
+) => {
   return [
     {
       title: '商铺',
@@ -182,7 +186,17 @@ export const columns = (shopNoList: Array<any>, projectListt: Array<any>) => {
         >
           <Button type="warning"> 编辑</Button>
           <Divider type="vertical" />
-          <Button type="danger"> 删除</Button>
+          <Button
+            type="danger"
+            onClick={() =>
+              dispatch({
+                type: 'shopCharges/updateState',
+                payload: { queryInfo: { ...data }, visible: true },
+              })
+            }
+          >
+            删除
+          </Button>
         </div>
       ),
     },

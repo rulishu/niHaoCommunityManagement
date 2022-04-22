@@ -3,6 +3,7 @@ import { createModel, RematchDispatch } from '@rematch/core'
 import {
   shopSelectPage,
   selectProject,
+  buShopChargeDataDelete,
 } from '@/servers/ChargeManagement/shopCharges'
 
 interface State {
@@ -11,6 +12,8 @@ interface State {
   queryInfo: any
   shopNoList: Array<any>
   projectList: Array<any>
+  visible: boolean
+  loading: boolean
 }
 
 const shopCharges = createModel<RootModel>()({
@@ -25,6 +28,10 @@ const shopCharges = createModel<RootModel>()({
     shopNoList: [],
     // 常规收费项类
     projectList: [],
+    //  Alert 显示
+    visible: false,
+    // loading
+    loading: false,
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({
@@ -39,6 +46,8 @@ const shopCharges = createModel<RootModel>()({
         drawerVisible: false,
         drawerType: '',
         queryInfo: {},
+        visible: false,
+        loading: false,
       })
     },
 
@@ -77,6 +86,15 @@ const shopCharges = createModel<RootModel>()({
             : [],
         })
       }
+    },
+
+    // 获取常规收费项类
+    async buShopChargeDataDelete(payload: any) {
+      const dph = dispatch as Dispatch
+      dph.shopCharges.updateState({
+        loading: true,
+      })
+      return await buShopChargeDataDelete(payload)
     },
   }),
 })
