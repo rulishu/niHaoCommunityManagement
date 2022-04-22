@@ -4,6 +4,7 @@ import {
   shopSelectPage,
   selectProject,
   buShopChargeDataDelete,
+  buShopChargeDataAdd,
 } from '@/servers/ChargeManagement/shopCharges'
 
 interface State {
@@ -100,6 +101,15 @@ const shopCharges = createModel<RootModel>()({
         loading: true,
       })
       return await buShopChargeDataDelete(payload)
+    },
+
+    // 新增
+    async buShopChargeDataAdd(payload: any) {
+      const dph = dispatch as Dispatch
+      dph.shopCharges.updateState({
+        loading: true,
+      })
+      return await buShopChargeDataAdd(payload)
     },
   }),
 })

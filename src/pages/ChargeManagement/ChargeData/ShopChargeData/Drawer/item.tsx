@@ -122,9 +122,15 @@ const addItems = (
       required: true,
       widgetProps: {
         placeholder: '请填写数量',
-        onBlur: () => {
+        onBlur: (e: any) => {
+          const quantity = e?.target?.value || 0
+          if (!/^[0-9]{1}\d*?$/g.test(quantity)) return
           const fromData = form.getFieldValues()
-          console.log(fromData, 'fromData')
+          form.setFields({
+            ...fromData,
+            quantity,
+            money: quantity * fromData?.price,
+          })
         },
       },
     },
