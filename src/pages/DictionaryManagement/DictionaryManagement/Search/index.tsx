@@ -66,6 +66,10 @@ export default function Demo() {
       tableType: type,
     })
     if (type === 'addType' || type === 'addValue') {
+      type === 'addValue' &&
+        dispatch({
+          type: 'DictionaryManagement/selectDictTypeList',
+        })
       updateData({ drawerVisible: true, queryInfo: {} })
     }
     if (type === 'editType' || type === 'editValue' || type === 'view') {

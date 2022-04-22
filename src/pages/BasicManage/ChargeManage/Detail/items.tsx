@@ -49,15 +49,23 @@ export const items = (
             ),
             placeholder: '请输入单价',
           },
-          rules: [
-            {
-              required: !hide,
-              // pattern: new RegExp(
-              //   /(^[1-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/
-              // ),
-              message: '请正确输入单价',
-            },
-          ],
+          rules:
+            queryInfo?.chargeType === '1'
+              ? [
+                  {
+                    required: !hide,
+                    pattern: new RegExp(
+                      /(^[1-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/
+                    ),
+                    message: '请正确输入单价',
+                  },
+                ]
+              : [
+                  {
+                    required: !hide,
+                    message: '请正确输入单价',
+                  },
+                ],
         },
         {
           label: '收费标准',
@@ -136,15 +144,23 @@ export const items = (
             ),
             placeholder: '请输入单价',
           },
-          rules: [
-            {
-              required: !hide,
-              // pattern: new RegExp(
-              //   /(^[1-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/
-              // ),
-              message: '请正确输入',
-            },
-          ],
+          rules:
+            queryInfo?.chargeType === '1'
+              ? [
+                  {
+                    required: !hide,
+                    pattern: new RegExp(
+                      /(^[1-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/
+                    ),
+                    message: '请正确输入',
+                  },
+                ]
+              : [
+                  {
+                    required: !hide,
+                    message: '请正确输入',
+                  },
+                ],
         },
         {
           label: '收费标准',
