@@ -22,4 +22,26 @@ function buShopChargeDataDelete(params: any) {
     body: { ...params },
   })
 }
-export { shopSelectPage, selectProject, buShopChargeDataDelete }
+
+// 商铺收费数据-删除
+function buShopChargeDataAdd(params: any) {
+  return request('/api/buShopChargeData/add', {
+    method: 'POST',
+    body: { ...params },
+  })
+}
+
+// 获取所有按表走常规收费项
+function selectProjectTable(params: any) {
+  return request('/api/buShopChargeData/selectProjectTable', {
+    method: 'POST',
+    body: { ...params },
+  })
+}
+export {
+  shopSelectPage,
+  selectProject,
+  buShopChargeDataDelete,
+  buShopChargeDataAdd,
+  selectProjectTable,
+}

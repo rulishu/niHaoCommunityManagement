@@ -5,6 +5,7 @@ import { ProTable, useTable } from '@uiw-admin/components'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import { Notify, Alert, Button, Icon, Divider } from 'uiw'
 import formatter from '@uiw/formatter'
+import Drawer from './Drawer'
 import { columns } from './item'
 import './style.css'
 export default function Index() {
@@ -18,6 +19,7 @@ export default function Index() {
   useEffect(() => {
     dispatch({ type: 'shopCharges/shopSelectPage' })
     dispatch({ type: 'shopCharges/selectProject' })
+    dispatch({ type: 'shopCharges/selectProjectTable' })
   }, [dispatch])
 
   // table 显示查询
@@ -125,11 +127,17 @@ export default function Index() {
           {
             label: '新增',
             type: 'primary',
+            onClick: () => {
+              dispatch({
+                type: 'shopCharges/updateState',
+                payload: { drawerVisible: true, drawerType: 'add', table },
+              })
+            },
           },
-          {
-            label: '批量新增',
-            type: 'primary',
-          },
+          // {
+          //   label: '批量新增',
+          //   type: 'primary',
+          // },
         ]}
         searchBtns={[
           {
@@ -142,7 +150,9 @@ export default function Index() {
             onClick: () => table?.onReset(),
           },
         ]}
-        columns={columns(shopNoList, projectList, dispatch) as FormCol<any>[]}
+        columns={
+          columns(shopNoList, projectList, dispatch, table) as FormCol<any>[]
+        }
       />
       <Alert
         isOpen={visible}
@@ -171,6 +181,7 @@ export default function Index() {
           </Button>
         </div>
       </Alert>
+      <Drawer />
     </div>
   )
 }
