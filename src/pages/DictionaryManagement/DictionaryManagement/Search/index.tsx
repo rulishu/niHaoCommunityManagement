@@ -18,7 +18,7 @@ interface State {
   isView?: boolean
   delectVisible?: boolean
   id?: string
-  level?: string
+  level?: number
 }
 
 export default function Demo() {

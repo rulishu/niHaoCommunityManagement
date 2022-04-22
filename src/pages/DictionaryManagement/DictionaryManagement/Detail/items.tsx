@@ -42,7 +42,13 @@ export const items2 = (queryInfo: any, addTypeList: any, tableType: string) => [
     required: true,
     initialValue: queryInfo?.dictCode,
     widgetProps: {},
-    rules: [{ required: true, message: '请输入字典编码' }],
+    rules: [
+      {
+        required: true,
+        message: '请输入正确的字典编码',
+        pattern: new RegExp(/(^[1-9]\d*$)/),
+      },
+    ],
   },
   {
     label: '字典类型',
