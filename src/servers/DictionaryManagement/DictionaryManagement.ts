@@ -4,7 +4,7 @@ export interface Change {
   id?: string
   dictType?: string
   remark?: string
-  level?: string
+  level?: number
 }
 
 const selectPage = '/api/dictionary/selectPage'
