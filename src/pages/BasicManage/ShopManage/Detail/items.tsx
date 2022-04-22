@@ -65,7 +65,7 @@ export const items = (
     required: true,
     rules: [
       {
-        pattern: new RegExp(/(^[0-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/),
+        pattern: new RegExp(/(^[+-]?[0-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/),
         message: '请正确输入楼层',
       },
     ],
