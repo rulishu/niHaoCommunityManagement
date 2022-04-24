@@ -38,10 +38,19 @@ function selectProjectTable(params: any) {
     body: { ...params },
   })
 }
+
+// 编辑
+function buShopChargeDataUpdate(params: any) {
+  return request('/api/buShopChargeData/update', {
+    method: 'POST',
+    body: { ...params },
+  })
+}
 export {
   shopSelectPage,
   selectProject,
   buShopChargeDataDelete,
   buShopChargeDataAdd,
   selectProjectTable,
+  buShopChargeDataUpdate,
 }
