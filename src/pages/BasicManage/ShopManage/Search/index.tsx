@@ -75,7 +75,6 @@ export default function Demo() {
     <Fragment>
       <ProTable
         bordered
-        // scroll={{x:1300}}
         operateButtons={[
           {
             label: '新增',
