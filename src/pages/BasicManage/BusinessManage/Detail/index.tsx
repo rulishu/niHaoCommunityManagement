@@ -50,11 +50,16 @@ const Detail = (props: {
       },
     })
   }
-
   const { mutate } = useSWR(
     [
       (tableType === 'add' && insert) || (tableType === 'edit' && update),
-      { method: 'POST', body: queryInfo },
+      {
+        method: 'POST',
+        body: {
+          ...queryInfo,
+          createTime: queryInfo?.createTime?.replace('T', ' ')?.slice(0, 19),
+        },
+      },
     ],
     {
       revalidateOnMount: false,
