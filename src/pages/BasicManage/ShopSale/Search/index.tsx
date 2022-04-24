@@ -82,7 +82,7 @@ export default function Demo() {
     <Fragment>
       <ProTable
         bordered
-        scroll={{ x: 1500 }}
+        // scroll={{ x: 1700 }}
         operateButtons={[
           {
             label: '默认收费项(出租)',

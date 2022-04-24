@@ -81,16 +81,49 @@ export const columnsSearch = (
       title: '开始时间',
       align: 'center',
       key: 'startTime',
+      width: 120,
     },
     {
       title: '结束时间',
       align: 'center',
       key: 'endTime',
+      width: 120,
     },
+    // {
+    //   title: '租售期限',
+    //   key: 'startTime',
+    //   ellipsis: true,
+    //   align: 'center',
+    //   width: 250,
+    //   props: {
+    //     initialValue: [],
+    //     label: '租售期限',
+    //     key: 'endTime',
+    //     widget: 'dateInputRange',
+    //     allowclear: 'true',
+    //     widgetProps: {
+    //       format: 'YYYY-MM-DD',
+    //     },
+    //   },
+    //   render: (text: any, type: string, data: any) => (
+    //     <div
+    //       style={{
+    //         display: 'flex',
+    //         justifyContent: 'center',
+    //         alignItems: 'center',
+    //         flexFlow: 'column',
+    //       }}
+    //     >
+    //       <div>开始 : {data?.startTime || ''}</div>
+    //       <div>结束 : {data?.endTime || ''}</div>
+    //     </div>
+    //   ),
+    // },
     {
       title: '操作',
       key: 'edit',
       align: 'center',
+      width: 250,
       render: (text: any, key: any, rowData: Change) => (
         <div>
           {rowData.useStatus === 1 && (
