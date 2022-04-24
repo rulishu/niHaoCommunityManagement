@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
 import { Notify } from 'uiw'
 import formatter from '@uiw/formatter'
+import { changeTimeFormat } from '@/utils'
 import { drawerTitle, matching } from './item'
 export default function Index() {
   const dispatch = useDispatch<Dispatch>()
@@ -23,7 +24,22 @@ export default function Index() {
 
   const onClose = () => dispatch({ type: 'shopCharges/clean' })
 
+  // 执行成功返回的信息
+  const information = (data: any) => {
+    if (data.code === 1) {
+      onClose()
+      table?.onSearch()
+      Notify.success({ title: data?.message || '' })
+    } else {
+      dispatch({
+        type: 'shopCharges/updateState',
+        payload: { loading: false },
+      })
+      Notify.error({ title: data?.message || '' })
+    }
+  }
   const onSubmit = (current: any) => {
+    //  验证
     const errorObj: any = {}
     const arr = Object.keys(current)
     arr.forEach((element: any) => {
@@ -55,6 +71,7 @@ export default function Index() {
       throw err
     }
 
+    // 新增
     if (drawerType === 'add') {
       const payload = {
         ...current,
@@ -67,20 +84,24 @@ export default function Index() {
           type: 'shopCharges/buShopChargeDataAdd',
           payload,
         }) as any
-      ).then((data: any) => {
-        if (data.code === 1) {
-          onClose()
-          table?.onSearch()
-          Notify.success({ title: data?.message || '' })
-        } else {
-          dispatch({
-            type: 'shopCharges/updateState',
-            payload: { loading: false },
-          })
-          Notify.error({ title: data?.message || '' })
-        }
-      })
+      ).then((data: any) => information(data))
       return
+    }
+    // 编辑
+    if (drawerType === 'edit') {
+      const payload = {
+        ...current,
+        id: queryInfo?.id || '',
+        startTime: changeTimeFormat(current?.startTime),
+        endTime: changeTimeFormat(current?.endTime),
+        deadline: changeTimeFormat(current?.deadline),
+      }
+      ;(
+        dispatch({
+          type: 'shopCharges/getbuShopChargeDataUpdate',
+          payload,
+        }) as any
+      ).then((data: any) => information(data))
     }
   }
   return (
