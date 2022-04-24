@@ -9,6 +9,12 @@ export interface Change {
   cityCode?: string
   areaCode?: string
   address?: string
+  createCode?: string
+  createName?: string
+  createTime?: string
+  updateCode?: string
+  updateName?: string
+  updateTime?: string
 }
 
 function selectById(params: Change) {

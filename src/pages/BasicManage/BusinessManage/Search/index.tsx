@@ -67,6 +67,12 @@ export default function Demo() {
           areaCode: obj?.cityCode,
         },
       })
+      delete obj.createCode
+      delete obj.createName
+      delete obj.createTime
+      delete obj.updateCode
+      delete obj.updateName
+      delete obj.updateTime
       updateData({ drawerVisible: true, queryInfo: obj })
     }
     if (type === 'del') {
