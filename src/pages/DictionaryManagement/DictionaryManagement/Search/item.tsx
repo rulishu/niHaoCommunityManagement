@@ -20,12 +20,12 @@ export const columnsSearch = (
       title: '字典名称',
       align: 'center',
       key: 'dictName',
-      props: {
-        widget: 'input',
-        widgetProps: {
-          placeholder: '输入字典名称',
-        },
-      },
+      // props: {
+      //   widget: 'input',
+      //   widgetProps: {
+      //     placeholder: '输入字典名称',
+      //   },
+      // },
     },
 
     {
@@ -75,20 +75,24 @@ export const columnsSearch = (
             display: 'flex',
           }}
         >
-          <Button
-            size="small"
-            icon="edit"
-            onClick={() => handleEditTable('editType', rowData)}
-          >
-            编辑字典类型
-          </Button>
-          <Button
-            size="small"
-            icon="edit"
-            onClick={() => handleEditTable('editValue', rowData)}
-          >
-            编辑字典项
-          </Button>
+          {rowData.level === 1 && (
+            <Button
+              size="small"
+              icon="edit"
+              onClick={() => handleEditTable('editType', rowData)}
+            >
+              编辑字典类型
+            </Button>
+          )}
+          {rowData.level === 2 && (
+            <Button
+              size="small"
+              icon="edit"
+              onClick={() => handleEditTable('editValue', rowData)}
+            >
+              编辑字典项
+            </Button>
+          )}
           <Button
             size="small"
             icon="eye"

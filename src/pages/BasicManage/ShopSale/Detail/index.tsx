@@ -89,7 +89,7 @@ const Detail = (props: {
           onClose()
           props.onSearch()
         } else {
-          Notify.error({ title: '提交失败！' })
+          Notify.error({ title: data.message })
         }
       },
     }

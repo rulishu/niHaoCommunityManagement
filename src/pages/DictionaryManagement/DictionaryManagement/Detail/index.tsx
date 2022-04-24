@@ -121,7 +121,7 @@ const Detail = (props: {
               dispatch({
                 type: 'DictionaryManagement/updateState',
                 payload: {
-                  loading: true,
+                  loading: false,
                 },
               })
               return

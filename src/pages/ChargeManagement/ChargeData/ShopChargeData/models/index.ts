@@ -3,6 +3,9 @@ import { createModel, RematchDispatch } from '@rematch/core'
 import {
   shopSelectPage,
   selectProject,
+  buShopChargeDataDelete,
+  buShopChargeDataAdd,
+  selectProjectTable,
 } from '@/servers/ChargeManagement/shopCharges'
 
 interface State {
@@ -11,6 +14,10 @@ interface State {
   queryInfo: any
   shopNoList: Array<any>
   projectList: Array<any>
+  shopList: Array<any>
+  visible: boolean
+  loading: boolean
+  table: any
 }
 
 const shopCharges = createModel<RootModel>()({
@@ -25,6 +32,13 @@ const shopCharges = createModel<RootModel>()({
     shopNoList: [],
     // 常规收费项类
     projectList: [],
+    shopList: [],
+    //  Alert 显示
+    visible: false,
+    // loading
+    loading: false,
+    // table
+    table: {},
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({
@@ -39,6 +53,9 @@ const shopCharges = createModel<RootModel>()({
         drawerVisible: false,
         drawerType: '',
         queryInfo: {},
+        visible: false,
+        loading: false,
+        table: {},
       })
     },
 
@@ -53,6 +70,7 @@ const shopCharges = createModel<RootModel>()({
                 return {
                   value: item?.shopNo,
                   label: item?.shopName,
+                  username: item?.username,
                 }
               })
             : [],
@@ -77,6 +95,43 @@ const shopCharges = createModel<RootModel>()({
             : [],
         })
       }
+    },
+
+    // 获取所有按表走常规收费项
+    async selectProjectTable(payload: any) {
+      const dph = dispatch as Dispatch
+      const data = await selectProjectTable(payload)
+      if (data.code === 1) {
+        dph.shopCharges.updateState({
+          shopList: Array.isArray(data?.data)
+            ? data?.data.map((item: any) => {
+                return {
+                  value: item?.id,
+                  label: item?.chargeName,
+                  chargePrice: item?.chargePrice,
+                }
+              })
+            : [],
+        })
+      }
+    },
+
+    // 获取常规收费项类
+    async buShopChargeDataDelete(payload: any) {
+      const dph = dispatch as Dispatch
+      dph.shopCharges.updateState({
+        loading: true,
+      })
+      return await buShopChargeDataDelete(payload)
+    },
+
+    // 新增
+    async buShopChargeDataAdd(payload: any) {
+      const dph = dispatch as Dispatch
+      dph.shopCharges.updateState({
+        loading: true,
+      })
+      return await buShopChargeDataAdd(payload)
     },
   }),
 })

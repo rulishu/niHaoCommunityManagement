@@ -1,6 +1,11 @@
 import { Button, Divider } from 'uiw'
 
-export const columns = (shopNoList: Array<any>, projectListt: Array<any>) => {
+export const columns = (
+  shopNoList: Array<any>,
+  projectListt: Array<any>,
+  dispatch: any,
+  table: any
+) => {
   return [
     {
       title: '商铺',
@@ -19,7 +24,6 @@ export const columns = (shopNoList: Array<any>, projectListt: Array<any>) => {
           widgetProps: {
             allowClear: true,
             mode: 'single',
-            showSearch: true,
             placeholder: '请选择商铺',
           },
         },
@@ -40,8 +44,8 @@ export const columns = (shopNoList: Array<any>, projectListt: Array<any>) => {
           widget: 'searchSelect',
           option: projectListt,
           widgetProps: {
+            allowClear: true,
             mode: 'single',
-            showSearch: true,
             placeholder: '请选择收费项目',
           },
         },
@@ -153,20 +157,6 @@ export const columns = (shopNoList: Array<any>, projectListt: Array<any>) => {
       width: 120,
     },
     {
-      title: '上次读数',
-      key: 'lastReading',
-      align: 'center',
-      ellipsis: true,
-      width: 120,
-    },
-    {
-      title: '本次读数',
-      key: 'thisReading',
-      align: 'center',
-      ellipsis: true,
-      width: 120,
-    },
-    {
       title: '操作',
       key: 'edit',
       align: 'center',
@@ -180,9 +170,34 @@ export const columns = (shopNoList: Array<any>, projectListt: Array<any>) => {
             alignItems: 'center',
           }}
         >
-          <Button type="warning"> 编辑</Button>
+          <Button
+            type="warning"
+            onClick={() => {
+              dispatch({
+                type: 'shopCharges/updateState',
+                payload: {
+                  queryInfo: { ...data },
+                  drawerVisible: true,
+                  drawerType: 'edit',
+                  table,
+                },
+              })
+            }}
+          >
+            编辑
+          </Button>
           <Divider type="vertical" />
-          <Button type="danger"> 删除</Button>
+          <Button
+            type="danger"
+            onClick={() =>
+              dispatch({
+                type: 'shopCharges/updateState',
+                payload: { queryInfo: { ...data }, visible: true },
+              })
+            }
+          >
+            删除
+          </Button>
         </div>
       ),
     },

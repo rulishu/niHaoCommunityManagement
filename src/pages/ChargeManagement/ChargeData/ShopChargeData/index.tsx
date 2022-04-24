@@ -3,21 +3,23 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
 import { ProTable, useTable } from '@uiw-admin/components'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
-import { Notify } from 'uiw'
+import { Notify, Alert, Button, Icon, Divider } from 'uiw'
 import formatter from '@uiw/formatter'
+import Drawer from './Drawer'
 import { columns } from './item'
 import './style.css'
 export default function Index() {
   const dispatch = useDispatch<Dispatch>()
 
   const {
-    shopCharges: { shopNoList, projectList },
+    shopCharges: { shopNoList, projectList, visible, queryInfo, loading },
   }: any = useSelector((state: RootState) => state)
 
   // 获取  所需商铺  常规收费项类
   useEffect(() => {
     dispatch({ type: 'shopCharges/shopSelectPage' })
     dispatch({ type: 'shopCharges/selectProject' })
+    dispatch({ type: 'shopCharges/selectProjectTable' })
   }, [dispatch])
 
   // table 显示查询
@@ -92,6 +94,30 @@ export default function Index() {
     table?.onSearch()
   }
 
+  // 关闭 Alert
+  const closeAlert = () => dispatch({ type: 'shopCharges/clean' })
+
+  // 确定 Alert
+  const onOk = () =>
+    (
+      dispatch({
+        type: 'shopCharges/buShopChargeDataDelete',
+        payload: { id: queryInfo?.id },
+      }) as any
+    ).then((data: any) => {
+      if (data.code === 1) {
+        closeAlert()
+        table?.onSearch()
+        Notify.success({ title: data?.message || '' })
+      } else {
+        dispatch({
+          type: 'shopCharges/updateState',
+          payload: { loading: false },
+        })
+        Notify.error({ title: data?.message || '' })
+      }
+    })
+
   return (
     <div className="proTableBox">
       <ProTable
@@ -101,11 +127,17 @@ export default function Index() {
           {
             label: '新增',
             type: 'primary',
+            onClick: () => {
+              dispatch({
+                type: 'shopCharges/updateState',
+                payload: { drawerVisible: true, drawerType: 'add', table },
+              })
+            },
           },
-          {
-            label: '批量新增',
-            type: 'primary',
-          },
+          // {
+          //   label: '批量新增',
+          //   type: 'primary',
+          // },
         ]}
         searchBtns={[
           {
@@ -118,8 +150,38 @@ export default function Index() {
             onClick: () => table?.onReset(),
           },
         ]}
-        columns={columns(shopNoList, projectList) as FormCol<any>[]}
+        columns={
+          columns(shopNoList, projectList, dispatch, table) as FormCol<any>[]
+        }
       />
+      <Alert
+        isOpen={visible}
+        type="danger"
+        useButton={false}
+        maskClosable={false}
+        onClose={closeAlert}
+      >
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+          }}
+        >
+          <Icon type="delete" style={{ marginRight: 12, color: 'red' }} />
+          <div>是否确认删除 ～</div>
+        </div>
+        <div style={{ marginTop: 24 }}>
+          <Button type="danger" onClick={onOk} loading={loading}>
+            确定
+          </Button>
+          <Divider type="vertical" />
+          <Button onClick={closeAlert} loading={loading}>
+            取消
+          </Button>
+        </div>
+      </Alert>
+      <Drawer />
     </div>
   )
 }
