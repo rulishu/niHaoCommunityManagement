@@ -71,10 +71,12 @@ export const items = (
     ],
   },
   {
-    label: '占地面积',
+    label: '占地面积(㎡)',
     key: 'areaCovered',
     widget: 'input',
-    initialValue: queryInfo?.areaCovered,
+    initialValue: `${queryInfo?.areaCovered || ''} ${
+      tableType === 'view' ? '㎡' : ''
+    }`,
     required: true,
     widgetProps: {
       addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>m^2</div>,
@@ -89,10 +91,12 @@ export const items = (
     ],
   },
   {
-    label: '使用面积',
+    label: '使用面积(㎡)',
     key: 'areaUsable',
     widget: 'input',
-    initialValue: queryInfo?.areaUsable,
+    initialValue: `${queryInfo?.areaUsable || ''}${
+      tableType === 'view' ? '㎡' : ''
+    }`,
     required: true,
     widgetProps: {
       addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>m^2</div>,
@@ -109,7 +113,9 @@ export const items = (
     label: '租金',
     key: 'shopRent',
     widget: 'input',
-    initialValue: queryInfo?.shopRent,
+    initialValue: `${queryInfo?.shopRent || ''}${
+      tableType === 'view' ? '元' : ''
+    }`,
     widgetProps: {
       addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>元</div>,
       placeholder: '请输入租金',

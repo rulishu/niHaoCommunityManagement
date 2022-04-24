@@ -20,9 +20,10 @@ export function verifyPhone(phone: string) {
 
 // 时间转化
 export function changeTimeFormat(str: string | number | Date) {
+  if (!(str instanceof Date)) return str
   const clock = (str + '').split(' ')[4]
   if ((str + '').indexOf('-') !== -1) {
-    str = (str as string).replace(new RegExp(/-/gm), '/')
+    str = (str as unknown as string).replace(new RegExp(/-/gm), '/')
   }
   const d = new Date(str)
   const newDateYear = d.getFullYear()

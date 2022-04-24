@@ -52,19 +52,28 @@ export const columnsSearch = (
       key: 'shopFloor',
     },
     {
-      title: '占地面积',
+      title: '占地面积(㎡)',
       align: 'center',
       key: 'areaCovered',
+      render: (code: number) => {
+        return <div>{code}㎡</div>
+      },
     },
     {
-      title: '使用面积',
+      title: '使用面积(㎡)',
       align: 'center',
       key: 'areaUsable',
+      render: (code: number) => {
+        return <div>{code}㎡</div>
+      },
     },
     {
       title: '租金',
       align: 'center',
       key: 'shopRent',
+      render: (code: number) => {
+        return <div>￥{code}元</div>
+      },
     },
     {
       title: '使用状态',

@@ -9,7 +9,7 @@ import { createModel, RematchDispatch } from '@rematch/core'
 interface State {
   drawerVisible: boolean
   tableType: string
-  queryInfo: object
+  queryInfo: any
   isView: boolean
   id: string
   delectVisible: boolean
