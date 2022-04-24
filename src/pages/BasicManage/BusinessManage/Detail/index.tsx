@@ -6,7 +6,6 @@ import { insert, update } from '@/servers/BasicManage/BusinessManage'
 import { items } from './items'
 import useSWR from 'swr'
 import { useEffect } from 'react'
-import formatter from '@uiw/formatter'
 
 interface State {
   drawerVisible?: boolean
@@ -87,12 +86,6 @@ const Detail = (props: {
       queryInfo: {
         ...queryInfo,
         ...current,
-        createTime:
-          current?.createTime &&
-          formatter('YYYY-MM-DD HH:mm:ss', current?.createTime),
-        updateTime:
-          current?.createTime &&
-          formatter('YYYY-MM-DD HH:mm:ss', current?.updateTime),
       },
     })
   }
