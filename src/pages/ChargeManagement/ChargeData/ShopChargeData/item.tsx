@@ -59,6 +59,36 @@ export const columns = (
       width: 150,
     },
     {
+      title: '付款状态',
+      align: 'center',
+      key: 'status',
+      ellipsis: true,
+      width: 150,
+      props: {
+        widget: 'searchSelect',
+        option: [
+          { value: 1, label: '已付款' },
+          { value: 2, label: '未付款' },
+        ],
+        widgetProps: {
+          mode: 'single',
+          allowClear: true,
+          placeholder: '请选择收付款状态',
+        },
+      },
+      render: (text: any) => (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          {text === 1 ? '已付款' : text === 2 ? '未付款' : ''}
+        </div>
+      ),
+    },
+    {
       title: '截止时间',
       key: 'startTime',
       ellipsis: true,
@@ -89,6 +119,13 @@ export const columns = (
       ),
     },
     {
+      title: '缴费限期',
+      key: 'deadline',
+      ellipsis: true,
+      align: 'center',
+      width: 200,
+    },
+    {
       title: '缴费时间',
       key: 'paymentTime',
       ellipsis: true,
@@ -104,36 +141,6 @@ export const columns = (
           format: 'YYYY-MM-DD',
         },
       },
-    },
-    {
-      title: '付款状态',
-      align: 'center',
-      key: 'status',
-      ellipsis: true,
-      width: 150,
-      props: {
-        widget: 'searchSelect',
-        option: [
-          { value: 1, label: '已付款' },
-          { value: 2, label: '未付款' },
-        ],
-        widgetProps: {
-          mode: 'single',
-          allowClear: true,
-          placeholder: '请选择收付款状态',
-        },
-      },
-      render: (text: any) => (
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          {text === 1 ? '已付款' : text === 2 ? '未付款' : ''}
-        </div>
-      ),
     },
     {
       title: '数量',

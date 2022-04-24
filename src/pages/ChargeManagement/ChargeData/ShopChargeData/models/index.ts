@@ -6,6 +6,7 @@ import {
   buShopChargeDataDelete,
   buShopChargeDataAdd,
   selectProjectTable,
+  buShopChargeDataUpdate,
 } from '@/servers/ChargeManagement/shopCharges'
 
 interface State {
@@ -132,6 +133,15 @@ const shopCharges = createModel<RootModel>()({
         loading: true,
       })
       return await buShopChargeDataAdd(payload)
+    },
+
+    // 编辑
+    async getbuShopChargeDataUpdate(payload: any) {
+      const dph = dispatch as Dispatch
+      dph.shopCharges.updateState({
+        loading: true,
+      })
+      return await buShopChargeDataUpdate(payload)
     },
   }),
 })

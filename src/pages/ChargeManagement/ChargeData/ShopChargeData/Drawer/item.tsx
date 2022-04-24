@@ -62,6 +62,7 @@ const addItems = (
       required: true,
       span: 8,
       disabled: true,
+      initialValue: queryInfo?.username,
       widgetProps: { placeholder: '请选择商铺' },
     },
     {
@@ -71,6 +72,7 @@ const addItems = (
       option: projectList,
       required: true,
       span: 8,
+      initialValue: queryInfo?.saleType,
       widgetProps: {
         placeholder: '请选择收费项目',
         mode: 'single',
@@ -94,12 +96,14 @@ const addItems = (
       required: true,
       span: 8,
       disabled: true,
+      initialValue: queryInfo?.price,
       widgetProps: { placeholder: '请选择收费项目' },
     },
     {
       label: '开始时间',
       key: 'startTime',
       widget: 'dateInput',
+      initialValue: queryInfo?.startTime,
       widgetProps: {
         format: 'YYYY-MM-DD HH:mm:ss',
       },
@@ -108,6 +112,7 @@ const addItems = (
       label: '结束时间',
       key: 'endTime',
       widget: 'dateInput',
+      initialValue: queryInfo?.endTime,
       widgetProps: {
         format: 'YYYY-MM-DD HH:mm:ss',
       },
@@ -116,6 +121,7 @@ const addItems = (
       label: '缴费限期',
       key: 'deadline',
       widget: 'dateInput',
+      initialValue: queryInfo?.deadline,
       widgetProps: {
         format: 'YYYY-MM-DD HH:mm:ss',
       },
@@ -124,7 +130,7 @@ const addItems = (
       label: '数量',
       key: 'quantity',
       widget: 'input',
-      initialValue: '',
+      initialValue: queryInfo?.quantity,
       required: true,
       widgetProps: {
         placeholder: '请填写数量',
@@ -144,7 +150,7 @@ const addItems = (
       label: '金额',
       key: 'money',
       widget: 'input',
-      initialValue: '',
+      initialValue: queryInfo?.money,
       required: true,
       disabled: true,
       widgetProps: { placeholder: '请填写数量' },
