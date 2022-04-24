@@ -17,6 +17,7 @@ import DeatailModals from '../Modals/detailModals/index'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import { useEffect } from 'react'
 import formatter from '@uiw/formatter'
+import { useState } from 'react'
 
 interface State {
   drawerDetailVisible?: boolean
@@ -59,6 +60,8 @@ const Detail = (props: {
       userList,
     },
   } = useSelector((ShopSale: RootState) => ShopSale)
+
+  const [value, setValue] = useState(false)
 
   let totalList = tableList.concat(queryInfoList)
 
@@ -110,32 +113,37 @@ const Detail = (props: {
     },
   })
 
-  const updateData = (payload: State) => {
-    dispatch({
-      type: 'ShopSale/updateState',
-      payload,
-    })
-  }
-
   const onClose = () => {
-    updateData({ drawerVisible: false })
+    props.updateData({ drawerVisible: false })
   }
 
   function handleEditTable(detailType: string, obj: Change) {
-    updateData({
+    props.updateData({
       detailtableType: detailType,
     })
     if (detailType === 'deAdd') {
-      updateData({ drawerDetailVisible: true })
+      props.updateData({ drawerDetailVisible: true })
     }
     if (detailType === 'deDel') {
-      updateData({ delectDetailVisible: true, deteilId: obj?.id })
+      props.updateData({ delectDetailVisible: true, deteilId: obj?.id })
     }
   }
   const onChange = (initial: any, current: any) => {
-    // console.log('current', current);
-    // console.log('initial', initial);
-    // console.log('queryInfo', queryInfo);
+    userList &&
+      userList.forEach((itm: any) => {
+        if (itm.userName === current.userName) {
+          current.card = itm.cardId
+          current.gender = itm.gender
+          current.phone = itm.phoneNumber
+        }
+      })
+
+    if (current?.useStatus === '3') {
+      setValue(true)
+    }
+    if (current?.useStatus === '2') {
+      setValue(false)
+    }
 
     props.updateData({
       queryInfo: {
@@ -194,7 +202,8 @@ const Detail = (props: {
             userNameList,
             userList,
             baseRef,
-            tableType
+            tableType,
+            value
           )}
         />
       )}
@@ -212,8 +221,11 @@ const Detail = (props: {
         data={totalList}
       />
 
-      <DetailAdd onSearch={deatailTable.onSearch} updateData={updateData} />
-      <DeatailModals onSearch={deatailTable.onSearch} updateData={updateData} />
+      <DetailAdd
+        onSearch={deatailTable.onSearch}
+        updateData={props.updateData}
+      />
+      <DeatailModals onSearch={deatailTable.onSearch} />
     </ProDrawer>
   )
 }

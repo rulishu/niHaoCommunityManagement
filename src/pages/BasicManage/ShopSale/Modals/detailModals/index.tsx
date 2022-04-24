@@ -10,10 +10,7 @@ interface State {
   delectDetailVisible?: boolean
   queryInfoList?: listProps[]
 }
-const Modals = (props: {
-  onSearch: () => void
-  updateData: (payload: State) => void
-}) => {
+const Modals = (props: { onSearch: () => void }) => {
   const dispatch = useDispatch<Dispatch>()
   const {
     ShopSale: { delectDetailVisible, deteilId, queryInfoList },
