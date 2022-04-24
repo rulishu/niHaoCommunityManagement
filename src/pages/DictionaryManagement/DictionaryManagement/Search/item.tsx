@@ -20,12 +20,12 @@ export const columnsSearch = (
       title: '字典名称',
       align: 'center',
       key: 'dictName',
-      props: {
-        widget: 'input',
-        widgetProps: {
-          placeholder: '输入字典名称',
-        },
-      },
+      // props: {
+      //   widget: 'input',
+      //   widgetProps: {
+      //     placeholder: '输入字典名称',
+      //   },
+      // },
     },
 
     {
