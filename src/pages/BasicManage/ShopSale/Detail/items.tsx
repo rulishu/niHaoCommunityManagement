@@ -59,6 +59,8 @@ export const items = (
                     card: itm.cardId,
                     gender: itm.gender.toString(),
                     phone: itm.phoneNumber,
+                    // startTime: queryInfo?.startTime,
+                    // endTime: queryInfo?.endTime
                   })
               }
             })
@@ -72,7 +74,7 @@ export const items = (
       widget: 'input',
       initialValue: queryInfo?.card,
       required: true,
-      disabled: tableType === 'edit' ? true : false,
+      disabled: true,
       widgetProps: {
         placeholder: '请输入身份证',
       },
@@ -92,7 +94,7 @@ export const items = (
       widget: 'input',
       initialValue: queryInfo?.gender,
       required: true,
-      disabled: tableType === 'edit' ? true : false,
+      disabled: true,
       widgetProps: {
         placeholder: '请输入性别',
       },
@@ -104,7 +106,7 @@ export const items = (
       widget: 'input',
       initialValue: queryInfo?.phone,
       required: true,
-      disabled: tableType === 'edit' ? true : false,
+      disabled: true,
       widgetProps: {
         placeholder: '请输入联系方式',
       },
