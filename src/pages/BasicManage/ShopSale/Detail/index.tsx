@@ -132,6 +132,7 @@ const Detail = (props: {
     userList &&
       userList.forEach((itm: any) => {
         if (itm.userName === current.userName) {
+          current.userName = itm.userName
           current.card = itm.cardId
           current.gender = itm.gender
           current.phone = itm.phoneNumber

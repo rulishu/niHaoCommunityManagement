@@ -55,6 +55,7 @@ export const items = (
               if (itm.userName === e.target.value) {
                 baseRef.setFields &&
                   baseRef.setFields({
+                    userName: itm.userName,
                     card: itm.cardId,
                     gender: itm.gender.toString(),
                     phone: itm.phoneNumber,
