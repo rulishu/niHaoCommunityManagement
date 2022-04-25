@@ -13,7 +13,7 @@ interface State {
 const Modals = (props: { onSearch: () => void }) => {
   const dispatch = useDispatch<Dispatch>()
   const {
-    ShopSale: { delectDetailVisible, deteilId, queryInfoList },
+    ShopSale: { delectDetailVisible, deteilId, queryInfoList, tableList },
   } = useSelector((state: RootState) => state)
 
   const updateData = (payload: State) => {
@@ -48,22 +48,31 @@ const Modals = (props: { onSearch: () => void }) => {
             })
           }
         }
-        // if (id) {
-        //   dispatch({
-        //     type: 'ShopSale/seraDelete',
-        //     payload: {
-        //       id: id
-        //     }
-        //   })
-        //   dispatch({
-        //     type: 'ShopSale/seraSelectPageList',
-        //     payload: {
-        //       page: 1,
-        //       pageSize: 20,
-        //       type: tableType === 'rent' ? 2 : 1,
-        //     }
-        //   })
-        // }
+
+        if (tableList) {
+          let dataList: any = tableList
+          if (tableList.findIndex((item) => item.id === deteilId)) {
+            dataList.splice(
+              tableList.findIndex((item) => item.id === deteilId),
+              1
+            )
+
+            // dispatch({
+            //   type: 'ShopSale/seraDelete',
+            //   payload: {
+            //     id: deteilId
+            //   }
+            // })
+            // dispatch({
+            //   type: 'ShopSale/seraSelectPageList',
+            //   payload: {
+            //     page: 1,
+            //     pageSize: 20,
+            //     type: tableType === 'rent' ? 2 : 1,
+            //   }
+            // })
+          }
+        }
       }}
       onCancel={() => onClose()}
       onClosed={onClose}

@@ -65,9 +65,22 @@ export default function Demo() {
         payload: {
           page: 1,
           pageSize: 20,
-          type: type === 'rent' ? 2 : type === 'sale' ? 1 : 0,
+          type:
+            type === 'rent'
+              ? 2
+              : type === 'sale'
+              ? 1
+              : obj.useStatus === 2
+              ? 2
+              : obj.useStatus === 3
+              ? 1
+              : 0,
         },
       })
+      type === 'edit' &&
+        dispatch({
+          type: 'ShopSale/selectUserByRole',
+        })
       updateData({
         drawerVisible: true,
         queryInfo: obj,

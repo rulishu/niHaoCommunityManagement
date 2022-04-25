@@ -132,6 +132,7 @@ const Detail = (props: {
     userList &&
       userList.forEach((itm: any) => {
         if (itm.userName === current.userName) {
+          current.userName = itm.userName
           current.card = itm.cardId
           current.gender = itm.gender
           current.phone = itm.phoneNumber
@@ -140,9 +141,25 @@ const Detail = (props: {
 
     if (current?.useStatus === '3') {
       setValue(true)
+      dispatch({
+        type: 'ShopSale/seraSelectPageList',
+        payload: {
+          page: 1,
+          pageSize: 20,
+          type: 1,
+        },
+      })
     }
     if (current?.useStatus === '2') {
       setValue(false)
+      dispatch({
+        type: 'ShopSale/seraSelectPageList',
+        payload: {
+          page: 1,
+          pageSize: 20,
+          type: 2,
+        },
+      })
     }
 
     props.updateData({
@@ -150,11 +167,15 @@ const Detail = (props: {
         ...queryInfo,
         ...current,
         startTime:
-          current?.startTime &&
-          formatter('YYYY-MM-DD HH:mm:ss', current?.startTime),
+          tableType === 'add'
+            ? current?.startTime &&
+              formatter('YYYY-MM-DD HH:mm:ss', current?.startTime)
+            : queryInfo?.startTime,
         endTime:
-          current?.endTime &&
-          formatter('YYYY-MM-DD HH:mm:ss', current?.endTime),
+          tableType === 'add'
+            ? current?.endTime &&
+              formatter('YYYY-MM-DD HH:mm:ss', current?.endTime)
+            : queryInfo?.endTime,
       },
     })
   }
