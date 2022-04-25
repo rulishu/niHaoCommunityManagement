@@ -9,6 +9,7 @@ import { listProps } from '@/servers/BasicManage/ShopSale'
 interface State {
   delectDetailVisible?: boolean
   queryInfoList?: listProps[]
+  tableList?: listProps[]
 }
 const Modals = (props: { onSearch: () => void }) => {
   const dispatch = useDispatch<Dispatch>()
@@ -56,7 +57,9 @@ const Modals = (props: { onSearch: () => void }) => {
               tableList.findIndex((item) => item.id === deteilId),
               1
             )
-
+            updateData({
+              tableList: dataList,
+            })
             // dispatch({
             //   type: 'ShopSale/seraDelete',
             //   payload: {
