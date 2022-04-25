@@ -20,7 +20,7 @@ export default function Index() {
     dispatch({ type: 'shopCharges/shopSelectPage' })
     dispatch({ type: 'shopCharges/selectProject' })
     dispatch({ type: 'shopCharges/selectProjectTable' })
-    dispatch({ type: 'shopCharges/selectProjectAllShop' })
+    // dispatch({ type: 'shopCharges/selectProjectAllShop' })
   }, [dispatch])
 
   // table 显示查询

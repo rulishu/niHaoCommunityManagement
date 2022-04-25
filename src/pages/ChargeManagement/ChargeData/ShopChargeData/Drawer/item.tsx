@@ -66,7 +66,7 @@ const addItems = (
       span: 8,
       disabled: true,
       initialValue: queryInfo?.username,
-      widgetProps: { placeholder: '请选择商铺' },
+      widgetProps: { placeholder: '请选择客户姓名' },
     },
     {
       label: '收费项目',
@@ -165,7 +165,7 @@ const addItems = (
 
 export const batchMatching = (
   type: string,
-  codeList: Array<any>,
+  shopNoList: Array<any>,
   form: any,
   shopList: Array<any>,
   queryInfo: any,
@@ -173,14 +173,14 @@ export const batchMatching = (
 ) => {
   switch (type) {
     case 'batchAdd':
-      return batchAddItems(codeList, form, shopList, queryInfo, dispatch)
+      return batchAddItems(shopNoList, form, shopList, queryInfo, dispatch)
     default:
       return []
   }
 }
 
 const batchAddItems = (
-  codeList: Array<any>,
+  shopNoList: Array<any>,
   form: any,
   shopList: Array<any>,
   queryInfo: any,
@@ -192,22 +192,32 @@ const batchAddItems = (
       key: 'code',
       widget: 'searchSelect',
       span: 12,
-      option: codeList,
+      option: shopNoList,
       initialValue: queryInfo?.code,
       required: true,
       widgetProps: {
+        labelInValue: true,
         mode: 'multiple',
         onChange: (value: any) => {
-          console.log(value)
           dispatch({
-            type: 'shopCharges/selectProjectByCode',
+            type: 'shopCharges/updateState',
             payload: {
-              codes: value,
+              usernameCodes: value,
             },
           })
         },
       },
     },
+    // {
+    //   label: '客户姓名',
+    //   key: 'username',
+    //   widget: 'input',
+    //   required: true,
+    //   span: 8,
+    //   disabled: true,
+    //   initialValue: queryInfo?.username,
+    //   widgetProps: { placeholder: '请选择客户姓名' },
+    // },
     {
       label: '收费项目',
       key: 'saleType',

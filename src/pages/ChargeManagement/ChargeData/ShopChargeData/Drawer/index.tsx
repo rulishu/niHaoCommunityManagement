@@ -19,8 +19,8 @@ export default function Index() {
       shopList,
       table,
       loading,
-      codeList,
-      clientList,
+      usernameCodes,
+      // clientList,
     },
   }: any = useSelector((state: RootState) => state)
 
@@ -74,8 +74,8 @@ export default function Index() {
           ...current,
           startTime: formatter('YYYY-MM-DD HH:mm:ss', current?.startTime),
           endTime: formatter('YYYY-MM-DD HH:mm:ss', current?.endTime),
-          code: item,
-          username: clientList[key].username,
+          code: item.value,
+          username: usernameCodes[key].username,
           quantity: 1,
           money: current?.price * 1,
         }
@@ -86,7 +86,6 @@ export default function Index() {
           payload,
         }) as any
       ).then((data: any) => information(data))
-      //
     }
 
     if (Object.keys(errorObj).length > 0) {
@@ -166,7 +165,7 @@ export default function Index() {
               ) as any)
             : (batchMatching(
                 drawerType,
-                codeList,
+                shopNoList,
                 form,
                 shopList,
                 queryInfo,

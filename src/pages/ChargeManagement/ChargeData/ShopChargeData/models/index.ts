@@ -7,7 +7,7 @@ import {
   buShopChargeDataAdd,
   selectProjectTable,
   buShopChargeDataUpdate,
-  selectProjectAllShop,
+  // selectProjectAllShop,
   selectProjectByCode,
   gitBatchAdd,
 } from '@/servers/ChargeManagement/shopCharges'
@@ -24,6 +24,7 @@ interface State {
   loading: boolean
   table: any
   clientList: Array<any>
+  usernameCodes?: Array<any>
 }
 
 const shopCharges = createModel<RootModel>()({
@@ -47,6 +48,7 @@ const shopCharges = createModel<RootModel>()({
     table: {},
     codeList: [],
     clientList: [],
+    usernameCodes: [],
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({
@@ -79,6 +81,7 @@ const shopCharges = createModel<RootModel>()({
                   value: item?.shopNo,
                   label: item?.shopName,
                   username: item?.username,
+                  chargePrice: item?.id,
                 }
               })
             : [],
@@ -124,23 +127,24 @@ const shopCharges = createModel<RootModel>()({
       }
     },
     //  获取所有已租售商铺编号-编号查询
-    async selectProjectAllShop(payload: any) {
-      const dph = dispatch as Dispatch
-      const data = await selectProjectAllShop(payload)
-      if (data.code === 1) {
-        dph.shopCharges.updateState({
-          codeList: Array.isArray(data?.data)
-            ? data?.data.map((item: any) => {
-                return {
-                  value: item?.shopNo,
-                  label: item?.shopName,
-                  chargePrice: item?.id,
-                }
-              })
-            : [],
-        })
-      }
-    },
+    // async selectProjectAllShop(payload: any) {
+    //   const dph = dispatch as Dispatch
+    //   const data = await selectProjectAllShop(payload)
+    //   if (data.code === 1) {
+    //     dph.shopCharges.updateState({
+    //       codeList: Array.isArray(data?.data)
+    //         ? data?.data.map((item: any) => {
+    //             return {
+    //               value: item?.shopNo,
+    //               label: item?.shopName,
+    //               chargePrice: item?.id,
+    //               username: item?.username,
+    //             }
+    //           })
+    //         : [],
+    //     })
+    //   }
+    // },
     //  商铺收费数据-通过code批量获取数据
     async selectProjectByCode(payload: any) {
       const dph = dispatch as Dispatch
