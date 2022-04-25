@@ -5,6 +5,8 @@ export const drawerTitle = (type: string) => {
       return '新增'
     case 'edit':
       return '编辑'
+    case 'batchAdd':
+      return '批量新增'
     default:
       return ''
   }
@@ -166,11 +168,12 @@ export const batchMatching = (
   codeList: Array<any>,
   form: any,
   shopList: Array<any>,
-  queryInfo: any
+  queryInfo: any,
+  dispatch: any
 ) => {
   switch (type) {
     case 'batchAdd':
-      return batchAddItems(codeList, form, shopList, queryInfo)
+      return batchAddItems(codeList, form, shopList, queryInfo, dispatch)
     default:
       return []
   }
@@ -180,7 +183,8 @@ const batchAddItems = (
   codeList: Array<any>,
   form: any,
   shopList: Array<any>,
-  queryInfo: any
+  queryInfo: any,
+  dispatch: any
 ) => {
   return [
     {
@@ -193,6 +197,15 @@ const batchAddItems = (
       required: true,
       widgetProps: {
         mode: 'multiple',
+        onChange: (value: any) => {
+          console.log(value)
+          dispatch({
+            type: 'shopCharges/selectProjectByCode',
+            payload: {
+              codes: value,
+            },
+          })
+        },
       },
     },
     {

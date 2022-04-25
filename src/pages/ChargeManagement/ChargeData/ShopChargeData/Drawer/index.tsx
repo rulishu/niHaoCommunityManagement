@@ -20,6 +20,7 @@ export default function Index() {
       table,
       loading,
       codeList,
+      clientList,
     },
   }: any = useSelector((state: RootState) => state)
 
@@ -66,13 +67,19 @@ export default function Index() {
         errorObj.endTime = '结束时间不能少于开始时间'
       }
     })
+    // 批量新增
     if (Object.is(drawerType, 'batchAdd')) {
-      const payload = current?.code?.map((item: any) => ({
-        ...current,
-        startTime: formatter('YYYY-MM-DD HH:mm:ss', current?.startTime),
-        endTime: formatter('YYYY-MM-DD HH:mm:ss', current?.endTime),
-        code: item,
-      }))
+      const payload = current?.code?.map((item: any, key: number) => {
+        return {
+          ...current,
+          startTime: formatter('YYYY-MM-DD HH:mm:ss', current?.startTime),
+          endTime: formatter('YYYY-MM-DD HH:mm:ss', current?.endTime),
+          code: item,
+          username: clientList[key].username,
+          quantity: 1,
+          money: current?.price * 1,
+        }
+      })
       ;(
         dispatch({
           type: 'shopCharges/gitBatchAdd',
@@ -162,7 +169,8 @@ export default function Index() {
                 codeList,
                 form,
                 shopList,
-                queryInfo
+                queryInfo,
+                dispatch
               ) as any)
         }
       />

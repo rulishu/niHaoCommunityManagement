@@ -45,6 +45,13 @@ function selectProjectAllShop(params: any) {
     body: { ...params },
   })
 }
+// 商铺收费数据-通过code批量获取数据
+function selectProjectByCode(params: any) {
+  return request('/api/buShopChargeData/selectCodeUser', {
+    method: 'POST',
+    body: { ...params },
+  })
+}
 // 编辑
 function buShopChargeDataUpdate(params: any) {
   return request('/api/buShopChargeData/update', {
@@ -69,4 +76,5 @@ export {
   buShopChargeDataUpdate,
   selectProjectAllShop,
   gitBatchAdd,
+  selectProjectByCode,
 }
