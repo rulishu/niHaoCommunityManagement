@@ -20,6 +20,7 @@ export default function Index() {
     dispatch({ type: 'shopCharges/shopSelectPage' })
     dispatch({ type: 'shopCharges/selectProject' })
     dispatch({ type: 'shopCharges/selectProjectTable' })
+    dispatch({ type: 'shopCharges/selectProjectAllShop' })
   }, [dispatch])
 
   // table 显示查询
@@ -134,10 +135,16 @@ export default function Index() {
               })
             },
           },
-          // {
-          //   label: '批量新增',
-          //   type: 'primary',
-          // },
+          {
+            label: '批量新增',
+            type: 'primary',
+            onClick: () => {
+              dispatch({
+                type: 'shopCharges/updateState',
+                payload: { drawerVisible: true, drawerType: 'batchAdd', table },
+              })
+            },
+          },
         ]}
         searchBtns={[
           {

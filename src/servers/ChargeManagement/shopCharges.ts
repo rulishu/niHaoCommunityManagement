@@ -1,7 +1,7 @@
 import { request } from '@uiw-admin/utils'
 // 查询商铺
 function shopSelectPage(params: any) {
-  return request('/api/buShopChargeData/selectAllShop', {
+  return request('/api/buShopChargeData/selectAllShopUser', {
     method: 'POST',
     body: { ...params },
   })
@@ -38,12 +38,26 @@ function selectProjectTable(params: any) {
     body: { ...params },
   })
 }
-
+// 获取所有已租售商铺编号-编号查询
+function selectProjectAllShop(params: any) {
+  return request('/api/buShopChargeData/selectAllShop', {
+    method: 'POST',
+    body: { ...params },
+  })
+}
 // 编辑
 function buShopChargeDataUpdate(params: any) {
   return request('/api/buShopChargeData/update', {
     method: 'POST',
     body: { ...params },
+  })
+}
+//
+// 批量新增
+function gitBatchAdd(params: any) {
+  return request('/api/buShopChargeData/batchAdd', {
+    method: 'POST',
+    body: params,
   })
 }
 export {
@@ -53,4 +67,6 @@ export {
   buShopChargeDataAdd,
   selectProjectTable,
   buShopChargeDataUpdate,
+  selectProjectAllShop,
+  gitBatchAdd,
 }

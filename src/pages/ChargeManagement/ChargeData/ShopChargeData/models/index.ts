@@ -7,6 +7,8 @@ import {
   buShopChargeDataAdd,
   selectProjectTable,
   buShopChargeDataUpdate,
+  selectProjectAllShop,
+  gitBatchAdd,
 } from '@/servers/ChargeManagement/shopCharges'
 
 interface State {
@@ -16,6 +18,7 @@ interface State {
   shopNoList: Array<any>
   projectList: Array<any>
   shopList: Array<any>
+  codeList: Array<any>
   visible: boolean
   loading: boolean
   table: any
@@ -40,6 +43,7 @@ const shopCharges = createModel<RootModel>()({
     loading: false,
     // table
     table: {},
+    codeList: [],
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({
@@ -116,7 +120,44 @@ const shopCharges = createModel<RootModel>()({
         })
       }
     },
+    //  获取所有已租售商铺编号-编号查询
+    async selectProjectAllShop(payload: any) {
+      const dph = dispatch as Dispatch
+      const data = await selectProjectAllShop(payload)
+      if (data.code === 1) {
+        dph.shopCharges.updateState({
+          codeList: Array.isArray(data?.data)
+            ? data?.data.map((item: any) => {
+                return {
+                  value: item?.shopNo,
+                  label: item?.shopName,
+                  chargePrice: item?.id,
+                }
+              })
+            : [],
+        })
+      }
+    },
 
+    //  获取所有已租售商铺编号-编号查询
+    async gitBatchAdd(payload: any) {
+      console.log('payload', payload)
+      const dph = dispatch as Dispatch
+      const data = await gitBatchAdd(payload)
+      if (data.code === 1) {
+        dph.shopCharges.updateState({
+          codeList: Array.isArray(data?.data)
+            ? data?.data.map((item: any) => {
+                return {
+                  value: item?.shopNo,
+                  label: item?.shopName,
+                  chargePrice: item?.id,
+                }
+              })
+            : [],
+        })
+      }
+    },
     // 获取常规收费项类
     async buShopChargeDataDelete(payload: any) {
       const dph = dispatch as Dispatch

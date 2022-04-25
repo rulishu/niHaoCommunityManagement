@@ -1,3 +1,4 @@
+import formatter from '@uiw/formatter'
 export const drawerTitle = (type: string) => {
   switch (type) {
     case 'add':
@@ -154,6 +155,123 @@ const addItems = (
       required: true,
       disabled: true,
       widgetProps: { placeholder: '请填写数量' },
+    },
+  ]
+}
+
+// 批量增加
+
+export const batchMatching = (
+  type: string,
+  codeList: Array<any>,
+  form: any,
+  shopList: Array<any>,
+  queryInfo: any
+) => {
+  switch (type) {
+    case 'batchAdd':
+      return batchAddItems(codeList, form, shopList, queryInfo)
+    default:
+      return []
+  }
+}
+
+const batchAddItems = (
+  codeList: Array<any>,
+  form: any,
+  shopList: Array<any>,
+  queryInfo: any
+) => {
+  return [
+    {
+      label: '编号',
+      key: 'code',
+      widget: 'searchSelect',
+      span: 12,
+      option: codeList,
+      initialValue: queryInfo?.code,
+      required: true,
+      widgetProps: {
+        mode: 'multiple',
+      },
+    },
+    {
+      label: '收费项目',
+      key: 'saleType',
+      widget: 'searchSelect',
+      option: shopList,
+      required: true,
+      span: 12,
+      initialValue: queryInfo?.saleType,
+      widgetProps: {
+        placeholder: '请选择收费项目',
+        mode: 'single',
+        allowClear: false,
+        onChange: (value: any) => {
+          const nameObj = shopList.find((item) => item?.value === value) || {}
+          const fromData = form.getFieldValues()
+          form.setFields({
+            ...fromData,
+            price: nameObj?.chargePrice || '',
+            saleType: nameObj?.value || '',
+          })
+        },
+      },
+    },
+    {
+      label: '单价',
+      key: 'price',
+      widget: 'input',
+      required: true,
+      span: 12,
+      disabled: true,
+      initialValue: queryInfo?.price,
+      widgetProps: { placeholder: '请选择单价' },
+    },
+    {
+      label: '开始时间',
+      key: 'startTime',
+      span: 12,
+      widget: 'dateInput',
+      required: true,
+      initialValue: queryInfo?.startTime,
+      widgetProps: {
+        format: 'YYYY-MM-DD HH:mm:ss',
+      },
+    },
+    {
+      label: '结束时间',
+      key: 'endTime',
+      span: 12,
+      widget: 'dateInput',
+      required: true,
+      initialValue: queryInfo?.endTime,
+      widgetProps: {
+        format: 'YYYY-MM-DD HH:mm:ss',
+        onChange: (value: any) => {
+          // 获取当前时间
+          const startTime: any = new Date(value.setHours(0, 0, 0, 0))
+          // 获取当前时间后七天
+          const futureTime: any = new Date(startTime * 1 + 86400 * 7 * 1000)
+          const fromData = form.getFieldValues()
+          form.setFields({
+            ...fromData,
+            endTime: value,
+            deadline: formatter('YYYY-MM-DD HH:mm:ss', futureTime) || '',
+          })
+        },
+      },
+    },
+    {
+      label: '缴费限期',
+      key: 'deadline',
+      span: 12,
+      widget: 'dateInput',
+      disabled: true,
+      initialValue: queryInfo?.deadline,
+      widgetProps: {
+        format: 'YYYY-MM-DD HH:mm:ss',
+      },
     },
   ]
 }
