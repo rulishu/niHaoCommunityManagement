@@ -26,8 +26,8 @@ export interface Change {
   card?: string
   gender?: string
   phone?: string
-  startTime?: string
-  endTime?: string
+  startTime?: Date
+  endTime?: Date
   rentalMonth?: number
   sale?: string
   industry?: string

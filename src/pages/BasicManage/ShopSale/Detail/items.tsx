@@ -1,6 +1,7 @@
 import { Change } from '@/servers/BasicManage/ShopSale'
 import { Button } from 'uiw'
 import { UseFormProps } from '@uiw-admin/components/src/ProForm/type'
+// import formatter from '@uiw/formatter'
 
 export const items = (
   queryInfo: Change,
@@ -8,12 +9,9 @@ export const items = (
   userNameList: [],
   userList: [],
   baseRef: UseFormProps,
-  tableType: string
+  tableType: string,
+  value: boolean
 ) => {
-  // console.log('userList', userList);
-  // console.log('queryInfo', queryInfo);
-  // console.log('tableType', tableType);
-
   return [
     {
       label: '商铺编码',
@@ -32,16 +30,10 @@ export const items = (
       widget: 'select',
       initialValue: queryInfo?.useStatus,
       required: true,
-      option:
-        tableType === 'add'
-          ? [
-              { label: '已出租', value: 2 },
-              { label: '已出售', value: 3 },
-            ]
-          : [
-              { label: '已出租', value: 2 },
-              { label: '已出售', value: 3 },
-            ],
+      option: [
+        { label: '已出租', value: 2 },
+        { label: '已出售', value: 3 },
+      ],
       widgetProps: {
         placeholder: '请输入类别',
       },
@@ -51,26 +43,27 @@ export const items = (
       label: '客户姓名',
       key: 'userName',
       widget: 'select',
-      initialValue: queryInfo?.userName,
+      initialValue: queryInfo?.userName || '',
       required: true,
       option: userNameList,
       widgetProps: {
         mode: 'single',
         placeholder: '请输入选择',
         onChange: (e: any) => {
-          userList.forEach((itm: any) => {
-            if (itm.userName === e.target.value) {
-              baseRef.setFields &&
-                baseRef.setFields({
-                  userName: itm.userName,
-                  card: itm.cardId,
-                  gender: itm.gender.toString(),
-                  phone: itm.phoneNumber,
-                  startTime: queryInfo?.startTime,
-                  endTime: queryInfo?.endTime,
-                })
-            }
-          })
+          userList &&
+            userList.forEach((itm: any) => {
+              if (itm.userName === e.target.value) {
+                baseRef.setFields &&
+                  baseRef.setFields({
+                    userName: itm.userName,
+                    card: itm.cardId,
+                    gender: itm.gender.toString(),
+                    phone: itm.phoneNumber,
+                    // startTime: queryInfo?.startTime,
+                    // endTime: queryInfo?.endTime
+                  })
+              }
+            })
         },
       },
       rules: [{ required: true, message: '请输入客户姓名' }],
@@ -81,7 +74,7 @@ export const items = (
       widget: 'input',
       initialValue: queryInfo?.card,
       required: true,
-      disabled: tableType === 'edit' ? true : false,
+      disabled: true,
       widgetProps: {
         placeholder: '请输入身份证',
       },
@@ -101,7 +94,7 @@ export const items = (
       widget: 'input',
       initialValue: queryInfo?.gender,
       required: true,
-      disabled: tableType === 'edit' ? true : false,
+      disabled: true,
       widgetProps: {
         placeholder: '请输入性别',
       },
@@ -113,7 +106,7 @@ export const items = (
       widget: 'input',
       initialValue: queryInfo?.phone,
       required: true,
-      disabled: tableType === 'edit' ? true : false,
+      disabled: true,
       widgetProps: {
         placeholder: '请输入联系方式',
       },
@@ -157,7 +150,7 @@ export const items = (
       widget: 'input',
       initialValue: queryInfo?.sale,
       required: true,
-      hide: queryInfo?.useStatus === 2 ? false : true,
+      hide: value,
       widgetProps: {
         addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>元</div>,
         placeholder: '请输入租金',

@@ -17,6 +17,7 @@ import DeatailModals from '../Modals/detailModals/index'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import { useEffect } from 'react'
 import formatter from '@uiw/formatter'
+import { useState } from 'react'
 
 interface State {
   drawerDetailVisible?: boolean
@@ -60,6 +61,8 @@ const Detail = (props: {
     },
   } = useSelector((ShopSale: RootState) => ShopSale)
 
+  const [value, setValue] = useState(false)
+
   let totalList = tableList.concat(queryInfoList)
 
   const { mutate } = useSWR(
@@ -71,7 +74,7 @@ const Detail = (props: {
         method: 'POST',
         body:
           tableType === 'rent' || tableType === 'sale'
-            ? { chargeList: queryInfoList, type: tableType === 'rent' ? 2 : 1 }
+            ? { chargeList: tableList, type: tableType === 'rent' ? 2 : 1 }
             : tableType === 'edit'
             ? { ...queryInfo, chargeList: queryInfoList }
             : tableType === 'add' && {
@@ -110,43 +113,69 @@ const Detail = (props: {
     },
   })
 
-  const updateData = (payload: State) => {
-    dispatch({
-      type: 'ShopSale/updateState',
-      payload,
-    })
-  }
-
   const onClose = () => {
-    updateData({ drawerVisible: false })
+    props.updateData({ drawerVisible: false })
   }
 
   function handleEditTable(detailType: string, obj: Change) {
-    updateData({
+    props.updateData({
       detailtableType: detailType,
     })
     if (detailType === 'deAdd') {
-      updateData({ drawerDetailVisible: true })
+      props.updateData({ drawerDetailVisible: true })
     }
     if (detailType === 'deDel') {
-      updateData({ delectDetailVisible: true, deteilId: obj?.id })
+      props.updateData({ delectDetailVisible: true, deteilId: obj?.id })
     }
   }
   const onChange = (initial: any, current: any) => {
-    // console.log('current', current);
-    // console.log('initial', initial);
-    // console.log('queryInfo', queryInfo);
+    userList &&
+      userList.forEach((itm: any) => {
+        if (itm.userName === current.userName) {
+          current.userName = itm.userName
+          current.card = itm.cardId
+          current.gender = itm.gender
+          current.phone = itm.phoneNumber
+        }
+      })
+
+    if (current?.useStatus === '3') {
+      setValue(true)
+      dispatch({
+        type: 'ShopSale/seraSelectPageList',
+        payload: {
+          page: 1,
+          pageSize: 20,
+          type: 1,
+        },
+      })
+    }
+    if (current?.useStatus === '2') {
+      setValue(false)
+      dispatch({
+        type: 'ShopSale/seraSelectPageList',
+        payload: {
+          page: 1,
+          pageSize: 20,
+          type: 2,
+        },
+      })
+    }
 
     props.updateData({
       queryInfo: {
         ...queryInfo,
         ...current,
         startTime:
-          current?.startTime &&
-          formatter('YYYY-MM-DD HH:mm:ss', current?.startTime),
+          tableType === 'add'
+            ? current?.startTime &&
+              formatter('YYYY-MM-DD HH:mm:ss', current?.startTime)
+            : queryInfo?.startTime,
         endTime:
-          current?.endTime &&
-          formatter('YYYY-MM-DD HH:mm:ss', current?.endTime),
+          tableType === 'add'
+            ? current?.endTime &&
+              formatter('YYYY-MM-DD HH:mm:ss', current?.endTime)
+            : queryInfo?.endTime,
       },
     })
   }
@@ -194,7 +223,8 @@ const Detail = (props: {
             userNameList,
             userList,
             baseRef,
-            tableType
+            tableType,
+            value
           )}
         />
       )}
@@ -212,8 +242,11 @@ const Detail = (props: {
         data={totalList}
       />
 
-      <DetailAdd onSearch={deatailTable.onSearch} updateData={updateData} />
-      <DeatailModals onSearch={deatailTable.onSearch} updateData={updateData} />
+      <DetailAdd
+        onSearch={deatailTable.onSearch}
+        updateData={props.updateData}
+      />
+      <DeatailModals onSearch={deatailTable.onSearch} />
     </ProDrawer>
   )
 }
