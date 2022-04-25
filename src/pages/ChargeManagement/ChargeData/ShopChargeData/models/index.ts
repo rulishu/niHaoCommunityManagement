@@ -7,6 +7,9 @@ import {
   buShopChargeDataAdd,
   selectProjectTable,
   buShopChargeDataUpdate,
+  // selectProjectAllShop,
+  selectProjectByCode,
+  gitBatchAdd,
 } from '@/servers/ChargeManagement/shopCharges'
 
 interface State {
@@ -16,9 +19,12 @@ interface State {
   shopNoList: Array<any>
   projectList: Array<any>
   shopList: Array<any>
+  codeList: Array<any>
   visible: boolean
   loading: boolean
   table: any
+  clientList: Array<any>
+  usernameCodes?: Array<any>
 }
 
 const shopCharges = createModel<RootModel>()({
@@ -40,6 +46,9 @@ const shopCharges = createModel<RootModel>()({
     loading: false,
     // table
     table: {},
+    codeList: [],
+    clientList: [],
+    usernameCodes: [],
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({
@@ -72,6 +81,7 @@ const shopCharges = createModel<RootModel>()({
                   value: item?.shopNo,
                   label: item?.shopName,
                   username: item?.username,
+                  chargePrice: item?.id,
                 }
               })
             : [],
@@ -116,7 +126,52 @@ const shopCharges = createModel<RootModel>()({
         })
       }
     },
-
+    //  获取所有已租售商铺编号-编号查询
+    // async selectProjectAllShop(payload: any) {
+    //   const dph = dispatch as Dispatch
+    //   const data = await selectProjectAllShop(payload)
+    //   if (data.code === 1) {
+    //     dph.shopCharges.updateState({
+    //       codeList: Array.isArray(data?.data)
+    //         ? data?.data.map((item: any) => {
+    //             return {
+    //               value: item?.shopNo,
+    //               label: item?.shopName,
+    //               chargePrice: item?.id,
+    //               username: item?.username,
+    //             }
+    //           })
+    //         : [],
+    //     })
+    //   }
+    // },
+    //  商铺收费数据-通过code批量获取数据
+    async selectProjectByCode(payload: any) {
+      const dph = dispatch as Dispatch
+      const data = await selectProjectByCode(payload)
+      if (data.code === 1) {
+        dph.shopCharges.updateState({
+          clientList: Array.isArray(data?.data)
+            ? data?.data.map((item: any) => ({
+                username: item?.username || '',
+              }))
+            : [],
+        })
+      }
+    },
+    //  批量新增
+    async gitBatchAdd(payload: any, shopCharges: any) {
+      console.log('payload', payload)
+      const dph = dispatch as Dispatch
+      const data = await gitBatchAdd(payload)
+      if (data.code === 1) {
+        dph.shopCharges.updateState({
+          drawerVisible: false,
+          drawerType: '',
+        })
+        shopCharges.shopCharges.table.onSearch()
+      }
+    },
     // 获取常规收费项类
     async buShopChargeDataDelete(payload: any) {
       const dph = dispatch as Dispatch
