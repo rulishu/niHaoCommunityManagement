@@ -38,27 +38,33 @@ const Modals = (props: { onSearch: () => void }) => {
       type="primary"
       onConfirm={() => {
         if (queryInfoList) {
-          let dataList: any = queryInfoList
+          // queryInfoList.findIndex((item) => console.log('item.id', item.id))
+          // console.log('deteilId', deteilId);
+
+          let queryDataList: any = queryInfoList
           if (queryInfoList.findIndex((item) => item.id === deteilId) > -1) {
-            dataList.splice(
+            queryDataList.splice(
               queryInfoList.findIndex((item) => item.id === deteilId),
               1
             )
             updateData({
-              queryInfoList: dataList,
+              queryInfoList: queryDataList,
             })
           }
         }
 
         if (tableList) {
-          let dataList: any = tableList
-          if (tableList.findIndex((item) => item.id === deteilId)) {
-            dataList.splice(
+          // tableList.findIndex((item) => console.log('item.id', item.id))
+          // console.log('deteilId', deteilId);
+
+          let tableDataList: any = tableList
+          if (tableList.findIndex((item) => item.id === deteilId) > -1) {
+            tableDataList.splice(
               tableList.findIndex((item) => item.id === deteilId),
               1
             )
             updateData({
-              tableList: dataList,
+              tableList: tableDataList,
             })
             // dispatch({
             //   type: 'ShopSale/seraDelete',
