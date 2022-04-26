@@ -10,6 +10,7 @@ import {
 } from '@/servers/DictionaryManagement/DictionaryManagement'
 import Drawer from '../Detail'
 import Modals from '../Modals'
+import { searchFun } from '@/utils'
 
 interface State {
   drawerVisible?: boolean
@@ -87,28 +88,17 @@ export default function Demo() {
           {
             label: '新增字典类型',
             type: 'primary',
+            icon: 'plus-circle-o',
             onClick: () => handleEditTable('addType', {}),
           },
           {
             label: '新增字典项',
             type: 'primary',
+            icon: 'plus-circle-o',
             onClick: () => handleEditTable('addValue', {}),
           },
         ]}
-        searchBtns={[
-          {
-            label: '查询',
-            type: 'primary',
-            htmlType: 'submit',
-            onClick: () => {
-              table.onSearch()
-            },
-          },
-          {
-            label: '重置',
-            onClick: () => table.onReset(),
-          },
-        ]}
+        searchBtns={searchFun(table) as any}
         table={table}
         // paginationProps={{
         //   pageSizeOptions: [10, 20, 30],

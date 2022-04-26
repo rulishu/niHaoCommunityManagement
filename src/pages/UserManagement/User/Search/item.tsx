@@ -39,7 +39,7 @@ export const item = (
       align: 'center',
       render: (text: number) => (
         <div style={{ textAlign: 'center' }}>
-          {text === 1 ? '正常' : '禁用'}
+          {text === 1 ? '正常' : '停用'}
         </div>
       ),
     },

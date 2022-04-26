@@ -7,6 +7,7 @@ import { Dispatch } from '@uiw-admin/models'
 import { selectPage, Change, listProps } from '@/servers/BasicManage/ShopSale'
 import Drawer from '../Detail'
 import Modals from '../Modals'
+import { searchFun } from '@/utils'
 interface State {
   drawerVisible?: boolean
   tableType?: string
@@ -51,14 +52,30 @@ export default function Demo() {
       isView: type === 'view',
       tableType: type,
     })
-    // if (type === 'add') {
-    //   updateData({ drawerVisible: true, queryInfo: {} })
-    // }
+    if (type === 'add') {
+      dispatch({
+        type: 'ShopSale/seraSelectPageList',
+        payload: {
+          page: 1,
+          pageSize: 20,
+          type: obj.useStatus === 2 ? 2 : obj.useStatus === 3 ? 1 : 0,
+        },
+      })
+
+      updateData({
+        drawerVisible: true,
+        queryInfo: {
+          id: obj?.id,
+          code: obj?.code,
+          sale: obj?.sale,
+        },
+      })
+    }
     if (
       type === 'rent' ||
       type === 'sale' ||
-      type === 'edit' ||
-      type === 'add'
+      type === 'edit'
+      // type === 'add'
     ) {
       dispatch({
         type: 'ShopSale/seraSelectPageList',
@@ -111,20 +128,7 @@ export default function Demo() {
             },
           },
         ]}
-        searchBtns={[
-          {
-            label: '查询',
-            type: 'primary',
-            htmlType: 'submit',
-            onClick: () => {
-              table.onSearch()
-            },
-          },
-          {
-            label: '重置',
-            onClick: () => table.onReset(),
-          },
-        ]}
+        searchBtns={searchFun(table) as any}
         table={table}
         columns={columnsSearch(handleEditTable) as FormCol[]}
       />

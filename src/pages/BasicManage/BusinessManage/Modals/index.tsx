@@ -31,7 +31,7 @@ const Modals = (props: { onSearch: () => void }) => {
           onClose()
           props.onSearch()
         } else {
-          Notify.error({ title: '提交失败！' })
+          Notify.error({ title: '提交失败！', description: data.message })
         }
       },
     }

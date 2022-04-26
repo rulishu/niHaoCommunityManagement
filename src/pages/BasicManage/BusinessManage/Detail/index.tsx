@@ -57,6 +57,7 @@ const Detail = (props: {
         body: {
           ...queryInfo,
           createTime: queryInfo?.createTime?.replace('T', ' ')?.slice(0, 19),
+          updateTime: queryInfo?.updateTime?.replace('T', ' ')?.slice(0, 19),
         },
       },
     ],
