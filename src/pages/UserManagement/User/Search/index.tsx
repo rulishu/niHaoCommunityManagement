@@ -7,6 +7,7 @@ import { item } from './item'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import Drawer from '../Drawers'
 import Modals from '../Modals'
+import { searchFun } from '@/utils'
 
 interface State {
   drawerVisible?: boolean
@@ -80,23 +81,7 @@ export default function Search() {
     <Fragment>
       <ProTable
         bordered
-        searchBtns={[
-          {
-            label: '查询',
-            type: 'primary',
-            htmlType: 'submit',
-            onClick: () => {
-              table.onSearch()
-            },
-          },
-          {
-            label: '重置',
-            onClick: () => {
-              updateData({ queryInfo: {} })
-              table.onReset()
-            },
-          },
-        ]}
+        searchBtns={searchFun(table) as any}
         columns={item(handleEditTable) as FormCol[]}
         table={table}
       />

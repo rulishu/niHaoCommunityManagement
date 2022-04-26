@@ -7,6 +7,7 @@ import { Dispatch } from '@uiw-admin/models'
 import { selectPage, Change, listProps } from '@/servers/BasicManage/ShopSale'
 import Drawer from '../Detail'
 import Modals from '../Modals'
+import { searchFun } from '@/utils'
 interface State {
   drawerVisible?: boolean
   tableType?: string
@@ -127,20 +128,7 @@ export default function Demo() {
             },
           },
         ]}
-        searchBtns={[
-          {
-            label: '查询',
-            type: 'primary',
-            htmlType: 'submit',
-            onClick: () => {
-              table.onSearch()
-            },
-          },
-          {
-            label: '重置',
-            onClick: () => table.onReset(),
-          },
-        ]}
+        searchBtns={searchFun(table) as any}
         table={table}
         columns={columnsSearch(handleEditTable) as FormCol[]}
       />

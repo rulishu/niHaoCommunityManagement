@@ -2,8 +2,9 @@ import { Fragment } from 'react'
 import { useDispatch } from 'react-redux'
 import { Dispatch } from '@uiw-admin/models'
 import { ProTable, useTable } from '@uiw-admin/components'
-import { Icon, Button } from 'uiw'
+import { Button } from 'uiw'
 import Drawers from './Drawer'
+import { searchFun } from '@/utils'
 export default function Index() {
   const dispatch = useDispatch<Dispatch>()
 
@@ -39,21 +40,9 @@ export default function Index() {
     <Fragment>
       <div className="proTableBox">
         <ProTable
+          bordered
           table={table}
-          searchBtns={[
-            {
-              label: '搜索',
-              type: 'primary',
-              htmlType: 'submit',
-              onClick: () => table?.onSearch(),
-              icon: <Icon type="search" style={{ fontSize: 14 }} />,
-            },
-            {
-              label: '重置',
-              onClick: () => table?.onReset(),
-              icon: <Icon type="reload" style={{ fontSize: 14 }} />,
-            },
-          ]}
+          searchBtns={searchFun(table) as any}
           columns={[
             {
               title: '姓名',
@@ -144,7 +133,9 @@ export default function Index() {
                     alignItems: 'center',
                   }}
                 >
-                  <Button onClick={() => handleEditTable(data)}>详情</Button>
+                  <Button onClick={() => handleEditTable(data)} icon="eye">
+                    详情
+                  </Button>
                 </div>
               ),
             },

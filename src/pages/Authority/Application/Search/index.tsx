@@ -7,6 +7,7 @@ import { Dispatch } from '@uiw-admin/models'
 import { selectPage, Change } from '@/servers/Authority/Application'
 import Detail from '../Detail'
 import Modals from '../Modals'
+import { searchFun } from '@/utils'
 interface State {
   drawerVisible?: boolean
   tableType?: string
@@ -80,25 +81,13 @@ export default function Demo() {
           {
             label: '添加根菜单',
             type: 'primary',
+            icon: 'plus-circle-o',
             onClick: () => {
               getTrim('add', {})
             },
           },
         ]}
-        searchBtns={[
-          {
-            label: '查询',
-            type: 'primary',
-            htmlType: 'submit',
-            onClick: () => {
-              table.onSearch()
-            },
-          },
-          {
-            label: '重置',
-            onClick: () => table.onReset(),
-          },
-        ]}
+        searchBtns={searchFun(table) as any}
         table={table}
         columns={columnsSearch(getTrim) as FormCol[]}
       />
