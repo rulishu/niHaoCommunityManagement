@@ -82,6 +82,19 @@
         ]
       },
       {
+        "path": "/balanceManagement",
+        "name": "余额管理",
+        "icon": "pay",
+        "routes": [
+          {
+            "path": "/balanceManagement/balanceManagement",
+            "name": "余额管理",
+            "icon": "pay",
+            "component": "@/pages/BalanceManagement/BalanceManagement"
+          }
+        ]
+      },
+      {
         "path": "/BasicManage",
         "name": "基础数据管理",
         "icon": "link",
