@@ -52,7 +52,7 @@ export const item = (
       title: '操作',
       align: 'center',
       key: 'id',
-      width: 150,
+      width: 200,
       render: (text: any, key: any, rowData: Usermanagement) => (
         <div style={{ textAlign: 'center' }}>
           <Button
