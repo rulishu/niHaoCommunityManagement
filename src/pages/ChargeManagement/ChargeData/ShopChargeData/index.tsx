@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
 import { ProTable, useTable } from '@uiw-admin/components'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
-import { Notify, Alert, Button, Icon, Divider } from 'uiw'
+import { Notify, Modal } from 'uiw'
 import formatter from '@uiw/formatter'
 import Drawer from './Drawer'
 import { columns } from './item'
@@ -12,7 +12,7 @@ export default function Index() {
   const dispatch = useDispatch<Dispatch>()
 
   const {
-    shopCharges: { shopNoList, projectList, visible, queryInfo, loading },
+    shopCharges: { shopNoList, projectList, visible, queryInfo },
   }: any = useSelector((state: RootState) => state)
 
   // 获取  所需商铺  常规收费项类
@@ -128,6 +128,7 @@ export default function Index() {
           {
             label: '新增',
             type: 'primary',
+            icon: 'plus-circle-o',
             onClick: () => {
               dispatch({
                 type: 'shopCharges/updateState',
@@ -138,6 +139,7 @@ export default function Index() {
           {
             label: '批量新增',
             type: 'primary',
+            icon: 'plus-circle-o',
             onClick: () => {
               dispatch({
                 type: 'shopCharges/updateState',
@@ -151,43 +153,31 @@ export default function Index() {
             label: '查询',
             type: 'primary',
             onClick: search,
+            icon: 'search',
           },
           {
             label: '重置',
             onClick: () => table?.onReset(),
+            icon: 'reload',
           },
         ]}
         columns={
           columns(shopNoList, projectList, dispatch, table) as FormCol<any>[]
         }
       />
-      <Alert
+      <Modal
+        title="删除"
         isOpen={visible}
-        type="danger"
-        useButton={false}
-        maskClosable={false}
-        onClose={closeAlert}
+        confirmText="确定"
+        cancelText="取消"
+        icon="information"
+        type="primary"
+        onConfirm={onOk}
+        onCancel={closeAlert}
+        onClosed={closeAlert}
       >
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'flex-start',
-            alignItems: 'center',
-          }}
-        >
-          <Icon type="delete" style={{ marginRight: 12, color: 'red' }} />
-          <div>是否确认删除 ～</div>
-        </div>
-        <div style={{ marginTop: 24 }}>
-          <Button type="danger" onClick={onOk} loading={loading}>
-            确定
-          </Button>
-          <Divider type="vertical" />
-          <Button onClick={closeAlert} loading={loading}>
-            取消
-          </Button>
-        </div>
-      </Alert>
+        <p>是否确认删除此条数据</p>
+      </Modal>
       <Drawer />
     </div>
   )
