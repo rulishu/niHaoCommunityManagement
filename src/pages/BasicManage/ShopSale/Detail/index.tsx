@@ -35,19 +35,6 @@ const Detail = (props: {
 }) => {
   const baseRef = useForm()
   const dispatch = useDispatch<Dispatch>()
-
-  useEffect(() => {
-    dispatch({
-      type: 'ShopSale/selectDictList',
-      payload: {
-        dictType: '从事行业',
-      },
-    })
-    dispatch({
-      type: 'ShopSale/selectUserByRole',
-    })
-  }, [dispatch])
-
   const {
     ShopSale: {
       drawerVisible,
@@ -64,7 +51,14 @@ const Detail = (props: {
   const [value, setValue] = useState(false)
 
   let totalList = tableList.concat(queryInfoList)
-
+  useEffect(() => {
+    dispatch({
+      type: 'ShopSale/selectDictList',
+      payload: {
+        dictType: '从事行业',
+      },
+    })
+  }, [dispatch])
   const { mutate } = useSWR(
     [
       ((tableType === 'rent' || tableType === 'sale') && seraAdd) ||
@@ -137,8 +131,8 @@ const Detail = (props: {
   const onChange = (initial: any, current: any) => {
     userList &&
       userList.forEach((itm: any) => {
-        if (itm.userName === current.userName) {
-          current.userName = itm.userName
+        if (itm?.userName === current?.userName) {
+          current.userName = itm?.userName
           current.card = itm.cardId
           current.gender = itm.gender
           current.phone = itm.phoneNumber
@@ -217,6 +211,35 @@ const Detail = (props: {
           form={baseRef}
           buttonsContainer={{ justifyContent: 'flex-start' }}
           // 更新表单的值
+          onSubmit={(_, current: Record<string, any>) => {
+            const errorObj: Partial<any> = {}
+            if (!current?.useStatus) {
+              errorObj.useStatus = '此项不能为空'
+            } else if (!current?.userName) {
+              errorObj.userName = '此项不能为空'
+            } else if (!current?.industry) {
+              errorObj.industry = '此项不能为空'
+            } else if (!current?.startTime) {
+              errorObj.startTime = '此项不能为空'
+            } else if (!current?.endTime) {
+              errorObj.endTime = '此项不能为空'
+            } else if (!current?.sale) {
+              errorObj.sale = '此项不能为空'
+            } else if (
+              current?.startTime &&
+              current?.endTime &&
+              (current?.startTime && new Date(current?.startTime)) >=
+                (current?.endTime && new Date(current?.endTime))
+            ) {
+              errorObj.startTime = '开始时间不能大于结束时间'
+              errorObj.endTime = '结束时间不能少于开始时间'
+            }
+            if (Object.keys(errorObj).length > 0) {
+              const err: any = new Error()
+              err.filed = errorObj
+              throw err
+            }
+          }}
           onChange={(initial, current) => onChange(initial, current)}
           formDatas={items(
             queryInfo,
