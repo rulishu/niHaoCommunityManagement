@@ -7,6 +7,7 @@ import { Dispatch } from '@uiw-admin/models'
 import { selectPage, Change } from '@/servers/BasicManage/BusinessManage'
 import Drawer from '../Detail'
 import Modals from '../Modals'
+import { handleAddTable, searchFun } from '@/utils'
 
 interface State {
   drawerVisible?: boolean
@@ -77,29 +78,8 @@ export default function Demo() {
     <Fragment>
       <ProTable
         bordered
-        operateButtons={[
-          {
-            label: '新增',
-            type: 'primary',
-            onClick: () => {
-              handleEditTable('add', {})
-            },
-          },
-        ]}
-        searchBtns={[
-          {
-            label: '查询',
-            type: 'primary',
-            htmlType: 'submit',
-            onClick: () => {
-              table.onSearch()
-            },
-          },
-          {
-            label: '重置',
-            onClick: () => table.onReset(),
-          },
-        ]}
+        operateButtons={handleAddTable(handleEditTable) as any}
+        searchBtns={searchFun(table) as any}
         table={table}
         columns={columnsSearch(handleEditTable) as FormCol[]}
       />

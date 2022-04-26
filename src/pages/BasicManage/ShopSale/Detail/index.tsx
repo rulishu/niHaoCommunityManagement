@@ -200,6 +200,7 @@ const Detail = (props: {
       )}
 
       <Table
+        bordered
         title={
           <Button
             type="primary"

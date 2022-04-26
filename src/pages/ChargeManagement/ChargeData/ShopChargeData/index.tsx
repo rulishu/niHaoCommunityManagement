@@ -128,6 +128,7 @@ export default function Index() {
           {
             label: '新增',
             type: 'primary',
+            icon: 'plus-circle-o',
             onClick: () => {
               dispatch({
                 type: 'shopCharges/updateState',
@@ -138,6 +139,7 @@ export default function Index() {
           {
             label: '批量新增',
             type: 'primary',
+            icon: 'plus-circle-o',
             onClick: () => {
               dispatch({
                 type: 'shopCharges/updateState',
@@ -151,10 +153,12 @@ export default function Index() {
             label: '查询',
             type: 'primary',
             onClick: search,
+            icon: 'search',
           },
           {
             label: '重置',
             onClick: () => table?.onReset(),
+            icon: 'reload',
           },
         ]}
         columns={

@@ -40,3 +40,34 @@ export function deepClone(target: Object) {
   const objClone = JSON.parse(_target)
   return objClone
 }
+
+export function searchFun(table: any) {
+  const data = [
+    {
+      label: '查询',
+      type: 'primary',
+      htmlType: 'submit',
+      onClick: () => table.onSearch(),
+      icon: 'search',
+    },
+    {
+      label: '重置',
+      onClick: () => table?.onReset(),
+      icon: 'reload',
+    },
+  ]
+  return data
+}
+export function handleAddTable(handleEditTable: any) {
+  const data = [
+    {
+      label: '新增',
+      type: 'primary',
+      icon: 'plus-circle-o',
+      onClick: () => {
+        handleEditTable('add', {})
+      },
+    },
+  ]
+  return data
+}

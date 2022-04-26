@@ -178,7 +178,9 @@ export const columns = (
           }}
         >
           <Button
-            type="warning"
+            // type="warning"
+            size="small"
+            icon="edit"
             onClick={() => {
               dispatch({
                 type: 'shopCharges/updateState',
@@ -195,7 +197,9 @@ export const columns = (
           </Button>
           <Divider type="vertical" />
           <Button
-            type="danger"
+            // type="danger"
+            size="small"
+            icon="delete"
             onClick={() =>
               dispatch({
                 type: 'shopCharges/updateState',

@@ -39,7 +39,7 @@ export const item = (
       align: 'center',
       render: (text: number) => (
         <div style={{ textAlign: 'center' }}>
-          {text === 1 ? '正常' : '禁用'}
+          {text === 1 ? '正常' : '停用'}
         </div>
       ),
     },
@@ -52,7 +52,7 @@ export const item = (
       title: '操作',
       align: 'center',
       key: 'id',
-      width: 200,
+      width: 150,
       render: (text: any, key: any, rowData: Usermanagement) => (
         <div style={{ textAlign: 'center' }}>
           <Button
