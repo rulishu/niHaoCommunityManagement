@@ -4,7 +4,7 @@ import { RootState, Dispatch } from '@uiw-admin/models'
 import { Notify } from 'uiw'
 import formatter from '@uiw/formatter'
 import { changeTimeFormat } from '@/utils'
-import { drawerTitle, matching } from './item'
+import { drawerTitle, matching, batchMatching } from './item'
 export default function Index() {
   const dispatch = useDispatch<Dispatch>()
 
@@ -19,6 +19,8 @@ export default function Index() {
       shopList,
       table,
       loading,
+      usernameCodes,
+      // clientList,
     },
   }: any = useSelector((state: RootState) => state)
 
@@ -65,12 +67,32 @@ export default function Index() {
         errorObj.endTime = '结束时间不能少于开始时间'
       }
     })
+    // 批量新增
+    if (Object.is(drawerType, 'batchAdd')) {
+      const payload = current?.code?.map((item: any, key: number) => {
+        return {
+          ...current,
+          startTime: formatter('YYYY-MM-DD HH:mm:ss', current?.startTime),
+          endTime: formatter('YYYY-MM-DD HH:mm:ss', current?.endTime),
+          code: item.value,
+          username: usernameCodes[key].username,
+          quantity: 1,
+          money: current?.price * 1,
+        }
+      })
+      ;(
+        dispatch({
+          type: 'shopCharges/gitBatchAdd',
+          payload,
+        }) as any
+      ).then((data: any) => information(data))
+    }
+
     if (Object.keys(errorObj).length > 0) {
       const err: any = new Error()
       err.filed = errorObj
       throw err
     }
-
     // 新增
     if (drawerType === 'add') {
       const payload = {
@@ -133,7 +155,22 @@ export default function Index() {
         }
         buttonsContainer={{ justifyContent: 'flex-start' }}
         formDatas={
-          matching(drawerType, shopNoList, form, shopList, queryInfo) as any
+          drawerType !== 'batchAdd'
+            ? (matching(
+                drawerType,
+                shopNoList,
+                form,
+                shopList,
+                queryInfo
+              ) as any)
+            : (batchMatching(
+                drawerType,
+                shopNoList,
+                form,
+                shopList,
+                queryInfo,
+                dispatch
+              ) as any)
         }
       />
     </ProDrawer>

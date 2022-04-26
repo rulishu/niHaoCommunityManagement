@@ -73,12 +73,11 @@ const Detail = (props: {
     }
   )
 
+  const typeText: any = { add: '新增', edit: '编辑', del: '查看' }
   return (
     <ProDrawer
       width={800}
-      title={
-        tableType === 'add' ? '新增' : tableType === 'edit' ? '编辑' : '查看'
-      }
+      title={typeText[tableType]}
       visible={drawerVisible}
       onClose={onClose}
       buttons={[
