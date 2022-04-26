@@ -110,15 +110,15 @@ const ShopSale = createModel<RootModel>()({
     async selectUserByRole(payload: Change) {
       const dph = dispatch as Dispatch
       const data = await selectUserByRole(payload)
-      // console.log('data',data.data);
-
       if (data.code === 1) {
         dph.ShopSale.updateState({
-          userNameList: data.data.map((itm: any) => ({
-            label: itm.userName,
-            value: itm.userName,
-          })),
           userList: data.data,
+          userNameList: data.data
+            .filter((code: any) => code)
+            .map((itm: any) => ({
+              label: itm?.userName,
+              value: itm?.userName,
+            })),
         })
       }
     },

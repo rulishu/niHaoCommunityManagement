@@ -61,7 +61,9 @@ export default function Demo() {
           type: obj.useStatus === 2 ? 2 : obj.useStatus === 3 ? 1 : 0,
         },
       })
-
+      dispatch({
+        type: 'ShopSale/selectUserByRole',
+      })
       updateData({
         drawerVisible: true,
         queryInfo: {
@@ -97,6 +99,9 @@ export default function Demo() {
       type === 'edit' &&
         dispatch({
           type: 'ShopSale/selectUserByRole',
+          payload: {
+            cardId: obj.card,
+          },
         })
       updateData({
         drawerVisible: true,

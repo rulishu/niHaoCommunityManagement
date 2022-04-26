@@ -38,7 +38,6 @@ const Detail = (props: {
       },
     })
   }
-
   const { mutate } = useSWR(
     [
       (tableType === 'add' && insert) || (tableType === 'edit' && update),
@@ -117,13 +116,10 @@ const Detail = (props: {
             await baseRef?.submitvalidate?.()
             const errors = baseRef.getError()
             if (errors && Object.keys(errors).length > 0) {
-              dispatch({
-                type: 'ChargeManage/updateState',
-                payload: {
-                  loading: false,
-                },
-              })
-              return
+              const err: any = new Error()
+              err.filed = errors
+              // Notify.error({ title: '提交失败！' });
+              throw err
             }
             mutate()
           },

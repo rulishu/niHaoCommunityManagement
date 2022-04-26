@@ -9,6 +9,7 @@ export const columnsSearch = (
       title: '商铺编号',
       align: 'center',
       key: 'code',
+      width: 200,
       props: {
         widget: 'input',
         widgetProps: {
@@ -20,6 +21,7 @@ export const columnsSearch = (
       title: '使用状态',
       align: 'center',
       key: 'useStatus',
+      width: 200,
       props: {
         label: '使用状态',
         widget: 'select',
@@ -47,6 +49,7 @@ export const columnsSearch = (
       title: '客户姓名',
       align: 'center',
       key: 'userName',
+      width: 200,
       props: {
         widget: 'input',
         widgetProps: {
@@ -64,11 +67,13 @@ export const columnsSearch = (
       title: '租金',
       align: 'center',
       key: 'sale',
+      width: 200,
     },
     {
       title: '行业',
       align: 'center',
       key: 'industry',
+      width: 200,
       render: (text: string, key: string, rowData: Change) => {
         return (
           <div style={{ textAlign: 'center' }}>
@@ -81,13 +86,13 @@ export const columnsSearch = (
       title: '开始时间',
       align: 'center',
       key: 'startTime',
-      width: 120,
+      width: 200,
     },
     {
       title: '结束时间',
       align: 'center',
       key: 'endTime',
-      width: 120,
+      width: 200,
     },
     // {
     //   title: '租售期限',
