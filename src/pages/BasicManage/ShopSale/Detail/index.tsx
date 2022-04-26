@@ -74,7 +74,7 @@ const Detail = (props: {
         method: 'POST',
         body:
           tableType === 'rent' || tableType === 'sale'
-            ? { chargeList: tableList, type: tableType === 'rent' ? 2 : 1 }
+            ? { chargeList: queryInfoList, type: tableType === 'rent' ? 2 : 1 }
             : tableType === 'edit'
             ? { ...queryInfo, chargeList: queryInfoList }
             : tableType === 'add' && {
