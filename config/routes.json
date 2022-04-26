@@ -56,35 +56,28 @@
             "component": "../pages/ChargeManagement/ChargeData/ShopChargeData"
           },
           {
-            "path": "/chargeManagement/propertyCharge",
-            "name": "物业收费",
-            "icon": "laptop",
-            "routes": [
-              {
-                "path": "/chargeManagement/propertyCharge/shopCharge",
-                "name": "商铺综合收费",
-                "icon": "shopping-cart",
-                "component": "../pages/ChargeManagement/PropertyCharge/ShopCharge"
-              },
-              {
-                "path": "/chargeManagement/propertyCharge/temporaryCharges",
-                "name": "临时收费",
-                "icon": "link",
-                "component": "../pages/ChargeManagement/PropertyCharge/TemporaryCharges"
-              },
-              {
-                "path": "/chargeManagement/propertyCharge/depositManage",
-                "name": "押金管理",
-                "icon": "document",
-                "component": "../pages/ChargeManagement/PropertyCharge/DepositManage"
-              },
-              {
-                "path": "/chargeManagement/propertyCharge/predepositsManage",
-                "name": "预存款管理",
-                "icon": "folder-open",
-                "component": "../pages/ChargeManagement/PropertyCharge/PredepositsManage"
-              }
-            ]
+            "path": "/chargeManagement/shopCharge",
+            "name": "商铺综合收费",
+            "icon": "shopping-cart",
+            "component": "../pages/ChargeManagement/PropertyCharge/ShopCharge"
+          },
+          {
+            "path": "/chargeManagement/temporaryCharges",
+            "name": "临时收费",
+            "icon": "link",
+            "component": "../pages/ChargeManagement/PropertyCharge/TemporaryCharges"
+          },
+          {
+            "path": "/chargeManagement/depositManage",
+            "name": "押金管理",
+            "icon": "document",
+            "component": "../pages/ChargeManagement/PropertyCharge/DepositManage"
+          },
+          {
+            "path": "/chargeManagement/predepositsManage",
+            "name": "预存款管理",
+            "icon": "folder-open",
+            "component": "../pages/ChargeManagement/PropertyCharge/PredepositsManage"
           }
         ]
       },
