@@ -49,22 +49,21 @@ export const items = (
       widgetProps: {
         mode: 'single',
         placeholder: '请输入选择',
-        onChange: (e: any) => {
-          userList &&
-            userList.forEach((itm: any) => {
-              if (itm.userName === e.target.value) {
-                baseRef.setFields &&
-                  baseRef.setFields({
-                    userName: itm.userName,
-                    card: itm.cardId,
-                    gender: itm.gender.toString(),
-                    phone: itm.phoneNumber,
-                    // startTime: queryInfo?.startTime,
-                    // endTime: queryInfo?.endTime
-                  })
-              }
-            })
-        },
+        // onChange: (e: any) => {
+        //   userList &&
+        //     userList.forEach((itm: any) => {
+        //       if (itm.userName === e.target.value) {
+
+        //         baseRef.setFields &&
+        //           baseRef.setFields({
+        //             userName: itm.userName,
+        //             card: itm.cardId,
+        //             gender: itm.gender.toString(),
+        //             phone: itm.phoneNumber,
+        //           })
+        //       }
+        //     })
+        // },
       },
       rules: [{ required: true, message: '请输入客户姓名' }],
     },

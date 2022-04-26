@@ -74,9 +74,15 @@ const Detail = (props: {
         method: 'POST',
         body:
           tableType === 'rent' || tableType === 'sale'
-            ? { chargeList: queryInfoList, type: tableType === 'rent' ? 2 : 1 }
+            ? {
+                chargeList: queryInfoList,
+                type: tableType === 'rent' ? 2 : 1,
+              }
             : tableType === 'edit'
-            ? { ...queryInfo, chargeList: queryInfoList }
+            ? {
+                ...queryInfo,
+                chargeList: queryInfoList,
+              }
             : tableType === 'add' && {
                 ...queryInfo,
                 chargeList: queryInfoList,
@@ -161,21 +167,16 @@ const Detail = (props: {
         },
       })
     }
-
     props.updateData({
       queryInfo: {
         ...queryInfo,
         ...current,
         startTime:
-          tableType === 'add'
-            ? current?.startTime &&
-              formatter('YYYY-MM-DD HH:mm:ss', current?.startTime)
-            : queryInfo?.startTime,
+          current?.startTime &&
+          formatter('YYYY-MM-DD HH:mm:ss', current?.startTime),
         endTime:
-          tableType === 'add'
-            ? current?.endTime &&
-              formatter('YYYY-MM-DD HH:mm:ss', current?.endTime)
-            : queryInfo?.endTime,
+          current?.endTime &&
+          formatter('YYYY-MM-DD HH:mm:ss', current?.endTime),
       },
     })
   }
