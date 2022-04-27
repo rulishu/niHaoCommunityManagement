@@ -38,6 +38,9 @@ export const columnsSearch = (
       key: 'chargePrice',
       align: 'center',
       ellipsis: true,
+      render: (chargePrice: number) => {
+        return chargePrice ? <div>￥{chargePrice}元</div> : <div></div>
+      },
     },
     {
       title: '收费标准',

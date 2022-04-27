@@ -134,7 +134,9 @@ export const items = (
           label: '单价',
           key: 'chargePrice',
           widget: 'input',
-          initialValue: queryInfo?.chargePrice,
+          initialValue: `${queryInfo?.chargePrice || ''}${
+            tableType === 'view' ? '元' : ''
+          }`,
           required: !hide,
           hide: queryInfo?.chargeType !== '1' ? true : false,
           span: '8',
