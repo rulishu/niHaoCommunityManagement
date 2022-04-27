@@ -120,6 +120,18 @@ export const items = (
       ],
     },
     {
+      label: '从事的行业',
+      key: 'industry',
+      widget: 'select',
+      initialValue: queryInfo?.industry,
+      required: true,
+      option: industryList,
+      widgetProps: {
+        placeholder: '请输入从事的行业',
+      },
+      rules: [{ required: true, message: '请输入从事的行业' }],
+    },
+    {
       label: '开始时间',
       key: 'startTime',
       widget: 'dateInput',
@@ -161,18 +173,6 @@ export const items = (
           pattern: new RegExp(/(^[1-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/),
         },
       ],
-    },
-    {
-      label: '从事的行业',
-      key: 'industry',
-      widget: 'select',
-      initialValue: queryInfo?.industry,
-      required: true,
-      option: industryList,
-      widgetProps: {
-        placeholder: '请输入从事的行业',
-      },
-      rules: [{ required: true, message: '请输入从事的行业' }],
     },
     {
       label: '详细说明',
