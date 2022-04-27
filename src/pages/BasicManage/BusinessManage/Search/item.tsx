@@ -10,6 +10,7 @@ export const columnsSearch = (
       align: 'center',
       key: 'zoneNo',
       ellipsis: true,
+      width: 100,
       props: {
         widget: 'input',
         widgetProps: {
@@ -21,6 +22,7 @@ export const columnsSearch = (
       title: '社区名称',
       key: 'zoneName',
       align: 'center',
+      width: 150,
       props: {
         widget: 'input',
         widgetProps: {
@@ -32,27 +34,30 @@ export const columnsSearch = (
       title: '省',
       key: 'provinceName',
       align: 'center',
+      width: 100,
     },
     {
       title: '市',
       key: 'cityName',
       align: 'center',
+      width: 100,
     },
     {
       title: '区',
       key: 'areaName',
       align: 'center',
+      width: 100,
     },
     {
       title: '社区地址',
       key: 'address',
       align: 'center',
-      width: 230,
     },
     {
       title: '备注',
       key: 'zoneRemark',
       align: 'center',
+      width: 100,
     },
     {
       title: '操作',
