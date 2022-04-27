@@ -53,7 +53,7 @@ export const columnsSearch = (
       title: '操作',
       key: 'edit',
       align: 'center',
-      width: 200,
+      width: 150,
       render: (text: any, key: any, rowData: any) => (
         <div>
           <Button
@@ -63,13 +63,13 @@ export const columnsSearch = (
           >
             退还
           </Button>
-          <Button
+          {/* <Button
             size="small"
             icon="edit"
             onClick={() => handleEditTable('view', rowData)}
           >
             查看
-          </Button>
+          </Button> */}
           {/* <Button
                         size="small"
                         icon="edit"

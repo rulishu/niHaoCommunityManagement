@@ -1,13 +1,14 @@
 import { Dispatch } from '@uiw-admin/models'
 // import { Notify } from 'uiw'
 import { createModel, RematchDispatch } from '@rematch/core'
-
+import { refund } from '@/servers/BalanceManagement/index'
 export interface State {
   drawerVisible: boolean
   queryInfo: object
   dataList: any
   tableType: string
   isView: boolean
+  loading: boolean
 }
 
 const balanceManagement = createModel()({
@@ -18,6 +19,7 @@ const balanceManagement = createModel()({
     dataList: {},
     tableType: '',
     isView: false,
+    loading: false,
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({
@@ -31,9 +33,17 @@ const balanceManagement = createModel()({
       dph.balanceManagement.updateState({
         drawerVisible: false,
         queryInfo: {},
-        dataList: {},
+        tableType: '',
         isView: false,
+        loading: false,
       })
+    },
+    async refund(payload: State) {
+      const dph = dispatch as Dispatch
+      dph.BusinessManage.updateState({
+        loading: true,
+      })
+      return await refund(payload)
     },
   }),
 })
