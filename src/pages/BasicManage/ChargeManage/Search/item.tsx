@@ -34,7 +34,7 @@ export const columnsSearch = (
       align: 'center',
     },
     {
-      title: '单价',
+      title: '单价(元)',
       key: 'chargePrice',
       align: 'center',
       ellipsis: true,
