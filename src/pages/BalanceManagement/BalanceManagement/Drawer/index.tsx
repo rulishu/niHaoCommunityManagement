@@ -4,7 +4,7 @@ import { RootState, Dispatch } from '@uiw-admin/models'
 import { items } from './items'
 import { useEffect } from 'react'
 // import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
-// import { Notify } from 'uiw'
+import { Notify } from 'uiw'
 
 export default function Index(props: { onSearch: () => void }) {
   const dispatch = useDispatch<Dispatch>()
@@ -30,19 +30,19 @@ export default function Index(props: { onSearch: () => void }) {
   const onClose = () => dispatch({ type: 'balanceManagement/clean' })
 
   // 执行成功返回的信息
-  // const information = (data: any) => {
-  //   if (data.code === 1) {
-  //     onClose()
-  //     props?.onSearch()
-  //     Notify.success({ title: data?.message || '' })
-  //   } else {
-  //     dispatch({
-  //       type: 'balanceManagement/updateState',
-  //       payload: { loading: false },
-  //     })
-  //     Notify.error({ title: data?.message || '' })
-  //   }
-  // }
+  const information = (data: any) => {
+    if (data.code === 1) {
+      onClose()
+      props?.onSearch()
+      Notify.success({ title: data?.message || '' })
+    } else {
+      dispatch({
+        type: 'balanceManagement/updateState',
+        payload: { loading: false },
+      })
+      Notify.error({ title: data?.message || '' })
+    }
+  }
 
   const onSubmit = (current: any) => {
     //  验证
@@ -63,8 +63,6 @@ export default function Index(props: { onSearch: () => void }) {
       throw err
     }
 
-    console.log('tableType', tableType)
-
     // 退还
     if (tableType === 'refund') {
       const payload = {
@@ -76,7 +74,7 @@ export default function Index(props: { onSearch: () => void }) {
           type: 'balanceManagement/refund',
           payload,
         }) as any
-      ).then((data: any) => console.log('data', data))
+      ).then((data: any) => information(data))
     }
   }
   return (

@@ -40,14 +40,10 @@ const balanceManagement = createModel()({
     },
     async refund(payload: State) {
       const dph = dispatch as Dispatch
-      const data = await refund(payload)
-
-      if (data.code === 1) {
-        dph.BusinessManage.updateState({
-          drawerVisible: false,
-          loading: false,
-        })
-      }
+      dph.BusinessManage.updateState({
+        loading: true,
+      })
+      return await refund(payload)
     },
   }),
 })
