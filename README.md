@@ -10,7 +10,12 @@ npm run build
 # 账号密码
 
 ```json
+业主账号
 "User": nihao
+"password": 123456
+
+管理员账号
+"User": admin
 "password": 123456
 ```
 
