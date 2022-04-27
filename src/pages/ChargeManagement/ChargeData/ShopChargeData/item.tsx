@@ -69,6 +69,7 @@ export const columns = (
         option: [
           { value: 1, label: '已付款' },
           { value: 2, label: '未付款' },
+          { value: 3, label: '欠费' },
         ],
         widgetProps: {
           mode: 'single',
@@ -84,7 +85,13 @@ export const columns = (
             alignItems: 'center',
           }}
         >
-          {text === 1 ? '已付款' : text === 2 ? '未付款' : ''}
+          {text === 1
+            ? '已付款'
+            : text === 2
+            ? '未付款'
+            : text === 3
+            ? '欠费'
+            : ''}
         </div>
       ),
     },
