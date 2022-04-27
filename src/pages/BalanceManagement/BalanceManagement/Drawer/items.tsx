@@ -6,9 +6,11 @@ export const items = (queryInfo: any, paysList: any) => {
       label: '收款人',
       key: 'payName',
       widget: 'input',
+      required: true,
       initialValue: queryInfo?.payName,
       placeholder: '请输入收款人',
       readSpan: 1.5,
+      rules: [{ required: true, message: '请输入收款人' }],
     },
     {
       label: '付款方式',
