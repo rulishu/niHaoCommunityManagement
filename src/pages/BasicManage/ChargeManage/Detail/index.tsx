@@ -116,6 +116,12 @@ const Detail = (props: {
             await baseRef?.submitvalidate?.()
             const errors = baseRef.getError()
             if (errors && Object.keys(errors).length > 0) {
+              dispatch({
+                type: 'ChargeManage/updateState',
+                payload: {
+                  loading: false,
+                },
+              })
               const err: any = new Error()
               err.filed = errors
               // Notify.error({ title: '提交失败！' });
