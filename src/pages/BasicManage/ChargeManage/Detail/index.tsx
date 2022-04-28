@@ -138,6 +138,35 @@ const Detail = (props: {
         form={baseRef}
         readOnly={isView}
         buttonsContainer={{ justifyContent: 'flex-start' }}
+        onSubmit={(_, current: Record<string, any>) => {
+          const errorObj: Partial<any> = {}
+          if (current?.chargeType === '2' || current?.chargeType === '3') {
+            if (!current.chargeType) {
+              errorObj.chargeType = '此项不能为空'
+            } else if (!current.chargeName) {
+              errorObj.chargeName = '此项不能为空'
+            }
+          } else if (current?.chargeType === '1') {
+            if (!current?.chargeType) {
+              errorObj.chargeType = '此项不能为空'
+            } else if (!current.chargeName) {
+              errorObj.chargeName = '此项不能为空'
+            } else if (!current?.chargePrice) {
+              errorObj.chargePrice = '此项不能为空'
+            } else if (!current?.chargeNumType) {
+              errorObj.chargeNumType = '此项不能为空'
+            } else if (!current?.chargeMonth) {
+              errorObj.chargeMonth = '此项不能为空'
+            }
+          } else if (!current?.chargeType) {
+            errorObj.chargeType = '此项不能为空'
+          }
+          if (Object.keys(errorObj).length > 0) {
+            const err: any = new Error()
+            err.filed = errorObj
+            throw err
+          }
+        }}
         // 更新表单的值
         onChange={(initial, current) => {
           Change(initial, current)
