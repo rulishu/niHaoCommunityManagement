@@ -22,6 +22,9 @@ const Search = () => {
   useEffect(() => {
     dispatch({
       type: 'models/buChargesList',
+      payload: {
+        type: 20,
+      },
     })
     dispatch({
       type: 'models/paysList',
