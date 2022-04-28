@@ -15,7 +15,7 @@ export const items = (
       placeholder: '请选择社区',
     },
     required: true,
-    disabled: tableType === 'edit' ? true : false,
+    // disabled: tableType === 'edit' ? true : false,
     rules: [{ required: true, message: '请选择社区' }],
   },
   {
@@ -45,7 +45,6 @@ export const items = (
     widgetProps: {
       placeholder: '请选择商铺名称',
     },
-    // disabled: tableType==='edit'? true:false,
     rules: [
       {
         required: true,
@@ -61,7 +60,7 @@ export const items = (
     widgetProps: {
       placeholder: '请输入楼层',
     },
-    disabled: tableType === 'edit' ? true : false,
+    // disabled: tableType === 'edit' ? true : false,
     required: true,
     rules: [
       {
@@ -82,7 +81,7 @@ export const items = (
       addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>m^2</div>,
       placeholder: '请输入占地面积',
     },
-    disabled: tableType === 'edit' ? true : false,
+    // disabled: tableType === 'edit' ? true : false,
     rules: [
       {
         pattern: new RegExp(/(^[1-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/),
@@ -131,7 +130,7 @@ export const items = (
     label: '使用状态',
     key: 'status',
     widget: 'select',
-    disabled: true,
+    // disabled: true,
     option: [
       { label: '空置', value: 1 },
       { label: '已出售', value: 2 },

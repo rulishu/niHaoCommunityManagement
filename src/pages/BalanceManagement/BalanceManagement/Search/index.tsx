@@ -57,7 +57,7 @@ export default function Index() {
           columns={columnsSearch(handleEditTable) as FormCol[]}
         />
       </div>
-      <Drawers />
+      <Drawers onSearch={table.onSearch} />
     </Fragment>
   )
 }

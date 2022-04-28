@@ -34,10 +34,13 @@ export const columnsSearch = (
       align: 'center',
     },
     {
-      title: '单价',
+      title: '单价(元)',
       key: 'chargePrice',
       align: 'center',
       ellipsis: true,
+      render: (chargePrice: number) => {
+        return chargePrice ? <div>￥{chargePrice}元</div> : <div></div>
+      },
     },
     {
       title: '收费标准',
