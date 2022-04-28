@@ -10,7 +10,7 @@ function paysList(params: { id: string }) {
 
 // 收费项目字典
 function buChargesList(params: { id: string }) {
-  return request('/api/buCharge/selectList', {
+  return request('/api/buCharge/selectListProject', {
     method: 'POST',
     body: { ...params },
   })
