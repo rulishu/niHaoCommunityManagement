@@ -66,6 +66,10 @@ export default function Demo() {
       updateData({ drawerVisible: true, queryInfo: {} })
     }
     if (type === 'edit' || type === 'view') {
+      delete obj.createName
+      delete obj.createTime
+      delete obj.updateName
+      delete obj.updateTime
       updateData({ drawerVisible: true, queryInfo: obj })
     }
     if (type === 'del') {
