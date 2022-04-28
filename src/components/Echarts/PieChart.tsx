@@ -38,40 +38,6 @@ export default function PieChart() {
           },
         },
       ],
-
-      // title: {
-      //   text: 'Weather Statistics',
-      //   subtext: 'Fake Data',
-      //   left: 'center'
-      // },
-      // tooltip: {
-      //   trigger: 'item',
-      // },
-      // legend: {
-      //   bottom: 10,
-      //   left: 'center',
-      //   data: ['CityA', 'CityB', 'CityC',]
-      // },
-      // series: [
-      //   {
-      //     type: 'pie',
-      //     radius: '50%',
-      //     center: ['50%', '50%'],
-      //     selectedMode: 'single',
-      //     data: [
-      //       { value: 21, name: 'CityC' },
-      //       { value: 4, name: 'CityB' },
-      //       { value: 12, name: 'CityA' }
-      //     ],
-      //     emphasis: {
-      //       itemStyle: {
-      //         shadowBlur: 10,
-      //         shadowOffsetX: 0,
-      //         shadowColor: 'rgba(0, 0, 0, 0.5)'
-      //       }
-      //     }
-      //   }
-      // ]
     })
   }, [])
   return <div id="main1" style={{ width: '100%', height: 500 }}></div>
