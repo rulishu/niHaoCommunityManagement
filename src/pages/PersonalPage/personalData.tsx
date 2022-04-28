@@ -18,7 +18,6 @@ function PDFrom({ userInfo, dispatch, userInfoData, roleList }: DetailProps) {
       payload,
     })
   }
-
   // 提交表单
   const submit = async () => {
     await form?.submitvalidate()
@@ -94,7 +93,9 @@ function PDFrom({ userInfo, dispatch, userInfoData, roleList }: DetailProps) {
                 initialValue: userInfoData?.avatar
                   ? [
                       {
-                        dataURL: userInfoData?.avata,
+                        dataURL:
+                          userInfoData?.avatar +
+                          `?=${Math.ceil(Math.random() * 10000)}`,
                       },
                     ]
                   : [],
