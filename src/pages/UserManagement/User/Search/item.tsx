@@ -17,6 +17,17 @@ export const item = (
       },
     },
     {
+      title: '身份证',
+      key: 'cardId',
+      align: 'center',
+    },
+    {
+      title: '性别',
+      key: 'gender',
+      align: 'center',
+      render:(code:number)=>{return <div>{code === 1?"男":"女"}</div>}
+    },
+    {
       title: '联系方式',
       key: 'phoneNumber',
       align: 'center',
