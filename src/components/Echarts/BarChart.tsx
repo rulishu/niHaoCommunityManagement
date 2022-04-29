@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import * as echarts from 'echarts'
 import useSWR from 'swr'
-// import { request } from "@uiw-admin/utils";
 
 export default function BarChart() {
   const { data } = useSWR([
@@ -51,6 +50,6 @@ export default function BarChart() {
         },
       ],
     })
-  }, [])
+  }, [data?.data])
   return <div id="main" style={{ width: '100%', height: 500 }}></div>
 }
