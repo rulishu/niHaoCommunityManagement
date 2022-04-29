@@ -73,7 +73,7 @@ export const items = (
     label: '占地面积(㎡)',
     key: 'areaCovered',
     widget: 'input',
-    initialValue: `${queryInfo?.areaCovered || ''} ${
+    initialValue: `${queryInfo?.areaCovered || ''}${
       tableType === 'view' ? '㎡' : ''
     }`,
     required: true,
@@ -130,7 +130,7 @@ export const items = (
     label: '使用状态',
     key: 'status',
     widget: 'select',
-    // disabled: true,
+    disabled: true,
     option: [
       { label: '空置', value: 1 },
       { label: '已出售', value: 2 },

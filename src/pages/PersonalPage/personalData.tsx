@@ -18,7 +18,6 @@ function PDFrom({ userInfo, dispatch, userInfoData, roleList }: DetailProps) {
       payload,
     })
   }
-
   // 提交表单
   const submit = async () => {
     await form?.submitvalidate()
@@ -33,7 +32,7 @@ function PDFrom({ userInfo, dispatch, userInfoData, roleList }: DetailProps) {
       type: 'userInfo/getdifyProfile',
       payload: {
         accountId: userInfoData?.accountId,
-        user: value,
+        user: { ...value, gender: Number(value?.gender) },
         avatar: userInfoData?.avatar || '',
       },
     }).then(async (data: any) => {
@@ -94,7 +93,9 @@ function PDFrom({ userInfo, dispatch, userInfoData, roleList }: DetailProps) {
                 initialValue: userInfoData?.avatar
                   ? [
                       {
-                        dataURL: userInfoData?.avata,
+                        dataURL:
+                          userInfoData?.avatar +
+                          `?=${Math.ceil(Math.random() * 10000)}`,
                       },
                     ]
                   : [],
@@ -123,7 +124,7 @@ function PDFrom({ userInfo, dispatch, userInfoData, roleList }: DetailProps) {
                 key: 'gender',
                 widget: 'select',
                 span: '12',
-                initialValue: userInfo?.status,
+                initialValue: userInfo?.gender,
                 option: [
                   { value: 1, label: '男' },
                   { value: 2, label: '女' },

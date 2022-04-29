@@ -12,6 +12,10 @@ export interface Change {
   shopRent?: number
   status?: number
   remark?: string
+  createName?: string
+  createTime?: string
+  updateName?: string
+  updateTime?: string
 }
 
 function selectById(params: Change) {
