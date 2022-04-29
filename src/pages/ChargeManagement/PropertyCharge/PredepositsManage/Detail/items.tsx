@@ -29,16 +29,7 @@ export const items = (
         placeholder: '请输入选择',
         onChange: (e: any) => {
           setValue(e.target.value)
-
-          if (dataList[0].code === e.target.value) {
-            baseRef.setFields &&
-              baseRef.setFields({
-                name: dataList[0].userName,
-              })
-          }
         },
-        // onSelect: (value: string) => {},
-        // onSearch: (value: string) => {}
       },
       rules: [{ required: true, message: '请输入编号' }],
     },

@@ -288,14 +288,14 @@ const temAddItems = (
     {
       label: '收费项目',
       key: 'payService',
-      widget: 'searchSelect',
+      widget: 'select',
       option: shopChargeList,
       required: true,
       span: 8,
       widgetProps: {
         placeholder: '请选择收费项目',
         mode: 'single',
-        allowClear: true,
+        // allowClear: true,
       },
     },
     {

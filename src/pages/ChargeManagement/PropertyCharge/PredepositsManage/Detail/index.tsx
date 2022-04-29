@@ -16,6 +16,7 @@ export interface State {
   isView?: boolean
   code?: string
   refundAmountList?: any
+  buChargesList?: any
 }
 
 const Drawer = (props: {
@@ -94,7 +95,7 @@ const Drawer = (props: {
             },
           })
         } else {
-          Notify.error({ title: '提交失败！' })
+          Notify.error({ title: data.message })
           dispatch({
             type: 'PredepositsManage/updateState',
             payload: {
@@ -105,7 +106,22 @@ const Drawer = (props: {
       },
     }
   )
+
   const onChange = (initial: any, current: any) => {
+    dataList &&
+      dataList.forEach((itm: any) => {
+        let buChargesList: any = []
+        if (itm?.code === current?.code) {
+          current.name = itm?.userName
+          buChargesList = itm.chargeList.map((itm: any) => ({
+            label: itm.chargeName,
+            value: itm.id.toString(),
+          }))
+          props.updateData({
+            buChargesList: buChargesList,
+          })
+        }
+      })
     props.updateData({
       queryInfo: {
         ...queryInfo,
@@ -168,6 +184,44 @@ const Drawer = (props: {
         form={baseRef}
         readOnly={isView}
         buttonsContainer={{ justifyContent: 'flex-start' }}
+        onSubmit={(_, current: Record<string, any>) => {
+          const errorObj: Partial<any> = {}
+          if (tableType === 'add') {
+            if (!current?.code) {
+              errorObj.code = '此项不能为空'
+            } else if (!current?.name) {
+              errorObj.name = '此项不能为空'
+            } else if (!current?.payService) {
+              errorObj.payService = '此项不能为空'
+            } else if (!current?.paymentMethod) {
+              errorObj.paymentMethod = '此项不能为空'
+            } else if (!current?.chargeName) {
+              errorObj.chargeName = '此项不能为空'
+            } else if (!current?.chargeAmount) {
+              errorObj.chargeAmount = '此项不能为空'
+            } else if (!current?.chargingTime) {
+              errorObj.chargingTime = '此项不能为空'
+            }
+          }
+
+          if (tableType === 'edit') {
+            if (!current?.code) {
+              errorObj.code = '此项不能为空'
+            } else if (!current?.name) {
+              errorObj.name = '此项不能为空'
+            } else if (!current?.refundWay) {
+              errorObj.refundWay = '此项不能为空'
+            } else if (!current?.refundTime) {
+              errorObj.refundTime = '此项不能为空'
+            }
+          }
+
+          if (Object.keys(errorObj).length > 0) {
+            const err: any = new Error()
+            err.filed = errorObj
+            throw err
+          }
+        }}
         // 更新表单的值
         onChange={(initial, current) => onChange(initial, current)}
         formDatas={items(
