@@ -144,9 +144,17 @@ const Modals = (props: {
               }
             })
           })
+          const queryListIterm = newArr?.map((e: any) => {
+            let arr1 = {
+              ...e,
+              chargeId: e?.id,
+            }
+            delete arr1.id
+            return arr1
+          })
 
           updateData({
-            queryInfoList: (queryInfoList || []).concat(newArr),
+            queryInfoList: (queryInfoList || []).concat(queryListIterm),
           })
         }
       }}
