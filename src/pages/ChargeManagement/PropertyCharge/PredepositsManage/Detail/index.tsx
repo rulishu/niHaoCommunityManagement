@@ -16,6 +16,7 @@ export interface State {
   isView?: boolean
   code?: string
   refundAmountList?: any
+  buChargesList?: any
 }
 
 const Drawer = (props: {
@@ -105,7 +106,22 @@ const Drawer = (props: {
       },
     }
   )
+
   const onChange = (initial: any, current: any) => {
+    dataList &&
+      dataList.forEach((itm: any) => {
+        let buChargesList: any = []
+        if (itm?.code === current?.code) {
+          current.name = itm?.userName
+          buChargesList = itm.chargeList.map((itm: any) => ({
+            label: itm.chargeName,
+            value: itm.id,
+          }))
+          props.updateData({
+            buChargesList: buChargesList,
+          })
+        }
+      })
     props.updateData({
       queryInfo: {
         ...queryInfo,

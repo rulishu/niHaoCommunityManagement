@@ -59,21 +59,24 @@ const PredepositsManage = createModel<RootModel>()({
       const data = await selectShopList(payload)
 
       if (data.code === 1) {
-        // console.log('data',data.data[0]);
-        // console.log('data',data.data[0].userName);
-        // console.log('data', data.data[0].chargeList)
-        let buChargesList = data.data[0].chargeList.map((itm: any) => ({
-          label: itm.chargeName,
-          value: itm.chargeId.toString(),
-        }))
         let code = data.data.map((itm: any) => ({
           label: itm.code,
           value: itm.code,
         }))
+
+        // let itmChargeList: any = [];
+        // data.data && data.data.forEach((itm: any) => {
+        //   itmChargeList = itm.chargeList
+        // })
+        // let buChargesList = itmChargeList && itmChargeList.map((itm: any) => ({
+        //   label: itm.chargeName,
+        //   value: itm.chargeId,
+        // }))
+
         dph.PredepositsManage.updateState({
           dataList: data.data || [],
           code: code,
-          buChargesList: buChargesList,
+          // buChargesList: buChargesList
         })
       }
     },
