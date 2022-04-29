@@ -31,7 +31,6 @@ export const items = (queryInfo: Usermanagement, isView: boolean) => [
     key: 'gender',
     widget: 'select',
     initialValue: queryInfo?.gender,
-    hide: !isView,
     option: [
       { value: 1, label: '男' },
       { value: 2, label: '女' },

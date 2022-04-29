@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import * as echarts from 'echarts'
 import useSWR from 'swr'
-// import { request } from "@uiw-admin/utils";
 
 export default function BarChart() {
   const { data } = useSWR([
@@ -11,15 +10,6 @@ export default function BarChart() {
       body: {},
     },
   ])
-  const {
-    lackData,
-    lackMoney,
-    rentQuantity,
-    sellQuantity,
-    unchargedData,
-    unchargedMoney,
-    vacancyQuantity,
-  } = data.data
   useEffect(() => {
     const myChart = echarts.init(document.getElementById('main')!)
     myChart.setOption({
@@ -42,13 +32,13 @@ export default function BarChart() {
           radius: '50%',
           selectedMode: 'single',
           data: [
-            { value: lackData, name: '欠费数据' },
-            { value: lackMoney, name: '欠费金额' },
-            { value: rentQuantity, name: '商铺出租数' },
-            { value: sellQuantity, name: '商铺出售数' },
-            { value: unchargedData, name: '待收费数据' },
-            { value: unchargedMoney, name: '待收费金额' },
-            { value: vacancyQuantity, name: '商铺空置数' },
+            { value: data?.data?.lackData || 0, name: '欠费数据' },
+            { value: data?.data?.lackMoney || 0, name: '欠费金额' },
+            { value: data?.data?.rentQuantity || 0, name: '商铺出租数' },
+            { value: data?.data?.sellQuantity || 0, name: '商铺出售数' },
+            { value: data?.data?.unchargedData || 0, name: '待收费数据' },
+            { value: data?.data?.unchargedMoney || 0, name: '待收费金额' },
+            { value: data?.data?.vacancyQuantity || 0, name: '商铺空置数' },
           ],
           emphasis: {
             itemStyle: {
@@ -60,14 +50,6 @@ export default function BarChart() {
         },
       ],
     })
-  }, [
-    lackData,
-    lackMoney,
-    rentQuantity,
-    sellQuantity,
-    unchargedData,
-    unchargedMoney,
-    vacancyQuantity,
-  ])
+  }, [data?.data])
   return <div id="main" style={{ width: '100%', height: 500 }}></div>
 }
