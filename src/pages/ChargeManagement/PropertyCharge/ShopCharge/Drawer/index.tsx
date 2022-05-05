@@ -150,8 +150,8 @@ const Drawer = ({ updateData, option }: DetailProps) => {
 
       if (Number(payload?.balanceByZero || 0) < 0)
         return Notify.warning({ title: '找零结转金额不能小于0' })
-      console.log(payload, 'payload')
-      // sendOut('shopCharge/getBuShopChargeDatapay', payload)
+      // console.log(payload, 'payload')
+      sendOut('shopCharge/getBuShopChargeDatapay', payload)
     }
 
     // 临时收费退款
