@@ -49,8 +49,15 @@ const Detail = (props: {
   } = useSelector((ShopSale: RootState) => ShopSale)
 
   const [value, setValue] = useState(false)
-
   let totalList = tableList.concat(queryInfoList)
+  // const queryListIterm = queryInfoList?.map((e: any) => {
+  //   let arr1 = {
+  //     ...e,
+  //     chargeId: e?.id,
+  //   }
+  //   delete arr1.id
+  //   return arr1
+  // })
   useEffect(() => {
     dispatch({
       type: 'ShopSale/selectDictList',

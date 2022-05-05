@@ -194,7 +194,7 @@ export const itemsList = (
     {
       title: '序号',
       align: 'center',
-      key: 'id',
+      key: 'chargeId',
       ellipsis: true,
     },
     {
