@@ -29,6 +29,7 @@ const Detail = (props: {
       menuList,
       selectMenu,
       loading,
+      RoleAllList,
     },
   } = useSelector((Role: RootState) => Role)
 
@@ -41,7 +42,6 @@ const Detail = (props: {
       },
     })
   }
-
   const { mutate } = useSWR(
     [
       (tableType === 'add' && insert) ||
@@ -149,7 +149,7 @@ const Detail = (props: {
           onChange={(initial, current) =>
             props.updateData({ queryInfo: { ...queryInfo, ...current } })
           }
-          formDatas={itemsAdd(queryInfo, isView)}
+          formDatas={itemsAdd(queryInfo, isView, RoleAllList)}
           readOnlyProps={{ column: 2 }}
         />
       )}
