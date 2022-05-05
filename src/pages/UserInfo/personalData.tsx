@@ -76,6 +76,7 @@ function PDFrom({ userInfo, dispatch, userInfoData, roleList }: DetailProps) {
       })
     }
   }
+  console.log('userInfo', userInfo)
   return (
     <>
       {JSON.stringify(userInfo) !== '{}' && (
