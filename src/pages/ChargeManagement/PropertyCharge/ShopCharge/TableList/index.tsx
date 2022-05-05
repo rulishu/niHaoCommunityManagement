@@ -19,7 +19,7 @@ export default function Index(props: any) {
         ? selectHistoryPayList
         : drawerType === 'return'
         ? selectAdvanceDepostAmountByCode
-        : '/api/111'
+        : selectHistoryPayList
     }`,
     {
       query: (pageIndex, pageSize) => {
