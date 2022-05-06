@@ -150,25 +150,34 @@ export const columns = (
       },
     },
     {
-      title: '数量',
+      title: '数量(个)',
       key: 'quantity',
       align: 'center',
       ellipsis: true,
       width: 120,
+      render: (quantity: number) => {
+        return <div>{quantity}个</div>
+      },
     },
     {
-      title: '单价',
+      title: '单价(元)',
       key: 'price',
       align: 'center',
       ellipsis: true,
       width: 120,
+      render: (price: number) => {
+        return <div>¥{price}元</div>
+      },
     },
     {
-      title: '金额',
+      title: '金额(元)',
       key: 'money',
       align: 'center',
       ellipsis: true,
       width: 120,
+      render: (money: number) => {
+        return <div>¥{money}元</div>
+      },
     },
     {
       title: '操作',
