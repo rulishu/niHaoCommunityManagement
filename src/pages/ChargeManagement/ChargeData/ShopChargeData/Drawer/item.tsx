@@ -100,7 +100,10 @@ const addItems = (
       span: 8,
       disabled: true,
       initialValue: queryInfo?.price,
-      widgetProps: { placeholder: '请选择收费项目' },
+      widgetProps: {
+        placeholder: '请选择收费项目',
+        addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>元</div>,
+      },
     },
     {
       label: '开始时间',
@@ -137,6 +140,7 @@ const addItems = (
       required: true,
       widgetProps: {
         placeholder: '请填写数量',
+        addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>个</div>,
         onBlur: (e: any) => {
           const quantity = e?.target?.value || 0
           if (!/^[0-9]{1}\d*?$/g.test(quantity)) return
@@ -156,7 +160,10 @@ const addItems = (
       initialValue: queryInfo?.money,
       required: true,
       disabled: true,
-      widgetProps: { placeholder: '请填写数量' },
+      widgetProps: {
+        placeholder: '请填写数量',
+        addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>元</div>,
+      },
     },
   ]
 }

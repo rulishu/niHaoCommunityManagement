@@ -172,7 +172,7 @@
       {
         "path": "/userInfo",
         "name": "个人中心",
-        "component": "@/pages/PersonalPage",
+        "component": "@/pages/UserInfo",
         "icon": "user"
       },
       {

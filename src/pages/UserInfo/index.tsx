@@ -23,7 +23,6 @@ function PersonalPage() {
       payload: { index: data.id, title: data.name },
     })
   }
-
   const renderChildren = () => {
     switch (index) {
       case '1':

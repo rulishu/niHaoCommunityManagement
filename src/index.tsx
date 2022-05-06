@@ -7,7 +7,6 @@ import './index.css'
 import { Notify } from 'uiw'
 import axios from 'axios'
 
-// });
 // 添加响应拦截器
 axios.interceptors.response.use(
   function (response) {

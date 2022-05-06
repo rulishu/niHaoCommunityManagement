@@ -30,6 +30,7 @@ export const items = (queryInfo: Usermanagement, isView: boolean) => [
     label: '用户性别',
     key: 'gender',
     widget: 'select',
+    required: true,
     initialValue: queryInfo?.gender,
     option: [
       { value: 1, label: '男' },

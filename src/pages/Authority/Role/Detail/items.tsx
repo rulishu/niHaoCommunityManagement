@@ -4,7 +4,12 @@ export const itemsAdd = (queryInfo: Change, isView: boolean) => [
   {
     label: '角色名称',
     key: 'roleName',
-    widget: 'input',
+    widget: 'select',
+    option:[
+      {value:'业主', label:"业主"},
+      {value:'管理员', label:"管理员"},
+      {value:'超级管理员', label:"超级管理员"},
+    ],
     initialValue: queryInfo?.roleName,
     required: true,
     rules: [{ required: true, message: '请输入角色名称' }],

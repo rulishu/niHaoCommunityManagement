@@ -115,7 +115,7 @@ const Drawer = (props: {
           current.name = itm?.userName
           buChargesList = itm.chargeList.map((itm: any) => ({
             label: itm.chargeName,
-            value: itm.id.toString(),
+            value: itm.chargeId.toString(),
           }))
           props.updateData({
             buChargesList: buChargesList,
