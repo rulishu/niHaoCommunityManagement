@@ -6,12 +6,14 @@ import {
   modifyProfile,
   fileUpload,
   modifyPassword,
+  getFilePath,
 } from '@/servers/PersonalPage'
 interface State {
   title: string
   index: string
   userInfoData: any
   roleList: []
+  userInfoFilePath: any
 }
 const userInfo = createModel()({
   name: 'userInfo',
@@ -20,6 +22,7 @@ const userInfo = createModel()({
     index: '1',
     userInfoData: {},
     roleList: [],
+    userInfoFilePath: {},
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({
@@ -53,6 +56,18 @@ const userInfo = createModel()({
         dph.userInfo.updateState({
           userInfoData: data?.data || {},
           roleList,
+        })
+      } else {
+        Notify.error({ title: data?.message || '' })
+      }
+    },
+    //个人资料
+    async getFilePath(payload) {
+      const dph = dispatch as Dispatch
+      const data = await getFilePath(payload)
+      if (data.code === 1) {
+        dph.userInfo.updateState({
+          userInfoFilePath: data?.data || '',
         })
       } else {
         Notify.error({ title: data?.message || '' })

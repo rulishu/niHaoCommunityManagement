@@ -3,13 +3,14 @@ import { Change } from '@/servers/Authority/Role'
 export const itemsAdd = (
   queryInfo: Change,
   isView: boolean,
-  RoleAllList: any
+  RoleAllList: any,
+  tableType: string
 ) => [
   {
     label: '角色名称',
     key: 'roleName',
-    widget: 'select',
-    option: RoleAllList,
+    widget: Object.is(tableType, 'add') ? 'input' : 'select',
+    option: Object.is(tableType, 'add') ? '' : RoleAllList,
     initialValue: queryInfo?.roleName,
     required: true,
     rules: [{ required: true, message: '请输入角色名称' }],

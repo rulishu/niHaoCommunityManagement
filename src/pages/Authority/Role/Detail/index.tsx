@@ -149,7 +149,7 @@ const Detail = (props: {
           onChange={(initial, current) =>
             props.updateData({ queryInfo: { ...queryInfo, ...current } })
           }
-          formDatas={itemsAdd(queryInfo, isView, RoleAllList)}
+          formDatas={itemsAdd(queryInfo, isView, RoleAllList, tableType)}
           readOnlyProps={{ column: 2 }}
         />
       )}
