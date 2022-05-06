@@ -25,7 +25,9 @@ export const item = (
       title: '性别',
       key: 'gender',
       align: 'center',
-      render:(code:number)=>{return <div>{code === 1?"男":"女"}</div>}
+      render: (code: number) => {
+        return <div>{code === 1 ? '男' : '女'}</div>
+      },
     },
     {
       title: '联系方式',

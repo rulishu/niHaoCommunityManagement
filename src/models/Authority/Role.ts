@@ -1,4 +1,4 @@
-import { selectById, Change } from '../../servers/Authority/Role'
+import { selectById, Change, getRoleAll } from '../../servers/Authority/Role'
 import { Dispatch } from '@uiw-admin/models'
 import { createModel, RematchDispatch } from '@rematch/core'
 import { TreeData } from '@uiw/react-tree'
@@ -13,6 +13,7 @@ interface State {
   menuList: TreeData[]
   selectMenu: TreeData['key'][]
   loading: boolean
+  RoleAllList: Array<any>
 }
 
 const Role = createModel()({
@@ -27,6 +28,7 @@ const Role = createModel()({
     menuList: [], //菜单列表
     selectMenu: [], //已选中菜单列表
     loading: false,
+    RoleAllList: [],
   } as State,
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({
@@ -47,6 +49,19 @@ const Role = createModel()({
         }
         return router
       })
+    },
+    // 获取角色名称
+    async getRoleAll(payload: Change) {
+      const dph = dispatch as Dispatch
+      const data = await getRoleAll(payload)
+      if (data.code === 1) {
+        dph.Role.updateState({
+          RoleAllList: data?.data?.map((e: any) => ({
+            label: e?.roleName || '',
+            value: e?.roleName || '',
+          })),
+        })
+      }
     },
     async selectById(payload: Change) {
       const dph = dispatch as Dispatch
