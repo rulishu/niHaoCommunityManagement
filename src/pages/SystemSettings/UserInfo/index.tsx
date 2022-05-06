@@ -14,7 +14,7 @@ function PersonalPage() {
   const dispatch = useDispatch<Dispatch>()
 
   const {
-    userInfo: { title, index, userInfoData, roleList },
+    userInfo: { title, index, userInfoData, roleList, userInfoFilePath },
   }: any = useSelector((state: RootState) => state)
 
   const onButName = (data: any) => {
@@ -32,6 +32,7 @@ function PersonalPage() {
             dispatch={dispatch}
             userInfoData={userInfoData}
             roleList={roleList}
+            userInfoFilePath={userInfoFilePath}
           />
         )
       case '2':

@@ -1,16 +1,25 @@
 import BasicLayout, { useLayouts } from '@uiw-admin/basic-layouts'
-import { useDispatch } from 'react-redux'
-import { Dispatch } from '@uiw-admin/models'
+import { useDispatch, useSelector } from 'react-redux'
+import { Dispatch, RootState } from '@uiw-admin/models'
 import { Outlet } from 'react-router-dom'
 import { RoutersProps } from '@uiw-admin/router-control'
 import { useNavigate } from 'react-router-dom'
 import useSWR from 'swr'
+import { useEffect } from 'react'
 interface BasicLayoutProps {
   routes: RoutersProps[]
 }
 
 function BasicLayoutScreen(props: BasicLayoutProps = { routes: [] }) {
+  const {
+    userInfo: { userInfoData },
+  }: any = useSelector((state: RootState) => state)
   const dispatch = useDispatch<Dispatch>()
+  useEffect(() => {
+    dispatch({
+      type: 'userInfo/getProfileFun',
+    })
+  }, [dispatch])
 
   const navigate = useNavigate()
 
@@ -21,7 +30,6 @@ function BasicLayoutScreen(props: BasicLayoutProps = { routes: [] }) {
     revalidateOnFocus: false,
     onSuccess: (data) => {
       if (data && data.code === 1) {
-        // localStorage.setItem('auth', JSON.stringify(data?.data?.menuList || []))
         sessionStorage.setItem(
           'auth',
           JSON.stringify(data?.data?.menuList || [])
@@ -54,6 +62,11 @@ function BasicLayoutScreen(props: BasicLayoutProps = { routes: [] }) {
         onClick: () => setting(),
       },
     ],
+    profile: {
+      avatar:
+        'http://192.168.188.222:33680/scmp-service/' + userInfoData?.avatar,
+      userName: userInfoData.nickName,
+    },
     layouts,
     ...props,
   }

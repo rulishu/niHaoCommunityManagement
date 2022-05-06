@@ -6,12 +6,12 @@ interface DetailProps {
   dispatch?: any
   userInfoData: any
   roleList: any
+  userInfoFilePath: string
 }
 function PDFrom({ userInfo, dispatch, userInfoData, roleList }: DetailProps) {
   const [loading, setLoading] = useState(false)
 
   const form = useForm() as any
-
   const updateState = (payload: any) => {
     dispatch({
       type: 'userInfo/updateState',
@@ -22,6 +22,7 @@ function PDFrom({ userInfo, dispatch, userInfoData, roleList }: DetailProps) {
   const submit = async () => {
     await form?.submitvalidate()
     const value = { ...form.getFieldValues?.() }
+    console.log('value', value)
     if (!(value.userName && value.gender && value.phoneNumber)) return
     if (!/^1[34578]\d{9}$/g.test(value?.phoneNumber))
       return Notify.warning({ title: '请输入正确手机号' })
@@ -56,27 +57,20 @@ function PDFrom({ userInfo, dispatch, userInfoData, roleList }: DetailProps) {
         type: 'userInfo/getFileUpload',
         payload: { file: value[0].file },
       }).then(async (data: any) => {
-        if (data.code === 1) {
+        if (data.code === 0) {
+          Notify.success({ title: data?.message || '' })
           updateState({
             userInfoData: {
               ...userInfoData,
-              avatar: data?.message || '',
+              avatar: data?.data || '',
             },
           })
         } else {
           Notify.error({ title: data?.message || '' })
         }
       })
-    } else {
-      updateState({
-        userInfoData: {
-          ...userInfoData,
-          avatar: '',
-        },
-      })
     }
   }
-  console.log('userInfo', userInfo)
   return (
     <>
       {JSON.stringify(userInfo) !== '{}' && (
@@ -95,8 +89,8 @@ function PDFrom({ userInfo, dispatch, userInfoData, roleList }: DetailProps) {
                   ? [
                       {
                         dataURL:
-                          userInfoData?.avatar +
-                          `?=${Math.ceil(Math.random() * 10000)}`,
+                          'http://192.168.188.222:33680/scmp-service/' +
+                          userInfoData?.avatar,
                       },
                     ]
                   : [],
