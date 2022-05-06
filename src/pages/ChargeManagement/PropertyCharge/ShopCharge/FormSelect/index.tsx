@@ -25,10 +25,10 @@ export default function Details() {
           {detailed?.endTime || ''}
         </Descriptions.Item>
         <Descriptions.Item label="占地面积">
-          {detailed?.areaCovered || ''}
+          {`${detailed?.areaCovered || ''}${'㎡'}`}
         </Descriptions.Item>
         <Descriptions.Item label="使用面积">
-          {detailed?.areaUsable || ''}
+          {`${detailed?.areaUsable || ''}${'㎡'}`}
         </Descriptions.Item>
         <Descriptions.Item label="行业">
           {detailed?.industryName || ''}
