@@ -149,7 +149,7 @@ const Modals = (props: {
               ...e,
               chargeId: e?.id,
             }
-            delete arr1.id
+            // delete arr1.id
             return arr1
           })
 
