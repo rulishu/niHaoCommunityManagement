@@ -36,7 +36,7 @@
     "react-redux": "7.2.6",
     "react-router-dom": "6.2.1",
     "swr": "1.2.1",
-    "uiw": "4.21.0"
+    "uiw": "4.21.7"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.2.1",

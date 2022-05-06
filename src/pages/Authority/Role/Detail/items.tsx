@@ -1,15 +1,16 @@
 import { Change } from '@/servers/Authority/Role'
 
-export const itemsAdd = (queryInfo: Change, isView: boolean) => [
+export const itemsAdd = (
+  queryInfo: Change,
+  isView: boolean,
+  RoleAllList: any,
+  tableType: string
+) => [
   {
     label: '角色名称',
     key: 'roleName',
-    widget: 'select',
-    option:[
-      {value:'业主', label:"业主"},
-      {value:'管理员', label:"管理员"},
-      {value:'超级管理员', label:"超级管理员"},
-    ],
+    widget: Object.is(tableType, 'add') ? 'input' : 'select',
+    option: Object.is(tableType, 'add') ? '' : RoleAllList,
     initialValue: queryInfo?.roleName,
     required: true,
     rules: [{ required: true, message: '请输入角色名称' }],

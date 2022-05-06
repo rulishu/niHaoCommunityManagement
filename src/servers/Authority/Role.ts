@@ -21,7 +21,12 @@ function selectById(params: Change) {
     body: { ...params },
   })
 }
-
+function getRoleAll(params: Change) {
+  return request('/api/role/selectRoleAll', {
+    method: 'POST',
+    body: { ...params },
+  })
+}
 /**
  * 角色管理-分页查询
  * @param {Object} params
@@ -39,4 +44,12 @@ const insert = '/api/role/add'
 
 const deleteData = '/api/role/delete'
 
-export { selectById, selectPage, update, insert, deleteData, assignMenu }
+export {
+  selectById,
+  selectPage,
+  update,
+  insert,
+  deleteData,
+  assignMenu,
+  getRoleAll,
+}

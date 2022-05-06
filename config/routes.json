@@ -19,32 +19,6 @@
         "icon": "home"
       },
       {
-        "path": "/UserManagement",
-        "name": "用户管理",
-        "icon": "user",
-        "routes": [
-          {
-            "path": "/UserManagement/User",
-            "name": "用户管理",
-            "icon": "usergroup-add",
-            "component": "../pages/UserManagement/User"
-          }
-        ]
-      },
-      {
-        "path": "/ownerManagement",
-        "name": "业主管理",
-        "icon": "user",
-        "routes": [
-          {
-            "path": "/ownerManagement/ownerInformation",
-            "name": "业主管理",
-            "icon": "user",
-            "component": "@/pages/OwnerManagement/OwnerInformation"
-          }
-        ]
-      },
-      {
         "path": "/chargeManagement",
         "name": "收费管理",
         "icon": "pay-circle-o",
@@ -53,31 +27,31 @@
             "path": "/chargeManagement/shopChargeData",
             "name": "商铺收费数据",
             "icon": "edit",
-            "component": "../pages/ChargeManagement/ChargeData/ShopChargeData"
+            "component": "@/pages/ChargeManagement/ChargeData/ShopChargeData"
           },
           {
             "path": "/chargeManagement/shopCharge",
             "name": "商铺综合收费",
             "icon": "shopping-cart",
-            "component": "../pages/ChargeManagement/PropertyCharge/ShopCharge"
+            "component": "@/pages/ChargeManagement/PropertyCharge/ShopCharge"
           },
           {
             "path": "/chargeManagement/temporaryCharges",
             "name": "临时收费",
             "icon": "link",
-            "component": "../pages/ChargeManagement/PropertyCharge/TemporaryCharges"
+            "component": "@/pages/ChargeManagement/PropertyCharge/TemporaryCharges"
           },
           {
             "path": "/chargeManagement/depositManage",
             "name": "押金管理",
             "icon": "document",
-            "component": "../pages/ChargeManagement/PropertyCharge/DepositManage"
+            "component": "@/pages/ChargeManagement/PropertyCharge/DepositManage"
           },
           {
             "path": "/chargeManagement/predepositsManage",
             "name": "预存款管理",
             "icon": "folder-open",
-            "component": "../pages/ChargeManagement/PropertyCharge/PredepositsManage"
+            "component": "@/pages/ChargeManagement/PropertyCharge/PredepositsManage"
           }
         ]
       },
@@ -85,14 +59,7 @@
         "path": "/balanceManagement",
         "name": "余额管理",
         "icon": "pay",
-        "routes": [
-          {
-            "path": "/balanceManagement/balanceManagement",
-            "name": "余额管理",
-            "icon": "pay",
-            "component": "@/pages/BalanceManagement/BalanceManagement"
-          }
-        ]
+        "component": "@/pages/BalanceManagement"
       },
       {
         "path": "/BasicManage",
@@ -103,25 +70,25 @@
             "path": "/BasicManage/ChargeManage",
             "name": "收费项管理",
             "icon": "copy",
-            "component": "../pages/BasicManage/ChargeManage"
+            "component": "@/pages/BasicManage/ChargeManage"
           },
           {
             "path": "/BasicManage/BusinessManage",
             "name": "社区管理",
             "icon": "picasa",
-            "component": "../pages/BasicManage/BusinessManage"
+            "component": "@/pages/BasicManage/BusinessManage"
           },
           {
             "path": "/BasicManage/ShopManage",
             "name": "商铺管理",
             "icon": "foursquare",
-            "component": "../pages/BasicManage/ShopManage"
+            "component": "@/pages/BasicManage/ShopManage"
           },
           {
             "path": "/BasicManage/ShopSale",
             "name": "商铺租售",
             "icon": "poweroff",
-            "component": "../pages/BasicManage/ShopSale"
+            "component": "@/pages/BasicManage/ShopSale"
           }
         ]
       },
@@ -134,46 +101,63 @@
             "path": "/Authority/Application",
             "name": "应用菜单权限管理",
             "icon": "appstore-o",
-            "component": "../pages/Authority/Application"
+            "component": "@/pages/Authority/Application"
           },
           {
             "path": "/Authority/Role",
             "name": "角色权限设置",
             "icon": "setting-o",
-            "component": "../pages/Authority/Role"
+            "component": "@/pages/Authority/Role"
           },
           {
             "path": "/Authority/User",
             "name": "用户权限管理",
             "icon": "user-add",
-            "component": "../pages/Authority/User"
+            "component": "@/pages/Authority/User"
           },
           {
             "path": "/Authority/Add",
             "name": "添加后台用户",
             "icon": "unlock",
-            "component": "../pages/Authority/Add"
+            "component": "@/pages/Authority/Add"
           }
         ]
       },
       {
-        "path": "/DictionaryManagement",
-        "name": "字典管理",
-        "icon": "table",
+        "path": "/SystemSettings",
+        "name": "系统管理",
+        "icon": "setting-o",
+        "isAuth": true,
         "routes": [
           {
-            "path": "/DictionaryManagement/DictionaryManagement",
+            "path": "/SystemSettings/userInfo",
+            "name": "个人中心",
+            "component": "@/pages/SystemSettings/UserInfo",
+            "icon": "user",
+            "isAuth": true
+          },
+          {
+            "path": "/SystemSettings/UserManagement",
+            "name": "用户管理",
+            "icon": "usergroup-add",
+            "component": "@/pages/SystemSettings/UserManagement",
+            "isAuth": true
+          },
+          {
+            "path": "/SystemSettings/ownerManagement",
+            "name": "业主管理",
+            "icon": "user",
+            "component": "@/pages/SystemSettings/OwnerManagement",
+            "isAuth": true
+          },
+          {
+            "path": "/SystemSettings/DictionaryManagement",
             "name": "字典管理",
             "icon": "edit",
-            "component": "../pages/DictionaryManagement/DictionaryManagement"
+            "component": "@/pages/SystemSettings/DictionaryManagement",
+            "isAuth": true
           }
         ]
-      },
-      {
-        "path": "/userInfo",
-        "name": "个人中心",
-        "component": "@/pages/UserInfo",
-        "icon": "user"
       },
       {
         "path": "/403",

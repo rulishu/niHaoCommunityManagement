@@ -50,22 +50,31 @@ export const columnsRout = (
       width: 200,
     },
     {
-      title: '单价',
+      title: '单价(元)',
       align: 'center',
       key: 'price',
       ellipsis: true,
+      render: (price: number) => {
+        return <div>¥{price}元</div>
+      },
     },
     {
-      title: '数量',
+      title: '数量(个)',
       align: 'center',
       key: 'quantity',
       ellipsis: true,
+      render: (quantity: number) => {
+        return <div>{quantity}个</div>
+      },
     },
     {
-      title: '金额',
+      title: '金额(元)',
       align: 'center',
       key: 'money',
       ellipsis: true,
+      render: (money: number) => {
+        return <div>¥{money}元</div>
+      },
     },
   ]
 }

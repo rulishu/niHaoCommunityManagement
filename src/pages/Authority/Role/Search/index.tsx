@@ -54,6 +54,9 @@ export default function Demo() {
     })
     if (type === 'add') {
       updateData({ drawerVisible: true, queryInfo: {} })
+      dispatch({
+        type: 'Role/getRoleAll',
+      })
     }
     if (type === 'aut') {
       dispatch({
