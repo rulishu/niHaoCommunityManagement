@@ -19,7 +19,7 @@ axios.interceptors.response.use(
     // 对响应错误做点什么
     return Notify.error({
       title: '错误通知',
-      description: error.response.statusText,
+      description: error?.response?.data?.message || '请求失败',
     })
   }
 )
