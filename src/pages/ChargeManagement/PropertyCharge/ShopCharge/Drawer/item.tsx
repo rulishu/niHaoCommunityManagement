@@ -83,6 +83,9 @@ const items = (
       key: 'shouldPaySum',
       span: 6,
       widget: 'input',
+      widgetProps: {
+        addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>元</div>,
+      },
       disabled: true,
       required: true,
     },
@@ -90,6 +93,9 @@ const items = (
       label: '找零金额',
       key: 'sumByZero',
       widget: 'input',
+      widgetProps: {
+        addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>元</div>,
+      },
       span: 6,
       disabled: true,
       required: true,
@@ -98,6 +104,9 @@ const items = (
       label: '可用预存款',
       key: 'preBunt',
       widget: 'input',
+      widgetProps: {
+        addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>元</div>,
+      },
       disabled: true,
       span: 6,
     },
@@ -105,6 +114,9 @@ const items = (
       label: '预存款付款',
       key: 'preBuntPaySum',
       widget: 'input',
+      widgetProps: {
+        addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>元</div>,
+      },
       disabled: true,
       span: 6,
     },
@@ -112,6 +124,9 @@ const items = (
       label: '找零结存',
       key: 'balanceByZero',
       widget: 'input',
+      widgetProps: {
+        addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>元</div>,
+      },
       disabled: true,
       span: 6,
     },
@@ -121,6 +136,7 @@ const items = (
       widget: 'input',
       span: 6,
       widgetProps: {
+        addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>元</div>,
         onBlur: (e: any) => {
           const fromData = form.getFieldValues()
           if (
@@ -195,6 +211,7 @@ const items = (
       initialValue: [],
       widgetProps: {
         mode: 'multiple',
+        addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>元</div>,
         onChange: (value: any) => {
           const fromData = form.getFieldValues()
           setTyoeList(value)
@@ -315,6 +332,9 @@ const temAddItems = (
       label: '收费金额',
       key: 'price',
       widget: 'input',
+      widgetProps: {
+        addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>元</div>,
+      },
       required: true,
       span: 8,
     },
@@ -376,6 +396,9 @@ const storageItem = (
     label: '收费金额',
     key: 'chargeAmount',
     widget: 'input',
+    widgetProps: {
+      addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>元</div>,
+    },
     required: true,
     span: 8,
     initialValue: queryInfo?.chargeAmount,
@@ -512,6 +535,9 @@ const details = (
     label: '收费金额',
     key: 'price',
     widget: 'input',
+    widgetProps: {
+      addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>元</div>,
+    },
     disabled: true,
     required: true,
     span: 8,
