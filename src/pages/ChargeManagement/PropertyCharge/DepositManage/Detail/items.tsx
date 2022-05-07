@@ -78,7 +78,9 @@ export const items = (
       label: '收款金额',
       key: 'price',
       widget: 'input',
-      initialValue: queryInfo?.price,
+      initialValue: `${queryInfo?.price || ''}${
+        tableType === 'refunded' ? '元' : ''
+      }`,
       required: true,
       rules: [
         {

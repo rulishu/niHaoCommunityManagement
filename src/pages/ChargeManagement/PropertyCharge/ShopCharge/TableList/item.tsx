@@ -34,6 +34,9 @@ const columnsList = () => {
       title: '应收金额',
       align: 'center',
       key: 'money',
+      render: (money: number) => {
+        return <div>¥{money}元</div>
+      },
     },
   ]
 }
@@ -64,14 +67,20 @@ const columnsHistory = () => [
     with: 230,
   },
   {
-    title: '金额',
+    title: '金额(元)',
     key: 'money',
     align: 'center',
+    render: (money: number) => {
+      return <div>¥{money}元</div>
+    },
   },
   {
-    title: '实收金额',
+    title: '实收金额(元)',
     align: 'center',
     key: 'paidMoney',
+    render: (paidMoney: number) => {
+      return <div>¥{paidMoney}元</div>
+    },
   },
   {
     title: '付款状态',
@@ -104,12 +113,15 @@ const columnsReturn = (table: any, obtain: any) => [
     align: 'center',
   },
   {
-    title: '账户金额',
+    title: '账户金额(元)',
     key: 'chargeAmount',
     align: 'center',
+    render: (chargeAmount: number) => {
+      return <div>¥{chargeAmount}元</div>
+    },
   },
   {
-    title: '退还金额',
+    title: '退还金额(元)',
     key: 'refundAmount',
     align: 'center',
     render: (text: any, type: any, data: any, index: number) => (
