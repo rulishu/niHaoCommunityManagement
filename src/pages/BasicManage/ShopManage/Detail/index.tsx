@@ -5,6 +5,7 @@ import { RootState, Dispatch } from '@uiw-admin/models'
 import { insert, update } from '@/servers/BasicManage/ShopManage'
 import { items } from './items'
 import useSWR from 'swr'
+import { TitleInfo } from '@/utils'
 
 interface State {
   drawerVisible?: boolean
@@ -29,6 +30,7 @@ const Detail = (props: {
       loading,
       selectZoneList,
     },
+    models: { txtInfo },
   } = useSelector((ShopManage: RootState) => ShopManage)
 
   const onClose = () => {
@@ -73,11 +75,10 @@ const Detail = (props: {
     }
   )
 
-  const typeText: any = { add: '新增', edit: '编辑', del: '查看' }
   return (
     <ProDrawer
       width={800}
-      title={typeText[tableType]}
+      title={TitleInfo(txtInfo)}
       visible={drawerVisible}
       onClose={onClose}
       buttons={[

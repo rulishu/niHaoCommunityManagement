@@ -12,6 +12,7 @@ export interface State {
   paysList: any
   statusList: any
   standardList: any
+  txtInfo: string
 }
 
 const models = createModel<RootModel>()({
@@ -21,6 +22,7 @@ const models = createModel<RootModel>()({
     paysList: [],
     statusList: [],
     standardList: [],
+    txtInfo: '',
   },
   reducers: {
     updateState: (state: State, payload: Partial<State>) => ({

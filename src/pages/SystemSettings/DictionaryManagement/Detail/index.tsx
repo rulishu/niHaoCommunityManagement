@@ -92,7 +92,7 @@ const Detail = (props: {
           ? '编辑字典类型'
           : tableType === 'editValue'
           ? '编辑字典项'
-          : '查看'
+          : '查看信息'
       }
       visible={drawerVisible}
       onClose={onClose}

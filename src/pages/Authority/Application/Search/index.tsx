@@ -50,7 +50,7 @@ export default function Demo() {
   //增删改查操作
   const getTrim = (type: string, obj: Change) => {
     updateData({
-      isView: type === 'view',
+      isView: type === 'look',
       tableType: type,
     })
     if (type === 'add') {
@@ -58,12 +58,30 @@ export default function Demo() {
         drawerVisible: true,
         queryInfo: { parentId: '0' },
       })
+      dispatch({
+        type: 'models/updateState',
+        payload: {
+          txtInfo: type,
+        },
+      })
     }
     if (type === 'addSecond') {
       updateData({ drawerVisible: true, queryInfo: { parentId: obj?.id } })
+      dispatch({
+        type: 'models/updateState',
+        payload: {
+          txtInfo: type,
+        },
+      })
     }
-    if (type === 'edit' || type === 'view') {
+    if (type === 'edit' || type === 'look') {
       updateData({ drawerVisible: true, queryInfo: obj })
+      dispatch({
+        type: 'models/updateState',
+        payload: {
+          txtInfo: type,
+        },
+      })
     }
     if (type === 'del') {
       updateData({ delectVisible: true, id: obj?.id })

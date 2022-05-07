@@ -90,7 +90,7 @@ const Detail = (props: {
   return (
     <ProDrawer
       width={tableType === 'edit' ? 500 : 800}
-      title={tableType === 'edit' ? '角色授权' : '查看'}
+      title={tableType === 'edit' ? '角色授权' : '查看信息'}
       visible={drawerVisible}
       onClose={onClose}
       buttons={[

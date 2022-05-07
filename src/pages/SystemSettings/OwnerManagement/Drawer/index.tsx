@@ -13,7 +13,7 @@ export default function Index() {
     <div>
       <ProDrawer
         width={1000}
-        title={'明细'}
+        title={'明细信息'}
         visible={drawerVisible}
         onClose={onClose}
         buttons={[

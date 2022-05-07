@@ -49,13 +49,25 @@ export default function Demo() {
   // 操作
   function handleEditTable(type: string, obj: Change) {
     updateData({
-      isView: type === 'view',
+      isView: type === 'look',
       tableType: type,
     })
     if (type === 'add') {
       updateData({ drawerVisible: true, queryInfo: {} })
+      dispatch({
+        type: 'models/updateState',
+        payload: {
+          txtInfo: type,
+        },
+      })
     }
-    if (type === 'edit' || type === 'view') {
+    if (type === 'edit' || type === 'look') {
+      dispatch({
+        type: 'models/updateState',
+        payload: {
+          txtInfo: type,
+        },
+      })
       dispatch({
         type: 'BusinessManage/selectByCityCodeList',
         payload: {
