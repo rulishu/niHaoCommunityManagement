@@ -62,9 +62,12 @@ export const columnsSearch = (
     ),
   },
   {
-    title: '收款金额',
+    title: '收款金额(元)',
     key: 'price',
     align: 'center',
+    render: (price: number) => {
+      return <div>¥{price}元</div>
+    },
   },
   {
     title: '收款人',

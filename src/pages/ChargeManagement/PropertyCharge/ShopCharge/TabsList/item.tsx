@@ -122,9 +122,12 @@ export const columnsTem = (
     },
     {
       align: 'center',
-      title: '收费金额',
+      title: '收费金额(元)',
       key: 'price',
       ellipsis: true,
+      render: (price: number) => {
+        return <div>¥{price}元</div>
+      },
     },
     // {
     //   align: 'center',
@@ -253,10 +256,13 @@ export const columnsDeposit = (
     ellipsis: true,
   },
   {
-    title: '收费金额',
+    title: '收费金额(元)',
     align: 'center',
     key: 'price',
     ellipsis: true,
+    render: (price: number) => {
+      return <div>¥{price}元</div>
+    },
   },
   // {
   //   title: '收款人',
@@ -403,10 +409,13 @@ export const columnsAdvance = (
     ellipsis: true,
   },
   {
-    title: '金额',
+    title: '金额(元)',
     align: 'center',
     key: 'chargeAmount',
     ellipsis: true,
+    render: (chargeAmount: number) => {
+      return <div>¥{chargeAmount}元</div>
+    },
   },
   {
     title: '收款时间',

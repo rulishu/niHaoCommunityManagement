@@ -57,9 +57,12 @@ export const columnsSearch = (
     ),
   },
   {
-    title: '收款金额',
+    title: '收款金额(元)',
     key: 'chargeAmount',
     align: 'center',
+    render: (chargeAmount: number) => {
+      return <div>¥{chargeAmount}元</div>
+    },
   },
   {
     title: '收款人',

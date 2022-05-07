@@ -77,7 +77,9 @@ export const items = (
       label: '金额',
       key: 'chargeAmount',
       widget: 'input',
-      initialValue: queryInfo?.chargeAmount,
+      initialValue: `${queryInfo?.chargeAmount}${
+        tableType === 'view' ? '元' : ''
+      }`,
       required: true,
       rules: [
         {
@@ -139,9 +141,12 @@ export const backList = () => {
       key: 'payServiceName',
     },
     {
-      title: '账户金额',
+      title: '账户金额(元)',
       align: 'center',
       key: 'chargeAmount',
+      render: (chargeAmount: number) => {
+        return <div>¥{chargeAmount}元</div>
+      },
     },
     {
       title: '退还金额',
