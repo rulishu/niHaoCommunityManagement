@@ -16,7 +16,7 @@ const columnsList = () => {
     {
       title: '收费项名称',
       align: 'center',
-      key: 'saleType',
+      key: 'saleTypeName',
     },
     {
       align: 'center',
