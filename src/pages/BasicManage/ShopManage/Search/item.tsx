@@ -84,14 +84,14 @@ export const columnsSearch = (
         widget: 'select',
         option: [
           { label: '空置', value: 1 },
-          { label: '已出售', value: 2 },
-          { label: '已出租', value: 3 },
+          { label: '已出租', value: 2 },
+          { label: '已出售', value: 3 },
         ],
       },
       render: (status: number) => (
         <div style={{ textAlign: 'center' }}>
           <span>
-            {status === 1 ? '空置' : status === 2 ? '已出售' : '已出租'}
+            {status === 1 ? '空置' : status === 2 ? '已出租' : '已出售'}
           </span>
         </div>
       ),
