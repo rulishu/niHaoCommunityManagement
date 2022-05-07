@@ -7,6 +7,7 @@ import useSWR from 'swr'
 import { insert, update } from '@/servers/ChargeManagement/temporaryCharges'
 import { items } from './items'
 import formatter from '@uiw/formatter'
+import { TitleInfo } from '@/utils'
 interface State {
   drawerVisible?: boolean
   tableType?: string
@@ -24,6 +25,7 @@ const Drawer = (props: {
 
   const {
     temporaryCharges: { drawerVisible, tableType, queryInfo, isView, loading },
+    models: { txtInfo },
   } = useSelector((state: RootState) => state)
 
   const {
@@ -97,7 +99,7 @@ const Drawer = (props: {
 
   return (
     <ProDrawer
-      title="基础信息"
+      title={TitleInfo(txtInfo)}
       visible={drawerVisible}
       onClose={onClose}
       width={800}

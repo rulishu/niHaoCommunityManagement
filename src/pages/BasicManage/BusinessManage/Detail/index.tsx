@@ -6,6 +6,7 @@ import { insert, update } from '@/servers/BasicManage/BusinessManage'
 import { items } from './items'
 import useSWR from 'swr'
 import { useEffect } from 'react'
+import { TitleInfo } from '@/utils'
 
 interface State {
   drawerVisible?: boolean
@@ -31,6 +32,7 @@ const Detail = (props: {
       cityCodeList,
       areaCodeList,
     },
+    models: { txtInfo },
   } = useSelector((BusinessManage: RootState) => BusinessManage)
 
   useEffect(() => {
@@ -116,9 +118,7 @@ const Detail = (props: {
   return (
     <ProDrawer
       width={800}
-      title={
-        tableType === 'add' ? '新增' : tableType === 'edit' ? '编辑' : '查看'
-      }
+      title={TitleInfo(txtInfo)}
       visible={drawerVisible}
       onClose={onClose}
       buttons={[

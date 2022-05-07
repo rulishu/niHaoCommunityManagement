@@ -10,6 +10,7 @@ import Drawer from '../Detail/index'
 import Modals from '../Modals/index'
 import { columnsSearch } from './item'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
+import { searchFun } from '@/utils'
 interface State {
   drawerVisible?: boolean
   tableType?: string
@@ -70,9 +71,24 @@ const Search = () => {
     })
     if (type === 'add') {
       updateData({ drawerVisible: true, queryInfo: {} })
+      dispatch({
+        type: 'models/updateState',
+        payload: {
+          txtInfo: 'yucun',
+        },
+      })
     }
-    if (type === 'edit' || type === 'view') {
+    if (type === 'edit') {
       updateData({ drawerVisible: true, queryInfo: obj })
+    }
+    if (type === 'view') {
+      updateData({ drawerVisible: true, queryInfo: obj })
+      dispatch({
+        type: 'models/updateState',
+        payload: {
+          txtInfo: 'look',
+        },
+      })
     }
     if (type === 'del') {
       updateData({ delectVisible: true, id: obj?.id })
@@ -98,24 +114,17 @@ const Search = () => {
             type: 'primary',
             onClick: () => {
               handleEditTable('edit', {})
+              dispatch({
+                type: 'models/updateState',
+                payload: {
+                  txtInfo: 'back',
+                },
+              })
             },
           },
         ]}
         // 搜索栏按钮
-        searchBtns={[
-          {
-            label: '查询',
-            type: 'primary',
-            htmlType: 'submit',
-            onClick: () => {
-              search.onSearch()
-            },
-          },
-          {
-            label: '重置',
-            onClick: () => search.onReset(),
-          },
-        ]}
+        searchBtns={searchFun(search) as any}
         table={search}
         columns={
           columnsSearch(handleEditTable, buChargesList, paysList) as FormCol[]

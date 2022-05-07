@@ -66,7 +66,7 @@ const Drawers = (props: {
   return (
     <ProDrawer
       width={800}
-      title="编辑"
+      title={tableType === 'edit' ? '编辑信息' : '查看信息'}
       visible={drawerVisible}
       onClose={onClose}
       buttons={[

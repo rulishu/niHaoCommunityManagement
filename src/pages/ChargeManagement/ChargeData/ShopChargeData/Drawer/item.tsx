@@ -2,9 +2,9 @@ import formatter from '@uiw/formatter'
 export const drawerTitle = (type: string) => {
   switch (type) {
     case 'add':
-      return '新增'
+      return '新增信息'
     case 'edit':
-      return '编辑'
+      return '编辑信息'
     case 'batchAdd':
       return '批量新增'
     default:

@@ -5,6 +5,7 @@ import { Notify } from 'uiw'
 import useSWR from 'swr'
 import { insert, update } from '@/servers/Authority/Add'
 import { items } from './items'
+import { TitleInfo } from '@/utils'
 interface State {
   drawerVisible?: boolean
   tableType?: string
@@ -20,6 +21,7 @@ const Drawer = (props: {
   const dispatch = useDispatch<Dispatch>()
   const {
     Add: { drawerVisible, tableType, queryInfo, isView, loading },
+    models: { txtInfo },
   } = useSelector((state: RootState) => state)
 
   const onClose = () => {
@@ -73,7 +75,7 @@ const Drawer = (props: {
 
   return (
     <ProDrawer
-      title="基础信息"
+      title={TitleInfo(txtInfo)}
       visible={drawerVisible}
       onClose={onClose}
       width={800}

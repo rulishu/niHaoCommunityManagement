@@ -8,6 +8,7 @@ import { items, backList } from './items'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import formatter from '@uiw/formatter'
 import { useEffect } from 'react'
+import { TitleInfo } from '@/utils'
 
 export interface State {
   drawerVisible?: boolean
@@ -44,6 +45,7 @@ const Drawer = (props: {
       dataList,
       refundAmountList,
     },
+    models: { txtInfo },
   } = useSelector((state: RootState) => state)
 
   const {
@@ -140,7 +142,7 @@ const Drawer = (props: {
 
   return (
     <ProDrawer
-      title="基础信息"
+      title={TitleInfo(txtInfo)}
       visible={drawerVisible}
       onClose={onClose}
       width={800}

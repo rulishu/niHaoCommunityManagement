@@ -76,7 +76,7 @@ export const columnsSearch = (
           <Button
             size="small"
             icon="eye"
-            onClick={getTrim.bind(this, 'view', rowData)}
+            onClick={getTrim.bind(this, 'look', rowData)}
           >
             查看
           </Button>
