@@ -1,5 +1,5 @@
 import { Fragment } from 'react'
-import { Tabs, Table } from 'uiw'
+import { Tabs, Table, Empty } from 'uiw'
 import { columns, columnsTwo, columnsThree } from './item'
 import { useSelector } from 'react-redux'
 import { RootState } from '@uiw-admin/models'
@@ -16,6 +16,7 @@ export default function Index() {
             columns={columns as any}
             data={[dataList?.buSaleShop || {}]}
             bordered
+            empty={<Empty />}
           />
         </Tabs.Pane>
         <Tabs.Pane label="待缴费信息" key="dep">
@@ -23,6 +24,7 @@ export default function Index() {
             columns={columnsTwo as any}
             data={dataList?.waitDate || []}
             bordered
+            empty={<Empty />}
           />
         </Tabs.Pane>
         <Tabs.Pane label="历史缴费信息" key="adv">
@@ -30,6 +32,7 @@ export default function Index() {
             columns={columnsThree as any}
             data={dataList?.histroyData || []}
             bordered
+            empty={<Empty />}
           />
         </Tabs.Pane>
       </Tabs>
