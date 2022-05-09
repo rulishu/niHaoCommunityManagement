@@ -5,7 +5,7 @@ import {
   ProForm,
   useForm,
 } from '@uiw-admin/components'
-import { Notify, Table, Button } from 'uiw'
+import { Notify, Table, Button, Empty } from 'uiw'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, Dispatch } from '@uiw-admin/models'
 import { update, seraAdd, insert } from '@/servers/BasicManage/ShopSale'
@@ -66,6 +66,11 @@ const Detail = (props: {
       },
     })
   }, [dispatch])
+  const queryInfoUpdata = queryInfoList?.map((code) => ({
+    ...code,
+    chargeId: code?.chargeId?.toString(),
+    id: code?.id?.toString(),
+  }))
   const { mutate } = useSWR(
     [
       ((tableType === 'rent' || tableType === 'sale') && seraAdd) ||
@@ -82,7 +87,7 @@ const Detail = (props: {
             : tableType === 'edit'
             ? {
                 ...queryInfo,
-                chargeList: queryInfoList,
+                chargeList: queryInfoUpdata,
               }
             : tableType === 'add' && {
                 ...queryInfo,
@@ -270,6 +275,7 @@ const Detail = (props: {
             新增收费项
           </Button>
         }
+        empty={<Empty />}
         columns={itemsList(handleEditTable) as FormCol[]}
         data={totalList}
       />
