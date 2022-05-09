@@ -7,6 +7,7 @@ import Drawer from '../Detail/index'
 import Modals from '../Modals/index'
 import { columnsSearch } from './item'
 import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
+import { handleAddTable, searchFun } from '@/utils'
 interface State {
   drawerVisible?: boolean
   tableType?: string
@@ -70,9 +71,21 @@ const Search = () => {
     })
     if (type === 'add') {
       updateData({ drawerVisible: true, queryInfo: {} })
+      dispatch({
+        type: 'models/updateState',
+        payload: {
+          txtInfo: 'add',
+        },
+      })
     }
     if (type === 'paied' || type === 'refunded') {
       updateData({ drawerVisible: true, queryInfo: { ...obj, status: '2' } })
+      dispatch({
+        type: 'models/updateState',
+        payload: {
+          txtInfo: 'view',
+        },
+      })
     }
     if (type === 'del') {
       updateData({ delectVisible: true, id: obj?.id })
@@ -83,31 +96,8 @@ const Search = () => {
     <React.Fragment>
       <ProTable
         bordered
-        // 操作栏按钮
-        operateButtons={[
-          {
-            label: '新增',
-            type: 'primary',
-            onClick: () => {
-              handleEditTable('add', {})
-            },
-          },
-        ]}
-        // 搜索栏按钮
-        searchBtns={[
-          {
-            label: '查询',
-            type: 'primary',
-            htmlType: 'submit',
-            onClick: () => {
-              search.onSearch()
-            },
-          },
-          {
-            label: '重置',
-            onClick: () => search.onReset(),
-          },
-        ]}
+        operateButtons={handleAddTable(handleEditTable) as any}
+        searchBtns={searchFun(search) as any}
         table={search}
         columns={
           columnsSearch(handleEditTable, buChargesList, paysList) as FormCol[]

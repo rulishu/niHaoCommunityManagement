@@ -6,6 +6,7 @@ import { insert, update } from '@/servers/BasicManage/ChargeManage'
 import { items } from './items'
 import useSWR from 'swr'
 import { useState } from 'react'
+import { TitleInfo } from '@/utils'
 
 interface State {
   drawerVisible?: boolean
@@ -22,6 +23,7 @@ const Detail = (props: {
   const dispatch = useDispatch<Dispatch>()
   const {
     ChargeManage: { drawerVisible, tableType, queryInfo, isView, loading },
+    models: { txtInfo },
   } = useSelector((ChargeManage: RootState) => ChargeManage)
 
   const {
@@ -89,9 +91,7 @@ const Detail = (props: {
   return (
     <ProDrawer
       width={800}
-      title={
-        tableType === 'add' ? '新增' : tableType === 'edit' ? '编辑' : '查看'
-      }
+      title={TitleInfo(txtInfo)}
       visible={drawerVisible}
       onClose={onClose}
       buttons={[

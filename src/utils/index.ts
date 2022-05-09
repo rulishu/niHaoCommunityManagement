@@ -58,6 +58,35 @@ export function searchFun(table: any) {
   ]
   return data
 }
+export const TitleInfo = (txtInfo: string) => {
+  let txt = ''
+  switch (txtInfo) {
+    case 'add':
+      txt = '新增信息'
+      break
+    case 'edit':
+      txt = '编辑信息'
+      break
+    case 'look':
+      txt = '查看信息'
+      break
+    case 'view':
+      txt = '退款信息'
+      break
+    case 'yucun':
+      txt = '预存信息'
+      break
+    case 'back':
+      txt = '退还信息'
+      break
+    case 'addSecond':
+      txt = '添加子项信息'
+      break
+    default:
+      break
+  }
+  return txt
+}
 export function handleAddTable(handleEditTable: any) {
   const data = [
     {

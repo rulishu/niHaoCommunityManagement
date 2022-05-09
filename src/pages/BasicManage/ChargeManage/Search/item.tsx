@@ -95,7 +95,7 @@ export const columnsSearch = (
           <Button
             size="small"
             icon="eye"
-            onClick={handleEditTable.bind(this, 'view', rowData)}
+            onClick={handleEditTable.bind(this, 'look', rowData)}
           >
             查看
           </Button>

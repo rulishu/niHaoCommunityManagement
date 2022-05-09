@@ -74,7 +74,7 @@ export const items = (
     key: 'areaCovered',
     widget: 'input',
     initialValue: `${queryInfo?.areaCovered || ''}${
-      tableType === 'view' ? '㎡' : ''
+      tableType === 'look' ? '㎡' : ''
     }`,
     required: true,
     widgetProps: {
@@ -94,7 +94,7 @@ export const items = (
     key: 'areaUsable',
     widget: 'input',
     initialValue: `${queryInfo?.areaUsable || ''}${
-      tableType === 'view' ? '㎡' : ''
+      tableType === 'look' ? '㎡' : ''
     }`,
     required: true,
     widgetProps: {
@@ -113,7 +113,7 @@ export const items = (
     key: 'shopRent',
     widget: 'input',
     initialValue: `${queryInfo?.shopRent || ''}${
-      tableType === 'view' ? '元' : ''
+      tableType === 'look' ? '元' : ''
     }`,
     widgetProps: {
       addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>元</div>,

@@ -86,12 +86,12 @@ const Detail = (props: {
       width={!isView ? 500 : 800}
       title={
         tableType === 'add'
-          ? '新增'
+          ? '新增信息'
           : tableType === 'aut'
-          ? '授权'
+          ? '授权信息'
           : tableType === 'edit'
-          ? '编辑'
-          : '查看'
+          ? '编辑信息'
+          : '查看信息'
       }
       visible={drawerVisible}
       onClose={onClose}

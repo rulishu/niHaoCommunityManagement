@@ -81,7 +81,7 @@ export default function Index(props: { onSearch: () => void }) {
     <div>
       <ProDrawer
         width={800}
-        title={tableType === 'refund' ? '退还' : '查看'}
+        title={tableType === 'refund' ? '退还信息' : '查看信息'}
         visible={drawerVisible}
         onClose={onClose}
         buttons={[

@@ -28,7 +28,7 @@ export const items = (queryInfo: Change) => {
         },
       ],
       placeholder: '输入密码',
-      // hide: tableType === 'view',
+      // hide: tableType === 'look',
     },
   ]
 }

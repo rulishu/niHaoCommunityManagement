@@ -2,9 +2,9 @@ import formatter from '@uiw/formatter'
 export const drawerTitle = (type: string) => {
   switch (type) {
     case 'add':
-      return '新增'
+      return '新增信息'
     case 'edit':
-      return '编辑'
+      return '编辑信息'
     case 'batchAdd':
       return '批量新增'
     default:
@@ -101,7 +101,7 @@ const addItems = (
       disabled: true,
       initialValue: queryInfo?.price,
       widgetProps: {
-        placeholder: '请选择收费项目',
+        placeholder: '请选择单价',
         addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>元</div>,
       },
     },
@@ -161,7 +161,7 @@ const addItems = (
       required: true,
       disabled: true,
       widgetProps: {
-        placeholder: '请填写数量',
+        placeholder: '请填写金额',
         addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>元</div>,
       },
     },
@@ -256,7 +256,10 @@ const batchAddItems = (
       span: 12,
       disabled: true,
       initialValue: queryInfo?.price,
-      widgetProps: { placeholder: '请选择单价' },
+      widgetProps: {
+        placeholder: '请选择单价',
+        addonAfter: <div style={{ color: '#A6A6A6', marginRight: 5 }}>元</div>,
+      },
     },
     {
       label: '开始时间',
