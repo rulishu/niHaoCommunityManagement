@@ -87,7 +87,7 @@
           {
             "path": "/BasicManage/ShopSale",
             "name": "商铺租售",
-            "icon": "poweroff",
+            "icon": "shopping-cart",
             "component": "@/pages/BasicManage/ShopSale"
           }
         ]
