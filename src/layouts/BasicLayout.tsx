@@ -15,6 +15,8 @@ function BasicLayoutScreen(props: BasicLayoutProps = { routes: [] }) {
     userInfo: { userInfoData },
   }: any = useSelector((state: RootState) => state)
   const dispatch = useDispatch<Dispatch>()
+  const layouts = useLayouts()
+  const { closeMenu } = layouts
   useEffect(() => {
     dispatch({
       type: 'userInfo/getProfileFun',
@@ -22,8 +24,6 @@ function BasicLayoutScreen(props: BasicLayoutProps = { routes: [] }) {
   }, [dispatch])
 
   const navigate = useNavigate()
-
-  const layouts = useLayouts()
 
   const { mutate } = useSWR(['/api/account/refreshAuth', { method: 'POST' }], {
     revalidateOnMount: false,
@@ -39,14 +39,6 @@ function BasicLayoutScreen(props: BasicLayoutProps = { routes: [] }) {
     },
   })
 
-  const setting = async () => {
-    dispatch({
-      type: 'userInfo/updateState',
-      payload: { index: '2', title: '修改密码' },
-    })
-    navigate('/userInfo', { replace: true })
-  }
-
   const basicLayoutProps = {
     onReloadAuth: async () => mutate(),
     // 修改密码以及其他操作在项目中进行
@@ -59,7 +51,11 @@ function BasicLayoutScreen(props: BasicLayoutProps = { routes: [] }) {
       {
         title: '修改密码',
         icon: 'setting',
-        onClick: () => setting(),
+        onClick: () => {
+          navigate('/SystemSettings/userInfo')
+          closeMenu()
+          // setting()
+        },
       },
     ],
     profile: {

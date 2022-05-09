@@ -48,6 +48,7 @@ export default function Demo() {
 
   // 操作
   function handleEditTable(type: string, obj: Change) {
+    // const dataUpdate = obj?.chargeList?.map((code:any)=>({...code,chargeId: BigInt(code?.chargeId),id: BigInt(code?.id)}))
     updateData({
       isView: type === 'view',
       tableType: type,

@@ -41,15 +41,10 @@ const Drawer = (props: {
       isView,
       loading,
       code,
-      buChargesList,
       dataList,
       refundAmountList,
     },
-    models: { txtInfo },
-  } = useSelector((state: RootState) => state)
-
-  const {
-    models: { paysList },
+    models: { paysList, buChargesList, txtInfo },
   } = useSelector((state: RootState) => state)
 
   const setValue = (value: string) => {
