@@ -18,6 +18,7 @@ import { FormCol } from '@uiw-admin/components/lib/ProTable/types'
 import { useEffect } from 'react'
 import formatter from '@uiw/formatter'
 import { useState } from 'react'
+import { changeTimeFormat } from '@/utils'
 
 interface State {
   drawerDetailVisible?: boolean
@@ -87,10 +88,21 @@ const Detail = (props: {
             : tableType === 'edit'
             ? {
                 ...queryInfo,
+                startTime:
+                  queryInfo?.startTime &&
+                  changeTimeFormat(queryInfo?.startTime),
+                endTime:
+                  queryInfo?.endTime && changeTimeFormat(queryInfo?.endTime),
                 chargeList: queryInfoUpdata,
               }
             : tableType === 'add' && {
                 ...queryInfo,
+                startTime:
+                  queryInfo?.startTime &&
+                  formatter('YYYY-MM-DD HH:mm:ss', queryInfo?.startTime),
+                endTime:
+                  queryInfo?.endTime &&
+                  formatter('YYYY-MM-DD HH:mm:ss', queryInfo?.endTime),
                 chargeList: queryInfoList,
               },
       },
@@ -177,12 +189,6 @@ const Detail = (props: {
       queryInfo: {
         ...queryInfo,
         ...current,
-        startTime:
-          current?.startTime &&
-          formatter('YYYY-MM-DD HH:mm:ss', current?.startTime),
-        endTime:
-          current?.endTime &&
-          formatter('YYYY-MM-DD HH:mm:ss', current?.endTime),
       },
     })
   }

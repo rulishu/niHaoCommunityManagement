@@ -77,7 +77,7 @@ export const items = (
       label: '金额',
       key: 'chargeAmount',
       widget: 'input',
-      initialValue: `${queryInfo?.chargeAmount}${
+      initialValue: `${queryInfo?.chargeAmount || ''}${
         tableType === 'view' ? '元' : ''
       }`,
       required: true,
