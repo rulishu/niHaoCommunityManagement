@@ -20,7 +20,7 @@ export const items = (
           },
           required: true,
           placeholder: '请选择类型',
-          span: '8',
+          span: '24',
           rules: [{ required: true, message: '请选择类型' }],
         },
         {
@@ -32,7 +32,7 @@ export const items = (
             placeholder: '请输入收费项目名',
           },
           required: true,
-          span: '8',
+          span: '24',
           rules: [{ required: true, message: '请输入收费项目名' }],
         },
         {
@@ -42,7 +42,7 @@ export const items = (
           initialValue: queryInfo?.chargePrice,
           required: !hide,
           hide: hide,
-          span: '8',
+          span: '24',
           widgetProps: {
             addonAfter: (
               <div style={{ color: '#A6A6A6', marginRight: 5 }}>元</div>
@@ -78,7 +78,7 @@ export const items = (
           widgetProps: {
             placeholder: '请输入收费标准',
           },
-          span: '8',
+          span: '24',
           rules: [{ required: !hide, message: '请输入收费标准' }],
         },
         {
@@ -99,7 +99,7 @@ export const items = (
             { label: '6个月', value: 5 },
             { label: '12个月', value: 6 },
           ],
-          span: '8',
+          span: '24',
           rules: [{ required: !hide, message: '请输入计算周期' }],
         },
       ]
@@ -115,7 +115,7 @@ export const items = (
           },
           required: true,
           placeholder: '请选择类型',
-          span: '8',
+          span: '24',
           rules: [{ required: true, message: '请选择类型' }],
         },
         {
@@ -127,7 +127,7 @@ export const items = (
             placeholder: '请输入收费项目名',
           },
           required: true,
-          span: '8',
+          span: '24',
           rules: [{ required: true, message: '请输入收费项目名' }],
         },
         {
@@ -139,7 +139,7 @@ export const items = (
           }`,
           required: !hide,
           hide: queryInfo?.chargeType !== '1' ? true : false,
-          span: '8',
+          span: '24',
           widgetProps: {
             addonAfter: (
               <div style={{ color: '#A6A6A6', marginRight: 5 }}>元</div>
@@ -175,7 +175,7 @@ export const items = (
           },
           hide: queryInfo?.chargeType !== '1' ? true : false,
           option: standardList,
-          span: '8',
+          span: '24',
           rules: [{ required: !hide, message: '请输入收费标准' }],
         },
         {
@@ -196,7 +196,7 @@ export const items = (
             { label: '6个月', value: 5 },
             { label: '12个月', value: 6 },
           ],
-          span: '8',
+          span: '24',
           rules: [{ required: !hide, message: '请输入计算周期' }],
         },
       ]
