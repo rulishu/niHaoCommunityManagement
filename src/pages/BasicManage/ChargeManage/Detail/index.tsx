@@ -153,6 +153,12 @@ const Detail = (props: {
               errorObj.chargeName = '此项不能为空'
             } else if (!current?.chargePrice) {
               errorObj.chargePrice = '此项不能为空'
+            } else if (
+              !/(^[1-9](\d+)?(\.\d{1,2})?$)|(^\d\.\d{1,2}$)/g.test(
+                current?.chargePrice
+              )
+            ) {
+              errorObj.chargePrice = '此项为数字'
             } else if (!current?.chargeNumType) {
               errorObj.chargeNumType = '此项不能为空'
             } else if (!current?.chargeMonth) {

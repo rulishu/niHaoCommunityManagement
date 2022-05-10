@@ -9,7 +9,7 @@ export const items = (queryInfo: any, paysList: any) => {
       required: true,
       initialValue: queryInfo?.payName,
       placeholder: '请输入收款人',
-      readSpan: 1.5,
+      span: 24,
       rules: [{ required: true, message: '请输入收款人' }],
     },
     {
@@ -19,6 +19,7 @@ export const items = (queryInfo: any, paysList: any) => {
       widget: 'select',
       required: true,
       option: paysList,
+      span: 24,
       rules: [{ required: true, message: '请输入付款方式' }],
     },
   ]
