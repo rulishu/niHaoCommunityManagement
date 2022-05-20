@@ -1,0 +1,2 @@
+# niHaoCommunityManagement
+一款物业共享社区管理的的软件,里面有商铺非商铺管理以及收费管理等
